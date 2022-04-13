@@ -20,7 +20,7 @@ class User extends Model
     }
     public function userGroup()
     {
-        return $this->belongsTo(UserGroup::class,'user_group_id','id');
+        return $this->belongsTo(UserGroup::class,'users_group_id','id');
     }
 
     public function user_product() {

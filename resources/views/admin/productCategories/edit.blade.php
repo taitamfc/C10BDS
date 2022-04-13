@@ -9,7 +9,7 @@
             </li>
         </ol>
     </nav>
-    <h1 class="page-title"> Chỉnh sửa danh mục </h1>
+    <h1 class="page-title"> Chỉnh sửa {{ $productCategory->name }} </h1>
 </header>
 
 <div class="page-section">
@@ -20,17 +20,15 @@
         <div class="card-body">
             <form method="post" action="{{route('productCategories.update',$productCategory->id)}}" >
                 @csrf
-                @method('post')
+                @method('PUT')
                 <fieldset>
                     <legend>Base style</legend>
                     <div class="form-group">
-                        <label for="tf1">Tên danh mục</label> <input type="text" name="name" value="{{ $productCategory->name }}" class="form-control"  placeholder="nhập tên nhóm nhân viên"> <small  class="form-text text-muted"></small>
+                        <label for="tf1">Chỉ sủa tên</label> <input type="text" name="name" value="{{ $productCategory->name }}" class="form-control"  placeholder="nhập tên nhóm nhân viên"> <small  class="form-text text-muted"></small>
                     </div>
-  
-
-
-
-
+                    @if ($errors->any())
+                    <p style="color:red">{{ $errors->first('name') }}</p>
+                    @endif
                 </fieldset>
                 <div class="form-actions">
                     <button class="btn btn-primary" type="submit">Cập nhật</button>
@@ -38,10 +36,6 @@
                 </div>
             </form>
         </div>
-
-
     </div>
-
-
 </div>
 @endsection

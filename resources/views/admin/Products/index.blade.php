@@ -13,9 +13,9 @@
     </nav>
     <button type="button" class="btn btn-success btn-floated"><span class="fa fa-plus"></span></button>
     <div class="d-md-flex align-items-md-start">
-        <h1 class="page-title mr-sm-auto"> Danh sách chi nhánh</h1>
+        <h1 class="page-title mr-sm-auto"> Danh sách tất cả</h1>
         <div class="btn-toolbar">
-            <a href="{{route('productCategories.create')}}" class="btn btn-primary">
+            <a href="{{route('products.create')}}" class="btn btn-primary">
                 <i class="fa-solid fa fa-plus"></i>
                 <span class="ml-1">Thêm Mới</span>
             </a>
@@ -58,24 +58,35 @@
                         @if (Session::has('success'))
                         <div class="alert alert-success">{{session::get('success')}}</div>
                         @endif
+                        @if (Session::has('error'))
+                        <div class="alert alert-danger">{{session::get('error')}}</div>
+                        @endif
                         <br>
                         <tr>
                             <th> # </th>
-                            <th> Tên danh mục</th>
+                            <th>Địa chỉ</th>
+                            <th>Giá tiền</th>
+                            <th>Chi tiết thông tin</th>
+                            <th>Địa chỉ trên bản đồ</th>
+                            <th>Tên Quận Huyện</th>
                             <th> chức năng </th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($productCategories as $productCategory)
+                        @foreach ($products as $product)
                         <tr>
-                            <td class="align-middle"> {{ $productCategory->id }} </td>
-                            <td class="align-middle"> {{ $productCategory->name }} </td>
+                            <td class="align-middle"> {{ $product->id }} </td>
+                            <td class="align-middle"> {{ $product->address }} </td>
+                            <td class="align-middle"> {{ $product->price }} </td>
+                            <td class="align-middle"> {{ $product->description }} </td>
+                            <td class="align-middle"> {{ $product->google_map }} </td>
+                            <td class="align-middle"> {{ $product->province_id }} </td>
                             <td>
-                                <a href="{{route('productCategories.edit',$productCategory->id)}}" title="Edit Student"><button class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-pencil-alt"></i> </button></a>
-                                <form method="POST" action="{{ route('productCategories.destroy',$productCategory->id )}}" accept-charset="UTF-8" style="display:inline">
+                                <a href="{{route('products.edit',$product->id)}}" title="Edit Student"><button class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-pencil-alt"></i> </button></a>
+                                <form method="POST" action="{{ route('products.destroy',$product->id )}}" accept-charset="UTF-8" style="display:inline">
                                     @csrf
                                     @method('DELETE')
-                                    <button onclick="return confirm('Xóa {{$productCategory->name}} ?')" class="btn btn-sm btn-icon btn-secondary"><i class="far fa-trash-alt"></i></button>
+                                    <button onclick="return confirm('Xóa {{$product->name}} ?')" class="btn btn-sm btn-icon btn-secondary"><i class="far fa-trash-alt"></i></button>
                                 </form>
                             </td>
                         </tr>
@@ -88,7 +99,7 @@
         <nav aria-label="Page navigation example">
             <div class='float:right'>
                 <ul class="pagination">
-                    <span aria-hidden="true"> {{ $productCategories->links() }}</span>
+                    <span aria-hidden="true"> {{ $products->links() }}</span>
                 </ul>
             </div>
         </nav>
