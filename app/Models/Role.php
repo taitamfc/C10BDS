@@ -11,7 +11,7 @@ class Role extends Model
 
     protected $table = 'roles';
     protected $fillable = [
-        'id', 'name'
+         'name'
     ];
     public $timestamps = false;
 

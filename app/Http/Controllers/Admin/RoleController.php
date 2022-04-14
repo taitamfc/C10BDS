@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
@@ -17,7 +16,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $roles = Role::all();
+        $roles = Role::paginate(5);
         return view('admin.roles.index', compact('roles'));
     }
 
@@ -37,13 +36,16 @@ class RoleController extends Controller
      * @param  \App\Http\Requests\StoreRoleRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRoleRequest $request)
     {
         $role = new Role();
         $role->name = $request->name;
-        $role->save();
-
-        return redirect()->route('roles.index')->with('success','Thêm'. ' ' . $request->name.' '.  'thành công');
+        try {
+            $role->save();
+            return redirect()->route('roles.index')->with('success', 'Thêm' . ' ' . $request->name . ' ' .  'thành công');
+        } catch (\Exception $e) {
+            return redirect()->route('roles.index')->with('error', 'Thêm' . ' ' . $request->name . ' ' .  'không thành công');
+        }
     }
 
     /**
@@ -72,6 +74,7 @@ class RoleController extends Controller
         return view('admin.roles.edit', $params);
     }
 
+
     /**
      * Update the specified resource in storage.
      *
@@ -79,11 +82,16 @@ class RoleController extends Controller
      * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateRoleRequest $request, Role $role, $id)
+    public function update(UpdateRoleRequest $request, $id)
     {
-        Role::find($id)->update($request->only('name'));
-        return redirect()->route('roles.index')->with('success','Sửa'. ' ' . $request->name.' '.  'thành công');
-
+        $role = Role::find($id);
+        $role->name = $request->name;
+        try {
+            $role->save();
+            return redirect()->route('roles.index')->with('success', 'Sửa' . ' ' . $request->name . ' ' .  'thành công');
+        } catch (\Exception $e) {
+            return redirect()->route('roles.index')->with('error', 'Sửa' . ' ' . $request->name . ' ' .  'không hành công');
+        }
     }
 
     /**
@@ -96,10 +104,15 @@ class RoleController extends Controller
     {
         $role = Role::find($id);
         $role->delete();
-
-        return redirect()->route('roles.index')->with('success','Xóa  thành công');
-
-
-
+        return redirect()->route('roles.index')->with('success', 'Xóa  thành công');
+    }
+    public function search(Request $request)
+    {
+        $role = Role::query();
+        if ($request->has('name')) {
+            $role->where('name', 'LIKE', '%' . $request->name . '%');
+        }
+        $roles =  $role->get();
+        return view('admin.roles.search', ['roles' => $roles]);
     }
 }
