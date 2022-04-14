@@ -24,7 +24,7 @@
                 <fieldset>
                     <legend>Base style</legend>
                     <div class="form-group">
-                        <label for="tf1">Chỉ sủa tên</label> <input type="text" name="name" value="{{ $productCategory->name }}" class="form-control"  placeholder="nhập tên nhóm nhân viên"> <small  class="form-text text-muted"></small>
+                        <label for="tf1">Chỉ sủa tên</label> <input type="text" name="name" value="{{ $productCategory->name }}" class="form-control"  placeholder="Nhập tên nhóm nhân viên"> <small  class="form-text text-muted"></small>
                     </div>
                     @if ($errors->any())
                     <p style="color:red">{{ $errors->first('name') }}</p>

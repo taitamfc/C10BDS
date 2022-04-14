@@ -11,8 +11,8 @@ class Product extends Model
 
     protected $table = 'products';
     protected $fillable = [
-        'id', 'name', 'address', 'description',
-        'area', 'juridical', 'google_map', 'created_ad', 'product_category_id',
+        'id', 'name', 'address','price', 'description','product_category_id',
+        'area', 'juridical', 'google_map', 
         'district_id', 'province_id', 'ward_id'
     ];
 

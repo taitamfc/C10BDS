@@ -2,7 +2,6 @@
 
 @section('content')
 
-
 <header class="page-title-bar">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -82,7 +81,6 @@
                         @endforeach
                     </tbody>
                 </table>
-
             </div>
         </div>
         <nav aria-label="Page navigation example">

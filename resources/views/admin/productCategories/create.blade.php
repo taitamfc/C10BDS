@@ -18,7 +18,7 @@
         <fieldset>
             <div class="form-group">
                 <label for="tf1">Tên</label> <input name="name" type="text" class="form-control" id=""
-                    placeholder="nhập tên danh mục sản phẩm "> <small id="" class="form-text text-muted"></small>
+                    placeholder="Nhập tên danh mục sản phẩm "> <small id="" class="form-text text-muted"></small>
                 @if ($errors->any())
                 <p style="color:red">{{ $errors->first('name') }}</p>
                 @endif

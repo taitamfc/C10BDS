@@ -17,25 +17,25 @@
         @csrf
         <fieldset>
             <div class="form-group">
-                <label for="tf1">Tên lô đất</label> <input name="name" type="text" class="form-control" placeholder="nhập tên"> <small class="form-text text-muted"></small>
+                <label for="tf1">Tên lô đất</label> <input name="name" type="text" class="form-control" placeholder="Nhập tên"> <small class="form-text text-muted"></small>
                 @if ($errors->any())
                 <p style="color:red">{{ $errors->first('name') }}</p>
                 @endif
             </div>
             <div class="form-group">
-                <label for="tf1">Địa chỉ</label> <input name="address" type="text" class="form-control" placeholder="nhập địa chỉ"> <small class="form-text text-muted"></small>
+                <label for="tf1">Địa chỉ</label> <input name="address" type="text" class="form-control" placeholder="Nhập địa chỉ"> <small class="form-text text-muted"></small>
                 @if ($errors->any())
                 <p style="color:red">{{ $errors->first('address') }}</p>
                 @endif
             </div>
             <div class="form-group">
-                <label for="tf1">Giá tiền</label> <input name="price" type="text" class="form-control" placeholder="nhập giá tiền"> <small class="form-text text-muted"></small>
+                <label for="tf1">Giá tiền</label> <input name="price" type="text" class="form-control" placeholder="Nhập giá tiền"> <small class="form-text text-muted"></small>
                 @if ($errors->any())
                 <p style="color:red">{{ $errors->first('price') }}</p>
                 @endif
             </div>
             <div class="form-group">
-                <label for="tf1">Chi tiết thông tin</label> <input name="description" type="text" class="form-control" placeholder="nhập chi tiết thông tin"> <small class="form-text text-muted"></small>
+                <label for="tf1">Chi tiết thông tin</label> <input name="description" type="text" class="form-control" placeholder="Nhập chi tiết thông tin"> <small class="form-text text-muted"></small>
                 @if ($errors->any())
                 <p style="color:red">{{ $errors->first('description') }}</p>
                 @endif
@@ -52,25 +52,25 @@
                 @endif
             </div>
             <div class="form-group">
-                <label for="tf1">Khu vực</label> <input name="area" type="text" class="form-control" placeholder="nhập khu vực"> <small class="form-text text-muted"></small>
+                <label for="tf1">Khu vực</label> <input name="area" type="text" class="form-control" placeholder="Nhập khu vực"> <small class="form-text text-muted"></small>
                 @if ($errors->any())
                 <p style="color:red">{{ $errors->first('area') }}</p>
                 @endif
             </div>
             <div class="form-group">
-                <label for="tf1">Luật pháp</label> <input name="juridical" type="text" class="form-control" placeholder="nhập luật pháp lý"> <small class="form-text text-muted"></small>
+                <label for="tf1">Luật pháp</label> <input name="juridical" type="text" class="form-control" placeholder="Nhập luật pháp lý"> <small class="form-text text-muted"></small>
                 @if ($errors->any())
                 <p style="color:red">{{ $errors->first('juridical') }}</p>
                 @endif
             </div>
             <div class="form-group">
-                <label for="tf1">Địa chỉ trên bản đồ</label> <input name="google_map" type="text" class="form-control" placeholder="nhập địa chỉ trên bản đồ"> <small class="form-text text-muted"></small>
+                <label for="tf1">Địa chỉ trên bản đồ</label> <input name="google_map" type="text" class="form-control" placeholder="Nhập địa chỉ trên bản đồ"> <small class="form-text text-muted"></small>
                 @if ($errors->any())
                 <p style="color:red">{{ $errors->first('google_map') }}</p>
                 @endif
             </div>
             <div class="form-group">
-                <label for="tf1">chiều rộng ứng suất</label> <input name="stress_width" type="text" class="form-control" placeholder="nhập chiều rộng ứng suất "> <small class="form-text text-muted"></small>
+                <label for="tf1">chiều rộng ứng suất</label> <input name="stress_width" type="text" class="form-control" placeholder="Nhập chiều rộng ứng suất "> <small class="form-text text-muted"></small>
                 @if ($errors->any())
                 <p style="color:red">{{ $errors->first('stress_width') }}</p>
                 @endif
