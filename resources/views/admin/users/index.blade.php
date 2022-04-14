@@ -16,7 +16,7 @@
         <h1 class="page-title mr-sm-auto"> Danh sách nhân viên</h1><!-- .btn-toolbar -->
         <div class="btn-toolbar">
             <a href="{{ route('users.create') }}" class="btn btn-primary">
-                <i class="fa-solid fa fa-plus"></i> 
+                <i class="fa-solid fa fa-plus"></i>
                 <span class="ml-1">Thêm Mới</span>
             </a>
         </div>
@@ -52,7 +52,7 @@
                 </div>
             </div>
             @if (Session::has('success'))
-                <div class="alert alert-success">{{session::get('success')}}</div>
+            <div class="alert alert-success">{{session::get('success')}}</div>
             @endif
             <div class="table-responsive">
                 <table class="table">
@@ -66,75 +66,44 @@
                             <th> Số điện thoại</th>
                             <th> Nhóm nhân viên</th>
                             <th> Chi nhánh</th>
+                            <th> Chức năng</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($users as $user)
+                       
+                        @foreach($users as $user)
                         <tr>
-
                             <td class="align-middle"> {{ $user->id }} </td>
                             <td class="align-middle"> {{ $user->name }} </td>
                             <td class="align-middle"> {{ $user->birthday }} </td>
                             <td class="align-middle"> {{ $user->address }} </td>
                             <td class="align-middle"> {{ $user->phone }} </td>
-                            <td class="align-middle"> {{ $user->users_group_id }} </td>
-                            <td class="align-middle"> {{ $user->branch_id }} </td>
+                            <td class="align-middle"> {{ $user->userGroup->name }} </td>
+                            <td class="align-middle">{{ $user->branch->name }} </td>
                             <td>
-                                <form action="{{ route('users.destroy',$user->id )}}" style="display:inline"
-                                    method="post">
+                                <form action="{{ route('users.destroy',$user->id )}}" style="display:inline" method="post">
 
-                                    <button onclick="return confirm('Xóa {{$user->name}} ?')"
-                                        class="btn btn-sm btn-icon btn-secondary">
+                                    <button onclick="return confirm('Xóa {{$user->name}} ?')" class="btn btn-sm btn-icon btn-secondary">
                                         <i class="far fa-trash-alt"></i>
                                     </button>
                                     @csrf
                                     @method('delete')
-
-
                                 </form>
-                                <span class="sr-only">Edit</span></a> 
-                                <a href="{{route('users.edit',$user->id)}}"
-                                    class="btn btn-sm btn-icon btn-secondary">
-                                    <i class="fa fa-pencil-alt"></i> 
+                                <span class="sr-only">Edit</span></a>
+                                <a href="{{route('users.edit',$user->id)}}" class="btn btn-sm btn-icon btn-secondary">
+                                    <i class="fa fa-pencil-alt"></i>
                                     <span class="sr-only">Remove</span>
                                 </a>
                             </td>
-
-
                         </tr>
                         @endforeach
+        
                     </tbody>
                 </table>
+                <div style="float:right">
+                    {{ $users->links() }}
+                </div>
+
             </div>
-            <ul class="pagination justify-content-center mt-4">
-                <li class="page-item disabled">
-                    <a class="page-link" href="#" tabindex="-1"><i class="fa fa-lg fa-angle-left"></i></a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">1</a>
-                </li>
-                <li class="page-item disabled">
-                    <a class="page-link" href="#" tabindex="-1">...</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">13</a>
-                </li>
-                <li class="page-item active">
-                    <a class="page-link" href="#">14</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">15</a>
-                </li>
-                <li class="page-item disabled">
-                    <a class="page-link" href="#" tabindex="-1">...</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">24</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#"><i class="fa fa-lg fa-angle-right"></i></a>
-                </li>
-            </ul>
-        </div>
-    </div>
-@endsection
+
+            @endsection

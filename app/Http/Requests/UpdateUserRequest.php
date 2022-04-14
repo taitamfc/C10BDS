@@ -13,7 +13,7 @@ class UpdateUserRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,33 @@ class UpdateUserRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required',
+            'birthday' => 'required',
+            'address' => 'required',
+            'email' => 'required',
+            'phone' => 'required',
+            'password' => 'required',
+            'start_day' => 'required',
+            'users_group_id' => 'required',
+            'branch_id' => 'required',
+            'note' => 'required',
+
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'Vui lòng nhập tên nhân viên',
+            'birthday.required' => 'Vui lòng nhập ngày sinh',
+            'address.required' => 'Vui lòng nhập địa chỉ',
+            'email.required' => 'Vui lòng nhập email',
+            'phone.required' => 'Vui lòng nhập số điện thoại',
+            'password.required' => 'Vui lòng nhập mật khẩu',
+            'start_day.required' => 'Vui lòng nhập ngày làm việc',
+            'users_group_id.required' => 'Vui lòng nhập nhóm nhân viên',
+            'branch_id.required' => 'Vui lòng nhập chi nhánh',
+            'note.required' => 'Vui lòng nhập ghi chú'
         ];
     }
 }

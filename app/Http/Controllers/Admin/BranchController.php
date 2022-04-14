@@ -18,17 +18,8 @@ class BranchController extends Controller
      */
     public function index(Request $request)
     {
+
         $branches = Branch::paginate(3);
-        $search = $request->search;
-
-        $branches = Branch::select('*');
-
-
-        if ($search) {
-            $branches = $branches->where('name', 'like', '%' . $search . '%')->where('name', $search)->orwhere('id', $search);
-        }
-
-        $branches = $branches->paginate(3);
 
         return view('admin.branches.index', compact('branches'));
 
@@ -42,7 +33,7 @@ class BranchController extends Controller
     public function create()
     {
 
-        return view('admin.branches.create');
+        return view('admin.branches.add');
     }
 
     /**
@@ -102,7 +93,7 @@ class BranchController extends Controller
      */
     public function update(UpdateBranchRequest $request, $id)
     {
-        Branch::find($id)->update($request->only('name'));
+        Branch::find($id)->update($request->only('name','address','phone'));
         return redirect()->route('branches.index')->with('success', 'Sửa '. ' ' . $request->name.' ' .'thành công');
 
     }

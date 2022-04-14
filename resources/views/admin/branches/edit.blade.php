@@ -5,7 +5,7 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item active">
-                <a href="#"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Forms</a>
+            <a href="{{route('branches.index')}}"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Quản Lý Chi Nhánh</a>
             </li>
         </ol>
     </nav>
@@ -22,8 +22,7 @@
                 @csrf
                 @method('PUT')
                 <fieldset>
-                    <legend>Base style</legend>
-                    <div class="form-group">
+                <div class="form-group">
                         <label for="tf1">Tên chi nhánh</label> <input type="text" name="name" value="{{ $branch->name }}" class="form-control" placeholder="nhập tên chi nhánh"> <small class="form-text text-muted"></small>
                         @if ($errors->any())
                     <p style="color:red">{{ $errors->first('name') }}</p>
@@ -41,6 +40,10 @@
                     <p style="color:red">{{ $errors->first('phone') }}</p>
                     @endif
                     </div>
+
+
+
+
                 </fieldset>
                 <div class="form-actions">
                     <button class="btn btn-primary" type="submit">Cập nhật</button>

@@ -16,7 +16,7 @@
         <h1 class="page-title mr-sm-auto"> Danh sách chi nhánh</h1><!-- .btn-toolbar -->
         <div class="btn-toolbar">
             <a href="{{ route('branches.create') }}" class="btn btn-primary">
-                <i class="fa-solid fa fa-plus"></i> 
+                <i class="fa-solid fa fa-plus"></i>
                 <span class="ml-1">Thêm Mới</span>
             </a>
         </div>
@@ -32,7 +32,7 @@
             </ul>
         </div>
         <div class="card-body">
-        <div class="form-group">
+            <div class="form-group">
                 <div class="input-group input-group-alt">
                     <div class="input-group-prepend">
                         <select class="custom-select">
@@ -52,7 +52,7 @@
                 </div>
             </div>
             @if (Session::has('success'))
-                <div class="alert alert-success">{{session::get('success')}}</div>
+            <div class="alert alert-success">{{session::get('success')}}</div>
             @endif
 
             <div class="table-responsive">
@@ -80,30 +80,29 @@
                                     <button onclick="return confirm('Xóa {{$branch->name}} ?')" class="btn btn-sm btn-icon btn-secondary"><i class="far fa-trash-alt"></i></button>
                                     @csrf
                                     @method('delete')
+
+
                                 </form>
                                 <span class="sr-only">Edit</span></a> <a href="{{route('branches.edit',$branch->id)}}" class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-pencil-alt"></i> <span class="sr-only">Remove</span></a>
                             </td>
-                            <!-- <a href="{{ route('branches.destroy',$branch->id )}}" > -->
+
 
                         </tr><!-- /tr -->
                         @endforeach
                     </tbody><!-- /tbody -->
+
                 </table><!-- /.table -->
-                <br>
-                <div class="container">
-
+                <div  style="float:right">
                     {{ $branches->links() }}
-
-
                 </div>
-                <br>
-                <br>
 
             </div>
             <!-- /.table-responsive -->
             <!-- .pagination -->
 
         </div><!-- /.card-body -->
+
+
 
 
 
