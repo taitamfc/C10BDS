@@ -16,7 +16,7 @@ class User_group_role extends Model
     public $timestamps = false;
 
     function user_group(){
-        return $this->belongsTo(UserGroup::class, 'user_group_id', 'id');
+        return $this->belongsTo(UserGroup::class, 'users_group_id', 'id');
     }
     function role(){
         return $this->belongsTo(Role::class, 'role_id', 'id');

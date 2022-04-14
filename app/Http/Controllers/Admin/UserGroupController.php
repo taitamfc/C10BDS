@@ -17,8 +17,11 @@ class UserGroupController extends Controller
      */
     public function index()
     {
-        $userGroups = UserGroup::all();
-        return view('admin.userGroups.index', compact('userGroups'));
+        $userGroups = UserGroup::paginate(3);
+        $params = [
+            'userGroups' => $userGroups
+        ];
+        return view('admin.userGroups.index', $params);
         
     }
 
@@ -39,7 +42,7 @@ class UserGroupController extends Controller
      * @param  \App\Http\Requests\StoreUserGroupRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUserGroupRequest $request)
     {
         $userGroup = new UserGroup();
         $userGroup->name = $request->name;
@@ -84,10 +87,10 @@ class UserGroupController extends Controller
      * @param  \App\Models\UserGroup  $userGroup
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateUserGroupRequest $request, UserGroup $userGroup, $id)
+    public function update(UpdateUserGroupRequest $request, $id)
     {
 
-        UserGroup::find($id)->update($request->only('name'));
+        UserGroup::find($id)->update($request->only('name','description'));
         return redirect()->route('userGroups.index')->with('success','Sửa'. ' ' . $request->name.' '.  'thành công');
 
     }

@@ -19,21 +19,21 @@
 
             <div class="form-group">
                 <label for="tf1">Tên chi nhánh</label> <input name="name" type="text" class="form-control" id=""
-                    placeholder="nhập tên chi nhánh"> <small id="" class="form-text text-muted"></small>
+                    placeholder="Nhập tên chi nhánh"> <small id="" class="form-text text-muted"></small>
                 @if ($errors->any())
                 <p style="color:red">{{ $errors->first('name') }}</p>
                 @endif
             </div>
             <div class="form-group">
                 <label for="tf1"> Địa chỉ </label> <input name="address" type="text" class="form-control" id=""
-                    placeholder="nhập địa chỉ"> <small id="" class="form-text text-muted"></small>
+                    placeholder="Nhập địa chỉ"> <small id="" class="form-text text-muted"></small>
                 @if ($errors->any())
                 <p style="color:red">{{ $errors->first('address') }}</p>
                 @endif
             </div>
             <div class="form-group">
                 <label for="tf1">Số điện thoại</label> <input name="phone" type="text" class="form-control" id=""
-                    placeholder="nhập số điện thoại"> <small id="" class="form-text text-muted"></small>
+                    placeholder="Nhập số điện thoại"> <small id="" class="form-text text-muted"></small>
                 @if ($errors->any())
                 <p style="color:red">{{ $errors->first('phone') }}</p>
                 @endif
