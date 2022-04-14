@@ -13,7 +13,7 @@ class StoreProductCategoryRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,16 @@ class StoreProductCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required|unique:products,name |max:255',
+            'name' => 'required|min:2|max:30',
         ];
+    }
+    public function messages()
+    {
+        $messages = [
+            'name.unique' => 'Tên này đã tồn tại ',
+            'name.required' => 'Cần nhập tên',
+        ];
+        return $messages;
     }
 }

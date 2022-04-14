@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('user_groups', function(Blueprint $table) {
+        Schema::create('wards', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('description');
+            $table->unsignedBigInteger('distrct_id');
+            $table->foreign('distrct_id')->references('id')->on('districts');
             $table->timestamps();
-
         });
     }
 
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('wards');
     }
 };

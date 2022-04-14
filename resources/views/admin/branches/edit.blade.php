@@ -41,10 +41,6 @@
                     <p style="color:red">{{ $errors->first('phone') }}</p>
                     @endif
                     </div>
-
-
-
-
                 </fieldset>
                 <div class="form-actions">
                     <button class="btn btn-primary" type="submit">Cập nhật</button>
