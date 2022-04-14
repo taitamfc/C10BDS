@@ -7,7 +7,7 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item active">
-                <a href="#"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Forms</a>
+                <a href="{{route('roles.index')}}"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i> Danh sách vai trò </a>
             </li>
         </ol>
     </nav>
@@ -23,7 +23,8 @@
                 <fieldset>
 
                     <div class="form-group">
-                        <label for="tf1">Tên vai trò</label> <input name="name" type="text" class="form-control" id="" placeholder="nhập tên vai trò"> <small id="" class="form-text text-muted"></small>
+                        <label for="tf1">Tên vai trò</label> <input name="name" type="text" class="form-control" id="" placeholder="Nhập tên vai trò"> 
+                        <small id="" class="form-text text-muted"></small>
                         @if ($errors->any())
                     <p style="color:red">{{ $errors->first('name') }}</p>
                     @endif
@@ -32,8 +33,8 @@
 
                 </fieldset>
                 <div class="form-actions">
-                    <button class="btn btn-primary" type="submit">Thêm vai trò </button>
-                    <button class="btn btn-secondary" onclick="window.history.go(-1); return false;">Hủy</button>
+                    <button class="btn btn-primary" type="submit"> Thêm vai trò </button>
+                    <a class="btn btn-secondary" href="{{route('roles.index')}}"> Hủy </a>
 
                 </div>
             </form>
