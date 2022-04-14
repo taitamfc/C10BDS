@@ -75,7 +75,7 @@
                         <tr>
                             <td class="align-middle"> {{ $user->id }} </td>
                             <td class="align-middle"> {{ $user->name }} </td>
-                            <td class="align-middle"> {{ $user->birthday }} </td>
+                            <td class="align-middle"> {{ $user->day_of_birth }} </td>
                             <td class="align-middle"> {{ $user->address }} </td>
                             <td class="align-middle"> {{ $user->phone }} </td>
                             <td class="align-middle"> {{ $user->userGroup->name }} </td>

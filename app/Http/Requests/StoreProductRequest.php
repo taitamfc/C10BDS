@@ -41,18 +41,18 @@ class StoreProductRequest extends FormRequest
     public function messages()
     {
         $messages = [
-            'name.unique' => 'Cần nhập tên',
-            'address.required' => 'cần nhập địa chỉ',
-            'price.required' => 'cần nhập giá ',
-            'description.required' => 'cần nhập chi tiết',
-            'area.required' => 'cần nhập khu vựa',
-            'juridical.required' => 'cần nhập luật pháp',
-            'google_map.required' => 'cần nhập luật pháp',
-            'stress_width.required' => 'cần nhập chiều rộng ứng suất',
-            'product_category_id.required' => 'Cần nhập danh mục sản phẩm',
-            'province_id.required' => 'Cần nhập tĩnh',
-            'district_id.required' => 'Cần nhập tĩnh',
-            'ward_id.required' => 'cần nhập khu vực',
+            'name.required' => 'Trường tên là bắt buộc',
+            'address.required' => 'Trường địa chỉ là bắt buộc.',
+            'price.required' => 'Trường giá là bắt buộc',
+            'description.required' => 'Trường mô tả là bắt buộc',
+            'area.required' => 'Trường khu vựa là bắt buộc',
+            'juridical.required' => 'Trường luật pháp là bắt buộc',
+            'google_map.required' => 'Trường bản đồ google là bắt buộc',
+            'stress_width.required' => 'Trường độ rộng ứng suất là bắt buộc',
+            'product_category_id.required' => 'Trường danh mục sản phẩm là bắt buộc',
+            'province_id.required' => 'Trường nhập tỉnh là bắt buộc',
+            'district_id.required' => 'Trường nhập quận là bắt buộc',
+            'ward_id.required' => 'Trường nhập khu vực là bắt buộc',
         ];
         return $messages;
     }

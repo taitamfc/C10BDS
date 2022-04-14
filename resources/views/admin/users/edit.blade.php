@@ -29,9 +29,9 @@
                 @endif
             </div>
             <div class="form-group">
-                <label for="tf1">Ngày sinh <noscript></noscript></label> <input name="birthday" type="date" value="{{ $user->birthday }}" class="form-control" id="" placeholder="nhập ngày sinh "> <small id="" class="form-text text-muted"></small>
+                <label for="tf1">Ngày sinh <noscript></noscript></label> <input name="day_of_birth" type="date" value="{{ $user->day_of_birth }}" class="form-control" id="" placeholder="nhập ngày sinh "> <small id="" class="form-text text-muted"></small>
                 @if ($errors->any())
-                <p style="color:red">{{ $errors->first('birthday') }}</p>
+                <p style="color:red">{{ $errors->first('day_of_birth') }}</p>
                 @endif
             </div>
             <div class="form-group">
@@ -66,13 +66,13 @@
             </div>
             <div class="form-group">
                 <label for="tf1">Nhóm nhân viên</label>
-                <select class="form-select form-control" name="users_group_id">
+                <select class="form-select form-control" name="user_group_id">
                     @foreach($userGroups as $userGroup)
                     <option value="{{ $userGroup->id }}">{{ $userGroup->name }} </option>
                     @endforeach
                 </select>
                 @if ($errors->any())
-                <p style="color:red">{{ $errors->first('users_group_id') }}</p>
+                <p style="color:red">{{ $errors->first('user_group_id') }}</p>
                 @endif
             </div>
 

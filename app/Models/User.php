@@ -10,7 +10,7 @@ class User extends Model
     use HasFactory;
 
     protected $table = 'users';
-    protected $fillable = ['id','name','birthday','address','email','password','start_day',
+    protected $fillable = ['id','name','day_of_birth','address','email','password','start_day',
     'user_group_id','branch_id','note'];
     public $timestamps = false;
 
@@ -20,7 +20,7 @@ class User extends Model
     }
     public function userGroup()
     {
-        return $this->belongsTo(UserGroup::class,'users_group_id','id');
+        return $this->belongsTo(UserGroup::class,'user_group_id','id');
     }
 
     public function user_product() {

@@ -42,7 +42,7 @@ class Product extends Model
         return $this->belongto(Ward::class, 'ward_id', 'id');
     }
 
-    public function user_product() {
+    public function user_products() {
         return $this->belongsToMany(User_product::class);
     }
     

@@ -90,6 +90,8 @@ class UserGroupController extends Controller
     public function update(UpdateUserGroupRequest $request, $id)
     {
 
+        
+
         UserGroup::find($id)->update($request->only('name','description'));
         return redirect()->route('userGroups.index')->with('success','Sửa'. ' ' . $request->name.' '.  'thành công');
 

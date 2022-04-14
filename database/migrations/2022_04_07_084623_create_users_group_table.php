@@ -13,13 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users_group', function (Blueprint $table) {
+        Schema::create('user_groups', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('task');
-            $table->string('experience');
             $table->string('description');
-            $table->unsignedBigInteger('role_id');
             $table->timestamps();
         });
     }

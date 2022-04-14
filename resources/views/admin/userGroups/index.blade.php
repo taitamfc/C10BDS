@@ -62,44 +62,31 @@
                             <th> # </th>
                             <th> Tên nhóm</th>
                             <th> Miêu tả nhóm </th>
-                            <th> chức năng </th>
+                            <th> Miêu tả </th>
+                            <th> Chức năng </th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($userGroups as $userGroup)
                         <tr>
-
                             <td class="align-middle"> {{ $userGroup->id }} </td>
                             <td class="align-middle"> {{ $userGroup->name }} </td>
                             <td class="align-middle"> {{ $userGroup->description }} </td>
-
                             <td>
                                 <form action="{{ route('userGroups.destroy',$userGroup->id )}}" style="display:inline" method="post">
-
                                     <button onclick="return confirm('Xóa {{$userGroup->name}} ?')" class="btn btn-sm btn-icon btn-secondary"><i class="far fa-trash-alt"></i></button>
                                     @csrf
                                     @method('delete')
-
-
                                 </form>
                                 <span class="sr-only">Edit</span></a> <a href="{{route('userGroups.edit',$userGroup->id)}}" class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-pencil-alt"></i> <span class="sr-only">Remove</span></a>
                             </td>
-
-
                         </tr><!-- /tr -->
                         @endforeach
                     </tbody><!-- /tbody -->
                 </table><!-- /.table -->
-
             </div>
             <div style="float:right">
                 {{ $userGroups->links() }}
             </div>
-
-
         </div><!-- /.card-body -->
-
-
-
-
         @endsection
