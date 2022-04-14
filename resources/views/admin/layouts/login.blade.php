@@ -39,9 +39,9 @@
     <link rel="stylesheet" href="admin/vendor/@fortawesome/fontawesome-free/css/all.min.css">
     <!-- END PLUGINS STYLES -->
     <!-- BEGIN THEME STYLES -->
-    <link rel="stylesheet" href="admin/stylesheets/theme.min.css" data-skin="default">
-    <link rel="stylesheet" href="admin/stylesheets/theme-dark.min.css" data-skin="dark">
-    <link rel="stylesheet" href="admin/stylesheets/custom.css">
+    <link rel="stylesheet" href="{{asset('admin/stylesheets/theme.min.css')}}" data-skin="default">
+    <link rel="stylesheet" href="{{asset('admin/stylesheets/theme-dark.min.css')}}" data-skin="dark">
+    <link rel="stylesheet" href="{{asset('admin/stylesheets/custom.css')}}">
     <script>
     var skin = localStorage.getItem('skin') || 'default';
     var disabledSkinStylesheet = document.querySelector('link[data-skin]:not([data-skin="' + skin + '"])');
@@ -93,11 +93,11 @@
 
     </main><!-- /.auth -->
     <!-- BEGIN BASE JS -->
-    <script src="admin/vendor/jquery/jquery.min.js"></script>
-    <script src="admin/vendor/popper.js/umd/popper.min.js"></script>
-    <script src="admin/vendor/bootstrap/js/bootstrap.min.js"></script> <!-- END BASE JS -->
+    <script src="{{asset('admin/vendor/jquery/jquery.min.js')}}"></script>
+    <script src="{{asset('admin/vendor/popper.js/umd/popper.min.js')}}"></script>
+    <script src="{{asset('admin/vendor/bootstrap/js/bootstrap.min.js')}}"></script> <!-- END BASE JS -->
     <!-- BEGIN PLUGINS JS -->
-    <script src="admin/vendor/particles.js/particles.js"></script>
+    <script src="{{asset('admin/vendor/particles.js/particles.js')}}"></script>
     <script>
     /**
      * Keep in mind that your scripts may not always be executed after the theme is completely ready,
@@ -109,7 +109,7 @@
     })
     </script> <!-- END PLUGINS JS -->
     <!-- BEGIN THEME JS -->
-    <script src="admin/javascript/theme.js"></script> <!-- END THEME JS -->
+    <script src="{{asset('')}}admin/javascript/theme.js"></script> <!-- END THEME JS -->
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-116692175-1"></script>
     <script>
