@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateWardsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -16,9 +16,14 @@ return new class extends Migration
         Schema::create('wards', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->unsignedBigInteger('distrct_id');
-            $table->foreign('distrct_id')->references('id')->on('districts');
+            $table->string('gso_id');
+            $table->unsignedBigInteger('district_id');
             $table->timestamps();
+
+            $table->foreign('district_id')
+                ->references('id')
+                ->on('districts')
+                ->cascadeOnDelete();
         });
     }
 
@@ -31,4 +36,4 @@ return new class extends Migration
     {
         Schema::dropIfExists('wards');
     }
-};
+}
