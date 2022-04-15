@@ -41,7 +41,15 @@
     <link rel="stylesheet" href="{{asset('admin/stylesheets/theme.min.css')}}" data-skin="default">
     <link rel="stylesheet" href="{{asset('admin/stylesheets/theme-dark.min.css')}}" data-skin="dark">
     <link rel="stylesheet" href="{{asset('admin/stylesheets/custom.css')}}">
-
+    <script>
+      var skin = localStorage.getItem('skin') || 'default';
+      var disabledSkinStylesheet = document.querySelector('link[data-skin]:not([data-skin="' + skin + '"])');
+      // Disable unused skin immediately
+      disabledSkinStylesheet.setAttribute('rel', '');
+      disabledSkinStylesheet.setAttribute('disabled', true);
+      // add loading class to html immediately
+      document.querySelector('html').classList.add('loading');
+    </script>
 </head>
 
 <body>

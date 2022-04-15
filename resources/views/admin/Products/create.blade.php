@@ -9,154 +9,253 @@
             </li>
         </ol>
     </nav>
-    <h1 class="page-title"> Thêm Tên</h1>
+    <h1 class="page-title"> Thêm Sản Phẩm</h1>
 </header>
 
 <div class="page-section">
     <form method="post" action="{{route('products.store')}}">
         @csrf
-        <fieldset>
-            <div class="form-group">
-                <label for="tf1">Tên lô đất</label> <input name="name" type="text" class="form-control" placeholder="Nhập tên"> <small class="form-text text-muted"></small>
-                @if ($errors->any())
-                <p style="color:red">{{ $errors->first('name') }}</p>
-                @endif
-            </div>
-            <div class="form-group">
-                <label for="tf1">Địa chỉ</label> <input name="address" type="text" class="form-control" placeholder="Nhập địa chỉ"> <small class="form-text text-muted"></small>
-                @if ($errors->any())
-                <p style="color:red">{{ $errors->first('address') }}</p>
-                @endif
-            </div>
-            <div class="form-group">
-                <label for="tf1">Giá tiền</label> <input name="price" type="text" class="form-control" placeholder="Nhập giá tiền"> <small class="form-text text-muted"></small>
-                @if ($errors->any())
-                <p style="color:red">{{ $errors->first('price') }}</p>
-                @endif
-            </div>
-            <div class="form-group">
-                <label for="tf1">Chi tiết thông tin</label> <input name="description" type="text" class="form-control" placeholder="Nhập chi tiết thông tin"> <small class="form-text text-muted"></small>
-                @if ($errors->any())
-                <p style="color:red">{{ $errors->first('description') }}</p>
-                @endif
-            </div>
-            <div class="form-group">
-                <label for="exampleInputEmail1">Loại tên người sở hữu đất</label>
-                <select name="product_category_id" class="form-control">
-                    @foreach($productCategories as $productCategory)
-                    <option value="{{$productCategory->id}}">{{$productCategory->name}}</option>
-                    @endforeach
-                </select>
-                @if ($errors->any())
-                <p style="color:red">{{ $errors->first('product_category_id') }}</p>
-                @endif
-            </div>
-            <div class="form-group">
-                <label for="tf1">Khu vực</label> <input name="area" type="text" class="form-control" placeholder="Nhập khu vực"> <small class="form-text text-muted"></small>
-                @if ($errors->any())
-                <p style="color:red">{{ $errors->first('area') }}</p>
-                @endif
-            </div>
-            <div class="form-group">
-                <label for="tf1">Luật pháp</label> <input name="juridical" type="text" class="form-control" placeholder="Nhập luật pháp lý"> <small class="form-text text-muted"></small>
-                @if ($errors->any())
-                <p style="color:red">{{ $errors->first('juridical') }}</p>
-                @endif
-            </div>
-            <div class="form-group">
-                <label for="tf1">Địa chỉ trên bản đồ</label> <input name="google_map" type="text" class="form-control" placeholder="Nhập địa chỉ trên bản đồ"> <small class="form-text text-muted"></small>
-                @if ($errors->any())
-                <p style="color:red">{{ $errors->first('google_map') }}</p>
-                @endif
-            </div>
-            <div class="form-group">
-                <label for="tf1">chiều rộng ứng suất</label> <input name="stress_width" type="text" class="form-control" placeholder="Nhập chiều rộng ứng suất "> <small class="form-text text-muted"></small>
-                @if ($errors->any())
-                <p style="color:red">{{ $errors->first('stress_width') }}</p>
-                @endif
-            </div>
-            <div class="row">
-                <div class="col-lg-4">
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Tỉnh/Thành phố</label>
-                        <select name="province_id" class="form-control province_id">
-                            @foreach($provinces as $province)
-                            <option value="{{ $province->id }}">{{$province->name}}</option>
-                            @endforeach
-                        </select>
-                        @if ($errors->any())
-                        <p style="color:red">{{ $errors->first('province_id') }}</p>
-                        @endif
+        <div class="card">
+            <div class="card-body">
+                <legend>Thông tin cơ bản</legend>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Loại bất động sản</label>
+                    <select name="product_category_id" class="form-control">
+                        @foreach($productCategories as $productCategory)
+                        <option value="{{$productCategory->id}}">{{$productCategory->name}}</option>
+                        @endforeach
+                    </select>
+                    @if ($errors->any())
+                    <p style="color:red">{{ $errors->first('product_category_id') }}</p>
+                    @endif
+                </div>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Tỉnh/Thành phố</label>
+                            <select name="province_id" class="form-control province_id">
+                                @foreach($provinces as $province)
+                                <option value="{{ $province->id }}">{{$province->name}}</option>
+                                @endforeach
+                            </select>
+                            @if ($errors->any())
+                            <p style="color:red">{{ $errors->first('province_id') }}</p>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Quận/Huyện</label>
+                            <select name="_id" class="form-control _id">
+                                <option value="">Vui lòng chọn</option>
+                            </select>
+                            @if ($errors->any())
+                            <p style="color:red">{{ $errors->first('_id') }}</p>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Xã/Phường</label>
+                            <select name="ward_id" class="form-control ward_id">
+                                <option value="">Vui lòng chọn</option>
+                            </select>
+                            @if ($errors->any())
+                            <p style="color:red">{{ $errors->first('ward_id')}}</p>
+                            @endif
+                        </div>
                     </div>
                 </div>
-                <div class="col-lg-4">
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Quận/Huyện</label>
-                        <select name="district_id" class="form-control district_id">
-                            <option value="">Vui lòng chọn</option>
-                        </select>
-                        @if ($errors->any())
-                        <p style="color:red">{{ $errors->first('district_id') }}</p>
-                        @endif
+                <div class="form-group">
+                    <label for="tf1">Địa chỉ</label> <input name="address" type="text" class="form-control"
+                        placeholder="Bạn có thể bổ sung hẻm, ngách, ngõ..."> <small
+                        class="form-text text-muted"></small>
+                    @if ($errors->any())
+                    <p style="color:red">{{ $errors->first('address') }}</p>
+                    @endif
+                </div>
+
+                
+            </div>
+            <div class="card-body border-top">
+                <legend>Thông tin bài viết</legend>
+                <div class="form-group">
+                    <label for="tf1">Tiêu đề <abbr title="Trường bắt buộc">*</abbr></label> 
+                    <input name="name" type="text" class="form-control" placeholder="Nhập tên"> 
+                        <small class="form-text text-muted">Tối thiểu 30 ký tự, tối đa 99 ký tự</small>
+                    @if ($errors->any())
+                    <p style="color:red">{{ $errors->first('name') }}</p>
+                    @endif
+                </div>
+                <div class="form-group">
+                    <label for="tf1">Chi tiết thông tin</label>
+                    <textarea name="description" type="text"
+                        class="form-control" placeholder="Nhập mô tả chung về bất động sản của bạn. Ví dụ: Khu nhà có vị trí thuận lợi, gần công viên, gần trường học ... "></textarea>
+                    @if ($errors->any())
+                    <p style="color:red">{{ $errors->first('description') }}</p>
+                    @endif
+                </div>
+            </div>    
+            <div class="card-body border-top">
+                <legend>Thông tin bất động sản</legend>
+                
+                <div class="row">
+                    <div class="col-lg-10">
+                        <div class="form-group">
+                            <label >Mức giá</label> 
+                            <input name="price" type="text" class="form-control" placeholder="Nhập giá, VD 12000000">
+                            @if ($errors->any())
+                            <p style="color:red">{{ $errors->first('price') }}</p>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="form-group">
+                            <label >Đơn vị</label> 
+                            <select name="unit" class="form-control">
+                                <option value="VND">VND</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
-                <div class="col-lg-4">
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Xã/Phường</label>
-                        <select name="ward_id" class="form-control ward_id">
-                            <option value="">Vui lòng chọn</option>
-                        </select>
-                        @if ($errors->any())
-                        <p style="color:red">{{ $errors->first('ward_id')}}</p>
-                        @endif
+                <div class="form-group">
+                    <label class="d-block">Giấy tờ pháp lý</label>
+                    <div class="custom-control custom-control-inline custom-radio">
+                        <input type="radio" class="custom-control-input" name="juridical" id="rd1" checked="" value="Sổ đỏ/ Sổ hồng"> 
+                        <label class="custom-control-label" for="rd1">Sổ đỏ/ Sổ hồng</label>
+                    </div>
+                    <div class="custom-control custom-control-inline custom-radio">
+                        <input type="radio" class="custom-control-input" name="juridical" id="rd2" value="Hợp đồng mua bán"> 
+                        <label class="custom-control-label" for="rd2">Hợp đồng mua bán</label>
+                    </div>
+                    <div class="custom-control custom-control-inline custom-radio">
+                        <input type="radio" class="custom-control-input" name="juridical" id="rd3" value="Đang chờ sổ"> 
+                        <label class="custom-control-label" for="rd3">Đang chờ sổ</label>
+                    </div>
+                </div>
+                
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="tf1">Diện tích</label> 
+                                <div class="input-group input-group-alt">
+                                <input type="text" name="area" type="number" class="form-control" placeholder="Nhập diện tích, VD 80">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">m²</span>
+                                </div>
+                            </div>
+                            @if ($errors->any())
+                            <p style="color:red">{{ $errors->first('area') }}</p>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label >Hướng nhà</label> 
+                            <select name="unit" class="form-control">
+                                <option value="VND">VND</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="tf1">Đường vào</label> 
+                            <div class="input-group input-group-alt">
+                                <input type="text" name="stress_width" type="number" class="form-control" placeholder="Nhập số">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">m²</span>
+                                </div>
+                            </div>
+                            @if ($errors->any())
+                            <p style="color:red">{{ $errors->first('stress_width') }}</p>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="tf1">Mặt tiền</label> 
+                            <div class="input-group input-group-alt">
+                                <input type="text" name="stress_width" type="number" class="form-control" placeholder="Nhập số">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">m²</span>
+                                </div>
+                            </div>
+                            @if ($errors->any())
+                            <p style="color:red">{{ $errors->first('stress_width') }}</p>
+                            @endif
+                        </div>
                     </div>
                 </div>
             </div>
-        </fieldset>
-        <div class="form-actions">
-            <button class="btn btn-primary" type="submit">Thêm danh mục </button>
-            <button class="btn btn-secondary" onclick="window.history.go(-1); return false;">Hủy</button>
+            <div class="card-body border-top">
+                <legend>Hình ảnh & Video</legend>
+                <div class="form-group">
+                    <label>Chọn nhiều hình ảnh</label>
+                    <div id="dropzone" class="fileinput-dropzone">
+                        <span>Bấm chọn ảnh cần tải lên.</span> <!-- The file input field used as target for the file upload widget -->
+                        <input id="fileupload-dropzone" type="file" name="files[]" multiple="">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="tf1">Thêm video từ Youtube</label> 
+                        <input name="google_map" type="text"
+                        class="form-control" placeholder="VD: https://www.youtube.com/watch?v=Y-Dw0NpfRug">
+                    @if ($errors->any())
+                    <p style="color:red">{{ $errors->first('google_map') }}</p>
+                    @endif
+                </div>
+
+                <div class="form-actions">
+                    <button class="btn btn-secondary float-right" onclick="window.history.go(-1); return false;">Hủy</button>
+                    <button class="btn btn-primary ml-auto" type="submit">Lưu</button>                    
+                </div>
+            </div>
         </div>
+
+
+
     </form>
 </div>
-</div>
-</div>
+
 
 <script>
-    jQuery( document ).ready( function(){
-        jQuery('.province_id').on('change',function(){
-            var province_id = jQuery(this).val();
+jQuery(document).ready(function() {
+    jQuery('.province_id').on('change', function() {
+        var province_id = jQuery(this).val();
 
-            $.ajax({
-				url		: "/api/get_districts/"+province_id,
-				type	: "GET",
-				success : function(data){
-                    var districts_html = '<option value="">Vui lòng chọn</option>';
-                    for (const district of data) {
-                        districts_html += '<option value="'+ district.id +'">'+ district.name +'</option>';
-                    }
-                    jQuery('.district_id').html(districts_html);
+        $.ajax({
+            url: "/api/get_s/" + province_id,
+            type: "GET",
+            success: function(data) {
+                var s_html = '<option value="">Vui lòng chọn</option>';
+                for (const  of data) {
+                    s_html += '<option value="' + .id + '">' + 
+                        .name + '</option>';
                 }
-			});
-            
+                jQuery('._id').html(s_html);
+            }
         });
 
-        jQuery('.district_id').on('change',function(){
-            var district_id = jQuery(this).val();
-
-            $.ajax({
-				url		: "/api/get_wards/"+district_id,
-				type	: "GET",
-				success : function(data){
-                    var wards_html = '<option value="">Vui lòng chọn</option>';
-                    for (const ward of data) {
-                        wards_html += '<option value="'+ ward.id +'">'+ ward.name +'</option>';
-                    }
-                    jQuery('.ward_id').html(wards_html);
-                }
-			});
-            
-        });
     });
+
+    jQuery('._id').on('change', function() {
+        var _id = jQuery(this).val();
+
+        $.ajax({
+            url: "/api/get_wards/" + _id,
+            type: "GET",
+            success: function(data) {
+                var wards_html = '<option value="">Vui lòng chọn</option>';
+                for (const ward of data) {
+                    wards_html += '<option value="' + ward.id + '">' + ward.name +
+                        '</option>';
+                }
+                jQuery('.ward_id').html(wards_html);
+            }
+        });
+
+    });
+});
 </script>
 @endsection
