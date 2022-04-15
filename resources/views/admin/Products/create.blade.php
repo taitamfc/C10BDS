@@ -46,11 +46,11 @@
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Quận/Huyện</label>
-                            <select name="_id" class="form-control _id">
+                            <select name="_id" class="form-control district_id">
                                 <option value="">Vui lòng chọn</option>
                             </select>
                             @if ($errors->any())
-                            <p style="color:red">{{ $errors->first('_id') }}</p>
+                            <p style="color:red">{{ $errors->first('district_id') }}</p>
                             @endif
                         </div>
                     </div>
@@ -207,7 +207,7 @@
                 </div>
 
                 <div class="form-actions">
-                    <button class="btn btn-secondary float-right" onclick="window.history.go(-1); return false;">Hủy</button>
+                <button class="btn btn-secondary float-right" onclick="window.history.go(-1); return false;">Hủy</button>
                     <button class="btn btn-primary ml-auto" type="submit">Lưu</button>                    
                 </div>
             </div>
@@ -225,25 +225,25 @@ jQuery(document).ready(function() {
         var province_id = jQuery(this).val();
 
         $.ajax({
-            url: "/api/get_s/" + province_id,
+            url: "/api/get_districts/" + province_id,
             type: "GET",
             success: function(data) {
-                var s_html = '<option value="">Vui lòng chọn</option>';
-                for (const  of data) {
-                    s_html += '<option value="' + .id + '">' + 
-                        .name + '</option>';
+                var districts_html = '<option value="">Vui lòng chọn</option>';
+                for (const district of data) {
+                    districts_html += '<option value="' + district.id + '">' + 
+                    district.name + '</option>';
                 }
-                jQuery('._id').html(s_html);
+                jQuery('.district_id').html(districts_html);
             }
         });
 
     });
 
-    jQuery('._id').on('change', function() {
-        var _id = jQuery(this).val();
+    jQuery('.district_id').on('change', function() {
+        var district_id = jQuery(this).val();
 
         $.ajax({
-            url: "/api/get_wards/" + _id,
+            url: "/api/get_wards/" + district_id,
             type: "GET",
             success: function(data) {
                 var wards_html = '<option value="">Vui lòng chọn</option>';
