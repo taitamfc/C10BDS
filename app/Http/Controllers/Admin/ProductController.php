@@ -44,9 +44,7 @@ class ProductController extends Controller
         $params = [
             'productCategories' => $productCategories,
             'products' => $products,
-            'provinces' => $provinces,
-            'districts' => $districts,
-            'wards' => $wards
+            'provinces' => $provinces
         ];
         return view('admin.products.create', $params);
     }

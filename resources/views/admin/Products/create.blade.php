@@ -140,6 +140,23 @@
 			});
             
         });
+
+        jQuery('.district_id').on('change',function(){
+            var district_id = jQuery(this).val();
+
+            $.ajax({
+				url		: "/api/get_wards/"+district_id,
+				type	: "GET",
+				success : function(data){
+                    var wards_html = '<option value="">Vui lòng chọn</option>';
+                    for (const ward of data) {
+                        wards_html += '<option value="'+ ward.id +'">'+ ward.name +'</option>';
+                    }
+                    jQuery('.ward_id').html(wards_html);
+                }
+			});
+            
+        });
     });
 </script>
 @endsection

@@ -18,19 +18,10 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('index');
-})->name('index');
-
-// Route::get('/manage', function() {
-//     return view('admin.layouts.master');
-
-// });
-
-
-
 Route::group(['prefix' => 'admin'], function () {
+    Route::get('/', function () {
+        return view('admin.users.login');
+    })->name('index');
     Route::get('/login', function () {
         return view('admin.users.login');
     })->name('login');
@@ -41,3 +32,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::resource('productCategories', ProductCategoryController::class);
     Route::resource('branches', BranchController::class);
 });
+
+Route::view('/{any}', 'layouts.mobile')
+    //->middleware(['auth'])
+    ->where('any', '.*');
