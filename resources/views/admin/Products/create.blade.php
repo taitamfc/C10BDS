@@ -153,7 +153,7 @@
                     <div class="col-lg-6">
                         <div class="form-group">
                             <label >Hướng nhà</label> 
-                            <select name="unit" class="form-control">
+                            <select name="houseDirection" class="form-control">
                                 <option value="VND">VND</option>
                             </select>
                         </div>
@@ -176,13 +176,13 @@
                         <div class="form-group">
                             <label for="tf1">Mặt tiền</label> 
                             <div class="input-group input-group-alt">
-                                <input type="text" name="stress_width" type="number" class="form-control" placeholder="Nhập số">
+                                <input type="text" name="facade" type="number" class="form-control" placeholder="Nhập số">
                                 <div class="input-group-append">
                                     <span class="input-group-text">m²</span>
                                 </div>
                             </div>
                             @if ($errors->any())
-                            <p style="color:red">{{ $errors->first('stress_width') }}</p>
+                            <p style="color:red">{{ $errors->first('facade') }}</p>
                             @endif
                         </div>
                     </div>
@@ -194,15 +194,15 @@
                     <label>Chọn nhiều hình ảnh</label>
                     <div id="dropzone" class="fileinput-dropzone">
                         <span>Bấm chọn ảnh cần tải lên.</span> <!-- The file input field used as target for the file upload widget -->
-                        <input id="fileupload-dropzone" type="file" name="files[]" multiple="">
+                        <input id="fileupload-dropzone" type="file" name="product_images[]" multiple="">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="tf1">Thêm video từ Youtube</label> 
-                        <input name="google_map" type="text"
+                        <input name="linkYoutube" type="text"
                         class="form-control" placeholder="VD: https://www.youtube.com/watch?v=Y-Dw0NpfRug">
                     @if ($errors->any())
-                    <p style="color:red">{{ $errors->first('google_map') }}</p>
+                    <p style="color:red">{{ $errors->first('linkYoutube') }}</p>
                     @endif
                 </div>
 
