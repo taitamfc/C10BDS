@@ -19,9 +19,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/index', function () {
-    return view('welcome');
-  
+Route::get('/', function () {
+    return view('index');
 })->name('index');
 
 // Route::get('/manage', function() {
@@ -32,7 +31,7 @@ Route::get('/index', function () {
 
 
 Route::group(['prefix' => 'admin'], function () {
-    Route::get('/login', function() {
+    Route::get('/login', function () {
         return view('admin.users.login');
     })->name('login');
     Route::resource('userGroups', UserGroupController::class);

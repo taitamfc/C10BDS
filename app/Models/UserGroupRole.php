@@ -5,11 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class User_group_role extends Model
+class UserGroupRole extends Model
 {
     use HasFactory;
-
-    protected $table = 'roles';
+    protected $table = 'user_group_role';
     protected $fillable = [
         'id', 'user_group_id', 'role_id'
     ];

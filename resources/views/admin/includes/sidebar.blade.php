@@ -46,7 +46,7 @@
                       <a href="{{ route('userGroups.index') }}" class="menu-link">Nhóm nhân viên</a>
                     </li>
                     <li class="menu-item">
-                      <a href="page-clients.html" class="menu-link">Vai trò</a>
+                      <a href="{{route('roles.index')}}" class="menu-link">Vai trò</a>
                     </li>
                   </ul>
               </li>

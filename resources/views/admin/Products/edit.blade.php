@@ -23,25 +23,25 @@
                 @method('PUT')
                 <fieldset>
                     <div class="form-group">
-                        <label for="tf1">Tên lô đất</label> <input value="{{$product->name}}" name="name" type="text" class="form-control" id="" placeholder="nhập tên"> <small id="" class="form-text text-muted"></small>
+                        <label for="tf1">Tên lô đất</label> <input value="{{$product->name}}" name="name" type="text" class="form-control" id="" placeholder="Nhập tên"> <small id="" class="form-text text-muted"></small>
                         @if ($errors->any())
                         <p style="color:red">{{ $errors->first('name') }}</p>
                         @endif
                     </div>
                     <div class="form-group">
-                        <label for="tf1">Địa chỉ</label> <input value="{{$product->address}}" name="address" type="text" class="form-control" id="" placeholder="nhập địa chỉ"> <small id="" class="form-text text-muted"></small>
+                        <label for="tf1">Địa chỉ</label> <input value="{{$product->address}}" name="address" type="text" class="form-control" id="" placeholder="Nhập địa chỉ"> <small id="" class="form-text text-muted"></small>
                         @if ($errors->any())
                         <p style="color:red">{{ $errors->first('address') }}</p>
                         @endif
                     </div>
                     <div class="form-group">
-                        <label for="tf1">Giá tiền</label> <input value="{{$product->price}}" name="price" type="text" class="form-control" id="" placeholder="nhập giá tiền"> <small id="" class="form-text text-muted"></small>
+                        <label for="tf1">Giá tiền</label> <input value="{{$product->price}}" name="price" type="text" class="form-control" id="" placeholder="Nhập giá tiền"> <small id="" class="form-text text-muted"></small>
                         @if ($errors->any())
                         <p style="color:red">{{ $errors->first('price') }}</p>
                         @endif
                     </div>
                     <div class="form-group">
-                        <label for="tf1">Chi tiết thông tin</label> <input value="{{$product->description}}" name="description" type="text" class="form-control" id="" placeholder="nhập chi tiết thông tin"> <small id="" class="form-text text-muted"></small>
+                        <label for="tf1">Chi tiết thông tin</label> <input value="{{$product->description}}" name="description" type="text" class="form-control" id="" placeholder="Nhập chi tiết thông tin"> <small id="" class="form-text text-muted"></small>
                         @if ($errors->any())
                         <p style="color:red">{{ $errors->first('description') }}</p>
                         @endif
@@ -58,25 +58,25 @@
                         @endif
                     </div>
                     <div class="form-group">
-                        <label for="tf1">Khu vực</label> <input value="{{$product->area}}" name="area" type="text" class="form-control" id="" placeholder="nhập khu vực"> <small id="" class="form-text text-muted"></small>
+                        <label for="tf1">Khu vực</label> <input value="{{$product->area}}" name="area" type="text" class="form-control" id="" placeholder="Nhập khu vực"> <small id="" class="form-text text-muted"></small>
                         @if ($errors->any())
                         <p style="color:red">{{ $errors->first('area') }}</p>
                         @endif
                     </div>
                     <div class="form-group">
-                        <label for="tf1">Luật pháp</label> <input value="{{$product->juridical}}" name="juridical" type="text" class="form-control" id="" placeholder="nhập luật pháp lý"> <small id="" class="form-text text-muted"></small>
+                        <label for="tf1">Luật pháp</label> <input value="{{$product->juridical}}" name="juridical" type="text" class="form-control" id="" placeholder="Nhập luật pháp lý"> <small id="" class="form-text text-muted"></small>
                         @if ($errors->any())
                         <p style="color:red">{{ $errors->first('juridical') }}</p>
                         @endif
                     </div>
                     <div class="form-group">
-                        <label for="tf1">Địa chỉ trên bản đồ</label> <input value="{{$product->google_map}}" name="google_map" type="text" class="form-control" id="" placeholder="nhập địa chỉ trên bản đồ"> <small id="" class="form-text text-muted"></small>
+                        <label for="tf1">Địa chỉ trên bản đồ</label> <input value="{{$product->google_map}}" name="google_map" type="text" class="form-control" id="" placeholder="Nhập địa chỉ trên bản đồ"> <small id="" class="form-text text-muted"></small>
                         @if ($errors->any())
                         <p style="color:red">{{ $errors->first('google_map') }}</p>
                         @endif
                     </div>
                     <div class="form-group">
-                        <label for="tf1">chiều rộng ứng suất</label> <input value="{{$product->stress_width}}" name="stress_width" type="text" class="form-control" id="" placeholder="nhập chiều rộng ứng suất "> <small id="" class="form-text text-muted"></small>
+                        <label for="tf1">chiều rộng ứng suất</label> <input value="{{$product->stress_width}}" name="stress_width" type="text" class="form-control" id="" placeholder="Nhập chiều rộng ứng suất "> <small id="" class="form-text text-muted"></small>
                         @if ($errors->any())
                         <p style="color:red">{{ $errors->first('stress_width') }}</p>
                         @endif

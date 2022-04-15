@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 
 use App\Models\Product;
@@ -57,18 +57,18 @@ class ProductController extends Controller
      * @param  \App\Http\Requests\StoreProductRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreProductRequest $request)
+    public function store(Request $request)
     {
         $product = new Product();
         $product->name = $request->name;
         $product->address = $request->address;
         $product->price = $request->price;
         $product->description = $request->description;
+        $product->product_category_id = $request->product_category_id;
         $product->area = $request->area;
         $product->juridical = $request->juridical;
         $product->google_map = $request->google_map;
         $product->stress_width = $request->stress_width;
-        $product->product_category_id = $request->product_category_id;
         $product->province_id = $request->province_id;
         $product->district_id = $request->district_id;
         $product->ward_id = $request->ward_id;
@@ -76,6 +76,7 @@ class ProductController extends Controller
             $product->save();
             Session::flash('success', 'Thêm' . ' ' . $request->name . ' ' .  'thành công');
         } catch (\Exception $e) {
+            Log::error($e->getMessage());
             Session::flash('success', 'Thêm' . ' ' . $request->name . ' ' .  'Không thành công');
         }
         return redirect()->route('products.index');
@@ -130,14 +131,15 @@ class ProductController extends Controller
         $product->address = $request->input('address');
         $product->price = $request->input('price');
         $product->description = $request->input('description');
+        $product->product_category_id = $request->input('product_category_id');
         $product->area = $request->input('area');
         $product->juridical = $request->input('juridical');
         $product->google_map = $request->input('google_map');
         $product->stress_width = $request->input('stress_width');
-        $product->product_category_id = $request->input('product_category_id');
         $product->province_id = $request->input('province_id');
         $product->district_id = $request->input('district_id');
         $product->ward_id = $request->input('ward_id');
+        
         try {
             $product->save();
             return redirect()->route('products.index')

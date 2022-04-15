@@ -16,7 +16,7 @@
         <h1 class="page-title mr-sm-auto"> Danh sách chi nhánh</h1><!-- .btn-toolbar -->
         <div class="btn-toolbar">
             <a href="{{ route('branches.create') }}" class="btn btn-primary">
-                <i class="fa-solid fa fa-plus"></i> 
+                <i class="fa-solid fa fa-plus"></i>
                 <span class="ml-1">Thêm Mới</span>
             </a>
         </div>
@@ -32,27 +32,41 @@
             </ul>
         </div>
         <div class="card-body">
-        <div class="form-group">
-                <div class="input-group input-group-alt">
-                    <div class="input-group-prepend">
-                        <select class="custom-select">
-                            <option selected> Filter By </option>
-                            <option value="1"> Tags </option>
-                            <option value="2"> Vendor </option>
-                            <option value="3"> Variants </option>
-                            <option value="4"> Prices </option>
-                            <option value="5"> Sales </option>
-                        </select>
-                    </div>
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><span class="oi oi-magnifying-glass"></span></span>
-                        </div><input type="text" class="form-control" placeholder="Search record">
-                    </div>
+            <div class="row mb-2">
+                <div class="col">
+                    <form action="" method="GET" id="form-search">
+                        <div class="input-group input-group-alt">
+                            <div class="input-group-prepend">
+                                <button class="btn btn-secondary" type="button" data-toggle="modal"
+                                    data-target="#modalFilterColumns">Tìm nâng cao</button>
+                            </div>
+                            <div class="input-group has-clearable">
+                                <button type="button" class="close trigger-submit trigger-submit-delay"
+                                    aria-label="Close">
+                                    <span aria-hidden="true"><i class="fa fa-times-circle"></i></span>
+                                </button>
+                                <div class="input-group-prepend trigger-submit">
+                                    <span class="input-group-text"><span class="fas fa-search"></span></span>
+                                </div>
+                                <input type="text" class="form-control" name="query" value=""
+                                    placeholder="Tìm nhanh theo cú pháp (ma:Mã kết quả hoặc ten:Tên kết quả)">
+                            </div>
+                            <div class="input-group-append">
+                                <button class="btn btn-secondary" data-toggle="modal" data-target="#modalSaveSearch"
+                                    type="button">Lưu bộ lọc</button>
+                            </div>
+                        </div>
+                    <!-- modalFilterColumns  -->
+                    @include('admin.branches.modals.modalFilterColumns')
+                    </form>
+                    <!-- modalFilterColumns  -->
+                    @include('admin.branches.modals.modalSaveSearch')
                 </div>
             </div>
+
+
             @if (Session::has('success'))
-                <div class="alert alert-success">{{session::get('success')}}</div>
+            <div class="alert alert-success">{{session::get('success')}}</div>
             @endif
 
             <div class="table-responsive">
@@ -63,7 +77,7 @@
                             <th> Tên chi nhánh </th>
                             <th> Địa chỉ </th>
                             <th> Số điện thoại </th>
-                            <th> chức năng </th>
+                            <th> Chức năng </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -75,35 +89,39 @@
                             <td class="align-middle"> {{ $branch->address }} </td>
                             <td class="align-middle"> {{ $branch->phone }} </td>
                             <td>
-                                <form action="{{ route('branches.destroy',$branch->id )}}" style="display:inline" method="post">
+                                <form action="{{ route('branches.destroy',$branch->id )}}" style="display:inline"
+                                    method="post">
 
-                                    <button onclick="return confirm('Xóa {{$branch->name}} ?')" class="btn btn-sm btn-icon btn-secondary"><i class="far fa-trash-alt"></i></button>
+                                    <button onclick="return confirm('Xóa {{$branch->name}} ?')"
+                                        class="btn btn-sm btn-icon btn-secondary"><i
+                                            class="far fa-trash-alt"></i></button>
                                     @csrf
                                     @method('delete')
+
+
                                 </form>
-                                <span class="sr-only">Edit</span></a> <a href="{{route('branches.edit',$branch->id)}}" class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-pencil-alt"></i> <span class="sr-only">Remove</span></a>
+                                <span class="sr-only">Edit</span></a> <a href="{{route('branches.edit',$branch->id)}}"
+                                    class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-pencil-alt"></i> <span
+                                        class="sr-only">Remove</span></a>
                             </td>
-                            <!-- <a href="{{ route('branches.destroy',$branch->id )}}" > -->
+
 
                         </tr><!-- /tr -->
                         @endforeach
                     </tbody><!-- /tbody -->
+
                 </table><!-- /.table -->
-                <br>
-                <div class="container">
-
+                <div style="float:right">
                     {{ $branches->links() }}
-
-
                 </div>
-                <br>
-                <br>
 
             </div>
             <!-- /.table-responsive -->
             <!-- .pagination -->
 
         </div><!-- /.card-body -->
+
+
 
 
 

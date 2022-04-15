@@ -11,8 +11,8 @@ class Product extends Model
 
     protected $table = 'products';
     protected $fillable = [
-        'id', 'name', 'address', 'description',
-        'area', 'juridical', 'google_map', 'created_ad', 'product_category_id',
+        'id', 'name', 'address','price', 'description','product_category_id',
+        'area', 'juridical', 'google_map', 
         'district_id', 'province_id', 'ward_id'
     ];
 
@@ -42,7 +42,7 @@ class Product extends Model
         return $this->belongto(Ward::class, 'ward_id', 'id');
     }
 
-    public function user_product() {
+    public function user_products() {
         return $this->belongsToMany(User_product::class);
     }
     
