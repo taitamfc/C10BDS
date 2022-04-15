@@ -75,34 +75,34 @@
                     @endif
                 </div>
 
-                
+
             </div>
             <div class="card-body border-top">
                 <legend>Thông tin bài viết</legend>
                 <div class="form-group">
-                    <label for="tf1">Tiêu đề <abbr title="Trường bắt buộc">*</abbr></label> 
-                    <input name="name" type="text" class="form-control" placeholder="Nhập tên"> 
-                        <small class="form-text text-muted">Tối thiểu 30 ký tự, tối đa 99 ký tự</small>
+                    <label for="tf1">Tiêu đề <abbr title="Trường bắt buộc">*</abbr></label>
+                    <input name="name" type="text" class="form-control" placeholder="Nhập tên">
+                    <small class="form-text text-muted">Tối thiểu 30 ký tự, tối đa 99 ký tự</small>
                     @if ($errors->any())
                     <p style="color:red">{{ $errors->first('name') }}</p>
                     @endif
                 </div>
                 <div class="form-group">
                     <label for="tf1">Chi tiết thông tin</label>
-                    <textarea name="description" type="text"
-                        class="form-control" placeholder="Nhập mô tả chung về bất động sản của bạn. Ví dụ: Khu nhà có vị trí thuận lợi, gần công viên, gần trường học ... "></textarea>
+                    <textarea name="description" type="text" class="form-control"
+                        placeholder="Nhập mô tả chung về bất động sản của bạn. Ví dụ: Khu nhà có vị trí thuận lợi, gần công viên, gần trường học ... "></textarea>
                     @if ($errors->any())
                     <p style="color:red">{{ $errors->first('description') }}</p>
                     @endif
                 </div>
-            </div>    
+            </div>
             <div class="card-body border-top">
                 <legend>Thông tin bất động sản</legend>
-                
+
                 <div class="row">
                     <div class="col-lg-10">
                         <div class="form-group">
-                            <label >Mức giá</label> 
+                            <label>Mức giá</label>
                             <input name="price" type="text" class="form-control" placeholder="Nhập giá, VD 12000000">
                             @if ($errors->any())
                             <p style="color:red">{{ $errors->first('price') }}</p>
@@ -111,7 +111,7 @@
                     </div>
                     <div class="col-lg-2">
                         <div class="form-group">
-                            <label >Đơn vị</label> 
+                            <label>Đơn vị</label>
                             <select name="unit" class="form-control">
                                 <option value="VND">VND</option>
                             </select>
@@ -121,26 +121,29 @@
                 <div class="form-group">
                     <label class="d-block">Giấy tờ pháp lý</label>
                     <div class="custom-control custom-control-inline custom-radio">
-                        <input type="radio" class="custom-control-input" name="juridical" id="rd1" checked="" value="Sổ đỏ/ Sổ hồng"> 
+                        <input type="radio" class="custom-control-input" name="juridical" id="rd1" checked=""
+                            value="Sổ đỏ/ Sổ hồng">
                         <label class="custom-control-label" for="rd1">Sổ đỏ/ Sổ hồng</label>
                     </div>
                     <div class="custom-control custom-control-inline custom-radio">
-                        <input type="radio" class="custom-control-input" name="juridical" id="rd2" value="Hợp đồng mua bán"> 
+                        <input type="radio" class="custom-control-input" name="juridical" id="rd2"
+                            value="Hợp đồng mua bán">
                         <label class="custom-control-label" for="rd2">Hợp đồng mua bán</label>
                     </div>
                     <div class="custom-control custom-control-inline custom-radio">
-                        <input type="radio" class="custom-control-input" name="juridical" id="rd3" value="Đang chờ sổ"> 
+                        <input type="radio" class="custom-control-input" name="juridical" id="rd3" value="Đang chờ sổ">
                         <label class="custom-control-label" for="rd3">Đang chờ sổ</label>
                     </div>
                 </div>
-                
+
 
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="form-group">
-                            <label for="tf1">Diện tích</label> 
-                                <div class="input-group input-group-alt">
-                                <input type="text" name="area" type="number" class="form-control" placeholder="Nhập diện tích, VD 80">
+                            <label for="tf1">Diện tích</label>
+                            <div class="input-group input-group-alt">
+                                <input type="text" name="area" type="number" class="form-control"
+                                    placeholder="Nhập diện tích, VD 80">
                                 <div class="input-group-append">
                                     <span class="input-group-text">m²</span>
                                 </div>
@@ -152,17 +155,25 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="form-group">
-                            <label >Hướng nhà</label> 
+                            <label>Hướng nhà</label>
                             <select name="houseDirection" class="form-control">
-                                <option value="VND">VND</option>
+                                <option value="VND">Đông</option>
+                                <option value="VND">Tây</option>
+                                <option value="VND">Nam</option>
+                                <option value="VND">Bắc</option>
+                                <option value="VND">Đông Bắc</option>
+                                <option value="VND">Tây Bắc</option>
+                                <option value="VND">Đông Nam</option>
+                                <option value="VND">Tây Nam</option>
                             </select>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="form-group">
-                            <label for="tf1">Đường vào</label> 
+                            <label for="tf1">Đường vào</label>
                             <div class="input-group input-group-alt">
-                                <input type="text" name="stress_width" type="number" class="form-control" placeholder="Nhập số">
+                                <input type="text" name="stress_width" type="number" class="form-control"
+                                    placeholder="Nhập số">
                                 <div class="input-group-append">
                                     <span class="input-group-text">m²</span>
                                 </div>
@@ -174,9 +185,10 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="form-group">
-                            <label for="tf1">Mặt tiền</label> 
+                            <label for="tf1">Mặt tiền</label>
                             <div class="input-group input-group-alt">
-                                <input type="text" name="facade" type="number" class="form-control" placeholder="Nhập số">
+                                <input type="text" name="facade" type="number" class="form-control"
+                                    placeholder="Nhập số">
                                 <div class="input-group-append">
                                     <span class="input-group-text">m²</span>
                                 </div>
@@ -193,28 +205,49 @@
                 <div class="form-group">
                     <label>Chọn nhiều hình ảnh</label>
                     <div id="dropzone" class="fileinput-dropzone">
-                        <span>Bấm chọn ảnh cần tải lên.</span> <!-- The file input field used as target for the file upload widget -->
+                        <span>Bấm chọn ảnh cần tải lên.</span>
+                        <!-- The file input field used as target for the file upload widget -->
                         <input id="fileupload-dropzone" type="file" name="product_images[]" multiple="">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="tf1">Thêm video từ Youtube</label> 
-                        <input name="linkYoutube" type="text"
-                        class="form-control" placeholder="VD: https://www.youtube.com/watch?v=Y-Dw0NpfRug">
+                    <label for="tf1">Thêm video từ Youtube</label>
+                    <input name="linkYoutube" type="text" class="form-control"
+                        placeholder="VD: https://www.youtube.com/watch?v=Y-Dw0NpfRug">
                     @if ($errors->any())
                     <p style="color:red">{{ $errors->first('linkYoutube') }}</p>
                     @endif
                 </div>
 
+                
+            </div>
+            <div class="card-body border-top">
+                <legend>Thông tin liên hệ</legend>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>Chi nhánh</label>
+                            <select name="branch_id" class="form-control">
+                                <option value="VND">VND</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>Nhân viên phụ trách</label>
+                            <select name="user_id" class="form-control">
+                                <option value="VND">VND</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
                 <div class="form-actions">
-                <button class="btn btn-secondary float-right" onclick="window.history.go(-1); return false;">Hủy</button>
-                    <button class="btn btn-primary ml-auto" type="submit">Lưu</button>                    
+                    <button class="btn btn-secondary float-right"
+                        onclick="window.history.go(-1); return false;">Hủy</button>
+                    <button class="btn btn-primary ml-auto" type="submit">Lưu</button>
                 </div>
             </div>
         </div>
-
-
-
     </form>
 </div>
 
@@ -230,8 +263,8 @@ jQuery(document).ready(function() {
             success: function(data) {
                 var districts_html = '<option value="">Vui lòng chọn</option>';
                 for (const district of data) {
-                    districts_html += '<option value="' + district.id + '">' + 
-                    district.name + '</option>';
+                    districts_html += '<option value="' + district.id + '">' +
+                        district.name + '</option>';
                 }
                 jQuery('.district_id').html(districts_html);
             }
