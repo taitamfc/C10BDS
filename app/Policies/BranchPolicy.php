@@ -18,7 +18,7 @@ class BranchPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return $user->hasPermission('Branch_viewAny');
     }
 
     /**
@@ -30,7 +30,7 @@ class BranchPolicy
      */
     public function view(User $user, Branch $branch)
     {
-        //
+        return $user->hasPermission('Branch_view');
     }
 
     /**
@@ -41,7 +41,7 @@ class BranchPolicy
      */
     public function create(User $user)
     {
-        //
+        return $user->hasPermission('Branch_create');
     }
 
     /**
@@ -53,7 +53,7 @@ class BranchPolicy
      */
     public function update(User $user, Branch $branch)
     {
-        //
+        return $user->hasPermission('Branch_update');
     }
 
     /**
@@ -65,7 +65,7 @@ class BranchPolicy
      */
     public function delete(User $user, Branch $branch)
     {
-        //
+        return $user->hasPermission('Branch_delete');
     }
 
     /**
@@ -77,7 +77,7 @@ class BranchPolicy
      */
     public function restore(User $user, Branch $branch)
     {
-        //
+        return $user->hasPermission('Branch_restore');
     }
 
     /**
@@ -89,6 +89,6 @@ class BranchPolicy
      */
     public function forceDelete(User $user, Branch $branch)
     {
-        //
+        return $user->hasPermission('Branch_forceDelete');
     }
 }

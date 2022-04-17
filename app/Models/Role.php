@@ -15,7 +15,5 @@ class Role extends Model
     ];
     public $timestamps = false;
 
-    public function user_group_role() {
-        return $this->belongsToMany(User_group_role::class);
-    }
+    
 }
