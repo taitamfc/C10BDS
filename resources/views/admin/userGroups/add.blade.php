@@ -12,40 +12,41 @@
 </header>
 
 <div class="page-section">
-    <form method="post" action="{{route('userGroups.store')}}">
-        @csrf
+    <div class="card">
+        <div class="card-body border-top">
+            <form method="post" action="{{route('userGroups.store')}}">
+                @csrf
 
-        <fieldset>
+                <fieldset>
 
-            <div class="form-group">
-                <label for="tf1">Tên nhóm</label> <input name="name" type="text" class="form-control" id=""
-                    placeholder="Nhập tên nhóm"> <small id="" class="form-text text-muted"></small>
-                @if ($errors->any())
-                <p style="color:red">{{ $errors->first('name') }}</p>
-                @endif
-            </div>
-            <div class="form-group">
-                <label for="tf1"> Mô tả nhóm </label> <input name="description" type="text" class="form-control" id=""
-                    placeholder="Nhập mô tả nhóm"> <small id="" class="form-text text-muted"></small>
-                @if ($errors->any())
-                <p style="color:red">{{ $errors->first('description') }}</p>
-                @endif
-            </div>
-
-
-
-        </fieldset>
-        <div class="form-actions">
-            <button class="btn btn-primary" type="submit">Thêm nhóm </button>
-            <button class="btn btn-secondary" onclick="window.history.go(-1); return false;">Hủy</button>
-
+                    <label for="tf1">Tên nhóm</label> <input name="name" type="text" class="form-control" id="" placeholder="Nhập tên nhóm"> <small id="" class="form-text text-muted"></small>
+                    @if ($errors->any())
+                    <p style="color:red">{{ $errors->first('name') }}</p>
+                    @endif
         </div>
-    </form>
+        <div class="card-body border-top">
+            <label for="tf1"> Mô tả nhóm </label> <input name="description" type="text" class="form-control" id="" placeholder="Nhập mô tả nhóm"> <small id="" class="form-text text-muted"></small>
+            @if ($errors->any())
+            <p style="color:red">{{ $errors->first('description') }}</p>
+            @endif
+        </div>
+        </fieldset>
+        <br>
+        <div class="row">
+            <div class="col-lg-6">
+                <button class="btn btn-secondary" onclick="window.history.go(-1); return false;">Hủy</button>
+
+            </div>
+            <div class="col-lg-6">
+                <button style="float: right;" class="btn btn-primary" type="submit">Lưu<noscript></noscript> </button>
+
+            </div>
+        </div>
+
+        </form>
+        
+    </div>
 </div>
-
-
 </div>
-
-
 </div>
 @endsection

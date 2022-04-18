@@ -74,8 +74,6 @@
                     <p style="color:red">{{ $errors->first('address') }}</p>
                     @endif
                 </div>
-
-
             </div>
             <div class="card-body border-top">
                 <legend>Thông tin bài viết</legend>
