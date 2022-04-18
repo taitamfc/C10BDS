@@ -16,7 +16,7 @@
                     <!-- .form-row -->
                     <div class="form-group form-row filter-row">
                         <div class="col-lg-4">
-                            <label class="">Tên nhánh</label>
+                            <label class="">Tên vai trò</label>
                         </div>
                         <div class="col-lg-8">
                             <div class="input text"><input type="text" name="filter[name]"

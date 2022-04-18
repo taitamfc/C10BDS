@@ -13,6 +13,12 @@
     <button type="button" class="btn btn-success btn-floated"><span class="fa fa-plus"></span></button>
     <div class="d-md-flex align-items-md-start">
         <h1 class="page-title mr-sm-auto"> Vai Trò </h1>
+        <div class="btn-toolbar">
+            <a href="{{route('roles.create')}}" class="btn btn-primary">
+                <i class="fa-solid fa fa-plus"></i>
+                <span class="ml-1">Thêm Mới</span>
+            </a>
+        </div>
     </div>
 </header>
 <div class="page-section">
@@ -25,7 +31,37 @@
             </ul>
         </div>
         <div class="card-body">
-            <div class="form-group">
+            <!-- search -->
+            <div class="row mb-2">
+                <div class="col">
+                    <form action="" method="GET" id="form-search">
+                        <div class="input-group input-group-alt">
+                            <div class="input-group-prepend">
+                                <button class="btn btn-secondary" type="button" data-toggle="modal" data-target="#modalFilterColumns">Tìm nâng cao</button>
+                            </div>
+                            <div class="input-group has-clearable">
+                                <button type="button" class="close trigger-submit trigger-submit-delay" aria-label="Close">
+                                    <span aria-hidden="true"><i class="fa fa-times-circle"></i></span>
+                                </button>
+                                <div class="input-group-prepend trigger-submit">
+                                    <span class="input-group-text"><span class="fas fa-search"></span></span>
+                                </div>
+                                <input type="text" class="form-control" name="query" value="" placeholder="Tìm nhanh theo cú pháp (ma:Mã kết quả hoặc ten:Tên kết quả)">
+                            </div>
+                            <div class="input-group-append">
+                                <button class="btn btn-secondary" data-toggle="modal" data-target="#modalSaveSearch" type="button">Lưu bộ lọc</button>
+                            </div>
+                        </div>
+                        <!-- modalFilterColumns  -->
+                        @include('admin.roles.modals.modalFilterColumns')
+                    </form>
+                    <!-- modalFilterColumns  -->
+                    @include('admin.roles.modals.modalSaveSearch')
+                </div>
+            </div>
+            <!-- endsearch -->
+
+            <!-- <div class="form-group">
                 <div class="input-group input-group-alt">
                     <div class="input-group-prepend">
                         <select class="custom-select">
@@ -43,14 +79,11 @@
                         </div><input type="text" class="form-control" placeholder="Search record">
                     </div>
                 </div>
-            </div>
-
+            </div> -->
+            <!-- cut -->
             <div class="table-responsive">
                 <table class="table">
                     <thead>
-                        <div class="col-lg-12 mt-3">
-                            <a href="{{route('roles.create')}}" class="btn btn-primary"> Thêm vai trò </a>
-                        </div>
                         <br>
                         @if (Session::has('success'))
                         <div class="alert alert-success">{{session::get('success')}}</div>
@@ -60,10 +93,9 @@
                         @endif
                         <br>
                         <tr>
-
                             <th> # </th>
                             <th> Tên vai trò </th>
-                            <th> chức năng </th>
+                            <th> Chức năng </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -84,7 +116,6 @@
                     </tbody>
                 </table>
             </div>
-
         </div>
         <nav aria-label="Page navigation example">
             <div class='float:right'>
@@ -93,5 +124,6 @@
                 </ul>
             </div>
         </nav>
-
+    </div>
+</div>
 @endsection

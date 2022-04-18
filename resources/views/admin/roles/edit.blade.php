@@ -5,7 +5,7 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item active">
-                <a href="{{route('roles.index')}}"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i> Danh Sách Vai Trò </a>
+                <a href="{{route('roles.index')}}"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Trở về</a>
             </li>
         </ol>
     </nav>
@@ -13,32 +13,29 @@
 </header>
 
 <div class="page-section">
-    <div class="d-xl-none">
-        <button class="btn btn-danger btn-floated" type="button" data-toggle="sidebar"><i class="fa fa-th-list"></i></button>
-    </div>
-    <div id="base-style" class="card">
-        <div class="card-body">
-            <form method="post" action="{{route('roles.update',$role->id)}}">
-                @csrf
-                @method('PUT')
-                <fieldset>
-                    <legend>Base style</legend>
-                    <div class="form-group">
-                        <label for="tf1"> Vai trò </label> <input type="text" name="name" value="{{$role->name}}" class="form-control" >
-                        <small class="form-text text-muted"></small>
-                        @if ($errors->any())
-                        <p style="color:red">{{$errors->first('name')}}</p>
-                        @endif
-                    </div>
-
-                </fieldset>
-                <div class="form-actions">
-                    <button class="btn btn-primary" type="submit"> Cập nhật </button>
-                    <a class="btn btn-secondary" href="{{route('roles.index')}}"> Hủy </a>
-
+    <form method="post" action="{{route('roles.update',$role->id)}}">
+        @csrf
+        @method('PUT')
+        <div class="card">
+            <div class="card-body">
+                <legend>Thông tin cơ bản</legend>
+                <!-- <form method="post" action="{{route('roles.update',$role->id)}}">
+                    @csrf
+                    @method('PUT') -->
+                <div class="form-group">
+                    <label for="tf1"> Vai trò </label> <input type="text" name="name" value="{{$role->name}}" class="form-control">
+                    <small class="form-text text-muted"></small>
+                    @if ($errors->any())
+                    <p style="color:red">{{$errors->first('name')}}</p>
+                    @endif
                 </div>
-            </form>
+                <div class="form-actions">
+                    <a class="btn btn-secondary float-right" href="{{route('roles.index')}}">Hủy</a>
+                    <button class="btn btn-primary ml-auto" type="submit">Cập nhật</button>
+                </div>
+            </div>
         </div>
-    </div>
+    </form>
 </div>
+
 @endsection
