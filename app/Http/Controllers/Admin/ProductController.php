@@ -55,8 +55,9 @@ class ProductController extends Controller
      * @param  \App\Http\Requests\StoreProductRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreProductRequest $request)
     {
+        // dd($request->all());
         $product = new Product();
         $product->name = $request->name;
         $product->address = $request->address;
@@ -64,12 +65,19 @@ class ProductController extends Controller
         $product->description = $request->description;
         $product->product_category_id = $request->product_category_id;
         $product->area = $request->area;
+        $product->unit = $request->unit;
+        $product->houseDirection = $request->houseDirection;
+        $product->facade = $request->facade;
         $product->juridical = $request->juridical;
         $product->google_map = $request->google_map;
+        $product->linkYoutube = $request->linkYoutube;
         $product->stress_width = $request->stress_width;
         $product->province_id = $request->province_id;
+        $product->branch_id = $request->branch_id;
+        $product->user_id = $request->user_id;
         $product->district_id = $request->district_id;
         $product->ward_id = $request->ward_id;
+        // dd($product);
         try {
             $product->save();
             Session::flash('success', 'Thêm' . ' ' . $request->name . ' ' .  'thành công');
@@ -128,16 +136,21 @@ class ProductController extends Controller
         $product->name = $request->input('name');
         $product->address = $request->input('address');
         $product->price = $request->input('price');
+        $product->unit = $request->input('unit');
         $product->description = $request->input('description');
         $product->product_category_id = $request->input('product_category_id');
         $product->area = $request->input('area');
         $product->juridical = $request->input('juridical');
+        $product->linkYoutube = $request->input('linkYoutube');
+        $product->houseDirection = $request->input('houseDirection');
         $product->google_map = $request->input('google_map');
+        $product->facade = $request->input('facade');
         $product->stress_width = $request->input('stress_width');
         $product->province_id = $request->input('province_id');
+        $product->branch_id = $request->input('branch_id');
         $product->district_id = $request->input('district_id');
+        $product->user_id = $request->input('user_id');
         $product->ward_id = $request->input('ward_id');
-        
         try {
             $product->save();
             return redirect()->route('products.index')

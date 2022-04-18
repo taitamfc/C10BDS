@@ -31,8 +31,9 @@
                     @endif
                 </fieldset>
                 <div class="form-actions">
-                    <button class="btn btn-primary" type="submit">Cập nhật</button>
-                    <button class="btn btn-secondary" onclick="window.history.go(-1); return false;">Hủy</button>
+                <a class="btn btn-secondary float-right" href="{{route('productCategories.index')}}">Hủy</a>
+
+                    <button class="btn btn-primary ml-auto" type="submit">Cập nhật</button>
                 </div>
             </form>
         </div>

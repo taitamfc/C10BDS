@@ -46,7 +46,7 @@
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Quận/Huyện</label>
-                            <select name="_id" class="form-control district_id">
+                            <select name="district_id" class="form-control district_id">
                                 <option value="">Vui lòng chọn</option>
                             </select>
                             @if ($errors->any())
@@ -90,6 +90,13 @@
                     <textarea name="description" type="text" class="form-control" placeholder="Nhập mô tả chung về bất động sản của bạn. Ví dụ: Khu nhà có vị trí thuận lợi, gần công viên, gần trường học ... "></textarea>
                     @if ($errors->any())
                     <p style="color:red">{{ $errors->first('description') }}</p>
+                    @endif
+                </div>
+                <div class="form-group">
+                    <label for="tf1">Chi tiết thông tin</label>
+                    <textarea name="google_map" type="text" class="form-control" placeholder="Mô tả trên bản đồ"></textarea>
+                    @if ($errors->any())
+                    <p style="color:red">{{ $errors->first('google_map') }}</p>
                     @endif
                 </div>
             </div>
@@ -231,14 +238,13 @@
                     </div>
                 </div>
                 <div class="form-actions">
-                    <button class="btn btn-secondary float-right" onclick="window.history.go(-1); return false;">Hủy</button>
+                    <a class="btn btn-secondary float-right" href="{{route('products.index')}}">Hủy</a>
                     <button class="btn btn-primary ml-auto" type="submit">Lưu</button>
                 </div>
             </div>
         </div>
     </form>
 </div>
-
 
 <script>
     jQuery(document).ready(function() {
