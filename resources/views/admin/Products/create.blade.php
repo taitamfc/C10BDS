@@ -67,9 +67,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="tf1">Địa chỉ</label> <input name="address" type="text" class="form-control"
-                        placeholder="Bạn có thể bổ sung hẻm, ngách, ngõ..."> <small
-                        class="form-text text-muted"></small>
+                    <label for="tf1">Địa chỉ</label> <input name="address" type="text" class="form-control" placeholder="Bạn có thể bổ sung hẻm, ngách, ngõ..."> <small class="form-text text-muted"></small>
                     @if ($errors->any())
                     <p style="color:red">{{ $errors->first('address') }}</p>
                     @endif
@@ -89,8 +87,7 @@
                 </div>
                 <div class="form-group">
                     <label for="tf1">Chi tiết thông tin</label>
-                    <textarea name="description" type="text" class="form-control"
-                        placeholder="Nhập mô tả chung về bất động sản của bạn. Ví dụ: Khu nhà có vị trí thuận lợi, gần công viên, gần trường học ... "></textarea>
+                    <textarea name="description" type="text" class="form-control" placeholder="Nhập mô tả chung về bất động sản của bạn. Ví dụ: Khu nhà có vị trí thuận lợi, gần công viên, gần trường học ... "></textarea>
                     @if ($errors->any())
                     <p style="color:red">{{ $errors->first('description') }}</p>
                     @endif
@@ -121,13 +118,11 @@
                 <div class="form-group">
                     <label class="d-block">Giấy tờ pháp lý</label>
                     <div class="custom-control custom-control-inline custom-radio">
-                        <input type="radio" class="custom-control-input" name="juridical" id="rd1" checked=""
-                            value="Sổ đỏ/ Sổ hồng">
+                        <input type="radio" class="custom-control-input" name="juridical" id="rd1" checked="" value="Sổ đỏ/ Sổ hồng">
                         <label class="custom-control-label" for="rd1">Sổ đỏ/ Sổ hồng</label>
                     </div>
                     <div class="custom-control custom-control-inline custom-radio">
-                        <input type="radio" class="custom-control-input" name="juridical" id="rd2"
-                            value="Hợp đồng mua bán">
+                        <input type="radio" class="custom-control-input" name="juridical" id="rd2" value="Hợp đồng mua bán">
                         <label class="custom-control-label" for="rd2">Hợp đồng mua bán</label>
                     </div>
                     <div class="custom-control custom-control-inline custom-radio">
@@ -142,8 +137,7 @@
                         <div class="form-group">
                             <label for="tf1">Diện tích</label>
                             <div class="input-group input-group-alt">
-                                <input type="text" name="area" type="number" class="form-control"
-                                    placeholder="Nhập diện tích, VD 80">
+                                <input type="text" name="area" type="number" class="form-control" placeholder="Nhập diện tích, VD 80">
                                 <div class="input-group-append">
                                     <span class="input-group-text">m²</span>
                                 </div>
@@ -172,8 +166,7 @@
                         <div class="form-group">
                             <label for="tf1">Đường vào</label>
                             <div class="input-group input-group-alt">
-                                <input type="text" name="stress_width" type="number" class="form-control"
-                                    placeholder="Nhập số">
+                                <input type="text" name="stress_width" type="number" class="form-control" placeholder="Nhập số">
                                 <div class="input-group-append">
                                     <span class="input-group-text">m²</span>
                                 </div>
@@ -187,8 +180,7 @@
                         <div class="form-group">
                             <label for="tf1">Mặt tiền</label>
                             <div class="input-group input-group-alt">
-                                <input type="text" name="facade" type="number" class="form-control"
-                                    placeholder="Nhập số">
+                                <input type="text" name="facade" type="number" class="form-control" placeholder="Nhập số">
                                 <div class="input-group-append">
                                     <span class="input-group-text">m²</span>
                                 </div>
@@ -212,14 +204,11 @@
                 </div>
                 <div class="form-group">
                     <label for="tf1">Thêm video từ Youtube</label>
-                    <input name="linkYoutube" type="text" class="form-control"
-                        placeholder="VD: https://www.youtube.com/watch?v=Y-Dw0NpfRug">
+                    <input name="linkYoutube" type="text" class="form-control" placeholder="VD: https://www.youtube.com/watch?v=Y-Dw0NpfRug">
                     @if ($errors->any())
                     <p style="color:red">{{ $errors->first('linkYoutube') }}</p>
                     @endif
                 </div>
-
-                
             </div>
             <div class="card-body border-top">
                 <legend>Thông tin liên hệ</legend>
@@ -242,8 +231,7 @@
                     </div>
                 </div>
                 <div class="form-actions">
-                    <button class="btn btn-secondary float-right"
-                        onclick="window.history.go(-1); return false;">Hủy</button>
+                    <button class="btn btn-secondary float-right" onclick="window.history.go(-1); return false;">Hủy</button>
                     <button class="btn btn-primary ml-auto" type="submit">Lưu</button>
                 </div>
             </div>
@@ -253,42 +241,39 @@
 
 
 <script>
-jQuery(document).ready(function() {
-    jQuery('.province_id').on('change', function() {
-        var province_id = jQuery(this).val();
+    jQuery(document).ready(function() {
+        jQuery('.province_id').on('change', function() {
+            var province_id = jQuery(this).val();
 
-        $.ajax({
-            url: "/api/get_districts/" + province_id,
-            type: "GET",
-            success: function(data) {
-                var districts_html = '<option value="">Vui lòng chọn</option>';
-                for (const district of data) {
-                    districts_html += '<option value="' + district.id + '">' +
-                        district.name + '</option>';
+            $.ajax({
+                url: "/api/get_districts/" + province_id,
+                type: "GET",
+                success: function(data) {
+                    var districts_html = '<option value="">Vui lòng chọn</option>';
+                    for (const district of data) {
+                        districts_html += '<option value="' + district.id + '">' +
+                            district.name + '</option>';
+                    }
+                    jQuery('.district_id').html(districts_html);
                 }
-                jQuery('.district_id').html(districts_html);
-            }
+            });
         });
+        jQuery('.district_id').on('change', function() {
+            var district_id = jQuery(this).val();
 
-    });
-
-    jQuery('.district_id').on('change', function() {
-        var district_id = jQuery(this).val();
-
-        $.ajax({
-            url: "/api/get_wards/" + district_id,
-            type: "GET",
-            success: function(data) {
-                var wards_html = '<option value="">Vui lòng chọn</option>';
-                for (const ward of data) {
-                    wards_html += '<option value="' + ward.id + '">' + ward.name +
-                        '</option>';
+            $.ajax({
+                url: "/api/get_wards/" + district_id,
+                type: "GET",
+                success: function(data) {
+                    var wards_html = '<option value="">Vui lòng chọn</option>';
+                    for (const ward of data) {
+                        wards_html += '<option value="' + ward.id + '">' + ward.name + '</option>';
+                    }
+                    jQuery('.ward_id').html(wards_html);
                 }
-                jQuery('.ward_id').html(wards_html);
-            }
-        });
+            });
 
+        });
     });
-});
 </script>
 @endsection
