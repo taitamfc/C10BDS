@@ -18,11 +18,9 @@ class BranchController extends Controller
      */
     public function index(Request $request)
     {
-
+        $this->authorize('viewAny',Branch::class);
         $branches = Branch::paginate(3);
-
         return view('admin.branches.index', compact('branches'));
-
     }
 
     /**
@@ -32,7 +30,7 @@ class BranchController extends Controller
      */
     public function create()
     {
-
+        $this->authorize('create',Branch::class);
         return view('admin.branches.add');
     }
 
@@ -44,14 +42,12 @@ class BranchController extends Controller
      */
     public function store(StoreBranchRequest $request)
     {
-
+        $this->authorize('create',Branch::class);
 
         $branch = new Branch();
         $branch->name = $request->name;
         $branch->address = $request->address;
         $branch->phone = $request->phone;
-
-
         $branch->save();
 
         return redirect()->route('branches.index')->with('success','Thêm'. ' ' . $request->name.' '.  'thành công');
@@ -65,7 +61,7 @@ class BranchController extends Controller
      */
     public function show(Branch $branch)
     {
-        //
+        $this->authorize('view',Branch::class);
     }
 
     /**
@@ -77,6 +73,8 @@ class BranchController extends Controller
     public function edit( $id) 
     {
         $branch = Branch::find($id);
+        $this->authorize('update',$branch);
+        
         $params = [
             'branch' => $branch
         ];
@@ -93,7 +91,10 @@ class BranchController extends Controller
      */
     public function update(UpdateBranchRequest $request, $id)
     {
-        Branch::find($id)->update($request->only('name','address','phone'));
+        $branch = Branch::find($id);
+        $this->authorize('update',$branch);
+
+        $branch->update($request->only('name','address','phone'));
         return redirect()->route('branches.index')->with('success', 'Sửa '. ' ' . $request->name.' ' .'thành công');
 
     }
@@ -106,6 +107,8 @@ class BranchController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('delete',Branch::class);
+
         $branch = Branch::find($id);
         $branch->delete();
         
