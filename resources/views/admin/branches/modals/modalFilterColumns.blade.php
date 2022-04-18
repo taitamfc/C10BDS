@@ -19,8 +19,31 @@
                             <label class="">Tên nhóm</label>
                         </div>
                         <div class="col-lg-8">
-                            <div class="input text"><input type="text" name="filter[name]"
-                                    class="form-control filter-column f-name" id="name" /></div>
+                            <div class="input text">
+                                <input type="text" name="filter[name]" class="form-control filter-column f-name" id="name" />
+                            </div>
+                        </div>
+                    </div>
+                    <!-- .form-row -->
+                    <div class="form-group form-row filter-row">
+                        <div class="col-lg-4">
+                            <label class="">Địa chỉ </label>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="input text">
+                                <input type="text" name="filter[adress]" class="form-control filter-column f-adress" id="adress" />
+                            </div>
+                        </div>
+                    </div>
+                    <!-- .form-row -->
+                    <div class="form-group form-row filter-row">
+                        <div class="col-lg-4">
+                            <label class="">Địa chỉ </label>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="input text">
+                                <input type="text" name="filter[adress]" class="form-control filter-column f-adress" id="adress" />
+                            </div>
                         </div>
                     </div>
                 </div><!-- #filter-columns -->
