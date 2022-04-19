@@ -29,14 +29,14 @@
                             <div class="input text"><input type="text" name="filter[phone]" class="form-control filter-column f-name" id="phone" /></div>
                         </div>
                     </div>
-                    <div class="form-group form-row filter-row">
+                    <!-- <div class="form-group form-row filter-row">
                         <div class="col-lg-4">
                             <label class="">Địa chỉ</label>
                         </div>
                         <div class="col-lg-8">
                             <div class="input text"><input type="text" name="filter[address]" class="form-control filter-column f-name" id="address" /></div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="form-group form-row filter-row">
                         <div class="col-lg-4">
                             <label class="">Tỉnh/ Thành phố</label>

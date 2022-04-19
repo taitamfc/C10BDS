@@ -27,7 +27,7 @@ class RoleController extends Controller
             $group_name = $request->filter['group_name'];
             $query->where('group_name', 'LIKE', '%' . $group_name . '%');
         }
-
+        $query->orderBy('name', 'group_name');
         $roles = $query->paginate(3);
         return view('admin.roles.index', compact('roles'));
     }

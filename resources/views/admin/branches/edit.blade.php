@@ -45,6 +45,7 @@
                         <div class="form-group">
                             <label for="exampleInputEmail1">Tỉnh/Thành phố</label>
                             <select name="province_id" class="form-control province_id" value="{{  $branch->province_id }}">
+                            <option value="">Vui lòng chọn</option>
                                 @foreach($provinces as $province)
                                 <option value="{{ $province->id }}">{{$province->name}}</option>
                                 @endforeach

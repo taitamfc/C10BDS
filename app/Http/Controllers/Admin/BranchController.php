@@ -10,6 +10,7 @@ use App\Models\District;
 use App\Models\Province;
 use App\Models\Ward;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 class BranchController extends Controller
@@ -21,6 +22,9 @@ class BranchController extends Controller
      */
     public function index(Request $request)
     {
+        // $branch = DB::table('branchs')
+        // ->latest()
+        // ->first();
         // $this->authorize('viewAny',Branch::class);
 
         //$query = Branch::query(true);
@@ -51,6 +55,8 @@ class BranchController extends Controller
             $ward_id = $request->filter['ward_id'];
             $query->where('ward_id',$ward_id);
         }
+        $query->orderBy('name', 'address', 'phone', 'province_id', 'district_id', 'ward_id');
+
         $branches = $query->paginate(3);
 
         $provinces = Province::all();

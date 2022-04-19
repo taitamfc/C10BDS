@@ -12,7 +12,7 @@
     </nav>
     <!-- <button type="button" class="btn btn-success btn-floated"><span class="fa fa-plus"></span></button> -->
     <div class="d-md-flex align-items-md-start">
-        <h1 class="page-title mr-sm-auto"> Vai Trò </h1>
+        <h1 class="page-title mr-sm-auto">Quản Lý Vai Trò</h1>
         <div class="btn-toolbar">
             <a href="{{route('roles.create')}}" class="btn btn-primary">
                 <i class="fa-solid fa fa-plus"></i>

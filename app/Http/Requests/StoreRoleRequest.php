@@ -32,7 +32,7 @@ class StoreRoleRequest extends FormRequest
     {
         return [
             'name.required' => 'Vui lòng nhập vai trò',
-            'group_name.required' => 'Vui lòng nhập vai trò',
+            'group_name.required' => 'Vui lòng nhập nhóm người dùng',
         ];
     }
 }

@@ -5,11 +5,11 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item active">
-                <a href="{{route('branches.index')}}"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Trở lại</a>
+                <a href="{{route('branches.index')}}"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Quản Lý Chi Nhánh</a>
             </li>
         </ol>
     </nav>
-    <h1 class="page-title">Thêm chi nhánh</h1>
+    <h1 class="page-title">Thêm Chi Nhánh</h1>
 </header>
 
 <div class="page-section">
@@ -44,6 +44,7 @@
                         <div class="form-group">
                             <label for="exampleInputEmail1">Tỉnh/Thành phố</label>
                             <select name="province_id" class="form-control province_id">
+                            <option value="">Vui lòng chọn</option>
                                 @foreach($provinces as $province)
                                 <option value="{{ $province->id }}">{{$province->name}}</option>
                                 @endforeach

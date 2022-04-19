@@ -5,11 +5,11 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item active">
-                <a href="{{route('roles.index')}}"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Trở về</a>
+                <a href="{{route('roles.index')}}"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Quản Lý Vai Trò</a>
             </li>
         </ol>
     </nav>
-    <h1 class="page-title"> Chỉnh Sửa Vai Trò </h1>
+    <h1 class="page-title">Chỉnh Sửa Vai Trò</h1>
 </header>
 
 <div class="page-section">

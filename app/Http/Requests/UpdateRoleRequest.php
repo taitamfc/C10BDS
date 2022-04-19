@@ -28,12 +28,11 @@ class UpdateRoleRequest extends FormRequest
             'group_name' => 'required',
         ];
     }
-
     public function messages()
     {
         return [
             'name.required' => 'Vui lòng nhập vai trò người dùng',
-            'group_name.required' => 'Vui lòng nhập vai trò người dùng',
+            'group_name.required' => 'Vui lòng nhập nhóm người dùng',
         ];
     }
 }

@@ -10,7 +10,7 @@
             </li>
         </ol>
     </nav>
-    <h1 class="page-title"> Thêm vai trò </h1>
+    <h1 class="page-title"> Thêm Vai Trò </h1>
 </header>
 
 <div class="page-section">
