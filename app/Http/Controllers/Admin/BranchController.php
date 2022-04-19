@@ -22,12 +22,7 @@ class BranchController extends Controller
      */
     public function index(Request $request)
     {
-        // $branch = DB::table('branchs')
-        // ->latest()
-        // ->first();
         // $this->authorize('viewAny',Branch::class);
-
-        //$query = Branch::query(true);
         $query = Branch::select('*');
         // dd($query);
         if( isset( $request->filter['name'] ) && $request->filter['name'] ){
@@ -67,7 +62,6 @@ class BranchController extends Controller
 
         return view('admin.branches.index', $params);    
     }
-    // $province = Province::all();
 
     /**
      * Show the form for creating a new resource.
@@ -76,7 +70,7 @@ class BranchController extends Controller
      */
     public function create()
     {
-        // $this->authorize('create', Branch::class);
+      // $this->authorize('create', Branch::class);
         $branches = Branch::all();
         $provinces = Province::all();
         // $districts = District::all();
@@ -99,9 +93,6 @@ class BranchController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
-        // $this->authorize('create', Branch::class);
-
         $branch = new Branch();
         $branch->name = $request->name;
         $branch->address = $request->address;
@@ -110,7 +101,6 @@ class BranchController extends Controller
         $branch->district_id = $request->district_id;
         $branch->ward_id = $request->ward_id;       
     
-
         try {
             $branch->save();
             return redirect()->route('branches.index')->with('success', 'Thêm' . ' ' . $request->name . ' ' .  'thành công');
@@ -127,7 +117,7 @@ class BranchController extends Controller
      */
     public function show(Branch $branch)
     {
-        // $this->authorize('view', Branch::class);
+      $this->authorize('view', Branch::class);
     }
 
     /**
@@ -139,11 +129,10 @@ class BranchController extends Controller
     public function edit($id)
     {
         $branch = Branch::find($id);
+       // $this->authorize('update', $branch);
         $provinces = Province::all();
         $districts = District::all();
         $wards = Ward::all();
-        // $this->authorize('update', $branch);
-
         $params = [
             'branch' => $branch,
             'provinces' => $provinces,
@@ -164,10 +153,19 @@ class BranchController extends Controller
     public function update(UpdateBranchRequest $request, $id)
     {
         $branch = Branch::find($id);
-        // $this->authorize('update', $branch);
-
-        $branch->update($request->only('name', 'address', 'phone', 'province_id', 'district_id', 'ward_id'));
-        return redirect()->route('branches.index')->with('success', 'Sửa ' . ' ' . $request->name . ' ' . 'thành công');
+        $branch->name = $request->name;
+        $branch->address = $request->address;
+        $branch->phone = $request->phone;
+        $branch->province_id = $request->province_id;
+        $branch->district_id = $request->district_id;
+        $branch->ward_id = $request->ward_id;       
+    
+        try {
+            $branch->save();
+            return redirect()->route('branches.index')->with('success', 'Thêm' . ' ' . $request->name . ' ' .  'thành công');
+        } catch (\Exception $e) {
+            return redirect()->route('branches.index')->with('error', 'Thêm' . ' ' . $request->name . ' ' .  'không thành công');
+        }
     }
 
     /**
@@ -179,7 +177,6 @@ class BranchController extends Controller
     public function destroy($id)
     {
         // $this->authorize('delete', Branch::class);
-
         $branch = Branch::find($id);
         $branch->delete();
         return redirect()->route('branches.index')->with('success', 'Xóa thành công');

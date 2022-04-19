@@ -10,14 +10,21 @@ use Illuminate\Http\Request;
 
 class UserGroupController extends Controller
 {
+ 
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $userGroups = UserGroup::paginate(3);
+        $query = UserGroup::select('*');
+        if (isset($request->filter['name']) && $request->filter['name']) {
+            $name = $request->filter['name'];
+            $query->where('name', 'LIKE', '%' . $name . '%');
+        }
+        $query->orderBy('id', 'desc');
+        $userGroups = $query->paginate(4);
         $params = [
             'userGroups' => $userGroups
         ];
