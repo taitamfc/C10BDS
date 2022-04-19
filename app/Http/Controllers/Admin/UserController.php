@@ -13,6 +13,8 @@ use App\Models\District;
 use App\Models\Province;
 use App\Models\Ward;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
@@ -52,7 +54,7 @@ class UserController extends Controller
         }
     
 
-
+        $query->orderBy('id', 'desc');
         $users = $query->paginate(4);
         // dd($users);
         $userGroups = UserGroup::all();
@@ -102,24 +104,25 @@ class UserController extends Controller
     {
         // dd($request->all());
         $user = new User();
-        $user->name = $request->name;
-        $user->gender = $request->gender;
-        $user->day_of_birth = $request->day_of_birth;
-        $user->address = $request->address;
-        $user->email = $request->email;
-        $user->phone = $request->phone;
-        $user->password = $request->password;
-        $user->start_day = $request->start_day;
-        $user->user_group_id = $request->user_group_id;
-        $user->branch_id = $request->branch_id;
-        $user->province_id = $request->province_id;
-        $user->district_id = $request->district_id;
-        $user->ward_id = $request->ward_id;
-        $user->note = $request->note;
+        $user->name             = $request->name;
+        $user->gender           = $request->gender;
+        $user->day_of_birth     = $request->day_of_birth;
+        $user->address          = $request->address;
+        $user->email            = $request->email;
+        $user->phone            = $request->phone;
+        $user->password         = Hash::make($request->password);
+        $user->start_day        = $request->start_day;
+        $user->user_group_id    = $request->user_group_id;
+        $user->branch_id        = $request->branch_id;
+        $user->province_id      = $request->province_id;
+        $user->district_id      = $request->district_id;
+        $user->ward_id          = $request->ward_id;
+        $user->note             = $request->note;
         try {
             $user->save();
             return redirect()->route('users.index')->with('success', 'Thêm' . ' ' . $request->name . ' ' .  'thành công');
         } catch (\Exception $e) {
+            Log::error($e->getMessage());
             return redirect()->route('users.index')->with('success', 'Thêm' . ' ' . $request->name . ' ' .  'không thành công');
         }
     }
@@ -167,25 +170,27 @@ class UserController extends Controller
     public function update(UpdateUserRequest $request, $id)
     {
         $user = User::find($id);
-        $user->name = $request->input('name');
-        $user->gender = $request->input('gender');
-        $user->day_of_birth = $request->input('day_of_birth');
-        $user->address = $request->input('address');
-        $user->email = $request->input('email');
-        $user->phone = $request->input('phone');
-        $user->password = $request->input('password');
-        $user->start_day = $request->input('start_day');
-        $user->user_group_id = $request->input('user_group_id');
-        $user->branch_id = $request->input('branch_id');
-        $user->province_id = $request->input('province_id');
-        $user->district_id = $request->input('district_id');
-        $user->ward_id = $request->input('ward_id');
-
-        $user->note = $request->input('note');
+        $user->name             = $request->name;
+        $user->gender           = $request->gender;
+        $user->day_of_birth     = $request->day_of_birth;
+        $user->address          = $request->address;
+        $user->email            = $request->email;
+        $user->phone            = $request->phone;
+        if ($request->password){
+            $user->password         = Hash::make($request->password);
+        }
+        $user->start_day        = $request->start_day;
+        $user->user_group_id    = $request->user_group_id;
+        $user->branch_id        = $request->branch_id;
+        $user->province_id      = $request->province_id;
+        $user->district_id      = $request->district_id;
+        $user->ward_id          = $request->ward_id;
+        $user->note             = $request->note;
         try {
             $user->save();
             return redirect()->route('users.index')->with('success', 'Sửa' . ' ' . $request->name . ' ' .  'thành công');
         } catch (\Exception $e) {
+            Log::error($e->getMessage());
             return redirect()->route('users.index')->with('success', 'Sửa' . ' ' . $request->name . ' ' .  'không thành công');
         }
     }

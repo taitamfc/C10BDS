@@ -14,7 +14,7 @@
     </nav>
     <a href="{{route('userGroups.index')}}" class="btn btn-success btn-floated"> </a>
     <div class="d-md-flex align-items-md-start">
-        <h1 class="page-title mr-sm-auto"> Nhóm nhân viên</h1><!-- .btn-toolbar -->
+        <h1 class="page-title mr-sm-auto"> Quản Lý Nhóm Nhân Viên</h1><!-- .btn-toolbar -->
         <div class="btn-toolbar">
             <a href="{{ route('userGroups.create') }}" class="btn btn-primary">
                 <i class="fa-solid fa fa-plus"></i>

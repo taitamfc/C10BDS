@@ -11,7 +11,7 @@
             </li>
         </ol>
     </nav>
-    <h1 class="page-title"> Thêm nhân viên<noscript></noscript> </h1>
+    <h1 class="page-title"> Thêm Nhân Viên<noscript></noscript> </h1>
 </header>
 
 <div class="page-section">

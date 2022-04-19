@@ -8,7 +8,7 @@
             </li>
         </ol>
     </nav>
-    <h1 class="page-title"> Thêm nhóm </h1>
+    <h1 class="page-title"> Thêm Nhóm Nhân </h1>
 </header>
 
 <div class="page-section">

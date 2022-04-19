@@ -30,7 +30,7 @@ class UpdateUserRequest extends FormRequest
             'address' => 'required',
             'email' => 'required',
             'phone' => 'required',
-            'password' => 'required',
+            // 'password' => 'required',
             'start_day' => 'required',
             'user_group_id' => 'required',
             'branch_id' => 'required',

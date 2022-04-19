@@ -23,7 +23,7 @@ class UserGroupController extends Controller
             $name = $request->filter['name'];
             $query->where('name', 'LIKE', '%' . $name . '%');
         }
-
+        $query->orderBy('id', 'desc');
         $userGroups = $query->paginate(4);
         $params = [
             'userGroups' => $userGroups

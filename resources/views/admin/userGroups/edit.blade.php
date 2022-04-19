@@ -9,7 +9,7 @@
             </li>
         </ol>
     </nav>
-    <h1 class="page-title"> Chỉnh sửa nhóm nhân viên </h1>
+    <h1 class="page-title"> Chỉnh Sửa Nhóm Nhân Viên </h1>
 </header>
 
 <div class="page-section">
