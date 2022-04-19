@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
+use App\Models\ProductCategory;
+
 class ProductCategorySeeder extends Seeder
 {
     /**
@@ -14,6 +16,8 @@ class ProductCategorySeeder extends Seeder
      */
     public function run()
     {
-        //
+        $ProductCategory = new ProductCategory();
+        $ProductCategory->name = 'Bán Đất';
+        $ProductCategory->save();
     }
 }

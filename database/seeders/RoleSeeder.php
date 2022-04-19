@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Role;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class RoleSeeder extends Seeder
 {
@@ -25,5 +26,18 @@ class RoleSeeder extends Seeder
         $roles->save();
 
 
+        $groups     = ['Branch'];
+        $actions    = ['viewAny','view','create','update','delete','restore','forceDelete'];
+        foreach( $groups as $group ){
+            foreach( $actions as $action ){
+                DB::table('roles')->insert([
+                    'group_name' => $group,
+                    'name' => $group.'_'.$action,
+                ]);
+            }
+        }
+
+
+        
     }
 }
