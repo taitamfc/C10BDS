@@ -19,11 +19,20 @@ return new class extends Migration
             $table->string('address');
             $table->double('price');
             $table->string('description');
-            $table->unsignedBigInteger('product_category_id'); 
+            $table->unsignedBigInteger('product_category_id');
             $table->foreign('product_category_id')->references('id')->on('product_categories');
             $table->double('area');
             $table->string('juridical');
+            $table->string('unit');
+            $table->string('status');
+            $table->string('houseDirection');
+            $table->double('facade');
             $table->text('google_map');
+            $table->unsignedBigInteger('branch_id');
+            $table->foreign('branch_id')->references('id')->on('branches');
+            $table->text('linkYoutube');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->double('stress_width');
             $table->unsignedBigInteger('province_id');
             $table->foreign('province_id')->references('id')->on('provinces');
@@ -32,6 +41,7 @@ return new class extends Migration
             $table->unsignedBigInteger('ward_id');
             $table->foreign('ward_id')->references('id')->on('wards');
             $table->timestamps();
+            $table->softDeletes(); // add
         });
     }
 
