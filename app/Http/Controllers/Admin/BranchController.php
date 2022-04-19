@@ -50,7 +50,7 @@ class BranchController extends Controller
             $ward_id = $request->filter['ward_id'];
             $query->where('ward_id',$ward_id);
         }
-        $query->orderBy('name', 'address', 'phone', 'province_id', 'district_id', 'ward_id');
+        $query->orderBy('id','DESC');
 
         $branches = $query->paginate(3);
 
