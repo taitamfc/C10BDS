@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProductCategoryRequest;
 use App\Http\Requests\UpdateProductCategoryRequest;
 use App\Models\ProductCategory;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -16,9 +17,17 @@ class ProductCategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $productCategories = ProductCategory::paginate(5);
+        $productCategories = ProductCategory::select('*');
+
+        if (isset($request->filter['name']) && $request->filter['name']) {
+            $name = $request->filter['name'];
+            $productCategories->where('name', 'LIKE', '%' . $name . '%');
+        }
+
+        $productCategories = $productCategories->orderBy('id', 'desc')->paginate(3);
+        
         return view('admin.productCategories.index', compact('productCategories'));
     }
 
@@ -103,8 +112,13 @@ class ProductCategoryController extends Controller
      */
     public function destroy($id)
     {
-        $productCategory = ProductCategory::find($id);
-        $productCategory->delete();
-        return redirect()->route('productCategories.index')->with('success', 'Xóa  thành công');
+        try {
+            $productCategory = ProductCategory::withTrashed()->where('id', 1)->restore();
+            // $productCategory->delete();
+            return redirect()->route('productCategories.index')->with('success', 'Xóa  thành công');
+        } catch (\Exception $e) {
+            return redirect()->route('productCategories.index')->with('success', 'Xóa không  thành công');
+        }
+        // $productCategory = ProductCategory::find($id);
     }
 }

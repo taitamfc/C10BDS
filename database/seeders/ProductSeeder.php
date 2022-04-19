@@ -101,7 +101,7 @@ class ProductSeeder extends Seeder
             }
             $objProduct->save();
             //https://laravel.com/docs/9.x/eloquent-relationships#the-create-method
-            $objProduct->product_images()->createMany($product['product_images']);
+            // $objProduct->product_images()->createMany($product['product_images']);
         }
     }
 }
