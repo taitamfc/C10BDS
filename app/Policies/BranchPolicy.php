@@ -30,6 +30,7 @@ class BranchPolicy
      */
     public function view(User $user, Branch $branch)
     {
+        
         return $user->hasPermission('Branch_view');
     }
 

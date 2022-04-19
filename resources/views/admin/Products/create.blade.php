@@ -9,7 +9,7 @@
             </li>
         </ol>
     </nav>
-    <h1 class="page-title"> Thêm Sản Phẩm</h1>
+    <h1 class="page-title">Thêm Sản Phẩm</h1>
 </header>
 
 <div class="page-section">
@@ -141,7 +141,6 @@
                     <p style="color:red">{{ $errors->first('juridical') }}</p>
                     @endif
                 </div>
-
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="form-group">
@@ -288,7 +287,6 @@
 
         jQuery('.district_id').on('change', function() {
             var district_id = jQuery(this).val();
-
             $.ajax({
                 url: "/api/get_wards/" + district_id,
                 type: "GET",
@@ -315,7 +313,6 @@
                 }
             });
         });
-
     });
 </script>
 @endsection
