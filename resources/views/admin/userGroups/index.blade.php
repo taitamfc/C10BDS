@@ -1,3 +1,4 @@
+
 @extends('admin.layouts.master')
 
 @section('content')
@@ -11,7 +12,7 @@
             </li>
         </ol>
     </nav>
-    <button type="button" class="btn btn-success btn-floated"><span class="fa fa-plus"></span></button>
+    <a href="{{route('userGroups.index')}}" class="btn btn-success btn-floated"> </a>
     <div class="d-md-flex align-items-md-start">
         <h1 class="page-title mr-sm-auto"> Nhóm nhân viên</h1><!-- .btn-toolbar -->
         <div class="btn-toolbar">

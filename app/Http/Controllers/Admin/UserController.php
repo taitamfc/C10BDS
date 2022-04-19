@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Http\Controllers\Admin;
+
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\UserGroup;
@@ -7,7 +9,11 @@ use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUser;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\Branch;
+use App\Models\District;
+use App\Models\Province;
+use App\Models\Ward;
 use Illuminate\Http\Request;
+
 class UserController extends Controller
 {
     /**
@@ -17,15 +23,49 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $users = User::paginate(3);
+  
+// dd($request->filter);
+        $query = User::select('*');
+        if (isset($request->filter['name']) && $request->filter['name']) {
+            $name = $request->filter['name'];
+            $query->where('name', 'LIKE', '%' . $name . '%');
+        }
+        if (isset($request->filter['phone']) && $request->filter['phone']) {
+            $phone = $request->filter['phone'];
+            $query->where('phone', 'LIKE', '%' . $phone . '%');
+        }
+        if (isset($request->filter['province_id']) && $request->filter['province_id']) {
+            $province_id = $request->filter['province_id'];
+            $query->where('province_id', $province_id);
+        }
+        if (isset($request->filter['district_id']) && $request->filter['district_id']) {
+            $district_id = $request->filter['district_id'];
+            $query->where('district_id', $district_id);
+        }
+        if (isset($request->filter['ward_id']) && $request->filter['ward_id']) {
+            $ward_id = $request->filter['ward_id'];
+            $query->where('ward_id', $ward_id);
+        }
+        if (isset($request->filter['user_group_id']) && $request->filter['user_group_id']) {
+            $user_group_id = $request->filter['user_group_id'];
+            $query->where('user_group_id', 'LIKE', '%' . $user_group_id . '%');
+        }
+    
+
+
+        $users = $query->paginate(4);
+        // dd($users);
         $userGroups = UserGroup::all();
         $branches = Branch::all();
+        $provinces = Province::all();
+        
         $params = [
+            'provinces' => $provinces,
             'users' => $users,
             'userGroups' =>  $userGroups,
             'branches' => $branches
         ];
-        return view('admin.users.index',$params);
+        return view('admin.users.index', $params);
     }
     /**
      * Show the form for creating a new resource.
@@ -36,14 +76,21 @@ class UserController extends Controller
     {
         $userGroups = UserGroup::all();
         $branches = Branch::all();
+        $provinces = Province::all();
+        $districts = District::all();
+        $wards = Ward::all();
         $users = User::select('*');
         $users = $users->paginate(3);
-        $params =[
+        $params = [
+
+            'wards' => $wards,
+            'provinces' => $provinces,
+            'districts' => $districts,
             'userGroups' => $userGroups,
             'branches' => $branches,
             'users' => $users
         ];
-        return view('admin.users.add',$params);
+        return view('admin.users.add', $params);
     }
     /**
      * Store a newly created resource in storage.
@@ -56,6 +103,7 @@ class UserController extends Controller
         // dd($request->all());
         $user = new User();
         $user->name = $request->name;
+        $user->gender = $request->gender;
         $user->day_of_birth = $request->day_of_birth;
         $user->address = $request->address;
         $user->email = $request->email;
@@ -64,12 +112,15 @@ class UserController extends Controller
         $user->start_day = $request->start_day;
         $user->user_group_id = $request->user_group_id;
         $user->branch_id = $request->branch_id;
+        $user->province_id = $request->province_id;
+        $user->district_id = $request->district_id;
+        $user->ward_id = $request->ward_id;
         $user->note = $request->note;
         try {
             $user->save();
-            return redirect()->route('users.index')->with('success','Thêm'. ' ' . $request->name.' '.  'thành công');
+            return redirect()->route('users.index')->with('success', 'Thêm' . ' ' . $request->name . ' ' .  'thành công');
         } catch (\Exception $e) {
-            return redirect()->route('users.index')->with('success','Thêm'. ' ' . $request->name.' '.  'không thành công');
+            return redirect()->route('users.index')->with('success', 'Thêm' . ' ' . $request->name . ' ' .  'không thành công');
         }
     }
     /**
@@ -92,9 +143,15 @@ class UserController extends Controller
     {
         $userGroups = UserGroup::all();
         $branches = Branch::all();
-        $user =  User::find($id);
+        $users =  User::find($id);
+        $provinces = Province::all();
+        $districts = District::all();
+        $wards = Ward::all();
         $params = [
-            'user' => $user,
+            'wards' => $wards,
+            'provinces' => $provinces,
+            'districts' => $districts,
+            'users' => $users,
             'userGroups' => $userGroups,
             'branches' => $branches
         ];
@@ -107,10 +164,11 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateUserRequest $request,$id)
+    public function update(UpdateUserRequest $request, $id)
     {
         $user = User::find($id);
         $user->name = $request->input('name');
+        $user->gender = $request->input('gender');
         $user->day_of_birth = $request->input('day_of_birth');
         $user->address = $request->input('address');
         $user->email = $request->input('email');
@@ -119,12 +177,16 @@ class UserController extends Controller
         $user->start_day = $request->input('start_day');
         $user->user_group_id = $request->input('user_group_id');
         $user->branch_id = $request->input('branch_id');
+        $user->province_id = $request->input('province_id');
+        $user->district_id = $request->input('district_id');
+        $user->ward_id = $request->input('ward_id');
+
         $user->note = $request->input('note');
         try {
             $user->save();
-            return redirect()->route('users.index')->with('success','Sửa'. ' ' . $request->name.' '.  'thành công');
+            return redirect()->route('users.index')->with('success', 'Sửa' . ' ' . $request->name . ' ' .  'thành công');
         } catch (\Exception $e) {
-            return redirect()->route('users.index')->with('success','Sửa'. ' ' . $request->name.' '.  'không thành công');
+            return redirect()->route('users.index')->with('success', 'Sửa' . ' ' . $request->name . ' ' .  'không thành công');
         }
     }
     /**
@@ -133,10 +195,10 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy( $id)
+    public function destroy($id)
     {
         $user = User::find($id);
         $user->delete();
-        return redirect()->route('users.index')->with('success','Xóa  thành công');
+        return redirect()->route('users.index')->with('success', 'Xóa  thành công');
     }
 }

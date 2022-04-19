@@ -11,7 +11,7 @@
             </li>
         </ol>
     </nav>
-    <button type="button" class="btn btn-success btn-floated"><span class="fa fa-plus"></span></button>
+    <a href="{{route('users.index')}}" class="btn btn-success btn-floated"> </a>
     <div class="d-md-flex align-items-md-start">
         <h1 class="page-title mr-sm-auto"> Danh sách nhân viên</h1><!-- .btn-toolbar -->
         <div class="btn-toolbar">
@@ -69,11 +69,10 @@
 
                             <th> # </th>
                             <th> Tên nhân viên</th>
-                            <th> Ngày sinh</th>
-                            <th> Địa chỉ</th>
                             <th> Số điện thoại</th>
                             <th> Nhóm nhân viên</th>
                             <th> Chi nhánh</th>
+                            <th> Tỉnh/Thành phố</th>
                             <th> Chức năng</th>
                         </tr>
                     </thead>
@@ -83,11 +82,10 @@
                         <tr>
                             <td class="align-middle"> {{ $user->id }} </td>
                             <td class="align-middle"> {{ $user->name }} </td>
-                            <td class="align-middle"> {{ $user->day_of_birth }} </td>
-                            <td class="align-middle"> {{ $user->address }} </td>
                             <td class="align-middle"> {{ $user->phone }} </td>
                             <td class="align-middle"> {{ $user->userGroup->name }} </td>
                             <td class="align-middle">{{ $user->branch->name }} </td>
+                            <td class="align-middle">{{ $user->province->name }} </td>
                             <td>
                                 <form action="{{ route('users.destroy',$user->id )}}" style="display:inline" method="post">
 

@@ -46,7 +46,7 @@
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Quận/Huyện</label>
-                            <select name="_id" class="form-control district_id">
+                            <select name="district_id" class="form-control district_id">
                                 <option value="">Vui lòng chọn</option>
                             </select>
                             @if ($errors->any())
@@ -251,6 +251,7 @@
 
 
 <script>
+    //khởi động jquery
 jQuery(document).ready(function() {
     jQuery('.province_id').on('change', function() {
         var province_id = jQuery(this).val();

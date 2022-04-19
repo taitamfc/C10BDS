@@ -18,6 +18,10 @@ class Province extends Model
     {
         return $this->hasMany(Product::class);
     }
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
     public function district()
     {
         return $this->hasMany(District::class);
