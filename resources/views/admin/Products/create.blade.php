@@ -19,7 +19,7 @@
             <div class="card-body">
                 <legend>Thông tin cơ bản</legend>
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Loại bất động sản</label>
+                    <label for="exampleInputEmail1">Loại bất động sản (Tên)</label>
                     <select name="product_category_id" class="form-control">
                         @foreach($productCategories as $productCategory)
                         <option value="{{$productCategory->id}}">{{$productCategory->name}}</option>
@@ -72,8 +72,12 @@
                     <p style="color:red">{{ $errors->first('address') }}</p>
                     @endif
                 </div>
-
-
+                <div class="form-group">
+                    <label for="tf1">Mặt tiền</label> <input name="facade" type="text" class="form-control" placeholder="Bạn có thể ghi về một số đặc điểm về sản phẩm..."> <small class="form-text text-muted"></small>
+                    @if ($errors->any())
+                    <p style="color:red">{{ $errors->first('facade') }}</p>
+                    @endif
+                </div>
             </div>
             <div class="card-body border-top">
                 <legend>Thông tin bài viết</legend>
@@ -93,7 +97,7 @@
                     @endif
                 </div>
                 <div class="form-group">
-                    <label for="tf1">Chi tiết thông tin</label>
+                    <label for="tf1">Mô tả về địa chỉ trên bản đồ</label>
                     <textarea name="google_map" type="text" class="form-control" placeholder="Mô tả trên bản đồ"></textarea>
                     @if ($errors->any())
                     <p style="color:red">{{ $errors->first('google_map') }}</p>
@@ -119,6 +123,9 @@
                             <select name="unit" class="form-control">
                                 <option value="VND">VND</option>
                             </select>
+                            @if ($errors->any())
+                            <p style="color:red">{{ $errors->first('unit') }}</p>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -136,8 +143,10 @@
                         <input type="radio" class="custom-control-input" name="juridical" id="rd3" value="Đang chờ sổ">
                         <label class="custom-control-label" for="rd3">Đang chờ sổ</label>
                     </div>
+                    @if ($errors->any())
+                    <p style="color:red">{{ $errors->first('juridical') }}</p>
+                    @endif
                 </div>
-
 
                 <div class="row">
                     <div class="col-lg-6">
@@ -158,15 +167,18 @@
                         <div class="form-group">
                             <label>Hướng nhà</label>
                             <select name="houseDirection" class="form-control">
-                                <option value="VND">Đông</option>
-                                <option value="VND">Tây</option>
-                                <option value="VND">Nam</option>
-                                <option value="VND">Bắc</option>
-                                <option value="VND">Đông Bắc</option>
-                                <option value="VND">Tây Bắc</option>
-                                <option value="VND">Đông Nam</option>
-                                <option value="VND">Tây Nam</option>
+                                <option value="East">Đông</option>
+                                <option value="West">Tây</option>
+                                <option value="South">Nam</option>
+                                <option value="North">Bắc</option>
+                                <option value="Northeast">Đông Bắc</option>
+                                <option value="Northwest">Tây Bắc</option>
+                                <option value="Southeast">Đông Nam</option>
+                                <option value="Southwest">Tây Nam</option>
                             </select>
+                            @if ($errors->any())
+                            <p style="color:red">{{ $errors->first('houseDirection') }}</p>
+                            @endif
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -200,15 +212,7 @@
                 </div>
             </div>
             <div class="card-body border-top">
-                <legend>Hình ảnh & Video</legend>
-                <div class="form-group">
-                    <label>Chọn nhiều hình ảnh</label>
-                    <div id="dropzone" class="fileinput-dropzone">
-                        <span>Bấm chọn ảnh cần tải lên.</span>
-                        <!-- The file input field used as target for the file upload widget -->
-                        <input id="fileupload-dropzone" type="file" name="product_images[]" multiple="">
-                    </div>
-                </div>
+
                 <div class="form-group">
                     <label for="tf1">Thêm video từ Youtube</label>
                     <input name="linkYoutube" type="text" class="form-control" placeholder="VD: https://www.youtube.com/watch?v=Y-Dw0NpfRug">
@@ -220,20 +224,43 @@
             <div class="card-body border-top">
                 <legend>Thông tin liên hệ</legend>
                 <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-lg-4">
                         <div class="form-group">
                             <label>Chi nhánh</label>
-                            <select name="branch_id" class="form-control">
-                                <option value="VND">VND</option>
+                            <select name="branch_id" class="form-control branch_id">
+                            <option value="">Vui lòng chọn</option>
+                            @foreach($branches as $branch)
+                                <option value="{{ $branch->id }}">{{$branch->name}}</option>
+                                @endforeach
                             </select>
+                            
+                            @if ($errors->any())
+                            <p style="color:red">{{ $errors->first('branch_id') }}</p>
+                            @endif
                         </div>
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-lg-4">
                         <div class="form-group">
                             <label>Nhân viên phụ trách</label>
-                            <select name="user_id" class="form-control">
-                                <option value="VND">VND</option>
+                            <select name="user_id" class="form-control user_id">
+                                <option value="">Vui lòng chọn</option>
                             </select>
+                            @if ($errors->any())
+                            <p style="color:red">{{ $errors->first('user_id') }}</p>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label>Tình trạng</label>
+                            <select name="status" class="form-control">
+                                <option value="draft">Bản Thảo</option>
+                                <option value="selling">Đang Bán</option>
+                                <option value="sold">Đã Bán</option>
+                            </select>
+                            @if ($errors->any())
+                            <p style="color:red">{{ $errors->first('status') }}</p>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -248,6 +275,7 @@
 
 <script>
     jQuery(document).ready(function() {
+
         jQuery('.province_id').on('change', function() {
             var province_id = jQuery(this).val();
 
@@ -264,6 +292,7 @@
                 }
             });
         });
+
         jQuery('.district_id').on('change', function() {
             var district_id = jQuery(this).val();
 
@@ -278,8 +307,22 @@
                     jQuery('.ward_id').html(wards_html);
                 }
             });
-
         });
+        jQuery('.branch_id').on('change', function() {
+            var branch_id = jQuery(this).val();
+            $.ajax({
+                url: "/api/get_users_by_branch_id/" + branch_id,
+                type: "GET",
+                success: function(data) {
+                    var branches_html = '';
+                    for (const user of data) {
+                        branches_html += '<option value="' + user.id + '">' + user.name + '</option>';
+                    }
+                    jQuery('.user_id').html(branches_html);
+                }
+            });
+        });
+
     });
 </script>
 @endsection

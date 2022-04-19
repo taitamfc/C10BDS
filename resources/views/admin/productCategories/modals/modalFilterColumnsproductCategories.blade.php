@@ -16,7 +16,7 @@
                     <!-- .form-row -->
                     <div class="form-group form-row filter-row">
                         <div class="col-lg-4">
-                            <label class="">Tên nhóm</label>
+                            <label class="">Tên</label>
                         </div>
                         <div class="col-lg-8">
                             <div class="input text">
@@ -25,27 +25,6 @@
                         </div>
                     </div>
                     <!-- .form-row -->
-                    <div class="form-group form-row filter-row">
-                        <div class="col-lg-4">
-                            <label class="">Địa chỉ </label>
-                        </div>
-                        <div class="col-lg-8">
-                            <div class="input text">
-                                <input type="text" name="filter[adress]" class="form-control filter-column f-adress" id="adress" />
-                            </div>
-                        </div>
-                    </div>
-                    <!-- .form-row -->
-                    <div class="form-group form-row filter-row">
-                        <div class="col-lg-4">
-                            <label class="">Địa chỉ </label>
-                        </div>
-                        <div class="col-lg-8">
-                            <div class="input text">
-                                <input type="text" name="filter[adress]" class="form-control filter-column f-adress" id="adress" />
-                            </div>
-                        </div>
-                    </div>
                 </div><!-- #filter-columns -->
                 <!-- .btn -->
             </div><!-- /.modal-body -->

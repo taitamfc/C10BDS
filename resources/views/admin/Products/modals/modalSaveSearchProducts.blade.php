@@ -13,7 +13,7 @@
                 <div id="search-columns">
                     <!-- .form-row -->
                     <div class="form-group ">
-                        <label class="">Tên</label>
+                        <label class="">tên sản phẩm</label>
                         <div class="input text">
                             <input type="text" name="name-search" class="form-control" id="name-search" />
                         </div>

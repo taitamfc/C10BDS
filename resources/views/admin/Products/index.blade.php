@@ -2,7 +2,6 @@
 
 @section('content')
 
-
 <header class="page-title-bar">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -11,9 +10,9 @@
             </li>
         </ol>
     </nav>
-    <button type="button" class="btn btn-success btn-floated"><span class="fa fa-plus"></span></button>
+    <a href="{{route('products.index')}}" class="btn btn-success btn-floated"></a>
     <div class="d-md-flex align-items-md-start">
-        <h1 class="page-title mr-sm-auto"> Danh sách tất cả</h1>
+        <h1 class="page-title mr-sm-auto">Quản lý sản phẩm</h1>
         <div class="btn-toolbar">
             <a href="{{route('products.create')}}" class="btn btn-primary">
                 <i class="fa-solid fa fa-plus"></i>
@@ -74,11 +73,9 @@
                         <br>
                         <tr>
                             <th> # </th>
-                            <th>Địa chỉ</th>
-                            <th>Giá tiền</th>
-                            <th>Chi tiết thông tin</th>
-                            <th>Địa chỉ trên bản đồ</th>
-                            <th>Tên Quận Huyện</th>
+                            <th>Tên người sở hữu</th>
+                            <th>Tên chi nhánh</th>
+                            <th>Giá</th>
                             <th> chức năng </th>
                         </tr>
                     </thead>
@@ -86,11 +83,9 @@
                         @foreach ($products as $product)
                         <tr>
                             <td class="align-middle"> {{ $product->id }} </td>
-                            <td class="align-middle"> {{ $product->address }} </td>
+                            <td class="align-middle"> {{ $product->name }} </td>
+                            <td class="align-middle"> {{ $product->branch_id }} </td>
                             <td class="align-middle"> {{ $product->price }} </td>
-                            <td class="align-middle"> {{ $product->description }} </td>
-                            <td class="align-middle"> {{ $product->google_map }} </td>
-                            <td class="align-middle"> {{ $product->province_id }} </td>
                             <td>
                                 <a href="{{route('products.edit',$product->id)}}" title="Edit Student"><button class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-pencil-alt"></i> </button></a>
                                 <form method="POST" action="{{ route('products.destroy',$product->id )}}" accept-charset="UTF-8" style="display:inline">

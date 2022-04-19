@@ -4,16 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Notifications\Notifiable;
 
 class Product extends Model
 {
-    use HasFactory;
+    use HasFactory, Notifiable; // add soft delete
 
     protected $table = 'products';
     protected $fillable = [
         'id', 'name', 'address','price', 'description','product_category_id',
-        'area', 'juridical', 'google_map', 
-        'district_id', 'province_id', 'ward_id'
+        'area', 'juridical', 'google_map', 'stress_width','houseDirection' , 'unit', 'facade', 'linkYoutube',
+        'district_id', 'province_id', 'ward_id','user_id','branch_id'
     ];
 
     public function product_logs()

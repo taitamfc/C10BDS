@@ -1,12 +1,13 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
+
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
-
-use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
+use App\Models\Product;
 use App\Http\Requests\UpdateProductRequest;
+use App\Models\Branch;
 use App\Models\District;
 use App\Models\ProductCategory;
 use App\Models\Province;
@@ -22,10 +23,50 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::paginate(5);
-        return view('admin.products.index', compact('products'));
+        $product = Product::select('*');
+        if (isset($request->filter['name']) && $request->filter['name']) {
+            $name = $request->filter['name'];
+            $product->where('name', 'LIKE', '%' . $name . '%');
+        }
+        
+        if (isset($request->filter['province_id']) && $request->filter['province_id']) {
+            $province_id = $request->filter['province_id'];
+            $product->where('province_id', $province_id );
+        }
+        
+        if (isset($request->filter['district_id']) && $request->filter['district_id']) {
+            $district_id = $request->filter['district_id'];
+            $product->where('district_id', $district_id);
+        }
+        
+        if (isset($request->filter['ward_id']) && $request->filter['ward_id']) {
+            $ward_id = $request->filter['ward_id'];
+            $product->where('ward_id', $ward_id );
+        }
+
+        if (isset($request->filter['branch_id']) && $request->filter['branch_id']) {
+            $branch_id = $request->filter['branch_id'];
+            $product->where('branch_id', $branch_id );
+        }
+
+        if (isset($request->filter['status']) && $request->filter['status']) {
+            $status = $request->filter['status'];
+            $product->where('status', $status);
+        }
+        $product->orderBy('id', 'desc');
+        $provinces = Province::all();
+        $branches = Branch::all();
+        $products = $product->paginate(5);
+        $params = [
+            'provinces' => $provinces,
+            'products' => $products,
+            'branches'=> $branches
+        ];
+
+
+        return view('admin.products.index', $params);
     }
 
     /**
@@ -40,11 +81,15 @@ class ProductController extends Controller
         $provinces = Province::all();
         $districts = District::all();
         $wards = Ward::all();
+        $branches = Branch::all();
 
         $params = [
             'productCategories' => $productCategories,
             'products' => $products,
-            'provinces' => $provinces
+            'provinces' => $provinces,
+            'districts' => $districts,
+            'wards' => $wards,
+            'branches' => $branches
         ];
         return view('admin.products.create', $params);
     }
@@ -68,6 +113,7 @@ class ProductController extends Controller
         $product->unit = $request->unit;
         $product->houseDirection = $request->houseDirection;
         $product->facade = $request->facade;
+        $product->status = $request->status;
         $product->juridical = $request->juridical;
         $product->google_map = $request->google_map;
         $product->linkYoutube = $request->linkYoutube;
@@ -77,7 +123,6 @@ class ProductController extends Controller
         $product->user_id = $request->user_id;
         $product->district_id = $request->district_id;
         $product->ward_id = $request->ward_id;
-        // dd($product);
         try {
             $product->save();
             Session::flash('success', 'Thêm' . ' ' . $request->name . ' ' .  'thành công');
@@ -112,13 +157,18 @@ class ProductController extends Controller
         $provinces = Province::all();
         $districts = District::all();
         $wards = Ward::all();
+        $branches = Branch::all();
+        $users = User::all();
 
         $params = [
             'productCategories' => $productCategories,
             'product' => $product,
             'provinces' => $provinces,
             'districts' => $districts,
-            'wards' => $wards
+            'wards' => $wards,
+            'branches' => $branches,
+            'users' => $users
+
         ];
         return view('admin.products.edit', $params);
     }
@@ -130,7 +180,7 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateProductRequest $request,$id)
+    public function update(Request $request, $id)
     {
         $product = Product::find($id);
         $product->name = $request->input('name');
