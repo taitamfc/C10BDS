@@ -19,9 +19,13 @@ class District extends Model
     {
         return $this->hasMany(Ward::class);
     }
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
+
     public function product()
     {
         return $this->belongsTo(Product::class, 'product_id', 'id');
     }
-
 }

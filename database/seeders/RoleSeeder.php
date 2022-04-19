@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Role;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -15,6 +16,16 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
+        $roles = new Role();
+        $roles->name = 'Giám đốc';
+        $roles->save();
+
+        
+        $roles = new Role();
+        $roles->name = 'Nhân viên';
+        $roles->save();
+
+
         $groups     = ['Branch'];
         $actions    = ['viewAny','view','create','update','delete','restore','forceDelete'];
         foreach( $groups as $group ){

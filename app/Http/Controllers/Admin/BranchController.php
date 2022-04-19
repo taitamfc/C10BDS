@@ -42,7 +42,7 @@ class BranchController extends Controller
      */
     public function store(StoreBranchRequest $request)
     {
-        $this->authorize('create',Branch::class);
+        // $this->authorize('create',Branch::class);
 
         $branch = new Branch();
         $branch->name = $request->name;

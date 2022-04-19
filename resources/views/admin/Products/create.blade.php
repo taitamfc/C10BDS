@@ -72,12 +72,6 @@
                     <p style="color:red">{{ $errors->first('address') }}</p>
                     @endif
                 </div>
-                <div class="form-group">
-                    <label for="tf1">Mặt tiền</label> <input name="facade" type="text" class="form-control" placeholder="Bạn có thể ghi về một số đặc điểm về sản phẩm..."> <small class="form-text text-muted"></small>
-                    @if ($errors->any())
-                    <p style="color:red">{{ $errors->first('facade') }}</p>
-                    @endif
-                </div>
             </div>
             <div class="card-body border-top">
                 <legend>Thông tin bài viết</legend>
@@ -275,7 +269,6 @@
 
 <script>
     jQuery(document).ready(function() {
-
         jQuery('.province_id').on('change', function() {
             var province_id = jQuery(this).val();
 
