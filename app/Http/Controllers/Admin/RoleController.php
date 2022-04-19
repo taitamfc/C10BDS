@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
@@ -14,9 +15,20 @@ class RoleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $roles = Role::paginate(5);
+        //$query = Role::query(true);
+        $query = Role::select('*');
+        if (isset($request->filter['name']) && $request->filter['name']) {
+            $name = $request->filter['name'];
+            $query->where('name', 'LIKE', '%' . $name . '%');
+        }
+        if (isset($request->filter['group_name']) && $request->filter['group_name']) {
+            $group_name = $request->filter['group_name'];
+            $query->where('group_name', 'LIKE', '%' . $group_name . '%');
+        }
+
+        $roles = $query->paginate(3);
         return view('admin.roles.index', compact('roles'));
     }
 
@@ -40,6 +52,7 @@ class RoleController extends Controller
     {
         $role = new Role();
         $role->name = $request->name;
+        $role->group_name = $request->group_name;
         try {
             $role->save();
             return redirect()->route('roles.index')->with('success', 'Thêm' . ' ' . $request->name . ' ' .  'thành công');
@@ -86,6 +99,7 @@ class RoleController extends Controller
     {
         $role = Role::find($id);
         $role->name = $request->name;
+        $role->group_name = $request->group_name;
         try {
             $role->save();
             return redirect()->route('roles.index')->with('success', 'Sửa' . ' ' . $request->name . ' ' .  'thành công');

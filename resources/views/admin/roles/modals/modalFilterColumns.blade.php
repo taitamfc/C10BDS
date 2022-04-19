@@ -1,6 +1,5 @@
 <!-- #modalFilterColumns -->
-<div class="modal fade" id="modalFilterColumns" tabindex="-1" role="dialog" aria-labelledby="modalFilterColumnsLabel"
-    aria-hidden="true">
+<div class="modal fade" id="modalFilterColumns" tabindex="-1" role="dialog" aria-labelledby="modalFilterColumnsLabel" aria-hidden="true">
     <!-- .modal-dialog -->
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <!-- .modal-content -->
@@ -19,8 +18,16 @@
                             <label class="">Tên vai trò</label>
                         </div>
                         <div class="col-lg-8">
-                            <div class="input text"><input type="text" name="filter[name]"
-                                    class="form-control filter-column f-name" id="name" /></div>
+                            <div class="input text"><input type="text" name="filter[name]" class="form-control filter-column f-name" id="name" /></div>
+                        </div>
+                    </div>
+                    <div class="form-group form-row filter-row">
+                        <div class="col-lg-4">
+                            <label class="">Nhóm người sử dụng</label>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="input text"><input type="text" name="filter[group_name]" class="form-control filter-column f-name" id="group_name" />
+                            </div>
                         </div>
                     </div>
                 </div><!-- #filter-columns -->

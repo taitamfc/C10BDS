@@ -128,8 +128,6 @@
                         <label class="custom-control-label" for="rd3">Đang chờ sổ</label>
                     </div>
                 </div>
-
-
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="form-group">
@@ -240,6 +238,7 @@
 
 <script>
     jQuery(document).ready(function() {
+        //tìm phần tử có class là province_id
         jQuery('.province_id').on('change', function() {
             var province_id = jQuery(this).val();
 

@@ -19,20 +19,26 @@
         <div class="card">
             <div class="card-body">
                 <legend>Thông tin cơ bản</legend>
-
-                <label for="tf1">Tên vai trò<abbr name="Trường bắt buộc">*</abbr></label>
-                <input name="name" type="text" class="form-control" placeholder="Nhập tên vai trò">
-                <small class="form-text text-muted">Tối đa 30 ký tự</small>
-                @if ($errors->any())
-                <p style="color:red">{{ $errors->first('name') }}</p>
-                @endif
+                <div class="form-group">
+                    <label for="tf1">Tên vai trò<abbr name="Trường bắt buộc">*</abbr></label>
+                    <input name="name" type="text" class="form-control" placeholder="Nhập tên vai trò">
+                    <small class="form-text text-muted">Tối đa 30 ký tự</small>
+                    @if ($errors->any())
+                    <p style="color:red">{{ $errors->first('name') }}</p>
+                    @endif
+                </div>
+                <div class="form-group">
+                    <label for="tf1">Tên nhóm người sử dụng<abbr name="Trường bắt buộc">*</abbr></label>
+                    <input name="group_name" type="text" class="form-control" placeholder="Nhập tên nhóm">
+                    @if ($errors->any())
+                    <p style="color:red">{{ $errors->first('group_name') }}</p>
+                    @endif
+                </div>                
+                <div class="form-actions">
+                    <a class="btn btn-secondary float-right" href="{{route('roles.index')}}">Hủy</a>
+                    <button class="btn btn-primary ml-auto" type="submit">Lưu</button>
+                </div>
             </div>
-            </fieldset>
-            <div class="form-actions">
-                <a class="btn btn-secondary float-right" href="{{route('roles.index')}}">Hủy</a>
-                <button class="btn btn-primary ml-auto" type="submit">Lưu</button>
-            </div>
-        </div>
     </form>
 </div>
 

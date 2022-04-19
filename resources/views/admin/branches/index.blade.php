@@ -1,5 +1,4 @@
 @extends('admin.layouts.master')
-
 @section('content')
 
 
@@ -11,11 +10,11 @@
             </li>
         </ol>
     </nav>
-    <button type="button" class="btn btn-success btn-floated"><span class="fa fa-plus"></span></button>
+    <!-- <button type="button" class="btn btn-success btn-floated"><span class="fa fa-plus"></span></button> -->
     <div class="d-md-flex align-items-md-start">
-        <h1 class="page-title mr-sm-auto"> Danh sách chi nhánh</h1><!-- .btn-toolbar -->
+        <h1 class="page-title mr-sm-auto">Quản lý chi nhánh</h1>
         <div class="btn-toolbar">
-            <a href="{{ route('branches.create') }}" class="btn btn-primary">
+            <a href="{{route('branches.create')}}" class="btn btn-primary">
                 <i class="fa-solid fa fa-plus"></i>
                 <span class="ml-1">Thêm Mới</span>
             </a>
@@ -62,25 +61,34 @@
             @if (Session::has('success'))
             <div class="alert alert-success">{{session::get('success')}}</div>
             @endif
+            @if (Session::has('error'))
+            <div class="alert alert-danger">{{session::get('error')}}</div>
+            @endif
             <div class="table-responsive">
                 <table class="table">
                     <thead>
                         <tr>
                             <th> # </th>
                             <th> Tên chi nhánh </th>
-                            <th> Địa chỉ </th>
                             <th> Số điện thoại </th>
+                            <th> Địa chỉ </th>
+                            <th> Tỉnh/ Thành phố </th>
+                            <th> Quận/ Huyện </th>
+                            <th> Xã/ Phường </th>
                             <th> Chức năng </th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($branches as $branch)
                         <tr>
-
                             <td class="align-middle"> {{ $branch->id }} </td>
                             <td class="align-middle"> {{ $branch->name }} </td>
-                            <td class="align-middle"> {{ $branch->address }} </td>
                             <td class="align-middle"> {{ $branch->phone }} </td>
+                            <td class="align-middle"> {{ $branch->address }} </td>
+                            <td class="align-middle"> {{ $branch->province->name }} </td>
+                            <td class="align-middle"> {{ $branch->district->name }} </td>
+                            <td class="align-middle"> {{ $branch->ward->name }} </td>
+                            
                             <td>
                                 <form action="{{ route('branches.destroy',$branch->id )}}" style="display:inline" method="post">
                                     <button onclick="return confirm('Xóa {{$branch->name}} ?')" class="btn btn-sm btn-icon btn-secondary"><i class="far fa-trash-alt"></i></button>
@@ -102,9 +110,5 @@
         </div><!-- /.card-body -->
     </div>
 </div>
-
-
-
-
 
 @endsection

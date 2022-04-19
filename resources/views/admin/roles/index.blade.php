@@ -10,7 +10,7 @@
             </li>
         </ol>
     </nav>
-    <button type="button" class="btn btn-success btn-floated"><span class="fa fa-plus"></span></button>
+    <!-- <button type="button" class="btn btn-success btn-floated"><span class="fa fa-plus"></span></button> -->
     <div class="d-md-flex align-items-md-start">
         <h1 class="page-title mr-sm-auto"> Vai Trò </h1>
         <div class="btn-toolbar">
@@ -95,6 +95,7 @@
                         <tr>
                             <th> # </th>
                             <th> Tên vai trò </th>
+                            <th> Nhóm người dùng </th>
                             <th> Chức năng </th>
                         </tr>
                     </thead>
@@ -103,6 +104,7 @@
                         <tr>
                             <td class="align-middle"> {{$role->id}} </td>
                             <td class="align-middle"> {{$role->name}} </td>
+                            <td class="align-middle"> {{$role->group_name}} </td>
                             <td>
                                 <form action="{{ route('roles.destroy',$role->id )}}" style="display:inline" method="post">
                                     <button onclick="return confirm('Xóa {{$role->name}} ?')" class="btn btn-sm btn-icon btn-secondary"><i class="far fa-trash-alt"></i></button>

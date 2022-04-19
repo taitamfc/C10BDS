@@ -25,12 +25,14 @@ class StoreRoleRequest extends FormRequest
     {
         return [
             'name' => 'required',
+            'group_name' => 'required',
         ];
     }
     public function messages()
     {
         return [
-            'name.required' => 'Vui lòng nhập vai trò'
+            'name.required' => 'Vui lòng nhập vai trò',
+            'group_name.required' => 'Vui lòng nhập vai trò',
         ];
     }
 }

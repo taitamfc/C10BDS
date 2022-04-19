@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreBranchRequest;
 use App\Http\Requests\UpdateBranchRequest;
 use App\Models\Branch;
+use App\Models\District;
+use App\Models\Province;
+use App\Models\Ward;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -18,10 +21,47 @@ class BranchController extends Controller
      */
     public function index(Request $request)
     {
-        // $this->authorize('viewAny', Branch::class);
-        $branches = Branch::paginate(3);
-        return view('admin.branches.index', compact('branches'));
+        // $this->authorize('viewAny',Branch::class);
+
+        //$query = Branch::query(true);
+        $query = Branch::select('*');
+        // dd($query);
+        if( isset( $request->filter['name'] ) && $request->filter['name'] ){
+            $name = $request->filter['name'];
+            $query->where('name','LIKE','%'.$name.'%');
+        }
+        if( isset( $request->filter['address'] ) && $request->filter['address'] ){
+            $address = $request->filter['address'];
+            $query->where('address','LIKE','%'.$address.'%');
+        }
+        if( isset( $request->filter['phone'] ) && $request->filter['phone'] ){
+            $phone = $request->filter['phone'];
+            $query->where('phone','LIKE','%'.$phone.'%');
+        }
+        if( isset( $request->filter['province_id'] ) && $request->filter['province_id'] ){
+            $province_id = $request->filter['province_id'];
+            $query->where('province_id',$province_id);
+        }
+        
+        if( isset( $request->filter['district_id'] ) && $request->filter['district_id'] ){
+            $district_id = $request->filter['district_id'];
+            $query->where('district_id',$district_id);
+        }
+        if( isset( $request->filter['ward_id'] ) && $request->filter['ward_id'] ){
+            $ward_id = $request->filter['ward_id'];
+            $query->where('ward_id',$ward_id);
+        }
+        $branches = $query->paginate(3);
+
+        $provinces = Province::all();
+        $params =[
+            'provinces' => $provinces,
+            'branches' => $branches,
+        ];
+
+        return view('admin.branches.index', $params);    
     }
+    // $province = Province::all();
 
     /**
      * Show the form for creating a new resource.
@@ -31,7 +71,18 @@ class BranchController extends Controller
     public function create()
     {
         // $this->authorize('create', Branch::class);
-        return view('admin.branches.add');
+        $branches = Branch::all();
+        $provinces = Province::all();
+        // $districts = District::all();
+        // $wards = Ward::all();
+
+        $params = [
+            'branches' => $branches,
+            'provinces' => $provinces,
+            // 'districts' => $districts,
+            // 'wards' => $wards,
+        ];
+        return view('admin.branches.add', $params);
     }
 
     /**
@@ -40,14 +91,19 @@ class BranchController extends Controller
      * @param  \App\Http\Requests\StoreBranchRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreBranchRequest $request)
+    public function store(Request $request)
     {
-        //$this->authorize('create', Branch::class);
+        // dd($request->all());
+        // $this->authorize('create', Branch::class);
 
         $branch = new Branch();
         $branch->name = $request->name;
         $branch->address = $request->address;
         $branch->phone = $request->phone;
+        $branch->province_id = $request->province_id;
+        $branch->district_id = $request->district_id;
+        $branch->ward_id = $request->ward_id;       
+    
 
         try {
             $branch->save();
@@ -77,10 +133,16 @@ class BranchController extends Controller
     public function edit($id)
     {
         $branch = Branch::find($id);
+        $provinces = Province::all();
+        $districts = District::all();
+        $wards = Ward::all();
         // $this->authorize('update', $branch);
 
         $params = [
-            'branch' => $branch
+            'branch' => $branch,
+            'provinces' => $provinces,
+            'districts' => $districts,
+            'wards' => $wards,
         ];
 
         return view('admin.branches.edit', $params);
@@ -98,7 +160,7 @@ class BranchController extends Controller
         $branch = Branch::find($id);
         // $this->authorize('update', $branch);
 
-        $branch->update($request->only('name', 'address', 'phone'));
+        $branch->update($request->only('name', 'address', 'phone', 'province_id', 'district_id', 'ward_id'));
         return redirect()->route('branches.index')->with('success', 'Sửa ' . ' ' . $request->name . ' ' . 'thành công');
     }
 
@@ -114,8 +176,6 @@ class BranchController extends Controller
 
         $branch = Branch::find($id);
         $branch->delete();
-
-
-        return redirect()->route('branches.index')->with('success', 'Xóa  thành công');
+        return redirect()->route('branches.index')->with('success', 'Xóa thành công');
     }
 }

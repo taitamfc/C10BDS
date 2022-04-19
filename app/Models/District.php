@@ -23,5 +23,9 @@ class District extends Model
     {
         return $this->belongsTo(Product::class, 'product_id', 'id');
     }
+    public function branches()
+    {
+        return $this->hasMany(Branch::class);
+    }
 
 }
