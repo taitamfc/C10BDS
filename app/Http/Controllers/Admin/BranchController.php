@@ -22,7 +22,7 @@ class BranchController extends Controller
      */
     public function index(Request $request)
     {
-        // $this->authorize('viewAny',Branch::class);
+        $this->authorize('viewAny',Branch::class);
         $query = Branch::select('*');
         // dd($query);
         if( isset( $request->filter['name'] ) && $request->filter['name'] ){

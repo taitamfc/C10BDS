@@ -41,7 +41,6 @@ return new class extends Migration
             $table->unsignedBigInteger('ward_id');
             $table->foreign('ward_id')->references('id')->on('wards');
             $table->timestamps();
-            $table->softDeletes(); // add
         });
     }
 

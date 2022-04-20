@@ -12,8 +12,8 @@ use App\Traits\HasPermissions;
 
 class User extends Authenticatable
 {
-    use HasFactory, SoftDeletes;
-    use Notifiable, HasPermissions;
+    use HasFactory, SoftDeletes;// add soft delete
+    use Notifiable, HasPermissions;// add soft delete
 
     protected $table = 'users';
     protected $fillable = [
