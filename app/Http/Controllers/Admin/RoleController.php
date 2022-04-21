@@ -7,6 +7,7 @@ use App\Models\Role;
 use App\Http\Requests\StoreRoleRequest;
 use App\Http\Requests\UpdateRoleRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class RoleController extends Controller
 {
@@ -27,7 +28,9 @@ class RoleController extends Controller
             $group_name = $request->filter['group_name'];
             $query->where('group_name', 'LIKE', '%' . $group_name . '%');
         }
-        $query->orderBy('name', 'group_name');
+        //sắp xếp thứ tự lên trước khi update
+        $query->orderBy('id', 'DESC');
+        //phân trang
         $roles = $query->paginate(3);
         return view('admin.roles.index', compact('roles'));
     }
@@ -57,6 +60,7 @@ class RoleController extends Controller
             $role->save();
             return redirect()->route('roles.index')->with('success', 'Thêm' . ' ' . $request->name . ' ' .  'thành công');
         } catch (\Exception $e) {
+            Log::error($e->getMessage());
             return redirect()->route('roles.index')->with('error', 'Thêm' . ' ' . $request->name . ' ' .  'không thành công');
         }
     }
@@ -104,6 +108,7 @@ class RoleController extends Controller
             $role->save();
             return redirect()->route('roles.index')->with('success', 'Sửa' . ' ' . $request->name . ' ' .  'thành công');
         } catch (\Exception $e) {
+            Log::error($e->getMessage());
             return redirect()->route('roles.index')->with('error', 'Sửa' . ' ' . $request->name . ' ' .  'không hành công');
         }
     }
@@ -117,16 +122,13 @@ class RoleController extends Controller
     public function destroy($id)
     {
         $role = Role::find($id);
-        $role->delete();
-        return redirect()->route('roles.index')->with('success', 'Xóa  thành công');
-    }
-    public function search(Request $request)
-    {
-        $role = Role::query();
-        if ($request->has('name')) {
-            $role->where('name', 'LIKE', '%' . $request->name . '%');
+        try {
+            $role->delete();
+            return redirect()->route('roles.index')->with('success', 'Xóa' . ' ' . $role->name . ' ' .  'thành công');
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return redirect()->route('roles.index')->with('error', 'Xóa' . ' ' . $role->name . ' ' .  'không thành công');
         }
-        $roles =  $role->get();
-        return view('admin.roles.search', ['roles' => $roles]);
     }
+
 }

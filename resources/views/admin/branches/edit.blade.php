@@ -45,9 +45,9 @@
                         <div class="form-group">
                             <label for="exampleInputEmail1">Tỉnh/Thành phố</label>
                             <select name="province_id" class="form-control province_id" value="{{  $branch->province_id }}">
-                            <option value="">Vui lòng chọn</option>
+                                <option value="">Vui lòng chọn</option>
                                 @foreach($provinces as $province)
-                                <option value="{{ $province->id }}">{{$province->name}}</option>
+                                <option value="{{ $province->id }}" @selected($province->id == $branch->province_id)>{{$province->name}}</option>
                                 @endforeach
                             </select>
                             @if ($errors->any())
@@ -60,6 +60,9 @@
                             <label for="exampleInputEmail1">Quận/Huyện</label>
                             <select name="district_id" class="form-control district_id" value="{{ $branch->district_id }}">
                                 <option value="">Vui lòng chọn</option>
+                                @foreach($districts as $district)
+                                <option value="{{ $district->id }}" @selected($district->id == $branch->district_id)>{{$district->name}}</option>
+                                @endforeach
                             </select>
                             @if ($errors->any())
                             <p style="color:red">{{ $errors->first('district_id') }}</p>
@@ -71,6 +74,9 @@
                             <label for="exampleInputEmail1">Xã/Phường</label>
                             <select name="ward_id" class="form-control ward_id" value="{{ $branch->ward_id }}">
                                 <option value="">Vui lòng chọn</option>
+                                @foreach($wards as $ward)
+                                <option value="{{ $ward->id }}" @selected($ward->id == $branch->ward_id)>{{$ward->name}}</option>
+                                @endforeach
                             </select>
                             @if ($errors->any())
                             <p style="color:red">{{ $errors->first('ward_id')}}</p>
