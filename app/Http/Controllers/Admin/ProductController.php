@@ -97,7 +97,6 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        // dd($request->all());
         $product = new Product();
         $product->name = $request->name;
         $product->address = $request->address;
@@ -152,12 +151,18 @@ class ProductController extends Controller
         $productCategories = ProductCategory::all();
         $provinces = Province::all();
         $branches = Branch::all();
+        $districts = District::all();
+        $wards = Ward::all();
+        $users = User::all();
 
         $params = [
             'productCategories' => $productCategories,
             'product' => $product,
             'provinces' => $provinces,
-            'branches' => $branches
+            'branches' => $branches,
+            'districts' => $districts,
+            'wards' => $wards,
+            'users' => $users
         ];
         return view('admin.products.edit', $params);
     }
