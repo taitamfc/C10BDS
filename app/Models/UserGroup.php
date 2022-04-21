@@ -11,7 +11,7 @@ class UserGroup extends Model
     use HasFactory,SoftDeletes;
 
     protected $table = 'user_groups';
-    protected $fillable = ['id', 'name', 'description'];
+
 
     public $timestamps = false;
 

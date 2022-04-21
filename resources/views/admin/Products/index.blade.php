@@ -85,7 +85,7 @@
                             <td class="align-middle"> {{ $product->id }} </td>
                             <td class="align-middle"> {{ $product->name }} </td>
                             <td class="align-middle"> {{ $product->branch_id }} </td>
-                            <td class="align-middle"> {{ $product->price }} </td>
+                            <td class="align-middle"> {{number_format($product->price)}} </td>
                             <td>
                                 <a href="{{route('products.edit',$product->id)}}" title="Edit Student"><button class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-pencil-alt"></i> </button></a>
                                 <form method="POST" action="{{ route('products.destroy',$product->id )}}" accept-charset="UTF-8" style="display:inline">

@@ -9,9 +9,7 @@ class District extends Model
 {
     use HasFactory;
     protected $table = 'districts';
-    protected $fillable = [
-        'id', 'name', 'province_id'
-    ];
+
 
     public $timestamps = false;
 }
