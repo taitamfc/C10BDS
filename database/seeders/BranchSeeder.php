@@ -19,7 +19,7 @@ class BranchSeeder extends Seeder
         $branch->name = 'Chi nhánh 1';
         $branch->address = 'Thanh Hóa';
         $branch->phone = '0977983360';
-        $branch->province_id = 2;
+        $branch->province_id = 30;
         $branch->district_id = 3;
         $branch->ward_id = 4;
         // $branch->user_id = 1;
@@ -30,7 +30,7 @@ class BranchSeeder extends Seeder
         $branch->name = 'Chi nhánh 2';
         $branch->address = 'Nghệ An';
         $branch->phone = '01648511610';
-        $branch->province_id = 8;
+        $branch->province_id = 30;
         $branch->district_id = 1;
         $branch->ward_id = 7;
         // $branch->user_id = 1;

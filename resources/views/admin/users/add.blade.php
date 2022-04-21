@@ -79,28 +79,25 @@
             <div class="card-body border-top">
                 <legend>Thông tin cá nhân</legend>
 
-                <div class="row">
-                    <div class="col-lg-9">
+                <div class="form-group">
+                    <label>Tên nhân viên<noscript></noscript></label>
+                    <input name="name" type="text" class="form-control" id="" placeholder="Nhập tên nhân viên" value="{{old('name') }}">
 
-                        <label for="tf1">Tên nhân viên<noscript></noscript></label>
-                        <input name="name" type="text" class="form-control" id="" placeholder="Nhập tên nhân viên" value="{{ old('name') }}">
-
-                        @if ($errors->any())
-                        <p style="color:red">{{ $errors->first('name') }}</p>
-                        @endif
-
+                    @if ($errors->any())
+                    <p style="color:red">{{ $errors->first('name') }}</p>
+                    @endif
+                </div>
+                <div class="form-group">
+                    <label class="d-block">Giới tính</label>
+                    <div class="custom-control custom-control-inline custom-radio">
+                        <input type="radio" class="custom-control-input" name="gender" id="rd1" checked="" value="male">
+                        <label class="custom-control-label" for="rd1">Nam</label>
                     </div>
-                    <div class="col-lg-3">
-
-                        <label>Giới tính</label>
-                        <input type="radio" name="gender" checked value="Nam">Nam
-                        <input type="radio" name="gender" value="Nữ">Nữ
-
-                        @if ($errors->any())
-                        <p style="color:red">{{ $errors->first('gender') }}</p>
-                        @endif
-
+                    <div class="custom-control custom-control-inline custom-radio">
+                        <input type="radio" class="custom-control-input" name="gender" id="rd2" value="female">
+                        <label class="custom-control-label" for="rd2">Nữ</label>
                     </div>
+
                 </div>
                 <div class="form-group">
                     <label for="tf1">Ngày sinh <noscript></noscript></label>
@@ -180,15 +177,16 @@
                     </div>
 
                 </div>
-
+                <div class="form-actions">
+                    <button class="btn btn-secondary float-right" onclick="window.history.go(-1); return false;">Hủy</button>
+                    <button class="btn btn-primary ml-auto" type="submit">Lưu</button>
+                </div>
             </div>
 
-
-            <div class="form-actions">
-                <button class="btn btn-secondary float-right" onclick="window.history.go(-1); return false;">Hủy</button>
-                <button class="btn btn-primary ml-auto" type="submit">Lưu</button>
-            </div>
         </div>
+
+
+
     </form>
 
 

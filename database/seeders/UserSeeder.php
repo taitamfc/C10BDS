@@ -23,8 +23,8 @@ class UserSeeder extends Seeder
         $user->phone = '0916663237';
         $user->address = 'Quảng Trị';
         $user->start_day = '2021/10/29';
-        $user->user_group_id  = '1';
-        $user->branch_id  = '1';
+        $user->user_group_id  = '2';
+        $user->branch_id  = '2';
         $user->note = '123';
         $user->province_id  = '30';
         $user->district_id  = '335';
