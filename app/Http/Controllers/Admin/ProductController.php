@@ -15,6 +15,7 @@ use App\Models\User;
 use App\Models\Ward;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use App\Events\ProductCreated;
 
 class ProductController extends Controller
 {
@@ -119,6 +120,7 @@ class ProductController extends Controller
         $product->ward_id = $request->ward_id;
         try {
             $product->save();
+            event(new ProductCreated($product));
             Session::flash('success', 'Thêm' . ' ' . $request->name . ' ' .  'thành công');
         } catch (\Exception $e) {
             Log::error($e->getMessage());
