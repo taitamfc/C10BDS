@@ -12,7 +12,7 @@
     </nav>
     <a href="{{route('productCategories.index')}}" class="btn btn-success btn-floated"></a>
     <div class="d-md-flex align-items-md-start">
-        <h1 class="page-title mr-sm-auto"> Quản lý nhân viên</h1>
+        <h1 class="page-title mr-sm-auto"> Quản Lý Loại Sản Phẩm</h1>
         <div class="btn-toolbar">
             <a href="{{route('productCategories.create')}}" class="btn btn-primary">
                 <i class="fa-solid fa fa-plus"></i>
@@ -71,8 +71,8 @@
                         <br>
                         <tr>
                             <th> # </th>
-                            <th> Tên danh mục</th>
-                            <th> chức năng </th>
+                            <th> Tên</th>
+                            <th> Chức năng </th>
                         </tr>
                     </thead>
                     <tbody>
