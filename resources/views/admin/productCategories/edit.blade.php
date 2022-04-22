@@ -24,15 +24,16 @@
                 <fieldset>
                     <legend>Base style</legend>
                     <div class="form-group">
-                        <label for="tf1">Chỉ sủa tên</label> <input type="text" name="name" value="{{ $productCategory->name }}" class="form-control"  placeholder="Nhập tên nhóm nhân viên"> <small  class="form-text text-muted"></small>
+                        <label for="tf1">Chỉnh sủa tên</label> <input type="text" name="name" value="{{ $productCategory->name }}" class="form-control"  placeholder="Nhập tên nhóm nhân viên"> <small  class="form-text text-muted"></small>
                     </div>
                     @if ($errors->any())
                     <p style="color:red">{{ $errors->first('name') }}</p>
                     @endif
                 </fieldset>
                 <div class="form-actions">
-                    <button class="btn btn-primary" type="submit">Cập nhật</button>
-                    <button class="btn btn-secondary" onclick="window.history.go(-1); return false;">Hủy</button>
+                <a class="btn btn-secondary float-right" href="{{route('productCategories.index')}}">Hủy</a>
+
+                    <button class="btn btn-primary ml-auto" type="submit">Cập nhật</button>
                 </div>
             </form>
         </div>

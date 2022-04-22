@@ -6,8 +6,10 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\UserGroupController;
+use App\Http\Controllers\Admin\IndexController;
+use App\Http\Controllers\Admin\AuthController;
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\App;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,13 +20,13 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::group(['prefix' => 'admin'], function () {
-    Route::get('/', function () {
-        return view('admin.users.login');
-    })->name('index');
-    Route::get('/login', function () {
-        return view('admin.users.login');
-    })->name('login');
+
+Route::group([
+    'prefix' => 'administrator',
+    'middleware' => ['auth']
+], function () {
+    Route::get('/',[IndexController::class,'index'])->name('admin.index');
+    Route::get('/login',[AuthController::class,'login'])->name('login');
     Route::resource('userGroups', UserGroupController::class);
     Route::resource('users', UserController::class);
     Route::resource('roles', RoleController::class);

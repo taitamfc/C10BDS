@@ -10,8 +10,6 @@ class Role extends Model
     use HasFactory, SoftDeletes;
 
     protected $table = 'roles';
-    protected $fillable = [
-         'name', 'group_name',
-    ];
+
     public $timestamps = false;
 }

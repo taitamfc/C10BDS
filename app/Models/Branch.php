@@ -10,9 +10,6 @@ class Branch extends Model
     use HasFactory, SoftDeletes;
 
     protected $table = 'branches';
-    protected $fillable = [
-        'id', 'name', 'address', 'phone', 'province_id', 'district_id', 'ward_id', 'user_id'
-    ];
 
     public $timestamps = false;
 

@@ -41,7 +41,6 @@ class BranchController extends Controller
             $province_id = $request->filter['province_id'];
             $query->where('province_id', $province_id);
         }
-
         if (isset($request->filter['district_id']) && $request->filter['district_id']) {
             $district_id = $request->filter['district_id'];
             $query->where('district_id', $district_id);

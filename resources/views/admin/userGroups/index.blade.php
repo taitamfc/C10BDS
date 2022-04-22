@@ -1,3 +1,4 @@
+
 @extends('admin.layouts.master')
 
 @section('content')
@@ -11,9 +12,9 @@
             </li>
         </ol>
     </nav>
-    <button type="button" class="btn btn-success btn-floated"><span class="fa fa-plus"></span></button>
+    <a href="{{route('userGroups.index')}}" class="btn btn-success btn-floated"> </a>
     <div class="d-md-flex align-items-md-start">
-        <h1 class="page-title mr-sm-auto"> Nhóm nhân viên</h1><!-- .btn-toolbar -->
+        <h1 class="page-title mr-sm-auto"> Quản Lý Nhóm Nhân Viên</h1><!-- .btn-toolbar -->
         <div class="btn-toolbar">
             <a href="{{ route('userGroups.create') }}" class="btn btn-primary">
                 <i class="fa-solid fa fa-plus"></i>
@@ -32,23 +33,31 @@
             </ul>
         </div>
         <div class="card-body">
-            <div class="form-group">
-                <div class="input-group input-group-alt">
-                    <div class="input-group-prepend">
-                        <select class="custom-select">
-                            <option selected> Filter By </option>
-                            <option value="1"> Tags </option>
-                            <option value="2"> Vendor </option>
-                            <option value="3"> Variants </option>
-                            <option value="4"> Prices </option>
-                            <option value="5"> Sales </option>
-                        </select>
-                    </div>
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><span class="oi oi-magnifying-glass"></span></span>
-                        </div><input type="text" class="form-control" placeholder="Search record">
-                    </div>
+            <div class="row mb-2">
+                <div class="col">
+                    <form action="" method="GET" id="form-search">
+                        <div class="input-group input-group-alt">
+                            <div class="input-group-prepend">
+                                <button class="btn btn-secondary" type="button" data-toggle="modal" data-target="#modalFilterColumns">Tìm nâng cao</button>
+                            </div>
+                            <div class="input-group has-clearable">
+                                <button type="button" class="close trigger-submit trigger-submit-delay" aria-label="Close">
+                                    <span aria-hidden="true"><i class="fa fa-times-circle"></i></span>
+                                </button>
+                                <div class="input-group-prepend trigger-submit">
+                                    <span class="input-group-text"><span class="fas fa-search"></span></span>
+                                </div>
+                                <input type="text" class="form-control" name="query" value="" placeholder="Tìm nhanh theo cú pháp (ma:Mã kết quả hoặc ten:Tên kết quả)">
+                            </div>
+                            <div class="input-group-append">
+                                <button class="btn btn-secondary" data-toggle="modal" data-target="#modalSaveSearch" type="button">Lưu bộ lọc</button>
+                            </div>
+                        </div>
+                        <!-- modalFilterColumns  -->
+                        @include('admin.userGroups.modals.modalFilterColumns')
+                    </form>
+                    <!-- modalFilterColumns  -->
+                    @include('admin.userGroups.modals.modalSaveSearch')
                 </div>
             </div>
             @if (Session::has('success'))
@@ -62,7 +71,6 @@
                             <th> # </th>
                             <th> Tên nhóm</th>
                             <th> Miêu tả nhóm </th>
-                            <th> Miêu tả </th>
                             <th> Chức năng </th>
                         </tr>
                     </thead>
