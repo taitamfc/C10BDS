@@ -10,9 +10,7 @@ class Ward extends Model
     use HasFactory;
 
     protected $table = 'wards';
-    protected $fillable = [
-        'id', 'name', 'district_id'
-    ];
+
 
     public $timestamps = false;
 

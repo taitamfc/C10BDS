@@ -1,5 +1,4 @@
 @extends('admin.layouts.master')
-
 @section('content')
 
 
@@ -11,11 +10,11 @@
             </li>
         </ol>
     </nav>
-    <button type="button" class="btn btn-success btn-floated"><span class="fa fa-plus"></span></button>
+    <!-- <button type="button" class="btn btn-success btn-floated"><span class="fa fa-plus"></span></button> -->
     <div class="d-md-flex align-items-md-start">
-        <h1 class="page-title mr-sm-auto"> Danh sách chi nhánh</h1><!-- .btn-toolbar -->
+        <h1 class="page-title mr-sm-auto">Quản Lý Chi Nhánh</h1>
         <div class="btn-toolbar">
-            <a href="{{ route('branches.create') }}" class="btn btn-primary">
+            <a href="{{route('branches.create')}}" class="btn btn-primary">
                 <i class="fa-solid fa fa-plus"></i>
                 <span class="ml-1">Thêm Mới</span>
             </a>
@@ -37,93 +36,79 @@
                     <form action="" method="GET" id="form-search">
                         <div class="input-group input-group-alt">
                             <div class="input-group-prepend">
-                                <button class="btn btn-secondary" type="button" data-toggle="modal"
-                                    data-target="#modalFilterColumns">Tìm nâng cao</button>
+                                <button class="btn btn-secondary" type="button" data-toggle="modal" data-target="#modalFilterColumns">Tìm nâng cao</button>
                             </div>
                             <div class="input-group has-clearable">
-                                <button type="button" class="close trigger-submit trigger-submit-delay"
-                                    aria-label="Close">
+                                <button type="button" class="close trigger-submit trigger-submit-delay" aria-label="Close">
                                     <span aria-hidden="true"><i class="fa fa-times-circle"></i></span>
                                 </button>
                                 <div class="input-group-prepend trigger-submit">
                                     <span class="input-group-text"><span class="fas fa-search"></span></span>
                                 </div>
-                                <input type="text" class="form-control" name="query" value=""
-                                    placeholder="Tìm nhanh theo cú pháp (ma:Mã kết quả hoặc ten:Tên kết quả)">
+                                <input type="text" class="form-control" name="query" value="" placeholder="Tìm nhanh theo cú pháp (ma:Mã kết quả hoặc ten:Tên kết quả)">
                             </div>
                             <div class="input-group-append">
-                                <button class="btn btn-secondary" data-toggle="modal" data-target="#modalSaveSearch"
-                                    type="button">Lưu bộ lọc</button>
+                                <button class="btn btn-secondary" data-toggle="modal" data-target="#modalSaveSearch" type="button">Lưu bộ lọc</button>
                             </div>
                         </div>
-                    <!-- modalFilterColumns  -->
-                    @include('admin.branches.modals.modalFilterColumns')
+                        <!-- modalFilterColumns  -->
+                        @include('admin.branches.modals.modalFilterColumns')
                     </form>
                     <!-- modalFilterColumns  -->
                     @include('admin.branches.modals.modalSaveSearch')
                 </div>
             </div>
-
-
             @if (Session::has('success'))
             <div class="alert alert-success">{{session::get('success')}}</div>
             @endif
-
+            @if (Session::has('error'))
+            <div class="alert alert-danger">{{session::get('error')}}</div>
+            @endif
             <div class="table-responsive">
                 <table class="table">
                     <thead>
                         <tr>
                             <th> # </th>
                             <th> Tên chi nhánh </th>
-                            <th> Địa chỉ </th>
                             <th> Số điện thoại </th>
+                            <th> Địa chỉ </th>
+                            <th> Tỉnh/ Thành phố </th>
+                            <th> Quận/ Huyện </th>
+                            <th> Xã/ Phường </th>
                             <th> Chức năng </th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($branches as $branch)
                         <tr>
-
                             <td class="align-middle"> {{ $branch->id }} </td>
                             <td class="align-middle"> {{ $branch->name }} </td>
-                            <td class="align-middle"> {{ $branch->address }} </td>
                             <td class="align-middle"> {{ $branch->phone }} </td>
+                            <td class="align-middle"> {{ $branch->address }} </td>
+                            <td class="align-middle"> {{ $branch->province->name }} </td>
+                            <td class="align-middle"> {{ $branch->district->name }} </td>
+                            <td class="align-middle"> {{ $branch->ward->name }} </td>
+                            
                             <td>
-                                <form action="{{ route('branches.destroy',$branch->id )}}" style="display:inline"
-                                    method="post">
-
-                                    <button onclick="return confirm('Xóa {{$branch->name}} ?')"
-                                        class="btn btn-sm btn-icon btn-secondary"><i
-                                            class="far fa-trash-alt"></i></button>
+                                <form action="{{ route('branches.destroy',$branch->id )}}" style="display:inline" method="post">
+                                    <button onclick="return confirm('Xóa {{$branch->name}} ?')" class="btn btn-sm btn-icon btn-secondary"><i class="far fa-trash-alt"></i></button>
                                     @csrf
                                     @method('delete')
-
-
                                 </form>
-                                <span class="sr-only">Edit</span></a> <a href="{{route('branches.edit',$branch->id)}}"
-                                    class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-pencil-alt"></i> <span
-                                        class="sr-only">Remove</span></a>
+                                <span class="sr-only">Edit</span></a> <a href="{{route('branches.edit',$branch->id)}}" class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-pencil-alt"></i> <span class="sr-only">Remove</span></a>
                             </td>
-
-
                         </tr><!-- /tr -->
                         @endforeach
                     </tbody><!-- /tbody -->
-
                 </table><!-- /.table -->
                 <div style="float:right">
                     {{ $branches->links() }}
                 </div>
-
             </div>
             <!-- /.table-responsive -->
             <!-- .pagination -->
-
         </div><!-- /.card-body -->
+    </div>
+</div>
 
-
-
-
-
-
-        @endsection
+@endsection

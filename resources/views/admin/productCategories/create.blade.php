@@ -13,23 +13,28 @@
 </header>
 
 <div class="page-section">
+
     <form method="post" action="{{route('productCategories.store')}}">
         @csrf
-        <fieldset>
-            <div class="form-group">
-                <label for="tf1">Tên</label> <input name="name" type="text" class="form-control" id=""
-                    placeholder="Nhập tên danh mục sản phẩm "> <small id="" class="form-text text-muted"></small>
-                @if ($errors->any())
-                <p style="color:red">{{ $errors->first('name') }}</p>
-                @endif
+        <div class="card">
+            <div class="card-body">
+                <fieldset>
+                    <div class="form-group">
+                        <label for="tf1">Tên</label> <input name="name" type="text" class="form-control" id="" placeholder="Nhập tên danh mục sản phẩm "> <small id="" class="form-text text-muted"></small>
+                        @if ($errors->any())
+                        <p style="color:red">{{ $errors->first('name') }}</p>
+                        @endif
+                    </div>
+                </fieldset>
+                <div class="form-actions">
+                <a class="btn btn-secondary float-right" href="{{route('productCategories.index')}}">Hủy</a>
+
+                    <button class="btn btn-primary ml-auto" type="submit">Thêm danh mục </button>
+                </div>
             </div>
-        </fieldset>
-        <div class="form-actions">
-            <button class="btn btn-primary" type="submit">Thêm danh mục </button>
-            <button class="btn btn-secondary" onclick="window.history.go(-1); return false;">Hủy</button>
         </div>
     </form>
+
 </div>
-</div>
-</div>
+
 @endsection

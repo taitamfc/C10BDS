@@ -9,17 +9,25 @@ class Province extends Model
 {
     use HasFactory;
     protected $table = 'provinces';
-    protected $fillable = [
-        'id', 'name'
-    ];
+
+
     public $timestamps = false;
 
     public function products()
     {
         return $this->hasMany(Product::class);
     }
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
     public function district()
     {
         return $this->hasMany(District::class);
     }
+    public function branches()
+    {
+        return $this->hasMany(Branch::class);
+    }
+
 }

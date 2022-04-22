@@ -8,10 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class UserGroupRole extends Model
 {
     use HasFactory;
-    protected $table = 'user_group_role';
-    protected $fillable = [
-        'id', 'user_group_id', 'role_id'
-    ];
+    protected $table = 'user_groups';
+
     public $timestamps = false;
 
     function user_group(){
