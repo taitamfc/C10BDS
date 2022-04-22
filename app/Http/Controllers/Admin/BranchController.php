@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
@@ -11,6 +10,7 @@ use App\Models\Province;
 use App\Models\Ward;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 
 class BranchController extends Controller
@@ -22,7 +22,7 @@ class BranchController extends Controller
      */
     public function index(Request $request)
     {
-        $this->authorize('viewAny', Branch::class);
+        // $this->authorize('viewAny',Branch::class);
         $query = Branch::select('*');
         // dd($query);
         if (isset($request->filter['name']) && $request->filter['name']) {
@@ -49,8 +49,9 @@ class BranchController extends Controller
             $ward_id = $request->filter['ward_id'];
             $query->where('ward_id', $ward_id);
         }
+        //sắp xếp thứ tự lên trước khi update
         $query->orderBy('id', 'DESC');
-
+        //phân trang
         $branches = $query->paginate(3);
 
         $provinces = Province::all();
@@ -58,7 +59,6 @@ class BranchController extends Controller
             'provinces' => $provinces,
             'branches' => $branches,
         ];
-
         return view('admin.branches.index', $params);
     }
 
@@ -78,10 +78,9 @@ class BranchController extends Controller
         $params = [
             'branches' => $branches,
             'provinces' => $provinces,
-            // 'districts' => $districts,
-            // 'wards' => $wards,
         ];
         return view('admin.branches.add', $params);
+
     }
 
     /**
@@ -104,6 +103,7 @@ class BranchController extends Controller
             $branch->save();
             return redirect()->route('branches.index')->with('success', 'Thêm' . ' ' . $request->name . ' ' .  'thành công');
         } catch (\Exception $e) {
+            Log::error($e->getMessage());
             return redirect()->route('branches.index')->with('error', 'Thêm' . ' ' . $request->name . ' ' .  'không thành công');
         }
     }
@@ -116,7 +116,7 @@ class BranchController extends Controller
      */
     public function show(Branch $branch)
     {
-        $this->authorize('view', Branch::class);
+        //   $this->authorize('view', Branch::class);
     }
 
     /**
@@ -130,15 +130,14 @@ class BranchController extends Controller
         $branch = Branch::find($id);
         // $this->authorize('update', $branch);
         $provinces = Province::all();
-        $districts = District::all();
-        $wards = Ward::all();
+        $districts = District::where('province_id', $branch->province_id)->get();
+        $wards = Ward::where('district_id', $branch->district_id)->get();
         $params = [
             'branch' => $branch,
             'provinces' => $provinces,
             'districts' => $districts,
             'wards' => $wards,
         ];
-
         return view('admin.branches.edit', $params);
     }
 
@@ -163,6 +162,7 @@ class BranchController extends Controller
             $branch->save();
             return redirect()->route('branches.index')->with('success', 'Thêm' . ' ' . $request->name . ' ' .  'thành công');
         } catch (\Exception $e) {
+            Log::error($e->getMessage());
             return redirect()->route('branches.index')->with('error', 'Thêm' . ' ' . $request->name . ' ' .  'không thành công');
         }
     }
@@ -173,11 +173,16 @@ class BranchController extends Controller
      * @param  \App\Models\Branch  $branch
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, $request)
     {
         // $this->authorize('delete', Branch::class);
         $branch = Branch::find($id);
-        $branch->delete();
-        return redirect()->route('branches.index')->with('success', 'Xóa thành công');
+        try {
+            $branch->delete();
+            return redirect()->route('branches.index')->with('success', 'Xóa' . ' ' . $branch->name . ' ' .  'thành công');
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return redirect()->route('branches.index')->with('error', 'Xóa' . ' ' . $branch->name . ' ' .  'không thành công');
+        }
     }
 }
