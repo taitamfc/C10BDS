@@ -197,8 +197,8 @@ class DatabaseSeeder extends Seeder
         $user->phone = '01648511610';
         $user->address = 'Quảng Trị';
         $user->start_day = '2021/10/29';
-        $user->user_group_id  = '4';
-        $user->branch_id  = '4';
+        $user->user_group_id  = 1;
+        $user->branch_id  = 1;
         $user->note = '123';
         $user->province_id  = '30';
         $user->district_id  = '343';
