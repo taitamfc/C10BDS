@@ -18,27 +18,14 @@ use Illuminate\Support\Facades\App;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/testLang', function () {
-    //lấy giá trị session lang hiện tại, ko có thì để en
-    $lang = session('lang', 'en');
 
-    //thay đổi ngôn ngữ hệ thống
-    App::setLocale($lang);
-
-    echo __('messages.hello_to_website');
-});
-
-Route::get('/changeLanguage/{lang}',function($lang){
-    //lưu vào session
-    session(['lang' => $lang]);
-    //chuyển hướng về trang kia
-    return redirect('/testLang');
-});
-
-Route::group(['prefix' => 'admin'], function () {
+Route::group([
+    'prefix' => 'administrator',
+    'middleware' => ['auth']
+], function () {
     Route::get('/', function () {
         return view('admin.users.login');
-    })->name('index');
+    })->name('admin.index');
     Route::get('/login', function () {
         return view('admin.users.login');
     })->name('login');
