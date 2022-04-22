@@ -13,6 +13,6 @@ class Controller extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     public function __construct(){
-        //phpAuth::loginUsingId(1);
+        Auth::loginUsingId(1);
     }
 }

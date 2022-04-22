@@ -151,9 +151,9 @@ class ProductController extends Controller
         $productCategories = ProductCategory::all();
         $provinces = Province::all();
         $branches = Branch::all();
-        $districts = District::all();
-        $wards = Ward::all();
-        $users = User::all();
+        $districts = District::where('province_id',$product->province_id)->get();
+        $wards = Ward::where('district_id',$product->district_id)->get();
+        $users = User::where('branch_id',$product->branch_id)->get();
 
         $params = [
             'productCategories' => $productCategories,
