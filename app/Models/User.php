@@ -12,14 +12,11 @@ use App\Traits\HasPermissions;
 
 class User extends Authenticatable
 {
-    use HasFactory, SoftDeletes;
-    use Notifiable, HasPermissions;
+    use HasFactory, SoftDeletes;// add soft delete
+    use Notifiable, HasPermissions;// add soft delete
 
     protected $table = 'users';
-    protected $fillable = [
-        'id', 'name', 'gender', 'day_of_birth', 'address', 'email', 'password', 'start_day',
-        'user_group_id', 'branch_id', 'note', 'province_id', 'district_id', 'ward_id'
-    ];
+
     public $timestamps = false;
 
     public function branch()

@@ -9,12 +9,10 @@ use Illuminate\Database\Eloquent\SoftDeletes; // add soft delete
 
 class ProductCategory extends Model
 {
-    use HasFactory,Notifiable ;// add soft delete
+    use HasFactory,SoftDeletes;// add soft delete
     
     protected $table = 'product_categories';
-    protected $fillable = [
-        'id', 'name'
-    ];
+
     public $timestamps = false;
 
     public function products()

@@ -9,14 +9,9 @@ use Illuminate\Notifications\Notifiable;
 
 class Product extends Model
 {
-    use HasFactory, Notifiable; // add soft delete
+    use HasFactory,SoftDeletes; // add soft delete
 
     protected $table = 'products';
-    protected $fillable = [
-        'id', 'name', 'address','price', 'description','product_category_id',
-        'area', 'juridical', 'google_map', 'stress_width','houseDirection' , 'unit', 'facade', 'linkYoutube',
-        'district_id', 'province_id', 'ward_id','user_id','branch_id'
-    ];
 
     public function product_logs()
     {

@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::table('user_groups', function (Blueprint $table) {
             $table->softDeletes(); // add
-
         });
     }
 

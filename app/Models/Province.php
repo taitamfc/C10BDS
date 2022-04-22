@@ -9,9 +9,8 @@ class Province extends Model
 {
     use HasFactory;
     protected $table = 'provinces';
-    protected $fillable = [
-        'id', 'name'
-    ];
+
+
     public $timestamps = false;
 
     public function products()

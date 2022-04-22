@@ -15,7 +15,8 @@ return new class extends Migration
     {
         Schema::table('roles', function (Blueprint $table) {
             $table->softDeletes(); // add
-        });    }
+        });    
+    }
 
     /**
      * Reverse the migrations.

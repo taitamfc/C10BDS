@@ -31,8 +31,6 @@
                         <div class="col-lg-8">
                             <div class="input text">
                                 <select name="filter[province_id]" class="form-control province_id">
-                                    <option value="">Vui lòng chọn</option>
-
                                     @foreach($provinces as $province)
                                     <option value="{{ $province->id }}">{{$province->name}}</option>
                                     @endforeach
@@ -69,7 +67,6 @@
                         </div>
                     </div>
                     <!-- .form-row -->
-
                     <div class="form-group form-row filter-row">
                         <div class="col-lg-4">
                             <label class="">Chi nhánh </label>
@@ -102,17 +99,17 @@
                             </div>
                         </div>
                     </div>
-     
-            </div><!-- #filter-columns -->
-            <!-- .btn -->
-        </div><!-- /.modal-body -->
-        <!-- .modal-footer -->
-        <div class="modal-footer justify-content-start">
-            <button type="submit" class="btn btn-primary" id="apply-filter">Áp dụng</button>
-            <button type="button" data-dismiss="modal" class="btn btn-light" id="clear-filter">Hủy</button>
-        </div><!-- /.modal-footer -->
-    </div><!-- /.modal-content -->
-</div><!-- /.modal-dialog -->
+
+                </div><!-- #filter-columns -->
+                <!-- .btn -->
+            </div><!-- /.modal-body -->
+            <!-- .modal-footer -->
+            <div class="modal-footer justify-content-start">
+                <button type="submit" class="btn btn-primary" id="apply-filter">Áp dụng</button>
+                <button type="button" data-dismiss="modal" class="btn btn-light" id="clear-filter">Hủy</button>
+            </div><!-- /.modal-footer -->
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
 </div><!-- /#modalFilterColumnsProducts -->
 
 
