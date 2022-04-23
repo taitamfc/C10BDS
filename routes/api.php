@@ -6,6 +6,8 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\DistrictController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\Api\WardController;
+use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\NotificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +35,13 @@ Route::group([
     Route::post('/refresh', [AuthController::class, 'refresh']);
     Route::get('/profile', [AuthController::class, 'userProfile']);
     Route::post('/change-pass', [AuthController::class, 'changePassWord']);    
+});
+
+Route::group([
+    'middleware' => 'auth:api'
+], function ($router) {
+    Route::resource('products', ProductController::class);
+    Route::resource('notifications', NotificationController::class);
 });
 
 Route::get('/get_districts/{province_id}',[DistrictController::class,'get_districts_by_province_id']);

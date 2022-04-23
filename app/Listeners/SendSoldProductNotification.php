@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
 use Illuminate\Support\Facades\Notification;
-use App\Notifications\NewProductNotification;
+use App\Notifications\SoldProductNotification;
 use Telegram\Bot\Laravel\Facades\Telegram;
 use App\Models\User;
 
@@ -34,7 +34,7 @@ class SendSoldProductNotification
     {
         //gửi cho các thành viên ở chi nhánh nơi sản phẩm thuộc về
         $users = User::where('branch_id',$event->product->branch_id)->get();
-        Notification::send($admins, new SoldProductNotification($event->product));
+        Notification::send($users, new SoldProductNotification($event->product));
 
         //gửi cho các thành viên ở chi nhánh qua telegram
         $telegram_channel_id = env('TELEGRAM_CHANNEL_ID', '');

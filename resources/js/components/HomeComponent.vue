@@ -38,7 +38,7 @@
         </router-link>
       </li>
       <li>
-        <router-link :to="{ name: 'products.index', params: {} }" class="item">
+        <router-link :to="{ name: 'products.sold', params: {} }" class="item">
           <div class="icon-box bg-warning">
             <ion-icon
               name="layers-outline"
