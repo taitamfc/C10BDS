@@ -16,6 +16,7 @@ use App\Models\Ward;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Events\ProductCreated;
+use App\Events\ProductSold;
 
 class ProductController extends Controller
 {
@@ -99,6 +100,7 @@ class ProductController extends Controller
     public function store(StoreProductRequest $request)
     {
         $product = new Product();
+        $old_product = $product;
         $product->name = $request->name;
         $product->address = $request->address;
         $product->price = $request->price;
@@ -120,7 +122,17 @@ class ProductController extends Controller
         $product->ward_id = $request->ward_id;
         try {
             $product->save();
-            event(new ProductCreated($product));
+            //kiểm tra trạng thái cũ của sản phẩm
+            if( $old_product->status != $product->status ){
+                if( $product->status == 'selling' ){
+                    //thông báo khi sản phẩm mới được đăng bán
+                    event(new ProductCreated($product));
+                }
+                if( $product->status == 'sold' ){
+                     //thông báo khi sản phẩm được bán thành công
+                    event(new ProductSold($product));
+                }
+            }
             Session::flash('success', 'Thêm' . ' ' . $request->name . ' ' .  'thành công');
         } catch (\Exception $e) {
             Log::error($e->getMessage());

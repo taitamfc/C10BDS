@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Event;
 use App\Events\ProductCreated;
 use App\Listeners\SendNewProductNotification;
 
+use App\Events\ProductSold;
+use App\Listeners\SendSoldProductNotification;
+
 class EventServiceProvider extends ServiceProvider
 {
     /**
@@ -23,6 +26,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         ProductCreated::class => [
             SendNewProductNotification::class
+        ],
+        ProductSold::class => [
+            SendSoldProductNotification::class
         ]
     ];
 
