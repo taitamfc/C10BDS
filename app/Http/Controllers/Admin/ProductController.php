@@ -15,6 +15,8 @@ use App\Models\User;
 use App\Models\Ward;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use App\Events\ProductCreated;
+use App\Events\ProductSold;
 
 class ProductController extends Controller
 {
@@ -98,6 +100,7 @@ class ProductController extends Controller
     public function store(StoreProductRequest $request)
     {
         $product = new Product();
+        $old_product = $product;
         $product->name = $request->name;
         $product->address = $request->address;
         $product->price = $request->price;
@@ -119,10 +122,18 @@ class ProductController extends Controller
         $product->ward_id = $request->ward_id;
         try {
             $product->save();
-            Session::flash('success', 'Thêm' . ' ' . $request->name . ' ' .  'thành công');
+            if( $product->status == 'selling' ){
+                //thông báo khi sản phẩm mới được đăng bán
+                event(new ProductCreated($product));
+            }
+            if( $product->status == 'sold' ){
+                 //thông báo khi sản phẩm được bán thành công
+                event(new ProductSold($product));
+            }
+            Session::flash('success', 'Thêm' . ' <strong>' . $request->name . '</strong> ' .  'thành công');
         } catch (\Exception $e) {
             Log::error($e->getMessage());
-            Session::flash('success', 'Thêm' . ' ' . $request->name . ' ' .  'Không thành công');
+            Session::flash('error', 'Thêm' . ' <strong>' . $request->name . '</strong> ' .  'không thành công');
         }
         return redirect()->route('products.index');
     }
@@ -177,6 +188,7 @@ class ProductController extends Controller
     public function update(UpdateProductRequest $request, $id)
     {
         $product = Product::find($id);
+        $old_product =  $product;
         $product->name = $request->input('name');
         $product->address = $request->input('address');
         $product->price = $request->input('price');
@@ -197,12 +209,23 @@ class ProductController extends Controller
         $product->ward_id = $request->input('ward_id');
         try {
             $product->save();
+            //kiểm tra trạng thái cũ của sản phẩm
+            if( $old_product->status != $product->status ){
+                if( $product->status == 'selling' ){
+                    //thông báo khi sản phẩm mới được đăng bán
+                    event(new ProductCreated($product));
+                }
+                if( $product->status == 'sold' ){
+                     //thông báo khi sản phẩm được bán thành công
+                    event(new ProductSold($product));
+                }
+            }
             return redirect()->route('products.index')
-                ->with('success', 'Sửa danh mục' . ' ' . $request->name . ' ' . 'thành công');
+                ->with('success', 'Cập nhật ' . '<strong>' . $request->name . '</strong>' . ' thành công');
         } catch (\Exception $e) {
             Log::error($e->getMessage());
             return redirect()->route('products.index')
-                ->with('error', 'Sửa danh mục' . ' ' . $request->name . ' ' . 'Không thành công');
+                ->with('error', 'Cập nhật ' . '<strong>' . $request->name . '</strong>' . ' không thành công');
         }
     }
     /**
