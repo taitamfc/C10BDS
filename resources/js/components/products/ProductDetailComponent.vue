@@ -218,7 +218,7 @@ export default {
       })
     }
   },
-  mounted(id)  {
+  mounted()  {
     this.get_item(this.$route.params.id)
   }
 };
