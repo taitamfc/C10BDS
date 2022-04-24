@@ -2,12 +2,12 @@
   <HeaderComponent layout="single" title="Sản phẩm đang đảm nhận"  />
 
   <!-- App Capsule -->
-  <div id="appCapsule">
+  <div id="appCapsule" v-if="item">
     <!-- carousel full -->
-    <div class="carousel-full">
-      <div class="splide__track">
+    <div class="carousel-full" v-if="item.product_images">
+      <div class="splide__track" v-for="(image, index) in item.product_images.splice(0,1)" :key="index">
         <img
-          src="https://kingreal.com/wp-content/uploads/2022/02/27850a5844bdb6e3efac.jpg"
+          v-bind:src="image.image_url"
           alt="alt"
           class="imaged w-100 square"
         />
@@ -17,12 +17,12 @@
 
     <div class="section full">
       <div class="wide-block pt-2 pb-2 product-detail-header">
-        <h1 class="title">KHU ĐÔ THỊ PHỐ CHỢ ĐIỆN NAM TRUNG</h1>
-        <div class="text">Thị xã Điện Bàn, Quảng Nam</div>
+        <h1 class="title">{{ item.name }}</h1>
+        <div class="text">{{ item.address }} {{ item.tinh_thanh_pho }}</div>
         <div class="text-center">
           <!-- price -->
           <div class="price">
-            <div class="current-price form-control mt-2">Giá: 1 tỷ - 3 tỷ</div>
+            <div class="current-price form-control mt-2">Giá: {{ item.price }}</div>
           </div>
           <!-- * price -->
         </div>
@@ -31,13 +31,7 @@
 
     <div class="section full">
       <div class="section-title">Chi tiết sản phẩm</div>
-      <div class="wide-block pt-2 pb-2">
-        Chủ đầu tư: Công ty cổ phần đầu tư bất động sản VGroup <br />
-        Diện tích: 40.000m2<br />
-        Quy mô dự án: 90m2, 100m2, 110m2, 120m2, 150m2<br />
-        Pháp lý: Sổ đỏ sở hữu lâu dài<br />
-        Loại hình bất động sản: Khu dân cư và khu tái định cư sẽ có hơn 500 hộ
-        dân sinh sống
+      <div class="wide-block pt-2 pb-2" v-html="item.description">
       </div>
     </div>
 
@@ -54,16 +48,7 @@
               Thông Tin
             </a>
           </li>
-          <li class="nav-item">
-            <a
-              class="nav-link"
-              data-bs-toggle="tab"
-              href="#comments"
-              role="tab"
-            >
-              Thảo Luận
-            </a>
-          </li>
+
           <li class="nav-item">
             <a
               class="nav-link"
@@ -96,78 +81,39 @@
           <div class="section mb-2 pt-2">
             <div class="form-group">
               <div class="input-wrapper">
-                <label class="form-label" for="name5">Tên</label>
-                <p class="form-control-static">Nguyễn Văn A</p>
+                <label class="form-label" for="name5">Giấy tờ pháp lý</label>
+                <p class="form-control-static">{{ item.juridical }}</p>
               </div>
             </div>
             <div class="form-group">
               <div class="input-wrapper">
-                <label class="form-label" for="name5">Số Điện Thoại</label>
-                <p class="form-control-static">0123456789</p>
+                <label class="form-label" for="name5">Diện tích</label>
+                <p class="form-control-static">{{ item.area }} m2</p>
               </div>
             </div>
             <div class="form-group">
               <div class="input-wrapper">
-                <label class="form-label" for="name5">Địa Chỉ</label>
-                <p class="form-control-static">Nguyễn Văn A</p>
+                <label class="form-label" for="name5">Hướng nhà</label>
+                <p class="form-control-static">{{ item.houseDirection }}</p>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="input-wrapper">
+                <label class="form-label" for="name5">Đường vào</label>
+                <p class="form-control-static">{{ item.stress_width }} m2</p>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="input-wrapper">
+                <label class="form-label" for="name5">Mặt tiền</label>
+                <p class="form-control-static">{{ item.facade }} m2</p>
               </div>
             </div>
           </div>
-          <div class="section mb-2">
-            <a href="#" class="btn btn-primary btn-block">Order Now</a>
-          </div>
+          
         </div>
         <!-- * feed -->
 
-        <!-- * comments -->
-        <div class="tab-pane fade" id="comments" role="tabpanel">
-          <div class="section pt-2">
-            <div class="comment-block">
-              <!--item -->
-              <div class="item">
-                <div class="avatar">
-                  <img
-                    src="/mobile/assets/img/sample/avatar/avatar1.jpg"
-                    alt="avatar"
-                    class="imaged w32 rounded"
-                  />
-                </div>
-                <div class="in">
-                  <div class="comment-header">
-                    <h4 class="title">Diego Morata</h4>
-                    <span class="time">just now</span>
-                  </div>
-                  <div class="text">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  </div>
-                </div>
-              </div>
-              <!-- * item -->
-              <!--item -->
-              <div class="item">
-                <div class="avatar">
-                  <img
-                    src="/mobile/assets/img/sample/avatar/avatar1.jpg"
-                    alt="avatar"
-                    class="imaged w32 rounded"
-                  />
-                </div>
-                <div class="in">
-                  <div class="comment-header">
-                    <h4 class="title">Henry Itondo</h4>
-                    <span class="time">05:50 PM</span>
-                  </div>
-                  <div class="text">
-                    Sed laoreet leo eget maximus ultricies. Nunc vitae enim
-                    facilisis tortor aliquet ullamcorper nec at tortor.
-                  </div>
-                </div>
-              </div>
-              <!-- * item -->
-            </div>
-          </div>
-        </div>
-        <!-- * comments -->
 
         <!--  histories -->
         <div class="tab-pane fade" id="collaborators" role="tabpanel">
@@ -184,34 +130,20 @@
         <!--  histories -->
         <div class="tab-pane fade" id="histories" role="tabpanel">
           <div class="timeline timed">
-            <div class="item">
-              <span class="time">11:00 AM</span>
+
+            <div class="item" v-for="(product_log, index) in item.product_logs" :key="index">
+              <span class="time">{{ product_log.time_format }}</span>
               <div class="dot"></div>
               <div class="content">
-                <h4 class="title">Call Amanda</h4>
-                <div class="text">Talk about the project</div>
-              </div>
-            </div>
-
-            <div class="item">
-              <span class="time">04:40 PM</span>
-              <div class="dot bg-warning"></div>
-              <div class="content">
-                <h4 class="title">Party Night</h4>
-                <div class="text">
-                  Get a ticket for party at tonight 9:00 PM
-                </div>
-              </div>
-            </div>
-            <div class="item">
-              <span class="time">06:00 PM</span>
-              <div class="dot bg-info"></div>
-              <div class="content">
-                <h4 class="title">New Release</h4>
-                <div class="text">Export the version 2.3</div>
+                <div class="text">{{ product_log.content }}</div>
               </div>
             </div>
           </div>
+
+          <div class="section mb-2" v-if="item.status == 'selling'">
+            <a href="#" class="btn btn-success btn-block" @click="handleButtonSubmit()">Xác Nhận Đã Bán</a>
+          </div>
+
         </div>
         <!-- * histories -->
       </div>
@@ -219,6 +151,18 @@
     <!-- * tab content -->
   </div>
   <!-- * App Capsule -->
+  <ConfirmElement 
+    v-if="show.showConfirm" 
+    :title="'Xác Nhận'" 
+    :sub_title="'Xác nhận đã bán'" 
+    :cancel_button="'Hủy'" 
+    :confirm_button="'Đồng Ý'" 
+    @modalCancel="this.show.showConfirm = false"
+    @modalConfirm="handleProductSold(this.$route.params.id)"
+    />
+  <LoadingElement v-if="show.showLoading" />
+  <NotificationElement @notificationHide="this.show.notifiError = false" v-if="show.notifiError" :title="'Không Thành Công'" :sub_title="'Cập nhật không thành công'" :type="'error'"  />
+  <NotificationElement @notificationHide="this.show.notifiSuccess = false" v-if="show.notifiSuccess" :title="'Thành Công'" :sub_title="'Cập nhật thành công'" :type="'success'"  />
   <FooterComponent layout="main" />
 </template>
 
@@ -226,12 +170,57 @@
 import HeaderComponent from "../includes/HeaderComponent.vue";
 import FooterComponent from "../includes/FooterComponent.vue";
 import CollaboratorItemElement from "../collaborators/includes/CollaboratorItemElement.vue";
+import ConfirmElement from "../elements/ConfirmElement.vue";
+import LoadingElement from "../elements/LoadingElement.vue";
+import NotificationElement from "../elements/NotificationElement.vue";
 export default {
   components: {
     HeaderComponent,
     FooterComponent,
     CollaboratorItemElement,
+    ConfirmElement,
+    NotificationElement,
+    LoadingElement
   },
+  data() {
+    return {
+      isRunning : false,
+      item : null,
+      show : {
+        showConfirm: false,
+        showLoading: false,
+        notifiError: false,
+        notifiSuccess: false
+      }
+    }
+  },
+  methods: {
+    get_item(id) {
+      this.isRunning = true;
+      axios.get('/api/products/'+id)
+      .then(result => {
+          this.isRunning = false;
+          this.item = result.data;
+      })
+    },
+    handleButtonSubmit(){
+       this.show.showConfirm = true;
+    },
+    handleProductSold(id){
+      this.show.showConfirm = false;
+      this.show.showLoading = true;
+
+      axios.put('/api/products/'+id,{'status':'sold'})
+      .then(result => {
+          this.show.showLoading = false;
+          this.show.notifiSuccess = true;
+          this.item.status = 'sold';
+      })
+    }
+  },
+  mounted(id)  {
+    this.get_item(this.$route.params.id)
+  }
 };
 </script>
 
