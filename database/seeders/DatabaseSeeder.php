@@ -62,6 +62,7 @@ class DatabaseSeeder extends Seeder
     public function importBranches()
     {
         $branch = new Branch();
+        $branch->id = 1;
         $branch->name = 'Chi nhánh 1';
         $branch->address = 'Thanh Hóa';
         $branch->phone = '0977983360';
@@ -72,6 +73,7 @@ class DatabaseSeeder extends Seeder
 
 
         $branch = new Branch();
+        $branch->id = 2;
         $branch->name = 'Chi nhánh 2';
         $branch->address = 'Nghệ An';
         $branch->phone = '01648511610';
@@ -82,6 +84,7 @@ class DatabaseSeeder extends Seeder
 
 
         $branch = new Branch();
+        $branch->id = 3;
         $branch->name = 'Chi nhánh 3';
         $branch->address = 'Hà Tĩnh';
         $branch->phone = '0979061738';
@@ -92,6 +95,7 @@ class DatabaseSeeder extends Seeder
 
 
         $branch = new Branch();
+        $branch->id =4;
         $branch->name = 'Chi nhánh 4';
         $branch->address = 'Quảng Bình';
         $branch->phone = '0854383246';
