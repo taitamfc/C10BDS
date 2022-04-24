@@ -6,6 +6,9 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\DistrictController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\Api\WardController;
+use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\NotificationController;
+use App\Http\Controllers\Api\ProvinceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,7 +38,15 @@ Route::group([
     Route::post('/change-pass', [AuthController::class, 'changePassWord']);    
 });
 
+Route::group([
+    'middleware' => 'auth:api'
+], function ($router) {
+    Route::resource('products', ProductController::class);
+    Route::resource('notifications', NotificationController::class);
+});
+
 Route::get('/get_districts/{province_id}',[DistrictController::class,'get_districts_by_province_id']);
 Route::get('/get_wards/{district_id}',[WardController::class,'get_wards_by_district_id']);
+Route::get('/get_provinces',[ProvinceController::class,'get_provinces']);
 
 Route::get('/get_users_by_branch_id/{branch_id}',[UserController::class,'get_users_by_branch_id']);

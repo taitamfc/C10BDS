@@ -15,6 +15,8 @@ use App\Models\User;
 use App\Models\Ward;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use App\Events\ProductCreated;
+use App\Events\ProductSold;
 
 class ProductController extends Controller
 {
@@ -98,6 +100,7 @@ class ProductController extends Controller
     public function store(StoreProductRequest $request)
     {
         $product = new Product();
+        $old_product = $product;
         $product->name = $request->name;
         $product->address = $request->address;
         $product->price = $request->price;
@@ -119,10 +122,18 @@ class ProductController extends Controller
         $product->ward_id = $request->ward_id;
         try {
             $product->save();
-            Session::flash('success', 'Thêm' . ' ' . $request->name . ' ' .  'thành công');
+            if( $product->status == 'selling' ){
+                //thông báo khi sản phẩm mới được đăng bán
+                event(new ProductCreated($product));
+            }
+            if( $product->status == 'sold' ){
+                 //thông báo khi sản phẩm được bán thành công
+                event(new ProductSold($product));
+            }
+            Session::flash('success', 'Thêm' . ' <strong>' . $request->name . '</strong> ' .  'thành công');
         } catch (\Exception $e) {
             Log::error($e->getMessage());
-            Session::flash('success', 'Thêm' . ' ' . $request->name . ' ' .  'Không thành công');
+            Session::flash('error', 'Thêm' . ' <strong>' . $request->name . '</strong> ' .  'không thành công');
         }
         return redirect()->route('products.index');
     }
@@ -151,9 +162,9 @@ class ProductController extends Controller
         $productCategories = ProductCategory::all();
         $provinces = Province::all();
         $branches = Branch::all();
-        $districts = District::all();
-        $wards = Ward::all();
-        $users = User::all();
+        $districts = District::where('province_id',$product->province_id)->get();
+        $wards = Ward::where('district_id',$product->district_id)->get();
+        $users = User::where('branch_id',$product->branch_id)->get();
 
         $params = [
             'productCategories' => $productCategories,
@@ -177,32 +188,47 @@ class ProductController extends Controller
     public function update(UpdateProductRequest $request, $id)
     {
         $product = Product::find($id);
-        $product->name = $request->input('name');
-        $product->address = $request->input('address');
-        $product->price = $request->input('price');
-        $product->unit = $request->input('unit');
-        $product->description = $request->input('description');
-        $product->product_category_id = $request->input('product_category_id');
-        $product->area = $request->input('area');
-        $product->juridical = $request->input('juridical');
-        $product->linkYoutube = $request->input('linkYoutube');
-        $product->houseDirection = $request->input('houseDirection');
-        $product->google_map = $request->input('google_map');
-        $product->facade = $request->input('facade');
-        $product->stress_width = $request->input('stress_width');
-        $product->province_id = $request->input('province_id');
-        $product->branch_id = $request->input('branch_id');
-        $product->district_id = $request->input('district_id');
-        $product->user_id = $request->input('user_id');
-        $product->ward_id = $request->input('ward_id');
+        $old_status =  $product->status;
+        $product->name = $request->name;
+        $product->address = $request->address;
+        $product->price = $request->price;
+        $product->description = $request->description;
+        $product->product_category_id = $request->product_category_id;
+        $product->area = $request->area;
+        $product->unit = $request->unit;
+        $product->houseDirection = $request->houseDirection;
+        $product->facade = $request->facade;
+        $product->status = $request->status;
+        $product->juridical = $request->juridical;
+        $product->google_map = $request->google_map;
+        $product->linkYoutube = $request->linkYoutube;
+        $product->stress_width = $request->stress_width;
+        $product->province_id = $request->province_id;
+        $product->branch_id = $request->branch_id;
+        $product->user_id = $request->user_id;
+        $product->district_id = $request->district_id;
+        $product->ward_id = $request->ward_id;
+        //dd($product->status);
+        
         try {
             $product->save();
+            //kiểm tra trạng thái cũ của sản phẩm
+            if( $old_status != $product->status ){
+                if( $product->status == 'selling' ){
+                    //thông báo khi sản phẩm mới được đăng bán
+                    event(new ProductCreated($product));
+                }
+                if( $product->status == 'sold' ){
+                     //thông báo khi sản phẩm được bán thành công
+                    event(new ProductSold($product));
+                }
+            }
             return redirect()->route('products.index')
-                ->with('success', 'Sửa danh mục' . ' ' . $request->name . ' ' . 'thành công');
+                ->with('success', 'Cập nhật ' . $request->name  . ' thành công');
         } catch (\Exception $e) {
             Log::error($e->getMessage());
             return redirect()->route('products.index')
-                ->with('error', 'Sửa danh mục' . ' ' . $request->name . ' ' . 'Không thành công');
+                ->with('error', 'Cập nhật ' . $request->name  . ' không thành công');
         }
     }
     /**

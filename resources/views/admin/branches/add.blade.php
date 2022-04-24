@@ -93,7 +93,9 @@
     </form>
 </div>
 <script>
+    //khi tài liệu đã sẵn sàng thì thực hiện đoạn mã trong khối lệnh 
     jQuery(document).ready(function() {
+        //tìm phần tử có class province_id bắt sự kiện onchange
         jQuery('.province_id').on('change', function() {
             var province_id = jQuery(this).val();
 
@@ -112,13 +114,19 @@
         });
 
         jQuery('.district_id').on('change', function() {
+            //tạo biến _id = đối tượng this với gtri hiện tại
             var district_id = jQuery(this).val();
             $.ajax({
+                //đường dẫn mình gọi đến
                 url: "/api/get_wards/" + district_id,
+                //phương thức : Get/POST
                 type: "GET",
                 success: function(data) {
+                    //tạo biến html = cặp thẻ option
                     var wards_html = '<option value="">Vui lòng chọn</option>';
                     for (const ward of data) {
+                        //data là một mảng chứa các đối tượng
+                        //sử dụng toán tử để tạo một đối tượng mới.
                         wards_html += '<option value="' + ward.id + '">' + ward.name +
                             '</option>';
                     }
@@ -127,6 +135,7 @@
             });
         });
     });
+    //jQuery là một thẻ script viết lại 
 </script>
 
 @endsection
