@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Branch;
 use App\Models\District;
+use App\Models\ProducImage;
 use App\Models\ProductCategory;
 use App\Models\Province;
 use App\Models\User;
@@ -56,6 +57,10 @@ class ProductController extends Controller
             $status = $request->filter['status'];
             $product->where('status', $status);
         }
+        if ($request->s){
+            $product->where('name', 'LIKE', '%' . $request->s . '%');
+            $product->orwhere('id', $request->s);
+        }
         $product->orderBy('id', 'desc');
         $provinces = Province::all();
         $branches = Branch::all();
@@ -65,6 +70,7 @@ class ProductController extends Controller
             'products' => $products,
             'branches' => $branches
         ];
+        
 
         return view('admin.products.index', $params);
     }
@@ -117,8 +123,36 @@ class ProductController extends Controller
         $product->user_id = $request->user_id;
         $product->district_id = $request->district_id;
         $product->ward_id = $request->ward_id;
+
+        $product_images = [];
+        if ($request->hasFile('image_urls')) {
+            $image_urls          = $request->image_urls;
+            foreach ($image_urls as $key => $image) {
+                //tạo file upload trong public để chạy ảnh
+                $path               = 'upload';
+                $get_name_image     = $image->getClientOriginalName(); //abc.jpg
+                //explode "." [abc,jpg]
+                $name_image         = current(explode('.', $get_name_image)); 
+                //trả về phần tử thứ 1 của mản -> abc
+                //getClientOriginalExtension: tra ve  đuôi ảnh
+                $new_image          = $name_image . rand(0, 99) . '.' . $image->getClientOriginalExtension();
+                //abc nối số ngẫu nhiên từ 0-99, nối "." ->đuôi file jpg
+                $image->move($path, $new_image); //chuyển file ảnh tới thư mục
+                $product_images[] = $new_image;
+            }
+            // dd($product_images);
+        }
         try {
             $product->save();
+            //luu vao bang product_images
+            if( count($product_images) ){
+                foreach ($product_images as $product_image) {
+                    $ProducImage = new ProducImage();
+                    $ProducImage->product_id = $product->id;
+                    $ProducImage->image_url = $product_image;
+                }
+            }
+            $ProducImage->save();
             Session::flash('success', 'Thêm' . ' ' . $request->name . ' ' .  'thành công');
         } catch (\Exception $e) {
             Log::error($e->getMessage());
@@ -215,7 +249,12 @@ class ProductController extends Controller
     {
         // $this->authorize('delete', Product::class);
         $product = Product::find($id);
-        $product->delete();
-        return redirect()->route('products.index')->with('success', 'Xóa  thành công');
+        try {
+            $product->delete();
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return redirect()->route('products.index')->with('success', 'Xóa  thành công');
+        }
+        return redirect()->route('products.index')->with('success', 'Xóa không  thành công');
     }
 }

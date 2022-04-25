@@ -9,7 +9,6 @@
         <CollaboratorItemElement/>
         <CollaboratorItemElement/>
         <CollaboratorItemElement/>
-      
       </ul>
     </div>
     <div class="section mb-2"><a href="#" class="btn btn-warning btn-block">Xem thêm</a></div>

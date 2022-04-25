@@ -25,6 +25,10 @@ class ProductCategoryController extends Controller
             $name = $request->filter['name'];
             $productCategories->where('name', 'LIKE', '%' . $name . '%');
         }
+        if ($request->s){
+            $productCategories->where('name', 'LIKE', '%' . $request->s . '%');
+            $productCategories->orwhere('id', $request->s);
+        }
 
         $productCategories = $productCategories->orderBy('id', 'desc')->paginate(3);
 
@@ -54,10 +58,10 @@ class ProductCategoryController extends Controller
         $productCategory->name = $request->name;
         try {
             $productCategory->save();
-            return redirect()->route('productCategories.index')->with('success', 'Sửa danh mục' . ' ' . $request->name . ' ' . 'thành công');
+            return redirect()->route('productCategories.index')->with('success', 'Thêm danh mục' . ' ' . $request->name . ' ' . 'thành công');
         } catch (\Exception $e) {
             Log::error($e->getMessage());
-            return redirect()->route('productCategories.index')->with('success', 'Sửa danh mục' . ' ' . $request->name . ' ' . 'thành công');
+            return redirect()->route('productCategories.index')->with('success', 'Thêm danh mục' . ' ' . $request->name . ' ' . 'không thành công');
         }
     }
 
@@ -118,7 +122,12 @@ class ProductCategoryController extends Controller
     {
         // $this->authorize('delete', ProductCategory::class);
         $productCategory = ProductCategory::find($id);
-        $productCategory->delete();
-        return redirect()->route('productCategories.index')->with('success', 'Xóa  thành công');
+        try {
+            $productCategory->delete();
+            return redirect()->route('productCategories.index')->with('success', 'Xóa  thành công');
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return redirect()->route('productCategories.index')->with('success', 'Xóa không thành công');
+        }
     }
 }
