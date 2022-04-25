@@ -35,6 +35,7 @@ Route::group([
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('/refresh', [AuthController::class, 'refresh']);
     Route::get('/profile', [AuthController::class, 'userProfile']);
+    Route::post('/changeNotification', [AuthController::class, 'changeNotification']);
     Route::post('/change-pass', [AuthController::class, 'changePassWord']);    
 });
 
