@@ -1,106 +1,87 @@
 <template>
-  <HeaderComponent layout="single" :title="'Đổi Mật Khẩu'" />
-  <div id="appCapsule">
-    <div class="section full">
-      <div class="wide-block pb-2">
-        <form>
-          <div class="form-group boxed">
-            <div class="input-wrapper">
-              <label class="form-label">Họ Và Tên</label>
-              <input
-                type="text"
-                class="form-control form-control-sm"
-                id="name5"
-                placeholder="Name"
-              />
-              <i class="clear-input">
-                <ion-icon
-                  name="close-circle"
-                  role="img"
-                  class="md hydrated"
-                  aria-label="close circle"
-                ></ion-icon>
-              </i>
-            </div>
-          </div>
+   <HeaderComponent layout="single" :title="'Quên Mật Khẩu'" />
+  <!-- App Capsule -->
+  <div id="appCapsule" class="pt-0">
+    <div class="login-form mt-1">
+      <div class="section mt-1">
+        <h1>Quên Mật Khẩu</h1>
+      </div>
 
+      <div class="section mt-1 mb-5">
+        <form @submit.prevent="authenticate" autocomplete="off">
           <div class="form-group boxed">
             <div class="input-wrapper">
               <label class="form-label">Số Điện Thoại</label>
               <input
                 type="email"
-                class="form-control form-control-sm"
-                id="email5"
-                placeholder="Email"
+                class="form-control"
+                v-model="form.email"
+                placeholder="Số Điện Thoại"
+                autocomplete="off"
               />
               <i class="clear-input">
-                <ion-icon
-                  name="close-circle"
-                  role="img"
-                  class="md hydrated"
-                  aria-label="close circle"
-                ></ion-icon>
+                <ion-icon name="close-circle"></ion-icon>
               </i>
             </div>
           </div>
 
-          <div class="form-group boxed">
-            <div class="input-wrapper">
-              <label class="form-label">Địa Chỉ</label>
-              <textarea
-                id="address5"
-                rows="4"
-                class="form-control form-control-sm"
-                placeholder="Message"
-              ></textarea>
-              <i class="clear-input">
-                <ion-icon
-                  name="close-circle"
-                  role="img"
-                  class="md hydrated"
-                  aria-label="close circle"
-                ></ion-icon>
-              </i>
+
+          <div class="form-links mt-2">
+            <div>
+              
+            </div>
+            <div>
+              <router-link :to="{ name: 'users.login', params: {}}" class="text-muted">
+                Đăng Nhập
+              </router-link>
             </div>
           </div>
-          <div class="form-group boxed">
-				 <div class="input-wrapper">
-            <label for="formFileSm" class="form-label"
-              >Ảnh Đại Diện</label
-            >
-            <input
-              class="form-control form-control-sm"
-              id="formFileSm"
-              type="file"
-            />
-          	</div>
-          </div>
 
-          <div class="mt-1">
-            <button type="submit" class="btn btn-warning btn-lg btn-block">
-              Cập Nhật
+          <div class="form-button-group">
+            <button type="submit" class="btn btn-warning btn-block btn-lg">
+              Gửi
             </button>
           </div>
         </form>
       </div>
-      <div class="content-footer mt-05">
-        * This form is only html based. Not included any mail script.
-      </div>
     </div>
   </div>
   <!-- * App Capsule -->
-  <FooterComponent layout="main" />
 </template>
  
 <script>
-import HeaderComponent from "../includes/HeaderComponent.vue";
-import FooterComponent from "../includes/FooterComponent.vue";
-import UserTabHomeComponent from "./includes/UserTabHomeComponent.vue";
+import HeaderComponent from "./../includes/HeaderComponent.vue";
+import { login } from '../../helpers/auth';
+
 export default {
+  name: "Login",
+  data() {
+      return {
+          form: {
+              email: '',
+              password: '',
+          },
+          type: 'login',
+          error: null,
+      }
+  },
   components: {
     HeaderComponent,
-    FooterComponent,
-    UserTabHomeComponent,
+  },
+  methods: {
+      authenticate() {
+          this.$store.dispatch("LOGIN");
+
+          login(this.$data.form)
+          .then(res => {
+              this.$store.commit("LOGIN_SUCCESS", res);
+              this.$router.push({path: '/'});
+          })
+          .catch(err => {
+              this.$store.commit("LOGIN_FAILED", {err})
+              this.showAlert(this.authError, 'error');
+          })
+      },
   },
 };
 </script>

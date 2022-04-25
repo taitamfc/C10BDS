@@ -14,7 +14,7 @@ class Product extends Model
 
     public function product_logs()
     {
-        return $this->hasMany(Product_log::class);
+        return $this->hasMany(ProductLog::class)->orderBy('created_at','DESC');;
     }
 
     public function branch()
@@ -24,23 +24,23 @@ class Product extends Model
 
     public function product_images()
     {
-        return $this->hasMany(Product_image::class);
+        return $this->hasMany(ProductImage::class);
     }
     public function productCategory()
     {
-        return $this->belongto(ProductCategory::class, 'product_category_id', 'id');
+        return $this->belongsTo(ProductCategory::class, 'product_category_id', 'id');
     }
     public function province()
     {
-        return $this->belongto(Province::class, 'province_id', 'id');
+        return $this->belongsTo(Province::class, 'province_id', 'id');
     }
     public function district()
     {
-        return $this->belongto(District::class, 'district_id', 'id');
+        return $this->belongsTo(District::class, 'district_id', 'id');
     }
     public function ward()
     {
-        return $this->belongto(Ward::class, 'ward_id', 'id');
+        return $this->belongsTo(Ward::class, 'ward_id', 'id');
     }
 
     public function user_products() {

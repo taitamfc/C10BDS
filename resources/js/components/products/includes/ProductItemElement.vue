@@ -5,15 +5,15 @@
           <div class="in">
             
             <div class="text">
-              <h3 class="title">CĂN HỘ SƠN TRÀ OCEAN VIEW ĐÀ NẴNG</h3>
-              <p class="detail">Quận Sơn Trà, Đà Nẵng </p>
-              <p class="detail">Quận Sơn Trà, Đà Nẵng </p>
+              <h3 class="title">{{ item.name }}</h3>
+              <p class="detail">{{ item.tinh_thanh_pho }}</p>
+              <p class="detail">{{ item.address }}</p>
               <!-- <strong class="price">Niêm yết: 1,5 tỷ - 2,5 tỷ</strong> -->
             </div>
           </div>
           <div class="cart-item-footer">
-           <strong class="price">Giá bán: 1,5 tỷ - 2,5 tỷ</strong>
-           <router-link :to="{ name: 'products.show', params: {id:1} }" class="btn btn-warning btn-sm" >Chi tiết</router-link>
+           <strong class="price">Giá bán: {{ item.price }}</strong>
+           <router-link :to="{ name: 'products.show', params: {id:item.id} }" class="btn btn-warning btn-sm" >Chi tiết</router-link>
           </div>
         </div>
       </div>
@@ -22,7 +22,7 @@
 
 <script>
 export default {
-
+  props: ["item"],
 }
 </script>
 

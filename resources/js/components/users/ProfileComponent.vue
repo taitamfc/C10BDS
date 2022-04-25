@@ -1,6 +1,6 @@
 <template>
   <HeaderComponent layout="main" :title="'Tài Khoản'" />
-  <div id="appCapsule">
+  <div id="appCapsule" v-if="current_user">
     <div class="section mt-2">
       <div class="profile-head">
         <div class="avatar">
@@ -11,8 +11,8 @@
           />
         </div>
         <div class="in">
-          <h3 class="name">Nguyễn Văn A</h3>
-          <h5 class="subtext">Nhân Viên Bán Hàng</h5>
+          <h3 class="name">{{ current_user.name }}</h3>
+          <h5 class="subtext">{{ current_user.user_group.name }}</h5>
         </div>
       </div>
     </div>
@@ -32,15 +32,19 @@
           <div class="item">
             <div class="in">
               <div>Tắt Thông Báo</div>
-              <div class="form-check form-switch">
+              <div class="form-check form-switch" >
                 <input
                   class="form-check-input"
                   type="checkbox"
                   id="SwitchCheckDefault1"
+                  value="1"
+                  v-bind:checked="current_user.receiveNotification"
+                  v-on:change="handleTurnOffNotification($event.target)"
                 />
                 <label
                   class="form-check-label"
                   for="SwitchCheckDefault1"
+                  
                 ></label>
               </div>
             </div>
@@ -91,9 +95,41 @@
 import HeaderComponent from "../includes/HeaderComponent.vue";
 import FooterComponent from "../includes/FooterComponent.vue";
 export default {
+  data() {
+    return {
+      current_user : null,
+      show : {
+        showConfirm: false,
+        showLoading: false,
+        notifiError: false,
+        notifiSuccess: false
+      }
+    }
+  },
   components: {
     HeaderComponent,
     FooterComponent
   },
+  methods: {
+    handleTurnOffNotification(value){
+      axios.post('/api/auth/changeNotification',{'status':value.checked})
+      .then(result => {
+          this.show.showLoading = false;
+          this.show.notifiSuccess = true;
+      })
+    },
+    getItem(){
+        axios.get('/api/auth/profile')
+        .then(result => {
+            this.current_user = result.data;
+        })
+        .catch(err => {
+            
+        })
+    }
+  },
+  mounted()  {
+    this.getItem()
+  }
 };
 </script>
