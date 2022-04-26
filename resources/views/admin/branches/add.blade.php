@@ -1,5 +1,6 @@
 @extends('admin.layouts.master')
 @section('content')
+
 <header class="page-title-bar">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -8,50 +9,133 @@
             </li>
         </ol>
     </nav>
-    <h1 class="page-title"> Thêm chi nhánh </h1>
+    <h1 class="page-title">Thêm Chi Nhánh</h1>
 </header>
 
 <div class="page-section">
     <form method="post" action="{{route('branches.store')}}">
         @csrf
-
-        <fieldset>
-
-            <div class="form-group">
-                <label for="tf1">Tên chi nhánh</label> <input name="name" type="text" class="form-control" id=""
-                    placeholder="Nhập tên chi nhánh"> <small id="" class="form-text text-muted"></small>
-                @if ($errors->any())
-                <p style="color:red">{{ $errors->first('name') }}</p>
-                @endif
+        <div class="card">
+            <div class="card-body">
+                <legend>Thông tin cơ bản</legend>
+                <div class="form-group">
+                    <label for="tf1">Tên chi nhánh<abbr name="Trường bắt buộc">*</abbr></label> <input name="name" type="text" class="form-control" id="" placeholder="Nhập tên chi nhánh">
+                    <small id="" class="form-text text-muted"></small>
+                    @if ($errors->any())
+                    <p style="color:red">{{ $errors->first('name') }}</p>
+                    @endif
+                </div>
+                <div class="form-group">
+                    <label for="tf1">Địa chỉ<abbr name="Trường bắt buộc">*</abbr></label> <input name="address" type="text" class="form-control" id="" placeholder="Nhập địa chỉ">
+                    <small id="" class="form-text text-muted"></small>
+                    @if ($errors->any())
+                    <p style="color:red">{{ $errors->first('address') }}</p>
+                    @endif
+                </div>
+                <div class="form-group">
+                    <label for="tf1">Số điện thoại<abbr name="Trường bắt buộc">*</abbr></label> <input name="phone" type="text" class="form-control" id="" placeholder="Nhập số điện thoại">
+                    <small id="" class="form-text text-muted"></small>
+                    @if ($errors->any())
+                    <p style="color:red">{{ $errors->first('phone') }}</p>
+                    @endif
+                </div>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Tỉnh/Thành phố</label>
+                            <select name="province_id" class="form-control province_id">
+                            <option value="">Vui lòng chọn</option>
+                                @foreach($provinces as $province)
+                                <option value="{{ $province->id }}">{{$province->name}}</option>
+                                @endforeach
+                            </select>
+                            @if ($errors->any())
+                            <p style="color:red">{{ $errors->first('province_id') }}</p>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Quận/Huyện</label>
+                            <select name="district_id" class="form-control district_id">
+                                <option value="">Vui lòng chọn</option>
+                            </select>
+                            @if ($errors->any())
+                            <p style="color:red">{{ $errors->first('district_id') }}</p>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Xã/Phường</label>
+                            <select name="ward_id" class="form-control ward_id">
+                                <option value="">Vui lòng chọn</option>
+                            </select>
+                            @if ($errors->any())
+                            <p style="color:red">{{ $errors->first('ward_id')}}</p>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="form-group">
+                    <label for="tf1">id Người dùng</label> <input name="user_id" type="text" class="form-control" id="" placeholder="Nhập id người dùng">
+                    <small id="" class="form-text text-muted"></small>
+                    @if ($errors->any())
+                    <p style="color:red">{{ $errors->first('user_id') }}</p>
+                    @endif
+                </div> -->
+                <div class="form-actions">
+                    <a class="btn btn-secondary float-right" href="{{route('branches.index')}}">Hủy</a>
+                    <button class="btn btn-primary ml-auto" type="submit">Lưu</button>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="tf1"> Địa chỉ </label> <input name="address" type="text" class="form-control" id=""
-                    placeholder="Nhập địa chỉ"> <small id="" class="form-text text-muted"></small>
-                @if ($errors->any())
-                <p style="color:red">{{ $errors->first('address') }}</p>
-                @endif
-            </div>
-            <div class="form-group">
-                <label for="tf1">Số điện thoại</label> <input name="phone" type="text" class="form-control" id=""
-                    placeholder="Nhập số điện thoại"> <small id="" class="form-text text-muted"></small>
-                @if ($errors->any())
-                <p style="color:red">{{ $errors->first('phone') }}</p>
-                @endif
-            </div>
-
-
-        </fieldset>
-        <div class="form-actions">
-            <button class="btn btn-primary" type="submit">Thêm chi nhánh </button>
-            <button class="btn btn-secondary" onclick="window.history.go(-1); return false;">Hủy</button>
-
         </div>
     </form>
 </div>
+<script>
+    //khi tài liệu đã sẵn sàng thì thực hiện đoạn mã trong khối lệnh 
+    jQuery(document).ready(function() {
+        //tìm phần tử có class province_id bắt sự kiện onchange
+        jQuery('.province_id').on('change', function() {
+            var province_id = jQuery(this).val();
 
+            $.ajax({
+                url: "/api/get_districts/" + province_id,
+                type: "GET",
+                success: function(data) {
+                    var districts_html = '<option value="">Vui lòng chọn</option>';
+                    for (const district of data) {
+                        districts_html += '<option value="' + district.id + '">' +
+                            district.name + '</option>';
+                    }
+                    jQuery('.district_id').html(districts_html);
+                }
+            });
+        });
 
-</div>
+        jQuery('.district_id').on('change', function() {
+            //tạo biến _id = đối tượng this với gtri hiện tại
+            var district_id = jQuery(this).val();
+            $.ajax({
+                //đường dẫn mình gọi đến
+                url: "/api/get_wards/" + district_id,
+                //phương thức : Get/POST
+                type: "GET",
+                success: function(data) {
+                    //tạo biến html = cặp thẻ option
+                    var wards_html = '<option value="">Vui lòng chọn</option>';
+                    for (const ward of data) {
+                        //data là một mảng chứa các đối tượng
+                        //sử dụng toán tử để tạo một đối tượng mới.
+                        wards_html += '<option value="' + ward.id + '">' + ward.name +
+                            '</option>';
+                    }
+                    jQuery('.ward_id').html(wards_html);
+                }
+            });
+        });
+    });
+    //jQuery là một thẻ script viết lại 
+</script>
 
-
-</div>
 @endsection

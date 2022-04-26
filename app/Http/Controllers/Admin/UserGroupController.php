@@ -7,22 +7,29 @@ use App\Models\UserGroup;
 use App\Http\Requests\StoreUserGroupRequest;
 use App\Http\Requests\UpdateUserGroupRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class UserGroupController extends Controller
 {
+ 
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $userGroups = UserGroup::paginate(3);
+        $query = UserGroup::select('*');
+        if (isset($request->filter['name']) && $request->filter['name']) {
+            $name = $request->filter['name'];
+            $query->where('name', 'LIKE', '%' . $name . '%');
+        }
+        $query->orderBy('id', 'desc');
+        $userGroups = $query->paginate(4);
         $params = [
             'userGroups' => $userGroups
         ];
         return view('admin.userGroups.index', $params);
-        
     }
 
     /**
@@ -33,7 +40,6 @@ class UserGroupController extends Controller
     public function create()
     {
         return view('admin.userGroups.add');
-        
     }
 
     /**
@@ -47,11 +53,13 @@ class UserGroupController extends Controller
         $userGroup = new UserGroup();
         $userGroup->name = $request->name;
         $userGroup->description = $request->description;
-
-        $userGroup->save();
-
-        return redirect()->route('userGroups.index')->with('success','Thêm'. ' ' . $request->name.' '.  'thành công');
-
+        try {
+            $userGroup->save();
+            return redirect()->route('userGroups.index')->with('success', 'Thêm' . ' ' . $request->name . ' ' .  'thành công');
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return redirect()->route('userGroups.index')->with('error', 'Thêm' . ' ' . $request->name . ' ' .  'không thành công');
+        }
     }
 
     /**
@@ -71,7 +79,7 @@ class UserGroupController extends Controller
      * @param  \App\Models\UserGroup  $userGroup
      * @return \Illuminate\Http\Response
      */
-    public function edit( $id)
+    public function edit($id)
     {
         $userGroup = UserGroup::find($id);
         $params = [
@@ -89,12 +97,17 @@ class UserGroupController extends Controller
      */
     public function update(UpdateUserGroupRequest $request, $id)
     {
+        $userGroup = UserGroup::find($id);
+        $userGroup->name = $request->name;
+        $userGroup->description = $request->description;
 
-        
-
-        UserGroup::find($id)->update($request->only('name','description'));
-        return redirect()->route('userGroups.index')->with('success','Sửa'. ' ' . $request->name.' '.  'thành công');
-
+        try {
+            $userGroup->save();
+            return redirect()->route('userGroups.index')->with('success', 'Sửa' . ' ' . $request->name . ' ' .  'thành công');
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return redirect()->route('userGroups.index')->with('success', 'Sửa' . ' ' . $request->name . ' ' .  ' không thành công');
+        }
     }
 
     /**
@@ -104,10 +117,18 @@ class UserGroupController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    { 
-       $userGroup = UserGroup::find($id);
-       $userGroup->delete();
+    {
+        $userGroup = UserGroup::find($id);
 
-       return redirect()->route('userGroups.index')->with('success','Xóa  thành công');
+        try {
+            $userGroup->delete();
+            return redirect()->route('userGroups.index')->with('success', 'Xóa  thành công');
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return redirect()->route('userGroups.index')->with('success', 'Xóa không thành công');
+
+        }
+
+
     }
 }

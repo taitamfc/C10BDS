@@ -45,7 +45,9 @@
       </a>
       <router-link :to="{ name: 'notifications.index', params: {} }" class="headerButton" v-if="notification == 1">
           <ion-icon name="notifications-outline" role="img" class="md hydrated" aria-label="call outline"></ion-icon>
-          <span class="badge badge-danger">1</span>
+          <span class="badge badge-danger">
+            {{ this.$store.getters.NOTIFICATIONS.total }}
+          </span>
       </router-link>
     </div>
   </div>

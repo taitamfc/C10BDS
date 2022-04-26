@@ -7,7 +7,7 @@ use App\Http\Requests\StoreProductCategoryRequest;
 use App\Http\Requests\UpdateProductCategoryRequest;
 use App\Models\ProductCategory;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Log;
 
 class ProductCategoryController extends Controller
 {
@@ -16,9 +16,22 @@ class ProductCategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $productCategories = ProductCategory::paginate(5);
+        // $this->authorize('viewAny',ProductCategory::class);
+        $productCategories = ProductCategory::select('*');
+
+        if (isset($request->filter['name']) && $request->filter['name']) {
+            $name = $request->filter['name'];
+            $productCategories->where('name', 'LIKE', '%' . $name . '%');
+        }
+        if ($request->s){
+            $productCategories->where('name', 'LIKE', '%' . $request->s . '%');
+            $productCategories->orwhere('id', $request->s);
+        }
+
+        $productCategories = $productCategories->orderBy('id', 'desc')->paginate(3);
+
         return view('admin.productCategories.index', compact('productCategories'));
     }
 
@@ -29,6 +42,7 @@ class ProductCategoryController extends Controller
      */
     public function create()
     {
+      // $this->authorize('create', ProductCategory::class);
         return view('admin.productCategories.create');
     }
 
@@ -44,9 +58,10 @@ class ProductCategoryController extends Controller
         $productCategory->name = $request->name;
         try {
             $productCategory->save();
-            return redirect()->route('productCategories.index')->with('success', 'Sửa danh mục' . ' ' . $request->name . ' ' . 'thành công');
+            return redirect()->route('productCategories.index')->with('success', 'Thêm danh mục' . ' ' . $request->name . ' ' . 'thành công');
         } catch (\Exception $e) {
-            return redirect()->route('productCategories.index')->with('success', 'Sửa danh mục' . ' ' . $request->name . ' ' . 'thành công');
+            Log::error($e->getMessage());
+            return redirect()->route('productCategories.index')->with('success', 'Thêm danh mục' . ' ' . $request->name . ' ' . 'không thành công');
         }
     }
 
@@ -70,6 +85,7 @@ class ProductCategoryController extends Controller
     public function edit($id)
     {
         $productCategory = ProductCategory::find($id);
+       // $this->authorize('update', $productCategory);
         $params = [
             'productCategory' => $productCategory
         ];
@@ -92,19 +108,26 @@ class ProductCategoryController extends Controller
             $productCategory->save();
             return redirect()->route('productCategories.index')->with('success', 'Sửa danh mục' . ' ' . $request->name . ' ' . 'thành công');
         } catch (\Exception $e) {
+            Log::error($e->getMessage());
             return redirect()->route('productCategories.index')->with('success', 'Sửa danh mục' . ' ' . $request->name . ' ' . 'Không thành công');
         }
     }
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\ProductCategory  $productCategory
+     * @param  \App\Models\ProductCategory  $productCategoryz
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
+        // $this->authorize('delete', ProductCategory::class);
         $productCategory = ProductCategory::find($id);
-        $productCategory->delete();
-        return redirect()->route('productCategories.index')->with('success', 'Xóa  thành công');
+        try {
+            $productCategory->delete();
+            return redirect()->route('productCategories.index')->with('success', 'Xóa  thành công');
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return redirect()->route('productCategories.index')->with('success', 'Xóa không thành công');
+        }
     }
 }

@@ -27,7 +27,7 @@
     <!-- FAVICONS -->
     <link rel="apple-touch-icon" sizes="144x144" href="{{asset('admin/apple-touch-icon.png')}}">
 
-    <meta name="theme-color" content="#3063A0">
+    <meta name="theme-color" content="#d5a801">
     <!-- End FAVICONS -->
     <!-- GOOGLE FONT -->
     <link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600" rel="stylesheet"><!-- End GOOGLE FONT -->
@@ -41,7 +41,15 @@
     <link rel="stylesheet" href="{{asset('admin/stylesheets/theme.min.css')}}" data-skin="default">
     <link rel="stylesheet" href="{{asset('admin/stylesheets/theme-dark.min.css')}}" data-skin="dark">
     <link rel="stylesheet" href="{{asset('admin/stylesheets/custom.css')}}">
-
+    <script>
+      var skin = localStorage.getItem('skin') || 'default';
+      var disabledSkinStylesheet = document.querySelector('link[data-skin]:not([data-skin="' + skin + '"])');
+      // Disable unused skin immediately
+      disabledSkinStylesheet.setAttribute('rel', '');
+      disabledSkinStylesheet.setAttribute('disabled', true);
+      // add loading class to html immediately
+      document.querySelector('html').classList.add('loading');
+    </script>
 </head>
 
 <body>
