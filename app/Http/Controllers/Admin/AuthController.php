@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -15,20 +17,22 @@ class AuthController extends Controller
         return view('admin.auth.login');
     }
 
-    
+
     // dang nhap
     public function postLogin(LoginRequest $request)
     {
         //kiểm tra dữ liệu
-        // dd($request->all());
         $credentials = [
             'email' => $request->email,
             'password' => $request->password
         ];
+        // dd($credentials);
+
         if (Auth::attempt($credentials)) {
-            return redirect()->route('admin.index');
+            return redirect()->route('admin.index')->with('succes', 'Xin chào' . ' ' . $request->name);
+             
+        } else {
+            return redirect()->back()->with('success', 'Đăng nhập không thành công');
         }
-        
-        return redirect()->back()->with('error', 'Đăng nhập không thành công');
     }
 }

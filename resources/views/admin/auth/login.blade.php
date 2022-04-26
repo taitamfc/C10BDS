@@ -1,9 +1,12 @@
 @extends('admin.layouts.login')
 @section('content')
 <form action="{{ route('postLogin') }}" method="post" class="auth-form">
-@csrf
+  @csrf
   <!-- .form-group -->
   <div class="form-group">
+    @if (Session::has('success'))
+    <div class="alert alert-danger">{{session::get('success')}}</div>
+    @endif
     <div class="form-label-group">
       <input type="text" id="inputUser" class="form-control" name="email" value="{{old('email')}}" placeholder="email" autofocus=""> <label for="inputUser">Email</label>
       @if ($errors->any())
@@ -14,7 +17,7 @@
   <!-- .form-group -->
   <div class="form-group">
     <div class="form-label-group">
-      <input type="password" id="inputPassword" class="form-control" name="password"  value="{{old('password')}}" placeholder="Mật khẩu"> <label for="inputPassword">Mật khẩu</label>
+      <input type="password" id="inputPassword" class="form-control" name="password" value="{{old('password')}}" placeholder="Mật khẩu"> <label for="inputPassword">Mật khẩu</label>
 
       @if ($errors->any())
       <p style="color:red">{{ $errors->first('password') }}</p>
