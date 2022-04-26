@@ -210,7 +210,10 @@ export default {
       this.show.showConfirm = false;
       this.show.showLoading = true;
 
-      axios.put('/api/products/'+id,{'status':'sold'})
+      axios.put('/api/products/'+id,{
+        'status':'sold',
+        'sold_by_user_id':this.$store.getters.CURRENT_USER.id
+      })
       .then(result => {
           this.show.showLoading = false;
           this.show.notifiSuccess = true;

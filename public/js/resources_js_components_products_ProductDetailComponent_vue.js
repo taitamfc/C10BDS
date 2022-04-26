@@ -185,7 +185,8 @@ __webpack_require__.r(__webpack_exports__);
       this.show.showConfirm = false;
       this.show.showLoading = true;
       axios.put('/api/products/' + id, {
-        'status': 'sold'
+        'status': 'sold',
+        'sold_by_user_id': this.$store.getters.CURRENT_USER.id
       }).then(function (result) {
         _this2.show.showLoading = false;
         _this2.show.notifiSuccess = true;

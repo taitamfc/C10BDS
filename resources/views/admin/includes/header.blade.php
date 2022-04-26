@@ -188,7 +188,7 @@
                         <h6 class="dropdown-header d-none d-md-block d-lg-none"> Beni Arisandi </h6><a
                             class="dropdown-item" href="#"><span
                                 class="dropdown-icon oi oi-person"></span> Profile</a> <a class="dropdown-item"
-                            href="#"><span class="dropdown-icon oi oi-account-logout"></span>
+                            href="{{route('login')}}"><span class="dropdown-icon oi oi-account-logout"></span>
                             Logout</a>
                         <div class="dropdown-divider"></div><a class="dropdown-item" href="#">Help Center</a> <a
                             class="dropdown-item" href="#">Ask Forum</a> <a class="dropdown-item" href="#">Keyboard

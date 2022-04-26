@@ -62,6 +62,7 @@ class DatabaseSeeder extends Seeder
     public function importBranches()
     {
         $branch = new Branch();
+        $branch->id = 1;
         $branch->name = 'Chi nhánh 1';
         $branch->address = 'Thanh Hóa';
         $branch->phone = '0977983360';
@@ -72,6 +73,7 @@ class DatabaseSeeder extends Seeder
 
 
         $branch = new Branch();
+        $branch->id = 2;
         $branch->name = 'Chi nhánh 2';
         $branch->address = 'Nghệ An';
         $branch->phone = '01648511610';
@@ -82,6 +84,7 @@ class DatabaseSeeder extends Seeder
 
 
         $branch = new Branch();
+        $branch->id = 3;
         $branch->name = 'Chi nhánh 3';
         $branch->address = 'Hà Tĩnh';
         $branch->phone = '0979061738';
@@ -92,6 +95,7 @@ class DatabaseSeeder extends Seeder
 
 
         $branch = new Branch();
+        $branch->id =4;
         $branch->name = 'Chi nhánh 4';
         $branch->address = 'Quảng Bình';
         $branch->phone = '0854383246';
@@ -124,7 +128,7 @@ class DatabaseSeeder extends Seeder
         $user = new User();
         $user->name = 'Mai Chiếm An';
         $user->email = 'an@gmail.com';
-        $user->password = '123456';
+        $user->password         = Hash::make('123456');
         $user->day_of_birth = '2003/06/27';
         $user->phone = '0916663237';
         $user->address = 'Quảng Trị';
@@ -141,7 +145,7 @@ class DatabaseSeeder extends Seeder
         $user = new User();
         $user->name = 'Đặng Thùy Ngân';
         $user->email = 'ngan@gmail.com';
-        $user->password = '123456';
+        $user->password         = Hash::make('123456');
         $user->day_of_birth = '2002/05/22';
         $user->phone = '0977983360';
         $user->address = 'Quảng Trị';
@@ -158,7 +162,7 @@ class DatabaseSeeder extends Seeder
         $user = new User();
         $user->name = 'Võ Văn Tuấn';
         $user->email = 'tuan@gmail.com';
-        $user->password = '123456';
+        $user->password         = Hash::make('123456');
         $user->day_of_birth = '2002/04/24';
         $user->phone = '0777333274';
         $user->address = 'Quảng Trị';
@@ -175,7 +179,7 @@ class DatabaseSeeder extends Seeder
         $user = new User();
         $user->name = 'Lê Biên Thùy';
         $user->email = 'thuy@gmail.com';
-        $user->password = '123456';
+        $user->password         = Hash::make('123456');
         $user->day_of_birth = '1995/11/15';
         $user->phone = '01648511610';
         $user->address = 'Quảng Trị';

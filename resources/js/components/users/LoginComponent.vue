@@ -18,11 +18,10 @@
         <form @submit.prevent="authenticate" autocomplete="off">
           <div class="form-group boxed">
             <div class="input-wrapper">
-              <label class="form-label">Số Điện Thoại</label>
               <input
-                type="email"
+                type="text"
                 class="form-control"
-                v-model="form.email"
+                v-model="form.text"
                 placeholder="Số Điện Thoại"
                 autocomplete="off"
               />
@@ -80,7 +79,7 @@ export default {
   data() {
       return {
           form: {
-              email: '',
+              phone: '',
               password: '',
           },
           type: 'login',

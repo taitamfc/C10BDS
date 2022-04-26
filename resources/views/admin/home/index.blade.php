@@ -3,13 +3,17 @@
 
 <!-- .page-title-bar -->
 <header class="page-title-bar">
+    @if (Session::has('succes'))
+    <div class="alert alert-success">{{session::get('succes')}}</div>
+    @endif
     <div class="d-flex flex-column flex-md-row">
+
         <p class="lead">
             <span class="font-weight-bold">Hi, Beni.</span> <span class="d-block text-muted">Here’s what’s happening
                 with your business today.</span>
         </p>
         <div class="ml-auto">
-            
+
         </div>
     </div>
 </header><!-- /.page-title-bar -->
