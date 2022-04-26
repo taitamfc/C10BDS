@@ -11,5 +11,6 @@ class AuthController extends Controller
     {
         $params = [];
         return view('admin.auth.login', $params);
+        
     }
 }

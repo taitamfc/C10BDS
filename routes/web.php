@@ -9,7 +9,6 @@ use App\Http\Controllers\Admin\UserGroupController;
 use App\Http\Controllers\Admin\IndexController;
 use App\Http\Controllers\Admin\AuthController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\App;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
