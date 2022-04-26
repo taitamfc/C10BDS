@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="{{ asset('mobile/assets/css/style.css')}}">
     <link rel="manifest" href="mobile/__manifest.json">
     <link href="{{ mix('css/app.css') }}" type="text/css" rel="stylesheet"/>
+    
 </head>
 
 <body class="bg-white">
@@ -26,11 +27,12 @@
     <!-- Ionicons -->
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <!-- Splide -->
-    <script src="{{ asset('mobile/assets/js/plugins/splide/splide.min.js')}}"></script>
     <!-- ProgressBar js -->
     <script src="{{ asset('mobile/assets/js/plugins/progressbar-js/progressbar.min.js')}}"></script>
+    
     <!-- Base Js File -->
     <script src="{{ mix('js/app.js') }}" type="text/javascript"></script>
+    
 </body>
 
 </html>
