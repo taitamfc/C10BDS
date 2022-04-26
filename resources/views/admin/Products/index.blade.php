@@ -46,7 +46,7 @@
                                 <div class="input-group-prepend trigger-submit">
                                     <span class="input-group-text"><span class="fas fa-search"></span></span>
                                 </div>
-                                <input type="text" class="form-control" name="query" value="" placeholder="Tìm nhanh theo cú pháp (ma:Mã kết quả hoặc ten:Tên kết quả)">
+                                <input type="text" class="form-control" name="s" value="" placeholder="Tìm nhanh theo cú pháp (ma:Mã kết quả hoặc ten:Tên kết quả)">
                             </div>
                             <div class="input-group-append">
                                 <button class="btn btn-secondary" data-toggle="modal" data-target="#modalSaveSearchProducts" type="button">Lưu bộ lọc</button>

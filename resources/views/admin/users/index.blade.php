@@ -66,7 +66,6 @@
                 <table class="table">
                     <thead>
                         <tr>
-
                             <th> # </th>
                             <th> Tên nhân viên</th>
                             <th> Số điện thoại</th>
@@ -77,7 +76,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                       
                         @foreach($users as $user)
                         <tr>
                             <td class="align-middle"> {{ $user->id }} </td>
