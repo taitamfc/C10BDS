@@ -36,6 +36,7 @@ Route::group([
 });
 
 Route::get('administrator/login',[AuthController::class,'login'])->name('login');
+Route::post('administrator/postLogin', [AuthController::class, 'postLogin'])->name('postLogin');
 
 Route::view('/{any}', 'layouts.mobile')
     //->middleware(['auth'])
