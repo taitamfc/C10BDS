@@ -8,7 +8,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\UserGroupController;
 use App\Http\Controllers\Admin\IndexController;
 use App\Http\Controllers\Admin\AuthController;
-use App\Http\Controllers\Admin\ImageController;
+use App\Http\Controllers\Admin\RegisterController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\App;
 /*
@@ -26,12 +26,7 @@ Route::group([
     'prefix' => 'administrator',
     'middleware' => ['auth']
 ], function () {
-<<<<<<< HEAD
-    Route::get('/', [IndexController::class, 'index'])->name('admin.index');
-    Route::get('/login', [AuthController::class, 'login'])->name('login');
-=======
     Route::get('/',[IndexController::class,'index'])->name('admin.index');
->>>>>>> develope
     Route::resource('userGroups', UserGroupController::class);
     Route::resource('users', UserController::class);
     Route::resource('roles', RoleController::class);
@@ -41,6 +36,7 @@ Route::group([
 });
 
 Route::get('administrator/login',[AuthController::class,'login'])->name('login');
+Route::post('administrator/postLogin', [AuthController::class, 'postLogin'])->name('postLogin');
 
 Route::view('/{any}', 'layouts.mobile')
     //->middleware(['auth'])
