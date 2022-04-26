@@ -13,7 +13,7 @@ class ProductImage extends Model
 
     public $timestamps = false;
 
-    public function product()
+    public function products()
     {
         return $this->belongsTo(Product::class, 'product_id', 'id');
     }

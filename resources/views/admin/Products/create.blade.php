@@ -13,14 +13,15 @@
 </header>
 
 <div class="page-section">
-    <form method="post" action="{{route('products.store')}}">
+    <form method="post" action="{{route('products.store')}}" enctype="multipart/form-data">
         @csrf
+        {{ csrf_field() }}
         <div class="card">
             <div class="card-body">
                 <legend>Thông tin cơ bản</legend>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Loại bất động sản (Tên)</label>
-                    <select name="product_category_id" class="form-control">
+                    <select name="product_category_id" class="form-control" value="{{ old('product_category_id') }}">
                         @foreach($productCategories as $productCategory)
                         <option value="{{$productCategory->id}}">{{$productCategory->name}}</option>
                         @endforeach
@@ -33,7 +34,7 @@
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Tỉnh/Thành phố</label>
-                            <select name="province_id" class="form-control province_id">
+                            <select name="province_id" class="form-control province_id" value="{{ old('province_id') }}">
                                 @foreach($provinces as $province)
                                 <option value="{{ $province->id }}">{{$province->name}}</option>
                                 @endforeach
@@ -46,7 +47,7 @@
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Quận/Huyện</label>
-                            <select name="district_id" class="form-control district_id">
+                            <select name="district_id" class="form-control district_id" value="{{ old('district_id') }}">
                                 <option value="">Vui lòng chọn</option>
                             </select>
                             @if ($errors->any())
@@ -57,7 +58,7 @@
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Xã/Phường</label>
-                            <select name="ward_id" class="form-control ward_id">
+                            <select name="ward_id" class="form-control ward_id" value="{{ old('ward_id') }}">
                                 <option value="">Vui lòng chọn</option>
                             </select>
                             @if ($errors->any())
@@ -67,7 +68,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="tf1">Địa chỉ</label> <input name="address" type="text" class="form-control" placeholder="Bạn có thể bổ sung hẻm, ngách, ngõ..."> <small class="form-text text-muted"></small>
+                    <label for="tf1">Địa chỉ</label> <input name="address" type="text" class="form-control" placeholder="Bạn có thể bổ sung hẻm, ngách, ngõ..." value="{{ old('address') }}"> <small class="form-text text-muted"></small>
                     @if ($errors->any())
                     <p style="color:red">{{ $errors->first('address') }}</p>
                     @endif
@@ -77,7 +78,7 @@
                 <legend>Thông tin bài viết</legend>
                 <div class="form-group">
                     <label for="tf1">Tiêu đề <abbr title="Trường bắt buộc">*</abbr></label>
-                    <input name="name" type="text" class="form-control" placeholder="Nhập tên">
+                    <input name="name" type="text" class="form-control" placeholder="Nhập tên" value="{{ old('name') }}">
                     <small class="form-text text-muted">Tối thiểu 30 ký tự, tối đa 99 ký tự</small>
                     @if ($errors->any())
                     <p style="color:red">{{ $errors->first('name') }}</p>
@@ -85,14 +86,14 @@
                 </div>
                 <div class="form-group">
                     <label for="tf1">Chi tiết thông tin</label>
-                    <textarea name="description" type="text" class="form-control" placeholder="Nhập mô tả chung về bất động sản của bạn. Ví dụ: Khu nhà có vị trí thuận lợi, gần công viên, gần trường học ... "></textarea>
+                    <textarea name="description" type="text" class="form-control" placeholder="Nhập mô tả chung về bất động sản của bạn. Ví dụ: Khu nhà có vị trí thuận lợi, gần công viên, gần trường học ... " value="{{ old('description') }}"></textarea>
                     @if ($errors->any())
                     <p style="color:red">{{ $errors->first('description') }}</p>
                     @endif
                 </div>
                 <div class="form-group">
                     <label for="tf1">Mô tả về địa chỉ trên bản đồ</label>
-                    <textarea name="google_map" type="text" class="form-control" placeholder="Mô tả trên bản đồ"></textarea>
+                    <textarea name="google_map" type="text" class="form-control" placeholder="Mô tả trên bản đồ" value="{{ old('google_map') }}"></textarea>
                     @if ($errors->any())
                     <p style="color:red">{{ $errors->first('google_map') }}</p>
                     @endif
@@ -105,7 +106,7 @@
                     <div class="col-lg-10">
                         <div class="form-group">
                             <label>Mức giá</label>
-                            <input name="price" type="text" class="form-control" placeholder="Nhập giá, VD 12000000">
+                            <input name="price" type="text" class="form-control" placeholder="Nhập giá, VD 12000000" value="{{ old('price') }}">
                             @if ($errors->any())
                             <p style="color:red">{{ $errors->first('price') }}</p>
                             @endif
@@ -114,7 +115,7 @@
                     <div class="col-lg-2">
                         <div class="form-group">
                             <label>Đơn vị</label>
-                            <select name="unit" class="form-control">
+                            <select name="unit" class="form-control" value="{{ old('unit') }}">
                                 <option value="VND">VND</option>
                             </select>
                             @if ($errors->any())
@@ -146,7 +147,7 @@
                         <div class="form-group">
                             <label for="tf1">Diện tích</label>
                             <div class="input-group input-group-alt">
-                                <input type="text" name="area" type="number" class="form-control" placeholder="Nhập diện tích, VD 80">
+                                <input type="text" name="area" type="number" class="form-control" placeholder="Nhập diện tích, VD 80" value="{{ old('area') }}">
                                 <div class="input-group-append">
                                     <span class="input-group-text">m²</span>
                                 </div>
@@ -178,7 +179,7 @@
                         <div class="form-group">
                             <label for="tf1">Đường vào</label>
                             <div class="input-group input-group-alt">
-                                <input type="text" name="stress_width" type="number" class="form-control" placeholder="Nhập số">
+                                <input type="text" name="stress_width" type="number" class="form-control" placeholder="Nhập số" value="{{ old('stress_width') }}">
                                 <div class="input-group-append">
                                     <span class="input-group-text">m²</span>
                                 </div>
@@ -192,7 +193,7 @@
                         <div class="form-group">
                             <label for="tf1">Mặt tiền</label>
                             <div class="input-group input-group-alt">
-                                <input type="text" name="facade" type="number" class="form-control" placeholder="Nhập số">
+                                <input type="text" name="facade" type="number" class="form-control" placeholder="Nhập số" value="{{ old('facade') }}">
                                 <div class="input-group-append">
                                     <span class="input-group-text">m²</span>
                                 </div>
@@ -205,10 +206,14 @@
                 </div>
             </div>
             <div class="card-body border-top">
-
+                <legend>Hình ảnh & Video</legend>
+                <div class="form-group">
+                    <label>Chọn nhiều hình ảnh</label>
+                    <input type="file" name="image_urls[]" class="form-control" value="{{ old('image_urls[]') }}" multiple>
+                </div>
                 <div class="form-group">
                     <label for="tf1">Thêm video từ Youtube</label>
-                    <input name="linkYoutube" type="text" class="form-control" placeholder="VD: https://www.youtube.com/watch?v=Y-Dw0NpfRug">
+                    <input name="linkYoutube" type="text" class="form-control" placeholder="VD: https://www.youtube.com/watch?v=Y-Dw0NpfRug" value="{{ old('linkYoutube') }}">
                     @if ($errors->any())
                     <p style="color:red">{{ $errors->first('linkYoutube') }}</p>
                     @endif
@@ -221,12 +226,12 @@
                         <div class="form-group">
                             <label>Chi nhánh</label>
                             <select name="branch_id" class="form-control branch_id">
-                            <option value="">Vui lòng chọn</option>
-                            @foreach($branches as $branch)
+                                <option value="">Vui lòng chọn</option>
+                                @foreach($branches as $branch)
                                 <option value="{{ $branch->id }}">{{$branch->name}}</option>
                                 @endforeach
                             </select>
-                            
+
                             @if ($errors->any())
                             <p style="color:red">{{ $errors->first('branch_id') }}</p>
                             @endif
@@ -246,7 +251,7 @@
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label>Tình trạng</label>
-                            <select name="status" class="form-control">
+                            <select name="status" class="form-control" value="{{ old('status') }}">
                                 <option value="draft">Bản Thảo</option>
                                 <option value="selling">Đang Bán</option>
                                 <option value="sold">Đã Bán</option>
