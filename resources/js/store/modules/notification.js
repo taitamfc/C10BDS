@@ -10,7 +10,7 @@ export default {
     mutations: {
         GET_NOTIFICATIONS: (state, payload) => {
             state.loading = true;
-            state.notifications = payload.items;
+            state.notifications = payload;
         },
     },
     actions: {

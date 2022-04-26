@@ -95,7 +95,9 @@ class AuthController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function userProfile() {
-        return response()->json(auth('api')->user());
+        $userId = auth('api')->user()->id;
+        $user = User::with('userGroup')->where('id',$userId)->first();
+        return response()->json($user);
     }
 
     /**
@@ -114,6 +116,17 @@ class AuthController extends Controller
         ]);
     }
 
+    public function changeNotification(Request $request) {
+        $userId = auth('api')->user()->id;
+        $user = User::where('id', $userId)->update(
+            ['receiveNotification' => ($request->status) ? 1 : 0]
+        );
+
+        return response()->json([
+            'message' => 'User successfully changed notification',
+            'user' => $user,
+        ], 201);
+    }
     public function changePassWord(Request $request) {
         $validator = Validator::make($request->all(), [
             'old_password' => 'required|string|min:6',

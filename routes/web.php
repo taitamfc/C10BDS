@@ -26,8 +26,12 @@ Route::group([
     'prefix' => 'administrator',
     'middleware' => ['auth']
 ], function () {
+<<<<<<< HEAD
     Route::get('/', [IndexController::class, 'index'])->name('admin.index');
     Route::get('/login', [AuthController::class, 'login'])->name('login');
+=======
+    Route::get('/',[IndexController::class,'index'])->name('admin.index');
+>>>>>>> develope
     Route::resource('userGroups', UserGroupController::class);
     Route::resource('users', UserController::class);
     Route::resource('roles', RoleController::class);
@@ -35,6 +39,8 @@ Route::group([
     Route::resource('productCategories', ProductCategoryController::class);
     Route::resource('branches', BranchController::class);
 });
+
+Route::get('administrator/login',[AuthController::class,'login'])->name('login');
 
 Route::view('/{any}', 'layouts.mobile')
     //->middleware(['auth'])
