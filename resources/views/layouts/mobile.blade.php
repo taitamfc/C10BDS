@@ -16,7 +16,11 @@
     <link rel="stylesheet" href="{{ asset('mobile/assets/css/style.css')}}">
     <link rel="manifest" href="mobile/__manifest.json">
     <link href="{{ mix('css/app.css') }}" type="text/css" rel="stylesheet"/>
-    
+    <style>
+        .no-padding {
+            padding: 0 !important;
+        }
+    </style>
 </head>
 
 <body class="bg-white">

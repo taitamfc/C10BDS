@@ -7,34 +7,14 @@
       <div class="splice-wrapp ">
         <Splide :options="{perPage: 2,padding:5,trimSpace:true,arrows:false,pagination:false}" >
           <SplideSlide>
-            <div class="card product-card" style="margin:3px">
-                <div class="card-body">
-                    <img src="https://quanggroup.vn/wp-content/uploads/2021/11/vi-tri-vincom-shophouse-quang-tri-655x400.jpg" class="image" alt="product image">
-                    
-                    <p class="text text-dark pb-0 mt-1">Bán đất biển Ocean Dune ngay trung tâm thành phố</p>
-                    
-                </div>
-            </div>
+            <ProductItemElement></ProductItemElement>
           </SplideSlide>
           <SplideSlide>
-            <div class="card product-card" style="margin:3px">
-                <div class="card-body">
-                    <img src="https://quanggroup.vn/wp-content/uploads/2021/11/vi-tri-vincom-shophouse-quang-tri-655x400.jpg" class="image" alt="product image">
-                    <p class="text text-dark pb-0 mt-1">Bán đất biển Ocean Dune ngay trung tâm thành phố</p>
-                    
-                </div>
-            </div>
+            <ProductItemElement></ProductItemElement>
           </SplideSlide>
           <SplideSlide>
-            <div class="card product-card" style="margin:3px">
-                <div class="card-body">
-                    <img src="https://quanggroup.vn/wp-content/uploads/2021/11/vi-tri-vincom-shophouse-quang-tri-655x400.jpg" class="image" alt="product image">
-                   <p class="text text-dark pb-0 mt-1">Bán đất biển Ocean Dune ngay trung tâm thành phố</p>
-                    
-                </div>
-            </div>
+            <ProductItemElement></ProductItemElement>
           </SplideSlide>
-
         </Splide>
       </div>
     </div>
@@ -44,34 +24,14 @@
       <div class="splice-wrapp ">
         <Splide :options="{perPage: 2,padding:5,trimSpace:true,arrows:false,pagination:false}" >
           <SplideSlide>
-            <div class="card product-card" style="margin:3px">
-                <div class="card-body">
-                    <img src="https://quanggroup.vn/wp-content/uploads/2021/11/vi-tri-vincom-shophouse-quang-tri-655x400.jpg" class="image" alt="product image">
-                    
-                    <p class="text text-dark pb-0 mt-1">Bán đất biển Ocean Dune ngay trung tâm thành phố</p>
-                    
-                </div>
-            </div>
+            <ProductItemElement></ProductItemElement>
           </SplideSlide>
           <SplideSlide>
-            <div class="card product-card" style="margin:3px">
-                <div class="card-body">
-                    <img src="https://quanggroup.vn/wp-content/uploads/2021/11/vi-tri-vincom-shophouse-quang-tri-655x400.jpg" class="image" alt="product image">
-                    <p class="text text-dark pb-0 mt-1">Bán đất biển Ocean Dune ngay trung tâm thành phố</p>
-                    
-                </div>
-            </div>
+            <ProductItemElement></ProductItemElement>
           </SplideSlide>
           <SplideSlide>
-            <div class="card product-card" style="margin:3px">
-                <div class="card-body">
-                    <img src="https://quanggroup.vn/wp-content/uploads/2021/11/vi-tri-vincom-shophouse-quang-tri-655x400.jpg" class="image" alt="product image">
-                   <p class="text text-dark pb-0 mt-1">Bán đất biển Ocean Dune ngay trung tâm thành phố</p>
-                    
-                </div>
-            </div>
+            <ProductItemElement></ProductItemElement>
           </SplideSlide>
-
         </Splide>
       </div>
     </div>
@@ -81,34 +41,14 @@
       <div class="splice-wrapp ">
         <Splide :options="{perPage: 2,padding:5,trimSpace:true,arrows:false,pagination:false}" >
           <SplideSlide>
-            <div class="card product-card" style="margin:3px">
-                <div class="card-body">
-                    <img src="https://quanggroup.vn/wp-content/uploads/2021/11/vi-tri-vincom-shophouse-quang-tri-655x400.jpg" class="image" alt="product image">
-                    
-                    <p class="text text-dark pb-0 mt-1">Bán đất biển Ocean Dune ngay trung tâm thành phố</p>
-                    
-                </div>
-            </div>
+            <ProductItemElement></ProductItemElement>
           </SplideSlide>
           <SplideSlide>
-            <div class="card product-card" style="margin:3px">
-                <div class="card-body">
-                    <img src="https://quanggroup.vn/wp-content/uploads/2021/11/vi-tri-vincom-shophouse-quang-tri-655x400.jpg" class="image" alt="product image">
-                    <p class="text text-dark pb-0 mt-1">Bán đất biển Ocean Dune ngay trung tâm thành phố</p>
-                    
-                </div>
-            </div>
+            <ProductItemElement></ProductItemElement>
           </SplideSlide>
           <SplideSlide>
-            <div class="card product-card" style="margin:3px">
-                <div class="card-body">
-                    <img src="https://quanggroup.vn/wp-content/uploads/2021/11/vi-tri-vincom-shophouse-quang-tri-655x400.jpg" class="image" alt="product image">
-                   <p class="text text-dark pb-0 mt-1">Bán đất biển Ocean Dune ngay trung tâm thành phố</p>
-                    
-                </div>
-            </div>
+            <ProductItemElement></ProductItemElement>
           </SplideSlide>
-
         </Splide>
       </div>
     </div>
@@ -116,36 +56,16 @@
      <div class="section full">
       <div class="section-title pb-0">SẢN PHẨM KÝ GỬI</div>
       <div class="splice-wrapp ">
-        <Splide :options="{perPage: 2,padding:5,trimSpace:true,arrows:false,pagination:false}" >
+        <Splide :options="{perPage: 2,padding:5,trimSpace:true,arrows:false,pagination:false,autoplay:true}" >
           <SplideSlide>
-            <div class="card product-card" style="margin:3px">
-                <div class="card-body">
-                    <img src="https://quanggroup.vn/wp-content/uploads/2021/11/vi-tri-vincom-shophouse-quang-tri-655x400.jpg" class="image" alt="product image">
-                    
-                    <p class="text text-dark pb-0 mt-1">Bán đất biển Ocean Dune ngay trung tâm thành phố</p>
-                    
-                </div>
-            </div>
+            <ProductItemElement></ProductItemElement>
           </SplideSlide>
           <SplideSlide>
-            <div class="card product-card" style="margin:3px">
-                <div class="card-body">
-                    <img src="https://quanggroup.vn/wp-content/uploads/2021/11/vi-tri-vincom-shophouse-quang-tri-655x400.jpg" class="image" alt="product image">
-                    <p class="text text-dark pb-0 mt-1">Bán đất biển Ocean Dune ngay trung tâm thành phố</p>
-                    
-                </div>
-            </div>
+            <ProductItemElement></ProductItemElement>
           </SplideSlide>
           <SplideSlide>
-            <div class="card product-card" style="margin:3px">
-                <div class="card-body">
-                    <img src="https://quanggroup.vn/wp-content/uploads/2021/11/vi-tri-vincom-shophouse-quang-tri-655x400.jpg" class="image" alt="product image">
-                   <p class="text text-dark pb-0 mt-1">Bán đất biển Ocean Dune ngay trung tâm thành phố</p>
-                    
-                </div>
-            </div>
+            <ProductItemElement></ProductItemElement>
           </SplideSlide>
-
         </Splide>
       </div>
     </div>
@@ -157,12 +77,14 @@
 <script>
 import HeaderComponent from "./includes/HeaderComponent.vue";
 import FooterComponent from "./includes/FooterComponent.vue";
+import ProductItemElement from "./products/includes/ProductItemElement.vue";
 import { Splide, SplideSlide } from '@splidejs/vue-splide';
 import '@splidejs/vue-splide/css';
 export default {
   components: {
     HeaderComponent,
     FooterComponent,
+    ProductItemElement,
     Splide,
     SplideSlide,
   },
