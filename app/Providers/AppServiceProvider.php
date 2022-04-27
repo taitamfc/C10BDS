@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
+use App\Views\Composers\ProfileComposer;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -27,7 +28,7 @@ class AppServiceProvider extends ServiceProvider
     {
         view()->composer(
             ['*'],
-            \App\ViewComposers\ViewComposer::class
+            ProfileComposer::class
         );
 
         Paginator::useBootstrapFive();
