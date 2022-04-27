@@ -8,7 +8,7 @@
                 aria-label="toggle aside menu"><span class="hamburger-box"><span
                         class="hamburger-inner"></span></span></button> <!-- /toggle aside menu -->
             <a href="{{ route('admin.index') }}">
-               <img src="{{asset('admin/images/logo.png')}}" style="width: 79%;margin-left: 17px;">
+                <img src="{{asset('admin/images/logo.png')}}" style="width: 79%;margin-left: 17px;">
             </a>
         </div><!-- /.top-bar-brand -->
         <!-- .top-bar-list -->
@@ -113,7 +113,7 @@
                                 <span>Activities <span class="badge">(2)</span></span>
                             </h6><!-- .dropdown-scroll -->
                             <div class="dropdown-scroll perfect-scrollbar">
-                                
+
                             </div><!-- /.dropdown-scroll -->
                             <a href="user-activities.html" class="dropdown-footer">All activities <i
                                     class="fas fa-fw fa-long-arrow-alt-right"></i></a>
@@ -129,7 +129,7 @@
                                 <span>Messages</span> <a href="#">Mark all as read</a>
                             </h6><!-- .dropdown-scroll -->
                             <div class="dropdown-scroll perfect-scrollbar">
-                                
+
                             </div><!-- /.dropdown-scroll -->
                             <a href="page-messages.html" class="dropdown-footer">All messages <i
                                     class="fas fa-fw fa-long-arrow-alt-right"></i></a>
@@ -176,26 +176,30 @@
                 </ul><!-- /.nav -->
                 <!-- .btn-account -->
                 <div class="dropdown d-none d-md-flex">
+
+
                     <button class="btn-account" type="button" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false"><span class="user-avatar user-avatar-md"><img
-                                src="{{asset('admin/images/avatars/profile.jpg')}}" alt=""></span> <span
-                            class="account-summary pr-lg-4 d-none d-lg-block"><span class="account-name">Beni
-                                Arisandi</span> <span class="account-description">Marketing
-                                Manager</span></span></button> <!-- .dropdown-menu -->
+                        aria-expanded="false">
+                        <span class="user-avatar user-avatar-md">
+                            <img src="{{asset('admin/images/avatars/profile.jpg')}}" alt="">
+                        </span>
+                        <span class="account-summary pr-lg-4 d-none d-lg-block">
+                            <a href="{{ route('users.index',$current_user->id)}}" class="account-name">{{ $current_user->name}}</a>
+                            <span class="account-description">{{ $current_user->userGroup->name }}</span>
+                        </span>
+                    </button>
                     <div class="dropdown-menu">
-                        <div class="dropdown-arrow d-lg-none" x-arrow=""></div>
-                        <div class="dropdown-arrow ml-3 d-none d-lg-block"></div>
-                        <h6 class="dropdown-header d-none d-md-block d-lg-none"> Beni Arisandi </h6><a
-                            class="dropdown-item" href="#"><span
-                                class="dropdown-icon oi oi-person"></span> Profile</a> <a class="dropdown-item"
-                            href="#"><span class="dropdown-icon oi oi-account-logout"></span>
-                            Logout</a>
-                        <div class="dropdown-divider"></div><a class="dropdown-item" href="#">Help Center</a> <a
-                            class="dropdown-item" href="#">Ask Forum</a> <a class="dropdown-item" href="#">Keyboard
-                            Shortcuts</a>
-                    </div><!-- /.dropdown-menu -->
-                </div><!-- /.btn-account -->
-            </div><!-- /.top-bar-item -->
-        </div><!-- /.top-bar-list -->
-    </div><!-- /.top-bar -->
+                        <h6 class="dropdown-header d-none d-md-block d-lg-none"> Beni Arisandi </h6>
+                        <a class="dropdown-item" href="#">
+                            <span class="dropdown-icon oi oi-person"></span> 
+                            Thông tin cá nhân
+                        </a> 
+                        <a class="dropdown-item" href="{{ route('login') }}">
+                            <span class="dropdown-icon oi oi-account-logout"></span>
+                            Đăng xuất
+                        </a>
+                    </div><!-- /.btn-account -->
+                </div><!-- /.top-bar-item -->
+            </div><!-- /.top-bar-list -->
+        </div><!-- /.top-bar -->
 </header><!-- /.app-header -->

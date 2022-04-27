@@ -22,6 +22,19 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function information()
+    {
+        $users = User::all();
+        $userGroups = UserGroup::all();
+        $params = [
+
+        'users' => $users,
+        'userGroups' => $userGroups       
+        ];
+        return view('admin.users.index', $params);
+
+    }
+    
     public function index(Request $request)
     {
   
