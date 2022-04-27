@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
 {
@@ -17,22 +18,31 @@ class AuthController extends Controller
         return view('admin.auth.login');
     }
 
-
-    // dang nhap
     public function postLogin(LoginRequest $request)
     {
-        //kiểm tra dữ liệu
         $credentials = [
             'email' => $request->email,
             'password' => $request->password
         ];
-        // dd($credentials);
+
 
         if (Auth::attempt($credentials)) {
-            return redirect()->route('admin.index')->with('succes', 'Xin chào' . ' ' . $request->name);
-             
-        } else {
-            return redirect()->back()->with('success', 'Đăng nhập không thành công');
+            return redirect()->route('admin.index');
         }
+       
+        if(Auth::attempt($credentials)) {
+            return redirect()->route('admin.index');
+        } 
+        else {
+            $checkEmail = User::where("email",$request->email)->first();
+            if($checkEmail){
+                Session::flash('error_password','Mật khẩu của bạn không chính xác');
+            }else{
+                Session::flash('error_email','Email của bạn không chính xác');
+            }
+            return redirect()->back();
+        }
+       
     }
-}
+    }
+

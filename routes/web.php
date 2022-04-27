@@ -10,7 +10,6 @@ use App\Http\Controllers\Admin\IndexController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\RegisterController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\App;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,6 +33,10 @@ Route::group([
     Route::resource('productCategories', ProductCategoryController::class);
     Route::resource('branches', BranchController::class);
 });
+
+Route::get('/information', [UserController::class, 'information']);
+
+
 
 Route::get('administrator/login',[AuthController::class,'login'])->name('login');
 Route::post('administrator/postLogin', [AuthController::class, 'postLogin'])->name('postLogin');

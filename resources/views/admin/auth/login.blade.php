@@ -9,9 +9,14 @@
     @endif
     <div class="form-label-group">
       <input type="text" id="inputUser" class="form-control" name="email" value="{{old('email')}}" placeholder="email" autofocus=""> <label for="inputUser">Email</label>
-      @if ($errors->any())
-      <p style="color:red">{{ $errors->first('email') }}</p>
+      @if (Session::has('error_email'))
+      <div class="alert alert-danger">{{session::get('error_email')}}</div>
       @endif
+      <div class="error-message">
+        @if ($errors->any())
+        <p style="color:red">{{ $errors->first('email') }}</p>
+        @endif
+      </div>
     </div>
   </div><!-- /.form-group -->
   <!-- .form-group -->
@@ -19,9 +24,14 @@
     <div class="form-label-group">
       <input type="password" id="inputPassword" class="form-control" name="password" value="{{old('password')}}" placeholder="Mật khẩu"> <label for="inputPassword">Mật khẩu</label>
 
-      @if ($errors->any())
-      <p style="color:red">{{ $errors->first('password') }}</p>
+      @if (Session::has('error_password'))
+      <div class="alert alert-danger">{{session::get('error_password')}}</div>
       @endif
+      <div class="error-message">
+        @if ($errors->any())
+        <p style="color:red">{{ $errors->first('password') }}</p>
+        @endif
+      </div>
     </div>
   </div><!-- /.form-group -->
   <!-- .form-group -->

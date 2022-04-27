@@ -5,12 +5,15 @@
   <LoadingElement v-if="isRunning"/>
   <div id="appCapsule">
     <div class="section mt-2" v-if="items">
+      <div class="row">
       <ProductItemElement
         v-for="(item, index) in items"
         :item="item"
         :index="index"
         :key="index"
+        :cl="'col-6 no-padding'"
       ></ProductItemElement>
+      </div>
     </div>
     <div class="error-page" v-if="items && items.length ==0">
         <h1 class="title">Sản phẩm trống</h1>

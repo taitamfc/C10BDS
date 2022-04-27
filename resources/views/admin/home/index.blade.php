@@ -3,7 +3,7 @@
 
 <!-- .page-title-bar -->
 <header class="page-title-bar">
-    @if (Session::has('succes'))
+@if (Session::has('succes'))
     <div class="alert alert-success">{{session::get('succes')}}</div>
     @endif
     <div class="d-flex flex-column flex-md-row">
