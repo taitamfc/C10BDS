@@ -1,28 +1,17 @@
 <template>
-  <!-- item -->
-      <div class="card cart-item mb-2">
+  <div v-bind:class="cl">
+    <div class="card product-card" style="margin:3px">
         <div class="card-body">
-          <div class="in">
-            
-            <div class="text">
-              <h3 class="title">{{ item.name }}</h3>
-              <p class="detail">{{ item.tinh_thanh_pho }}</p>
-              <p class="detail">{{ item.address }}</p>
-              <!-- <strong class="price">Niêm yết: 1,5 tỷ - 2,5 tỷ</strong> -->
-            </div>
-          </div>
-          <div class="cart-item-footer">
-           <strong class="price">Giá bán: {{ item.price }}</strong>
-           <router-link :to="{ name: 'products.show', params: {id:item.id} }" class="btn btn-warning btn-sm" >Chi tiết</router-link>
-          </div>
+            <img src="https://quanggroup.vn/wp-content/uploads/2021/11/vi-tri-vincom-shophouse-quang-tri-655x400.jpg" class="image" alt="product image">
+            <p class="text text-dark pb-0 mt-1">Bán đất biển Ocean Dune ngay trung tâm thành phố</p>
         </div>
-      </div>
-      <!-- * item -->
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
-  props: ["item"],
+  props: ["item","cl"],
 }
 </script>
 

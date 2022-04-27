@@ -36,7 +36,9 @@
 
   <div class="appHeader bg-warning text-light" v-if="layout == 'main'" v-bind:class="{scrolled:scrolled}">
     <div class="left">
-      
+      <a href="#" class="headerButton" data-bs-toggle="offcanvas" data-bs-target="#sidebarPanel">
+            <ion-icon name="menu-outline" role="img" class="md hydrated" aria-label="menu outline"></ion-icon>
+        </a>
     </div>
     <div class="pageTitle">{{ title }}</div>
     <div class="right">

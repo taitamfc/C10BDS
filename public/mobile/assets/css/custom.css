@@ -1,3 +1,6 @@
 .bg-primary {
     
 }
+.splide__list {
+    width: 100% !important;
+}
