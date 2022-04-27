@@ -4,7 +4,9 @@
         <!-- .top-bar-brand -->
         <div class="top-bar-brand">
             <!-- toggle aside menu -->
-            <button class="hamburger hamburger-squeeze mr-2" type="button" data-toggle="aside-menu" aria-label="toggle aside menu"><span class="hamburger-box"><span class="hamburger-inner"></span></span></button> <!-- /toggle aside menu -->
+            <button class="hamburger hamburger-squeeze mr-2" type="button" data-toggle="aside-menu"
+                aria-label="toggle aside menu"><span class="hamburger-box"><span
+                        class="hamburger-inner"></span></span></button> <!-- /toggle aside menu -->
             <a href="{{ route('admin.index') }}">
                 <img src="{{asset('admin/images/logo.png')}}" style="width: 79%;margin-left: 17px;">
             </a>
@@ -14,7 +16,9 @@
             <!-- .top-bar-item -->
             <div class="top-bar-item px-2 d-md-none d-lg-none d-xl-none">
                 <!-- toggle menu -->
-                <button class="hamburger hamburger-squeeze" type="button" data-toggle="aside" aria-label="toggle menu"><span class="hamburger-box"><span class="hamburger-inner"></span></span></button> <!-- /toggle menu -->
+                <button class="hamburger hamburger-squeeze" type="button" data-toggle="aside"
+                    aria-label="toggle menu"><span class="hamburger-box"><span
+                            class="hamburger-inner"></span></span></button> <!-- /toggle menu -->
             </div><!-- /.top-bar-item -->
             <!-- .top-bar-item -->
             <div class="top-bar-item top-bar-item-full">
@@ -24,7 +28,8 @@
                     <div class="input-group input-group-search dropdown">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><span class="oi oi-magnifying-glass"></span></span>
-                        </div><input type="text" class="form-control" data-toggle="dropdown" aria-label="Search" placeholder="Search"> <!-- .dropdown-menu -->
+                        </div><input type="text" class="form-control" data-toggle="dropdown" aria-label="Search"
+                            placeholder="Search"> <!-- .dropdown-menu -->
                         <div class="dropdown-menu dropdown-menu-rich dropdown-menu-xl ml-n4 mw-100">
                             <div class="dropdown-arrow ml-3"></div><!-- .dropdown-scroll -->
                             <div class="dropdown-scroll perfect-scrollbar h-auto" style="max-height: 360px">
@@ -100,7 +105,8 @@
                 <ul class="header-nav nav">
                     <!-- .nav-item -->
                     <li class="nav-item dropdown header-nav-dropdown has-notified">
-                        <a class="nav-link" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="oi oi-pulse"></span></a> <!-- .dropdown-menu -->
+                        <a class="nav-link" href="#" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false"><span class="oi oi-pulse"></span></a> <!-- .dropdown-menu -->
                         <div class="dropdown-menu dropdown-menu-rich dropdown-menu-right">
                             <div class="dropdown-arrow"></div>
                             <h6 class="dropdown-header stop-propagation">
@@ -109,12 +115,14 @@
                             <div class="dropdown-scroll perfect-scrollbar">
 
                             </div><!-- /.dropdown-scroll -->
-                            <a href="user-activities.html" class="dropdown-footer">All activities <i class="fas fa-fw fa-long-arrow-alt-right"></i></a>
+                            <a href="user-activities.html" class="dropdown-footer">All activities <i
+                                    class="fas fa-fw fa-long-arrow-alt-right"></i></a>
                         </div><!-- /.dropdown-menu -->
                     </li><!-- /.nav-item -->
                     <!-- .nav-item -->
                     <li class="nav-item dropdown header-nav-dropdown has-notified">
-                        <a class="nav-link" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="oi oi-envelope-open"></span></a> <!-- .dropdown-menu -->
+                        <a class="nav-link" href="#" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false"><span class="oi oi-envelope-open"></span></a> <!-- .dropdown-menu -->
                         <div class="dropdown-menu dropdown-menu-rich dropdown-menu-right">
                             <div class="dropdown-arrow"></div>
                             <h6 class="dropdown-header stop-propagation">
@@ -123,34 +131,44 @@
                             <div class="dropdown-scroll perfect-scrollbar">
 
                             </div><!-- /.dropdown-scroll -->
-                            <a href="page-messages.html" class="dropdown-footer">All messages <i class="fas fa-fw fa-long-arrow-alt-right"></i></a>
+                            <a href="page-messages.html" class="dropdown-footer">All messages <i
+                                    class="fas fa-fw fa-long-arrow-alt-right"></i></a>
                         </div><!-- /.dropdown-menu -->
                     </li><!-- /.nav-item -->
                     <!-- .nav-item -->
                     <li class="nav-item dropdown header-nav-dropdown">
-                        <a class="nav-link" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="oi oi-grid-three-up"></span></a> <!-- .dropdown-menu -->
+                        <a class="nav-link" href="#" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false"><span class="oi oi-grid-three-up"></span></a> <!-- .dropdown-menu -->
                         <div class="dropdown-menu dropdown-menu-rich dropdown-menu-right">
                             <div class="dropdown-arrow"></div><!-- .dropdown-sheets -->
                             <div class="dropdown-sheets">
                                 <!-- .dropdown-sheet-item -->
                                 <div class="dropdown-sheet-item">
-                                    <a href="#" class="tile-wrapper"><span class="tile tile-lg bg-indigo"><i class="oi oi-people"></i></span> <span class="tile-peek">Teams</span></a>
+                                    <a href="#" class="tile-wrapper"><span class="tile tile-lg bg-indigo"><i
+                                                class="oi oi-people"></i></span> <span
+                                            class="tile-peek">Teams</span></a>
                                 </div><!-- /.dropdown-sheet-item -->
                                 <!-- .dropdown-sheet-item -->
                                 <div class="dropdown-sheet-item">
-                                    <a href="#" class="tile-wrapper"><span class="tile tile-lg bg-teal"><i class="oi oi-fork"></i></span> <span class="tile-peek">Projects</span></a>
+                                    <a href="#" class="tile-wrapper"><span class="tile tile-lg bg-teal"><i
+                                                class="oi oi-fork"></i></span> <span
+                                            class="tile-peek">Projects</span></a>
                                 </div><!-- /.dropdown-sheet-item -->
                                 <!-- .dropdown-sheet-item -->
                                 <div class="dropdown-sheet-item">
-                                    <a href="#" class="tile-wrapper"><span class="tile tile-lg bg-pink"><i class="fa fa-tasks"></i></span> <span class="tile-peek">Tasks</span></a>
+                                    <a href="#" class="tile-wrapper"><span class="tile tile-lg bg-pink"><i
+                                                class="fa fa-tasks"></i></span> <span class="tile-peek">Tasks</span></a>
                                 </div><!-- /.dropdown-sheet-item -->
                                 <!-- .dropdown-sheet-item -->
                                 <div class="dropdown-sheet-item">
-                                    <a href="#" class="tile-wrapper"><span class="tile tile-lg bg-yellow"><i class="oi oi-fire"></i></span> <span class="tile-peek">Feeds</span></a>
+                                    <a href="#" class="tile-wrapper"><span class="tile tile-lg bg-yellow"><i
+                                                class="oi oi-fire"></i></span> <span class="tile-peek">Feeds</span></a>
                                 </div><!-- /.dropdown-sheet-item -->
                                 <!-- .dropdown-sheet-item -->
                                 <div class="dropdown-sheet-item">
-                                    <a href="#" class="tile-wrapper"><span class="tile tile-lg bg-cyan"><i class="oi oi-document"></i></span> <span class="tile-peek">Files</span></a>
+                                    <a href="#" class="tile-wrapper"><span class="tile tile-lg bg-cyan"><i
+                                                class="oi oi-document"></i></span> <span
+                                            class="tile-peek">Files</span></a>
                                 </div><!-- /.dropdown-sheet-item -->
                             </div><!-- .dropdown-sheets -->
                         </div><!-- .dropdown-menu -->
@@ -158,16 +176,28 @@
                 </ul><!-- /.nav -->
                 <!-- .btn-account -->
                 <div class="dropdown d-none d-md-flex">
-                    
-                    @foreach ($users as $user)
-                    <button class="btn-account" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="user-avatar user-avatar-md"><img src="{{asset('admin/images/avatars/profile.jpg')}}" alt=""></span>
-                        <span class="account-summary pr-lg-4 d-none d-lg-block"><a href="{{ route('users.index',$user->id)}}" class="account-name">{{ $user->name}}</a>
-                            <span class="account-description">{{ $user->userGroup->name }}</span></span></button>
-                    <div class="dropdown-menu">
-                        <h6 class="dropdown-header d-none d-md-block d-lg-none"> Beni Arisandi </h6><a class="dropdown-item" href="#"><span class="dropdown-icon oi oi-person"></span> Thông tin cá nhân</a> <a class="dropdown-item" href="{{ route('login') }}"><span class="dropdown-icon oi oi-account-logout"></span>
-                            Đăng xuất</a>
-                        @endforeach
 
+
+                    <button class="btn-account" type="button" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                        <span class="user-avatar user-avatar-md">
+                            <img src="{{asset('admin/images/avatars/profile.jpg')}}" alt="">
+                        </span>
+                        <span class="account-summary pr-lg-4 d-none d-lg-block">
+                            <a href="{{ route('users.index',$current_user->id)}}" class="account-name">{{ $current_user->name}}</a>
+                            <span class="account-description">{{ $current_user->userGroup->name }}</span>
+                        </span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <h6 class="dropdown-header d-none d-md-block d-lg-none"> Beni Arisandi </h6>
+                        <a class="dropdown-item" href="#">
+                            <span class="dropdown-icon oi oi-person"></span> 
+                            Thông tin cá nhân
+                        </a> 
+                        <a class="dropdown-item" href="{{ route('login') }}">
+                            <span class="dropdown-icon oi oi-account-logout"></span>
+                            Đăng xuất
+                        </a>
                     </div><!-- /.btn-account -->
                 </div><!-- /.top-bar-item -->
             </div><!-- /.top-bar-list -->
