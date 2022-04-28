@@ -34,7 +34,7 @@ Route::group([
     Route::resource('branches', BranchController::class);
 });
 
-Route::get('/information', [UserController::class, 'information']);
+
 
 
 
