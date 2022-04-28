@@ -5,7 +5,7 @@
     <div class="section full">
       <div class="section-title pb-0">SẢN PHẨM HOT</div>
       <div class="splice-wrapp ">
-        <Splide :options="{perPage: 2,padding:5,trimSpace:true,arrows:false,pagination:false}" >
+        <Splide :options="{perPage: 2,padding:5,trimSpace:true,arrows:false,pagination:false,autoplay:true}" >
           <SplideSlide>
             <ProductItemElement></ProductItemElement>
           </SplideSlide>

@@ -2941,7 +2941,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       padding: 5,
       trimSpace: true,
       arrows: false,
-      pagination: false
+      pagination: false,
+      autoplay: true
     }
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
