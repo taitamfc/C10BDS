@@ -34,6 +34,10 @@ Route::group([
     Route::resource('branches', BranchController::class);
 });
 
+Route::get('/information', [UserController::class, 'information']);
+
+
+
 Route::get('administrator/login',[AuthController::class,'login'])->name('login');
 Route::post('administrator/postLogin', [AuthController::class, 'postLogin'])->name('postLogin');
 
