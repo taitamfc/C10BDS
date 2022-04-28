@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\User;
 
 class ProductController extends Controller
 {
-    public function __construct(){
+    public function __construct()
+    {
         $this->middleware('auth:api');
         $this->user = auth('api')->user();
     }
@@ -20,12 +22,12 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $status = ($request->status) ? $request->status : 'selling';
-        $items = Product::where('status',$status)->where('branch_id',$this->user->branch_id);
+        $items = Product::where('status', $status)->where('branch_id', $this->user->branch_id);
 
-        if($request->id){
+        if ($request->id) {
             $items->where('id', 'LIKE', '%' . $request->id . '%');
         }
-        if($request->name){
+        if ($request->name) {
             $items->where('id', 'LIKE', '%' . $request->name . '%');
         }
 
@@ -42,9 +44,9 @@ class ProductController extends Controller
         }
 
         $items = $items->paginate(5);
-        if(count($items)){
-            foreach($items as $item){
-                $item->tinh_thanh_pho = $item->district->name.', '.$item->province->name;
+        if (count($items)) {
+            foreach ($items as $item) {
+                $item->tinh_thanh_pho = $item->district->name . ', ' . $item->province->name;
                 $item->price = number_format($item->price);
             }
         }
@@ -54,16 +56,16 @@ class ProductController extends Controller
 
     public function show($id)
     {
-        $item = Product::with(['product_images','product_logs','district','province'])
-        ->where('id',$id)
-        ->where('branch_id',$this->user->branch_id)
-        ->first();
+        $item = Product::with(['product_images', 'product_logs', 'district', 'province'])
+            ->where('id', $id)
+            ->where('branch_id', $this->user->branch_id)
+            ->first();
 
-        $item->tinh_thanh_pho = $item->district->name.', '.$item->province->name;
+        $item->tinh_thanh_pho = $item->district->name . ', ' . $item->province->name;
         $item->price = number_format($item->price);
-        if($item->product_logs){
-            foreach( $item->product_logs as $product_log ){
-                $product_log->time_format = date('d/m/Y H:s',strtotime($product_log->created_at));
+        if ($item->product_logs) {
+            foreach ($item->product_logs as $product_log) {
+                $product_log->time_format = date('d/m/Y H:s', strtotime($product_log->created_at));
             }
         }
 
@@ -80,7 +82,7 @@ class ProductController extends Controller
     {
         $fields = $request->all();
         $product = Product::find($id);
-        foreach( $fields as $field => $value ){
+        foreach ($fields as $field => $value) {
             $product->$field = $value;
         }
         $product->save();
