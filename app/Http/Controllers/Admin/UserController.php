@@ -52,6 +52,7 @@ class UserController extends Controller
             $user_group_id = $request->filter['user_group_id'];
             $query->where('user_group_id', 'LIKE', '%' . $user_group_id . '%');
         }
+
         if ($request->s){
             $query->where('name', 'LIKE', '%' . $request->s . '%');
             $query->orwhere('id', $request->s);
@@ -214,8 +215,6 @@ class UserController extends Controller
         } catch (\Exception $e) {
             Log::error($e->getMessage());
             return redirect()->route('users.index')->with('success', 'Xóa không  thành công');
-
-
         }
 
     }
