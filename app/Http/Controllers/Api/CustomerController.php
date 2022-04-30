@@ -83,6 +83,18 @@ class CustomerController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $customer = Customer::find($id);
+        try {
+            $customer->delete();
+            return response()->json([
+                'message' => 'Xóa thành công !'
+            ], 201);
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return response()->json([
+                'message' => 'Xóa không thành công !'
+            ], 403);
+            
+        }    
     }
 }

@@ -26,20 +26,35 @@
 
     <div class="section mb-2" v-if="item">
       <a v-bind:href="'tel:'+item.phone" class="btn btn-success btn-block mb-1">Gọi Khách</a>
-      <a href="#" class="btn btn-danger btn-block">Xóa Khỏi Danh Sách</a>
+      <a href="javascript:;" @click="handleButtonSubmit()" class="btn btn-danger btn-block">Xóa Khỏi Danh Sách</a>
     </div>
   </div>
   <!-- * App Capsule -->
+  <ConfirmElement 
+    v-if="show.showConfirm" 
+    :title="'Xác Nhận'" 
+    :sub_title="'Xác nhận xóa khỏi danh sách'" 
+    :cancel_button="'Hủy'" 
+    :confirm_button="'Đồng Ý'" 
+    @modalCancel="this.show.showConfirm = false"
+    @modalConfirm="handleFormSubmit()"
+    />
+    <NotificationElement @notificationHide="this.show.notifiError = false" v-if="show.notifiError" :title="'Không Thành Công'" :sub_title="'Xóa không thành công'" :type="'error'"  />
+    <NotificationElement @notificationHide="this.show.notifiSuccess = false" v-if="show.notifiSuccess" :title="'Thành Công'" :sub_title="'Xóa thành công'" :type="'success'"  />
   <FooterComponent layout="main" />
 </template>
  
 <script>
 import HeaderComponent from "../includes/HeaderComponent.vue";
 import FooterComponent from "../includes/FooterComponent.vue";
+import ConfirmElement from "../elements/ConfirmElement.vue";
+import NotificationElement from "../elements/NotificationElement.vue";
 export default {
   components: {
     HeaderComponent,
     FooterComponent,
+    ConfirmElement,
+    NotificationElement
   },
   data() {
     return {
@@ -62,9 +77,26 @@ export default {
           this.item = result.data;
       })
     },
+    handleButtonSubmit(){
+       this.show.showConfirm = true;
+     },
+     handleFormSubmit(){
+       this.show.showConfirm = false;
+       this.show.showLoading = true;
+       axios.delete('/api/customers/'+this.$route.params.id)
+       .then(result => {
+          console.log(result)
+          this.show.showLoading = false;
+          this.show.notifiSuccess = true;
+          setTimeout(() => {
+            this.$router.push({ name: 'collaborators.index' })
+          }, 1000);
+      })
+     }
   },
   mounted()  {
-    this.get_item(this.$route.params.id)
+    this.get_item(this.$route.params.id);
+    
   }
 };
 </script>

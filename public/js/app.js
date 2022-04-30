@@ -19897,7 +19897,7 @@ function initialize(store, router) {
   axios.interceptors.response.use(null, function (error) {
     if (error.response.status === 401) {
       store.commit('LOGOUT');
-      router.go('/login');
+      router.push('/login');
     }
 
     return Promise.reject(error);

@@ -858,7 +858,7 @@ var _hoisted_4 = {
 
 var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", {
   "class": "title"
-}, "Thông báo trống", -1
+}, "Không có dữ liệu", -1
 /* HOISTED */
 );
 
