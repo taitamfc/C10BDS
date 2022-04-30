@@ -189,12 +189,12 @@
                         </span>
                     </button>
                     <div class="dropdown-menu">
-                        <h6 class="dropdown-header d-none d-md-block d-lg-none"> Beni Arisandi </h6>
+                        <h6 class="dropdown-header d-none d-md-block d-lg-none"> {{ $current_user->name}} </h6>
                         <a class="dropdown-item" href="{{route('users.update',$current_user->id)}}/edit">
                             <span class="dropdown-icon oi oi-person"></span> 
                             Thông tin cá nhân
                         </a> 
-                        <a class="dropdown-item" href="{{ route('login') }}">
+                        <a class="dropdown-item" href="{{ route('logout') }}">
                             <span class="dropdown-icon oi oi-account-logout"></span>
                             Đăng xuất
                         </a>

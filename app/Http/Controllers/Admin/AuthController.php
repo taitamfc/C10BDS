@@ -17,6 +17,11 @@ class AuthController extends Controller
     {
         return view('admin.auth.login');
     }
+    public function logout()
+    {
+        Auth::logout();
+        return redirect()->route('login');
+    }
 
     public function postLogin(LoginRequest $request)
     {
@@ -25,11 +30,6 @@ class AuthController extends Controller
             'password' => $request->password
         ];
 
-
-        if (Auth::attempt($credentials)) {
-            return redirect()->route('admin.index');
-        }
-       
         if(Auth::attempt($credentials)) {
             return redirect()->route('admin.index');
         } 
@@ -44,5 +44,5 @@ class AuthController extends Controller
         }
        
     }
-    }
+}
 

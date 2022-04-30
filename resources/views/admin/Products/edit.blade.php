@@ -109,32 +109,7 @@
                     @endif
                 </div>
             </div>
-            <div class="card-body border-top">
-                <legend>Cài đặt sản phẩm</legend>
-                <div class="row">
-
-                    <div class="col-lg-10">
-                        <div class="form-group">
-                            <label>Loại sản phẩm</label>
-                            <select name="product_type" class="form-control" id="product_type">
-                                <option value="Regular" @if($product->product_type == 'Regular') ? selected : null @endif >Sản phẩm thường</option>
-                                <option value="Consignment" @if($product->product_type == 'Consignment') ? selected : null @endif >Sản phẩm ký gửi</option>
-                            </select>
-                            @if ($errors->any())
-                            <p style="color:red">{{ $errors->first('product_type') }}</p>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="col-lg-2 card-body border-bot">
-                        <label>Sản phẩm HOT</label>
-                        <div class="togglebutton">
-                            <label>
-                                <input type="checkbox" name="product_hot" checked {{ old('product_hot') ? 'checked' : '' }}>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
             <div class="card-body border-top">
                 <legend>Thông tin bất động sản</legend>
                 <div class="row">
@@ -250,6 +225,33 @@
                     @if ($errors->any())
                     <p style="color:red">{{ $errors->first('linkYoutube') }}</p>
                     @endif
+                </div>
+            </div>
+            <div class="card-body border-top">
+                <legend>Cài đặt sản phẩm</legend>
+                <div class="row">
+
+                    <div class="col-lg-10">
+                        <div class="form-group">
+                            <label>Loại sản phẩm</label>
+                            <select name="product_type" class="form-control" id="product_type">
+                                <option value="Regular" @if($product->product_type == 'Regular') ? selected : null @endif >Sản phẩm thường</option>
+                                <option value="Consignment" @if($product->product_type == 'Consignment') ? selected : null @endif >Sản phẩm ký gửi</option>
+                                <option value="Block" @if($product->product_type == 'Block') ? selected : null @endif >Block công ty</option>
+                            </select>
+                            @if ($errors->any())
+                            <p style="color:red">{{ $errors->first('product_type') }}</p>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col-lg-2 card-body border-bot">
+                        <label>Sản phẩm HOT</label>
+                        <div class="togglebutton">
+                            <label>
+                                <input type="checkbox" name="product_hot" checked {{ old('product_hot') ? 'checked' : '' }}>
+                            </label>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="card-body border-top">
