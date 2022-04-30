@@ -218,6 +218,7 @@ class DatabaseSeeder extends Seeder
             'google_map' => '',
             'product_type' => array_rand( array_flip(['Regular','Block','Consignment'])),
             'product_hot' => array_rand([0,1]),
+            'product_open' => array_rand([0,1]),
             'product_start_date' => date('Y-m-d'),
             'product_end_date' => date('Y-m-d',strtotime('+10 days')),
             'product_images' => [
@@ -257,9 +258,9 @@ class DatabaseSeeder extends Seeder
     {
         $Customer = new Customer();
         $Customer->name = 'NGUYEN THI HUYEN TRANG';
-        $Customer->email = 'trang@gmail.com';
         $Customer->address = 'Thanh Hóa';
         $Customer->phone = '0977983360';
+        $Customer->user_id = 1;
         $Customer->save();
     }
 }

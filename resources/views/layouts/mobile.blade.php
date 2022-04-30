@@ -14,6 +14,7 @@
     <link rel="icon" type="image/png" href="{{ asset('mobile/assets/img/favicon.png')}}" sizes="32x32">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('mobile/assets/img/icon/192x192.png')}}">
     <link rel="stylesheet" href="{{ asset('mobile/assets/css/style.css')}}">
+    <link rel="stylesheet" href="{{ asset('mobile/assets/css/custom.css')}}">
     <link rel="manifest" href="mobile/__manifest.json">
     <link href="{{ mix('css/app.css') }}" type="text/css" rel="stylesheet"/>
     <style>
@@ -25,18 +26,7 @@
 
 <body class="bg-white">
     <div id="app"></div>
-    <!-- ============== Js Files ==============  -->
-    <!-- Bootstrap -->
-    <script src="{{ asset('mobile/assets/js/lib/bootstrap.min.js')}}"></script>
-    <!-- Ionicons -->
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-    <!-- Splide -->
-    <!-- ProgressBar js -->
-    <script src="{{ asset('mobile/assets/js/plugins/progressbar-js/progressbar.min.js')}}"></script>
-    
-    <!-- Base Js File -->
     <script src="{{ mix('js/app.js') }}" type="text/javascript"></script>
-    
 </body>
-
 </html>

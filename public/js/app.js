@@ -19730,11 +19730,18 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   created: function created() {
-    setInterval(function () {//this.get_notifications();
-    }, 3000);
+    var _this2 = this;
+
+    if (this.$store.getters.CURRENT_USER) {
+      setInterval(function () {
+        _this2.get_notifications();
+      }, 5000);
+    }
   },
   mounted: function mounted() {
-    this.get_notifications();
+    if (this.$store.getters.CURRENT_USER) {
+      this.get_notifications();
+    }
   }
 });
 
@@ -19890,7 +19897,7 @@ function initialize(store, router) {
   axios.interceptors.response.use(null, function (error) {
     if (error.response.status === 401) {
       store.commit('LOGOUT');
-      router.push('/login');
+      router.go('/login');
     }
 
     return Promise.reject(error);
@@ -20016,12 +20023,19 @@ var routes = [{
   },
   component: ProductsComponent
 }, {
+  path: '/type_products/:product_type',
+  name: 'products.type',
+  meta: {
+    requiresAuth: true
+  },
+  component: ProductsComponent
+}, {
   path: '/sold_products',
   name: 'products.sold',
   meta: {
     requiresAuth: true
   },
-  component: SoldProductsComponent
+  component: ProductsComponent
 }, {
   path: '/products/:id',
   name: 'products.show',

@@ -2,18 +2,18 @@
   <HeaderComponent layout="main" :title="'Trang Chủ'" :notification="1" />
   <div id="appCapsule">
 
-    <div class="section full" v-if="hot_products">
+    <div class="section full" v-if="hot_products && hot_products.length">
       <div class="section-title pb-0">SẢN PHẨM HOT</div>
       <div class="splice-wrapp ">
-        <Splide :options="{perPage: 2,padding:5,trimSpace:true,arrows:false,pagination:false,autoplay:true}" >
+        <Splide :options="{perPage: 2,padding:5,trimSpace:true,arrows:false,pagination:false,autoplay:true,rewind:true}" >
           <SplideSlide v-for="hot_product of hot_products" :key="hot_product.id">
-            <ProductItemElement :item="hot_product"></ProductItemElement>
+            <ProductItemElement :item="hot_product" ></ProductItemElement>
           </SplideSlide>
         </Splide>
       </div>
     </div>
 
-     <div class="section full" v-if="future_products">
+     <div class="section full" v-if="future_products && future_products.length">
       <div class="section-title pb-0">SẢN PHẨM SẮP MỞ BÁN</div>
       <div class="splice-wrapp ">
         <Splide :options="{perPage: 2,padding:5,trimSpace:true,arrows:false,pagination:false}" >
@@ -24,7 +24,7 @@
       </div>
     </div>
 
-     <div class="section full" v-if="block_products">
+     <div class="section full" v-if="block_products && block_products.length">
       <div class="section-title pb-0">SẢN PHẨM BLOCK</div>
       <div class="splice-wrapp ">
         <Splide :options="{perPage: 2,padding:5,trimSpace:true,arrows:false,pagination:false}" >
@@ -35,7 +35,7 @@
       </div>
     </div>
 
-     <div class="section full" v-if="delivery_products">
+     <div class="section full" v-if="delivery_products && delivery_products.length">
       <div class="section-title pb-0">SẢN PHẨM KÝ GỬI</div>
       <div class="splice-wrapp ">
         <Splide :options="{perPage: 2,padding:5,trimSpace:true,arrows:false,pagination:false,autoplay:true}" >
@@ -80,7 +80,7 @@ export default {
   },
   methods:{
     get_hot_products(){
-      axios.get('/api/products?type=hot_products')
+      axios.get('/api/products?product_type=hot_products')
       .then(result => {
           this.isRunning = false;
           this.hot_products = result.data.data;
@@ -89,7 +89,7 @@ export default {
       })
     },
     get_future_products(){
-      axios.get('/api/products?type=future_products')
+      axios.get('/api/products?product_type=future_products')
       .then(result => {
           this.isRunning = false;
           this.future_products = result.data.data;
@@ -97,7 +97,7 @@ export default {
       })
     },
     get_block_products(){
-      axios.get('/api/products?type=block_products')
+      axios.get('/api/products?product_type=block_products')
       .then(result => {
           this.isRunning = false;
           this.block_products = result.data.data;
@@ -105,7 +105,7 @@ export default {
       })
     },
     get_delivery_products(){
-      axios.get('/api/products?type=delivery_products')
+      axios.get('/api/products?product_type=delivery_products')
       .then(result => {
           this.isRunning = false;
           this.delivery_products = result.data.data;
@@ -118,6 +118,7 @@ export default {
         axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.getters.CURRENT_USER.token}`;
     }
     this.get_hot_products();
+    
   }
 };
 </script>
