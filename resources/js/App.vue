@@ -15,7 +15,7 @@
         },
         created(){
             setInterval(() => {
-                this.get_notifications();
+                //this.get_notifications();
             }, 3000);
         },
         mounted() {

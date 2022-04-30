@@ -19730,10 +19730,7 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   created: function created() {
-    var _this2 = this;
-
-    setInterval(function () {
-      _this2.get_notifications();
+    setInterval(function () {//this.get_notifications();
     }, 3000);
   },
   mounted: function mounted() {
