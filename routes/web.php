@@ -8,7 +8,10 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\UserGroupController;
 use App\Http\Controllers\Admin\IndexController;
 use App\Http\Controllers\Admin\AuthController;
-use App\Http\Controllers\Admin\RegisterController;
+
+use App\Http\Controllers\Admin\ImageController;
+use App\Http\Controllers\Admin\CustomerController;
+
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -32,13 +35,15 @@ Route::group([
     Route::resource('products', ProductController::class);
     Route::resource('productCategories', ProductCategoryController::class);
     Route::resource('branches', BranchController::class);
+    Route::resource('customers', CustomerController::class);
 });
 
-Route::get('/information', [UserController::class, 'information']);
+
 
 
 
 Route::get('administrator/login',[AuthController::class,'login'])->name('login');
+Route::get('administrator/logout',[AuthController::class,'logout'])->name('logout');
 Route::post('administrator/postLogin', [AuthController::class, 'postLogin'])->name('postLogin');
 
 Route::view('/{any}', 'layouts.mobile')

@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Log;
 
 class UserGroupController extends Controller
 {
- 
+
     /**
      * Display a listing of the resource.
      *
@@ -24,6 +24,11 @@ class UserGroupController extends Controller
             $name = $request->filter['name'];
             $query->where('name', 'LIKE', '%' . $name . '%');
         }
+        if ($request->s) {
+            $query->where('name', 'LIKE', '%' . $request->s . '%');
+            $query->orwhere('id', $request->s);
+        }
+
         $query->orderBy('id', 'desc');
         $userGroups = $query->paginate(4);
         $params = [
@@ -126,9 +131,6 @@ class UserGroupController extends Controller
         } catch (\Exception $e) {
             Log::error($e->getMessage());
             return redirect()->route('userGroups.index')->with('success', 'Xóa không thành công');
-
         }
-
-
     }
 }

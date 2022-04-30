@@ -8,8 +8,7 @@ use Illuminate\Pagination\Paginator;
 use App\Views\Composers\ProfileComposer;
 
 class AppServiceProvider extends ServiceProvider
-{
-    /**
+{    /**
      * Register any application services.
      *
      * @return void

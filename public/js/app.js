@@ -19732,12 +19732,16 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this2 = this;
 
-    setInterval(function () {
-      _this2.get_notifications();
-    }, 3000);
+    if (this.$store.getters.CURRENT_USER) {
+      setInterval(function () {
+        _this2.get_notifications();
+      }, 5000);
+    }
   },
   mounted: function mounted() {
-    this.get_notifications();
+    if (this.$store.getters.CURRENT_USER) {
+      this.get_notifications();
+    }
   }
 });
 
@@ -20019,12 +20023,19 @@ var routes = [{
   },
   component: ProductsComponent
 }, {
+  path: '/type_products/:product_type',
+  name: 'products.type',
+  meta: {
+    requiresAuth: true
+  },
+  component: ProductsComponent
+}, {
   path: '/sold_products',
   name: 'products.sold',
   meta: {
     requiresAuth: true
   },
-  component: SoldProductsComponent
+  component: ProductsComponent
 }, {
   path: '/products/:id',
   name: 'products.show',
