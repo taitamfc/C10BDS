@@ -9,7 +9,6 @@ use App\Models\Product;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Branch;
 use App\Models\District;
-use App\Models\ProducImage;
 use App\Models\ProductCategory;
 use App\Models\Province;
 use App\Models\User;
@@ -18,6 +17,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Events\ProductCreated;
 use App\Events\ProductSold;
+use App\Models\ProductImage;
 
 class ProductController extends Controller
 {
@@ -28,7 +28,7 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        // $this->authorize('viewAny',Product::class);
+        $this->authorize('viewAny', Product::class);
         $product = Product::select('*');
         if (isset($request->filter['name']) && $request->filter['name']) {
             $name = $request->filter['name'];
@@ -59,7 +59,7 @@ class ProductController extends Controller
             $status = $request->filter['status'];
             $product->where('status', $status);
         }
-        if ($request->s){
+        if ($request->s) {
             $product->where('name', 'LIKE', '%' . $request->s . '%');
             $product->orwhere('id', $request->s);
         }
@@ -72,7 +72,7 @@ class ProductController extends Controller
             'products' => $products,
             'branches' => $branches
         ];
-        
+
 
         return view('admin.products.index', $params);
     }
@@ -84,7 +84,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        // $this->authorize('create', Product::class);
+        $this->authorize('create', Product::class);
         $productCategories = ProductCategory::all();
         $provinces = Province::all();
         $branches = Branch::all();
@@ -124,9 +124,12 @@ class ProductController extends Controller
         $product->province_id = $request->province_id;
         $product->branch_id = $request->branch_id;
         $product->user_id = $request->user_id;
-        $product->district_id = $request->district_id;
         $product->ward_id = $request->ward_id;
-
+        $product->district_id = $request->district_id;
+        $product->product_type = $request->product_type;
+        $product->product_hot = $request->product_hot;
+        $product->product_start_date = $request->product_start_date;
+        $product->product_end_date = $request->product_end_date;
         $product_images = [];
         if ($request->hasFile('image_urls')) {
             $image_urls          = $request->image_urls;
@@ -135,7 +138,7 @@ class ProductController extends Controller
                 $path               = 'upload';
                 $get_name_image     = $image->getClientOriginalName(); //abc.jpg
                 //explode "." [abc,jpg]
-                $name_image         = current(explode('.', $get_name_image)); 
+                $name_image         = current(explode('.', $get_name_image));
                 //trả về phần tử thứ 1 của mản -> abc
                 //getClientOriginalExtension: tra ve  đuôi ảnh
                 $new_image          = $name_image . rand(0, 99) . '.' . $image->getClientOriginalExtension();
@@ -148,9 +151,9 @@ class ProductController extends Controller
         try {
             $product->save();
             //luu vao bang product_images
-            if( count($product_images) ){
+            if (count($product_images)) {
                 foreach ($product_images as $product_image) {
-                    $ProducImage = new ProducImage();
+                    $ProducImage = new ProductImage();
                     $ProducImage->product_id = $product->id;
                     $ProducImage->image_url = $product_image;
                 }
@@ -159,7 +162,7 @@ class ProductController extends Controller
             Session::flash('success', 'Thêm' . ' ' . $request->name . ' ' .  'thành công');
         } catch (\Exception $e) {
             Log::error($e->getMessage());
-            Session::flash('error', 'Thêm' . ' <strong>' . $request->name . '</strong> ' .  'không thành công');
+            Session::flash('error', 'Thêm ' . $request->name  .  ' không thành công');
         }
         return redirect()->route('products.index');
     }
@@ -184,13 +187,13 @@ class ProductController extends Controller
     public function edit($id)
     {
         $product = Product::find($id);
-        // $this->authorize('update', $product);
+        $this->authorize('update', $product);
         $productCategories = ProductCategory::all();
         $provinces = Province::all();
         $branches = Branch::all();
-        $districts = District::where('province_id',$product->province_id)->get();
-        $wards = Ward::where('district_id',$product->district_id)->get();
-        $users = User::where('branch_id',$product->branch_id)->get();
+        $districts = District::where('province_id', $product->province_id)->get();
+        $wards = Ward::where('district_id', $product->district_id)->get();
+        $users = User::where('branch_id', $product->branch_id)->get();
 
         $params = [
             'productCategories' => $productCategories,
@@ -234,18 +237,22 @@ class ProductController extends Controller
         $product->user_id = $request->user_id;
         $product->district_id = $request->district_id;
         $product->ward_id = $request->ward_id;
+        $product->product_type = $request->product_type;
+        $product->product_hot = $request->product_hot;
+        $product->product_start_date = $request->product_start_date;
+        $product->product_end_date = $request->product_end_date;
         //dd($product->status);
-        
+
         try {
             $product->save();
             //kiểm tra trạng thái cũ của sản phẩm
-            if( $old_status != $product->status ){
-                if( $product->status == 'selling' ){
+            if ($old_status != $product->status) {
+                if ($product->status == 'selling') {
                     //thông báo khi sản phẩm mới được đăng bán
                     event(new ProductCreated($product));
                 }
-                if( $product->status == 'sold' ){
-                     //thông báo khi sản phẩm được bán thành công
+                if ($product->status == 'sold') {
+                    //thông báo khi sản phẩm được bán thành công
                     event(new ProductSold($product));
                 }
             }
@@ -265,7 +272,7 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        // $this->authorize('delete', Product::class);
+        $this->authorize('delete', Product::class);
         $product = Product::find($id);
         try {
             $product->delete();

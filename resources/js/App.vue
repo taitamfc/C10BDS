@@ -14,12 +14,17 @@
             }
         },
         created(){
-            setInterval(() => {
-                this.get_notifications();
-            }, 3000);
+            if( this.$store.getters.CURRENT_USER ){
+                setInterval(() => {
+                    this.get_notifications();
+                }, 5000);
+            }
         },
         mounted() {
-            this.get_notifications();
+            if( this.$store.getters.CURRENT_USER ){
+                this.get_notifications();
+            }
+            
         }
     }
 </script>

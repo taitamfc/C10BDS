@@ -36,7 +36,7 @@
 
   <div class="appHeader bg-warning text-light" v-if="layout == 'main'" v-bind:class="{scrolled:scrolled}">
     <div class="left">
-      <a href="#" class="headerButton" data-bs-toggle="offcanvas" data-bs-target="#sidebarPanel">
+        <a href="javascript:;"  class="headerButton" @click="showSidebar()">
             <ion-icon name="menu-outline" role="img" class="md hydrated" aria-label="menu outline"></ion-icon>
         </a>
     </div>
@@ -53,11 +53,27 @@
       </router-link>
     </div>
   </div>
+  <!-- * App Bottom Menu -->
+  <SideBarComponent @closeSidebarCallBack="show_sidebar = false" :show_sidebar="show_sidebar"></SideBarComponent>
 </template>
 
 <script>
+import SideBarComponent from "./SideBarComponent.vue";
 export default {
   props: ["layout","title","search","notification","scrolled"],
+  data() {
+    return {
+      show_sidebar : false,
+    }
+  },
+  components: {
+    SideBarComponent
+  },
+  methods: {
+    showSidebar(){
+      this.show_sidebar = !this.show_sidebar
+    }
+  }
 };
 </script>
 

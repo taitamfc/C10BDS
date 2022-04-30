@@ -65,9 +65,9 @@
                   </a>
               </li>
               <li class="menu-item">
-                  <a href="{{ route('roles.index') }}" class="menu-link">
+                  <a href="{{ route('customers.index') }}" class="menu-link">
                     <span class="menu-icon oi oi-shield"></span> 
-                    <span class="menu-text">Vai Trò</span>
+                    <span class="menu-text">Khách Hàng</span>
                   </a>
               </li>
               

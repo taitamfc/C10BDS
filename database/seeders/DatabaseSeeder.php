@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\Branch;
+use App\Models\Customer;
+use App\Models\ProductImage;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\User;
@@ -27,6 +29,7 @@ class DatabaseSeeder extends Seeder
         $this->importUsers();
         $this->importProducts();
         $this->importUserGroupRoles();
+        $this->importCustomers();
     }
     public function importProductCategories()
     {
@@ -45,14 +48,14 @@ class DatabaseSeeder extends Seeder
     }
     public function importRoles()
     {
-        $groups     = ['Branch'];
+        $groups     = ['Branch','Product','Customer','ProductCategory','User'];
         $actions    = ['viewAny', 'view', 'create', 'update', 'delete', 'restore', 'forceDelete'];
         foreach ($groups as $group) {
             foreach ($actions as $action) {
                 DB::table('roles')->insert([
                     'group_name' => $group,
                     'name' => $group . '_' . $action,
-                    
+
                 ]);
             }
         }
@@ -61,10 +64,10 @@ class DatabaseSeeder extends Seeder
     {
         $branch = new Branch();
         $branch->id = 1;
-        $branch->name = 'Chi nhánh 1';
-        $branch->address = 'Thanh Hóa';
+        $branch->name = 'Quảng Trị';
+        $branch->address = 'Quảng Trị';
         $branch->phone = '0977983360';
-        $branch->province_id = 2;
+        $branch->province_id = 1;
         $branch->district_id = 3;
         $branch->ward_id = 4;
         $branch->save();
@@ -72,9 +75,9 @@ class DatabaseSeeder extends Seeder
 
         $branch = new Branch();
         $branch->id = 2;
-        $branch->name = 'Chi nhánh 2';
-        $branch->address = 'Nghệ An';
-        $branch->phone = '01648511610';
+        $branch->name = 'Đà Nẵng';
+        $branch->address = 'Đà Nẵng';
+        $branch->phone = '0164851161';
         $branch->province_id = 8;
         $branch->district_id = 1;
         $branch->ward_id = 7;
@@ -83,43 +86,30 @@ class DatabaseSeeder extends Seeder
 
         $branch = new Branch();
         $branch->id = 3;
-        $branch->name = 'Chi nhánh 3';
-        $branch->address = 'Hà Tĩnh';
+        $branch->name = 'Quảng Bình';
+        $branch->address = 'Quảng Bình';
         $branch->phone = '0979061738';
         $branch->province_id = 6;
         $branch->district_id = 7;
         $branch->ward_id = 1;
         $branch->save();
 
-
-        $branch = new Branch();
-        $branch->id =4;
-        $branch->name = 'Chi nhánh 4';
-        $branch->address = 'Quảng Bình';
-        $branch->phone = '0854383246';
-        $branch->province_id = 2;
-        $branch->district_id = 9;
-        $branch->ward_id = 5;
-        $branch->save();
     }
     public function importUserGroups()
     {
         $userGroup = new UserGroup();
-        $userGroup->name = 'Nhóm 1';
-        $userGroup->description = '5 thành viên';
+        $userGroup->name = 'Supper Admin';
+        $userGroup->description = '';
         $userGroup->save();
         $userGroup = new UserGroup();
-        $userGroup->name = 'Nhóm 2';
-        $userGroup->description = '7 thành viên';
+        $userGroup->name = 'Quản Lý';
+        $userGroup->description = '';
         $userGroup->save();
         $userGroup = new UserGroup();
-        $userGroup->name = 'Nhóm 3';
-        $userGroup->description = '15 thành viên';
+        $userGroup->name = 'Nhân Viên';
+        $userGroup->description = '';
         $userGroup->save();
-        $userGroup = new UserGroup();
-        $userGroup->name = 'Nhóm 4';
-        $userGroup->description = '13 thành viên';
-        $userGroup->save();
+
     }
     public function importUsers()
     {
@@ -174,22 +164,7 @@ class DatabaseSeeder extends Seeder
         $user->gender = 'Nam';
         $user->save();
 
-        $user = new User();
-        $user->name = 'Lê Biên Thùy';
-        $user->email = 'thuy@gmail.com';
-        $user->password = Hash::make('123456');
-        $user->day_of_birth = '1995/11/15';
-        $user->phone = '01648511610';
-        $user->address = 'Quảng Trị';
-        $user->start_day = '2021/10/29';
-        $user->user_group_id  = '4';
-        $user->branch_id  = '4';
-        $user->note = '123';
-        $user->province_id  = '30';
-        $user->district_id  = '343';
-        $user->ward_id  = '6192';
-        $user->gender = 'Nam';
-        $user->save();
+
 
         $user = new User();
         $user->name = 'Admin';
@@ -207,40 +182,67 @@ class DatabaseSeeder extends Seeder
         $user->ward_id  = '6192';
         $user->gender = 'Nam';
         $user->save();
-
     }
     public function importProducts()
     {
         $products = [
-            [
-                'name' => 'Bán đất biển Ocean Dune ngay trung tâm thành phố',
-                'address' => 'Ocean Dunes',
-                'description' => 'KHU A: A1 140m2 đối diện biệt thự 740m2 10 tỷ 5<br>A2',
-                'price' => 995256,
-                'product_category_id' => 1,
-                'province_id' => 1,
-                'district_id' => 1,
-                'ward_id' => 1,
-                'unit' => 'agree',
-                'status' => 'draft',
-                'juridical' => 'red_book_pink_book',
-                'area' => 140,
-                'houseDirection' => 'East', //East, West, South, North, Northeast, Northwest, Southeast,  Southwest
-                'stress_width' => 7,
-                'facade' => 7,
-                'linkYoutube' => 'https://file4.batdongsan.com.vn/resize/745x510/2022/04/17/20220417200500-9939_wm.jpeg',
-                'branch_id' => 1,
-                'user_id' => 1,
-                'google_map' => 'East, West, South, North, Northeast, Northwest, Southeast,  Southwest'
+            'Chính chủ bán gấp đất mặt biển Bình Thuận 1,5r/m2, có đường quy hoạch 30m cắt ngang trước đất',
+            'Hiếm, đất nền Hòa Lạc, gần công nghệ cao, ĐH FPT, đường lớn 10m + vỉa hè 5m, sổ đỏ trọn đời',
+            'Đất giá F0 chỉ từ 660tr/nền thổ cư view đồi, hạ tầng đầy đủ, sổ hồng cầm tay. Bán nhanh trong ngày',
+            'Chính Chủ cần bán khu nhà đất mặt biển view cực kỳ đẹp ngay trung tâm TP. Quy Nhơn. LH: 0982000***',
+            'Chính chủ cần bán 700m2 đất MT đường Hưng Nhơn,Tân Kiên,Bình Chánh giá tốt. LH chính chủ 0976827***',
+            'Ôm nguồn đất chính chủ giá đầu tư 445tr - 630tr',
+            'Block 5 lô Vĩnh Thái',
+            'Block 8 lô Gio Linh',
+            'Bán đất biển Ocean Dune ngay trung tâm thành phố'
+        ];
+        
+        $fields = [
+            'address' => 'Ocean Dunes',
+            'description' => 'KHU A: A1 140m2 đối diện biệt thự 740m2 10 tỷ 5<br>A2',
+            'price' => 995256,
+            'product_category_id' => 1,
+            'province_id' => 1,
+            'district_id' => 1,
+            'ward_id' => 1,
+            'unit' => 'agree',
+            'status' => 'selling',
+            'juridical' => array_rand( array_flip(['red_book_pink_book','waiting_book'])),
+            'area' => rand(5, 15),
+            'houseDirection' => array_rand( array_flip(['East', 'West', 'South', 'North', 'Northeast', 'Northwest', 'Southeast',  'Southwest']) ),
+            'stress_width' => rand(5, 15),
+            'facade' => rand(5, 15),
+            'linkYoutube' => 'https://file4.batdongsan.com.vn/resize/745x510/2022/04/17/20220417200500-9939_wm.jpeg',
+            'branch_id' => 1,
+            'user_id' => 1,
+            'google_map' => '',
+            'product_type' => array_rand( array_flip(['Regular','Block','Consignment'])),
+            'product_hot' => array_rand([0,1]),
+            'product_open' => array_rand([0,1]),
+            'product_start_date' => date('Y-m-d'),
+            'product_end_date' => date('Y-m-d',strtotime('+10 days')),
+            'product_images' => [
+                'https://file4.batdongsan.com.vn/resize/745x510/2022/04/17/20220417200500-9939_wm.jpeg',
+                'https://file4.batdongsan.com.vn/2022/04/05/20220405105613-203d_wm.jpg',
             ]
         ];
 
+
         foreach ($products as $product) {
             $objProduct = new Product();
-            foreach ($product as $field => $value) {
-                $objProduct->$field = $value;
+            $objProduct->name = $product;
+            foreach ($fields as $field => $value) {
+                if( $field != 'product_images' ){
+                    $objProduct->$field = $value;
+                }
             }
             $objProduct->save();
+            foreach( $fields['product_images'] as $product_image ){
+                $objProductImage = new ProductImage();
+                $objProductImage->product_id = $objProduct->id;
+                $objProductImage->image_url = $product_image;
+                $objProductImage->save();
+            }
         }
     }
     public function importUserGroupRoles()
@@ -251,5 +253,14 @@ class DatabaseSeeder extends Seeder
                 'role_id' => $i,
             ]);
         }
+    }
+    public function importCustomers()
+    {
+        $Customer = new Customer();
+        $Customer->name = 'NGUYEN THI HUYEN TRANG';
+        $Customer->address = 'Thanh Hóa';
+        $Customer->phone = '0977983360';
+        $Customer->user_id = 1;
+        $Customer->save();
     }
 }

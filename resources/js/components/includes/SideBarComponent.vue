@@ -1,11 +1,14 @@
 <template>
   <div
     class="offcanvas offcanvas-start"
+    v-bind:class="{
+      'show' : show_sidebar,
+    }"
+    v-bind:style="{
+      'visibility' : (show_sidebar) ? 'visible' : 'hidden'
+    }"
     tabindex="-1"
     id="sidebarPanel"
-    style="visibility: hidden"
-    aria-modal="true"
-    role="dialog"
   >
     <div class="offcanvas-body">
       <!-- profile box -->
@@ -29,7 +32,7 @@
             Nhân Viên
           </div>
         </div>
-        <a href="#" class="close-sidebar-button" data-bs-dismiss="offcanvas">
+        <a href="#" id="close-sidebar" class="close-sidebar-button" @click="this.$emit('closeSidebarCallBack', {})">
           <ion-icon
             name="close"
             role="img"
@@ -42,8 +45,8 @@
 
       <ul class="listview flush transparent no-line image-listview mt-2">
         <li>
-          <router-link :to="{ name: 'home', params: {} }" class="item" active-class="active">
-            <div class="icon-box bg-primary">
+          <router-link :to="{ name: 'home', params: {} }" class="item" active-class="active" @click="this.$emit('closeSidebarCallBack')">
+            <div class="icon-box bg-warning">
               <ion-icon
                 name="home-outline"
                 role="img"
@@ -55,10 +58,10 @@
           </router-link>
         </li>
         <li>
-          <router-link :to="{ name: 'products.index', params: {} }" class="item" active-class="active">
-            <div class="icon-box bg-primary">
+          <router-link :to="{ name: 'products.type', params: {'product_type':'hot_products'} }" class="item" active-class="active" @click="this.$emit('closeSidebarCallBack')">
+            <div class="icon-box bg-danger">
               <ion-icon
-                name="home-outline"
+                name="ribbon-outline"
                 role="img"
                 class="md hydrated"
                 aria-label="home outline"
@@ -68,10 +71,10 @@
           </router-link>
         </li>
         <li>
-          <router-link :to="{ name: 'products.index', params: {} }" class="item" active-class="active">
-            <div class="icon-box bg-primary">
+          <router-link :to="{ name: 'products.type', params: {'product_type':'block_products'} }" class="item" active-class="active" @click="this.$emit('closeSidebarCallBack')">
+            <div class="icon-box bg-success">
               <ion-icon
-                name="home-outline"
+                name="storefront-outline"
                 role="img"
                 class="md hydrated"
                 aria-label="home outline"
@@ -81,10 +84,10 @@
           </router-link>
         </li>
         <li>
-          <router-link :to="{ name: 'products.index', params: {} }" class="item" active-class="active">
-            <div class="icon-box bg-primary">
+          <router-link :to="{ name: 'products.type', params: {'product_type':'delivery_products'} }" class="item" active-class="active" @click="this.$emit('closeSidebarCallBack')">
+            <div class="icon-box bg-info">
               <ion-icon
-                name="home-outline"
+                name="rocket-outline"
                 role="img"
                 class="md hydrated"
                 aria-label="home outline"
@@ -94,10 +97,10 @@
           </router-link>
         </li>
         <li>
-          <router-link :to="{ name: 'products.index', params: {} }" class="item" active-class="active">
-            <div class="icon-box bg-primary">
+          <router-link :to="{ name: 'products.type', params: {'product_type':'future_products'} }" class="item" active-class="active" @click="this.$emit('closeSidebarCallBack')">
+            <div class="icon-box bg-dark">
               <ion-icon
-                name="home-outline"
+                name="alarm-outline"
                 role="img"
                 class="md hydrated"
                 aria-label="home outline"
@@ -107,42 +110,19 @@
           </router-link>
         </li>
         <li>
-          <router-link :to="{ name: 'products.index', params: {} }" class="item" active-class="active">
-            <div class="icon-box bg-primary">
+          <router-link :to="{ name: 'collaborators.index', params: {} }" class="item" active-class="active" @click="this.$emit('closeSidebarCallBack')">
+            <div class="icon-box bg-warning">
               <ion-icon
-                name="home-outline"
+                name="accessibility-outline"
                 role="img"
                 class="md hydrated"
-                aria-label="home outline"
               ></ion-icon>
             </div>
             <div class="in">Khách Hàng</div>
           </router-link>
         </li>
 
-        <li>
-          <div class="item">
-            <div class="icon-box bg-primary">
-              <ion-icon
-                name="moon-outline"
-                role="img"
-                class="md hydrated"
-                aria-label="moon outline"
-              ></ion-icon>
-            </div>
-            <div class="in">
-              <div>Tắt Thông Báo</div>
-              <div class="form-check form-switch">
-                <input
-                  class="form-check-input dark-mode-switch"
-                  type="checkbox"
-                  id="darkmodesidebar"
-                />
-                <label class="form-check-label" for="darkmodesidebar"></label>
-              </div>
-            </div>
-          </div>
-        </li>
+        
       </ul>
     </div>
     <!-- sidebar buttons -->
@@ -182,10 +162,14 @@
     </div>
     <!-- * sidebar buttons -->
   </div>
+
+  <div class="offcanvas-backdrop fade show" v-if="show_sidebar" @click="this.$emit('closeSidebarCallBack')"></div>
 </template>
 
 <script>
-export default {};
+export default {
+  props: ["show_sidebar"],
+};
 </script>
 
 <style>
