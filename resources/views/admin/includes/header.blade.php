@@ -190,7 +190,7 @@
                     </button>
                     <div class="dropdown-menu">
                         <h6 class="dropdown-header d-none d-md-block d-lg-none"> Beni Arisandi </h6>
-                        <a class="dropdown-item" href="#">
+                        <a class="dropdown-item" href="{{route('users.update',$current_user->id)}}/edit">
                             <span class="dropdown-icon oi oi-person"></span> 
                             Thông tin cá nhân
                         </a> 
