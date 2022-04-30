@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Branch;
+use App\Models\Customer;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\User;
@@ -27,6 +28,7 @@ class DatabaseSeeder extends Seeder
         $this->importUsers();
         $this->importProducts();
         $this->importUserGroupRoles();
+        $this->importCustomers();
     }
     public function importProductCategories()
     {
@@ -52,7 +54,7 @@ class DatabaseSeeder extends Seeder
                 DB::table('roles')->insert([
                     'group_name' => $group,
                     'name' => $group . '_' . $action,
-                    
+
                 ]);
             }
         }
@@ -64,7 +66,7 @@ class DatabaseSeeder extends Seeder
         $branch->name = 'Chi nhánh 1';
         $branch->address = 'Thanh Hóa';
         $branch->phone = '0977983360';
-        $branch->province_id = 2;
+        $branch->province_id = 1;
         $branch->district_id = 3;
         $branch->ward_id = 4;
         $branch->save();
@@ -74,7 +76,7 @@ class DatabaseSeeder extends Seeder
         $branch->id = 2;
         $branch->name = 'Chi nhánh 2';
         $branch->address = 'Nghệ An';
-        $branch->phone = '01648511610';
+        $branch->phone = '0164851161';
         $branch->province_id = 8;
         $branch->district_id = 1;
         $branch->ward_id = 7;
@@ -93,7 +95,7 @@ class DatabaseSeeder extends Seeder
 
 
         $branch = new Branch();
-        $branch->id =4;
+        $branch->id = 4;
         $branch->name = 'Chi nhánh 4';
         $branch->address = 'Quảng Bình';
         $branch->phone = '0854383246';
@@ -207,7 +209,6 @@ class DatabaseSeeder extends Seeder
         $user->ward_id  = '6192';
         $user->gender = 'Nam';
         $user->save();
-
     }
     public function importProducts()
     {
@@ -231,7 +232,11 @@ class DatabaseSeeder extends Seeder
                 'linkYoutube' => 'https://file4.batdongsan.com.vn/resize/745x510/2022/04/17/20220417200500-9939_wm.jpeg',
                 'branch_id' => 1,
                 'user_id' => 1,
-                'google_map' => 'East, West, South, North, Northeast, Northwest, Southeast,  Southwest'
+                'google_map' => 'East, West, South, North, Northeast, Northwest, Southeast,  Southwest',
+                'product_type' => 'Sản phẩm thường',
+                'product_hot' => '0',
+                'product_start_date' => '2000-01-01',
+                'product_end_date' => '2000-01-01'
             ]
         ];
 
@@ -251,5 +256,14 @@ class DatabaseSeeder extends Seeder
                 'role_id' => $i,
             ]);
         }
+    }
+    public function importCustomers()
+    {
+        $Customer = new Customer();
+        $Customer->name = 'NGUYEN THI HUYEN TRANG';
+        $Customer->email = 'trang@gmail.com';
+        $Customer->address = 'Thanh Hóa';
+        $Customer->phone = '0977983360';
+        $Customer->save();
     }
 }

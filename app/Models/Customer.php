@@ -10,8 +10,4 @@ class Customer extends Model
 {
     use HasFactory, SoftDeletes;
     protected $table = 'customers';
-    protected $fillable = [
-        'name', 'email', 'address', 'phone'
-    ];
-    
 }
