@@ -19,9 +19,9 @@
           <div class="form-group boxed">
             <div class="input-wrapper">
               <input
-                type="text"
+                type="email"
                 class="form-control"
-                v-model="form.text"
+                v-model="form.email"
                 placeholder="Số Điện Thoại"
                 autocomplete="off"
               />
@@ -30,7 +30,6 @@
               </i>
             </div>
           </div>
-
           <div class="form-group boxed">
             <div class="input-wrapper">
               <label class="form-label">Mật Khẩu</label>
@@ -79,7 +78,7 @@ export default {
   data() {
       return {
           form: {
-              phone: '',
+              email: '',
               password: '',
           },
           type: 'login',
