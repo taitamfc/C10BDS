@@ -13,7 +13,6 @@
           class="form-image"
         />
       </div>
-      
       <div class="section mt-1 mb-5">
         <form @submit.prevent="authenticate" autocomplete="off">
           <div class="form-group boxed">
