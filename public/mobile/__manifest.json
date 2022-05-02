@@ -1,9 +1,9 @@
 {
     "name": "Quang Group",
     "short_name": "Quang Group",
-    "start_url": "http://127.0.0.1:8000",
+    "start_url": "https://quanggroup.herokuapp.com",
     "display": "standalone",
-    "scope" : "http://127.0.0.1:8000/",
+    "scope" : "https://quanggroup.herokuapp.com/",
     "background_color": "#000000",
     "theme_color": "#000000",
     "orientation": "portrait",
