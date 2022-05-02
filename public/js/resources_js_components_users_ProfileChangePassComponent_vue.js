@@ -164,15 +164,24 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       formData: {
-        current_password: '123',
+        current_password: '',
         new_password: '',
         new_password_confirm: ''
       },
+      error: {
+        current_password: false,
+        new_password: false,
+        new_password_confirm: false,
+        new_password_compare: false
+      },
       show: {
         showConfirm: false,
-        showLoading: false,
-        notifiError: false,
-        notifiSuccess: false
+        showLoading: false
+      },
+      notification: {
+        show: false,
+        sub_title: 'Cập nhật thành công',
+        type: 'success'
       }
     };
   },
@@ -185,20 +194,66 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     handleButtonSubmit: function handleButtonSubmit() {
-      this.show.showConfirm = true;
+      var can_submit = true;
+      this.error.current_password = false;
+      this.error.new_password = false;
+      this.error.new_password_confirm = false;
+      this.error.new_password_compare = false;
+
+      if (this.formData.current_password == '') {
+        this.error.current_password = true;
+        can_submit = false;
+      }
+
+      if (this.formData.new_password == '') {
+        this.error.new_password = true;
+        can_submit = false;
+      }
+
+      if (this.formData.new_password_confirm == '') {
+        this.error.new_password_confirm = true;
+        can_submit = false;
+      }
+
+      if (this.formData.new_password_confirm && this.formData.new_password_confirm != this.formData.new_password) {
+        this.error.new_password_compare = true;
+        can_submit = false;
+      }
+
+      if (can_submit) {
+        this.show.showConfirm = true;
+      }
     },
     handleFormSubmit: function handleFormSubmit() {
       var _this = this;
 
       this.show.showConfirm = false;
       this.show.showLoading = true;
-      setTimeout(function () {
+      axios.post('/api/auth/change-pass', this.formData).then(function (result) {
         _this.show.showLoading = false;
-        _this.show.notifiSuccess = true;
-      }, 1000);
-      console.log(this.formData); //alert('handleFormSubmit');
+
+        if (result.data.status == 0) {
+          _this.notification = {
+            show: true,
+            sub_title: result.data.message,
+            type: 'error'
+          };
+        } else {
+          _this.notification = {
+            show: true,
+            sub_title: result.data.message,
+            type: 'success'
+          };
+          setTimeout(function () {
+            _this.$router.push({
+              path: '/profile'
+            });
+          }, 1000);
+        }
+      });
     }
-  }
+  },
+  mounted: function mounted() {}
 });
 
 /***/ }),
@@ -350,7 +405,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       'bg-success': $props.type == 'success',
       'bg-danger': $props.type == 'error'
     }])
-  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", _hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.title), 1
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", _hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.type == 'success' ? 'Thành công' : 'Thất bại'), 1
   /* TEXT */
   ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.sub_title), 1
   /* TEXT */
@@ -1010,7 +1065,8 @@ var _hoisted_3 = {
   "class": "wide-block pb-2"
 };
 var _hoisted_4 = {
-  autocomplete: "off"
+  autocomplete: "off",
+  "class": "needs-validation"
 };
 var _hoisted_5 = {
   "class": "form-group boxed"
@@ -1026,56 +1082,38 @@ var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 );
 
 var _hoisted_8 = {
-  "class": "clear-input"
-};
-var _hoisted_9 = {
   "class": "form-group boxed"
 };
-var _hoisted_10 = {
+var _hoisted_9 = {
   "class": "input-wrapper"
 };
 
-var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   "class": "form-label"
 }, "Mật Khẩu Mới", -1
 /* HOISTED */
 );
 
-var _hoisted_12 = {
-  "class": "clear-input"
-};
-var _hoisted_13 = {
+var _hoisted_11 = {
   "class": "form-group boxed"
 };
-var _hoisted_14 = {
+var _hoisted_12 = {
   "class": "input-wrapper"
 };
 
-var _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   "class": "form-label"
 }, "Nhập Lại Mật Khẩu Mới", -1
 /* HOISTED */
 );
 
-var _hoisted_16 = {
-  "class": "clear-input"
-};
-var _hoisted_17 = {
+var _hoisted_14 = {
   "class": "mt-1"
 };
-
-var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "content-footer mt-05"
-}, " * This form is only html based. Not included any mail script. ", -1
-/* HOISTED */
-);
-
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _this = this;
 
   var _component_HeaderComponent = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("HeaderComponent");
-
-  var _component_ion_icon = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("ion-icon");
 
   var _component_ConfirmElement = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("ConfirmElement");
 
@@ -1089,45 +1127,60 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     layout: "single",
     title: 'Thay Đổi Mật Khẩu'
   }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [_hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    type: "text",
+    type: "password",
     "class": "form-control form-control-sm",
     "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
       return $data.formData.current_password = $event;
     })
   }, null, 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.formData.current_password]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ion_icon, {
-    name: "close-circle",
-    "class": "md hydrated"
-  })])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [_hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    type: "text",
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.formData.current_password]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["invalid-feedback", {
+      'd-block': $data.error.current_password
+    }])
+  }, "Vui lòng nhập mật khẩu hiện tại.", 2
+  /* CLASS */
+  )])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [_hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    type: "password",
     "class": "form-control form-control-sm",
     "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
       return $data.formData.new_password = $event;
     })
   }, null, 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.formData.new_password]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ion_icon, {
-    name: "close-circle",
-    "class": "md hydrated"
-  })])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [_hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    type: "text",
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.formData.new_password]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["invalid-feedback", {
+      'd-block': $data.error.new_password
+    }])
+  }, "Vui lòng nhập mật khẩu.", 2
+  /* CLASS */
+  )])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [_hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    type: "password",
     "class": "form-control form-control-sm",
     "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
       return $data.formData.new_password_confirm = $event;
     })
   }, null, 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.formData.new_password_confirm]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ion_icon, {
-    name: "close-circle",
-    "class": "md hydrated"
-  })])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_17, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.formData.new_password_confirm]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["invalid-feedback", {
+      'd-block': $data.error.new_password_confirm
+    }])
+  }, "Vui lòng nhập mật khẩu mới.", 2
+  /* CLASS */
+  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["invalid-feedback", {
+      'd-block': $data.error.new_password_compare
+    }])
+  }, "Xác nhận mật khẩu không khớp.", 2
+  /* CLASS */
+  )])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     type: "button",
     "class": "btn btn-warning btn-lg btn-block",
     onClick: _cache[3] || (_cache[3] = function ($event) {
       return $options.handleButtonSubmit();
     })
-  }, "Cập Nhật")])])]), _hoisted_18])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" * App Capsule "), $data.show.showConfirm ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_ConfirmElement, {
+  }, "Cập Nhật")])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" * App Capsule "), $data.show.showConfirm ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_ConfirmElement, {
     key: 0,
     title: 'Xác Nhận',
     sub_title: 'Xác nhận đổi mật khẩu tài khoản',
@@ -1141,23 +1194,16 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.show.showLoading ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_LoadingElement, {
     key: 1
-  })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.show.notifiError ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_NotificationElement, {
+  })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.notification.show ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_NotificationElement, {
     key: 2,
     onNotificationHide: _cache[6] || (_cache[6] = function ($event) {
-      return _this.show.notifiError = false;
+      return _this.notification.show = false;
     }),
-    title: 'Không Thành Công',
-    sub_title: 'Cập nhật không thành công',
-    type: 'error'
-  })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.show.notifiSuccess ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_NotificationElement, {
-    key: 3,
-    onNotificationHide: _cache[7] || (_cache[7] = function ($event) {
-      return _this.show.notifiSuccess = false;
-    }),
-    title: 'Thành Công',
-    sub_title: 'Cập nhật thành công',
-    type: 'success'
-  })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_FooterComponent, {
+    sub_title: $data.notification.sub_title,
+    type: $data.notification.type
+  }, null, 8
+  /* PROPS */
+  , ["sub_title", "type"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_FooterComponent, {
     layout: "main"
   })], 64
   /* STABLE_FRAGMENT */
