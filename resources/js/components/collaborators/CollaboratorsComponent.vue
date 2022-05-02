@@ -1,5 +1,6 @@
 <template>
-  <HeaderComponent layout="main" :title="'Danh Sách Khách Hàng'" :search="1" />
+  <HeaderComponent layout="main" :title="'Danh Sách Khách Hàng'" :search="1" @searchHeaderButtonCallBack="show.searchForm = true"/>
+  <CollaboratorSearchForm v-show="show.searchForm" @clickSearch="handleSearch" @clickClose="show.searchForm = false"/>
   <LoadingElement v-if="isRunning"/>
   <div id="appCapsule">
     <div class="section full mt-2 mb-2">
@@ -39,6 +40,7 @@ import HeaderComponent from "../includes/HeaderComponent.vue";
 import FooterComponent from "../includes/FooterComponent.vue";
 import CollaboratorItemElement from "./includes/CollaboratorItemElement.vue";
 import CollaboratorModalForm from "./includes/CollaboratorModalForm.vue";
+import CollaboratorSearchForm from "./includes/CollaboratorSearchForm.vue";
 import LoadingElement from "../elements/LoadingElement.vue";
 export default {
   data() {
@@ -50,7 +52,8 @@ export default {
       next_page_url : null,
       show : {
         searchForm: false
-      }
+      },
+      form_data: {},
     }
   },
   components: {
@@ -58,18 +61,25 @@ export default {
     FooterComponent,
     CollaboratorItemElement,
     LoadingElement,
-    CollaboratorModalForm
+    CollaboratorModalForm,
+    CollaboratorSearchForm
   },
   methods: {
     handleFormSubmit(){
-
+      this.get_items()
+    },
+    handleSearch(form_data){
+      this.show.searchForm = false;
+      this.form_data = form_data;
+      this.form_data.page = this.nextPage - 1;
+      this.get_items()
     },
     deleteItem(){
       this.get_items()
     },
     get_items() {
       this.isRunning = true;
-      axios.get('/api/customers')
+      axios.get('/api/customers',{ params: this.form_data })
       .then(result => {
           this.isRunning = false;
           this.items = result.data.data;

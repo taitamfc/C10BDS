@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Customer;
+use Illuminate\Support\Facades\Log;
 
 class CustomerController extends Controller
 {
@@ -13,9 +14,14 @@ class CustomerController extends Controller
     }
 
 
-    public function index()
+    public function index(Request $request)
     {
-        $items = Customer::paginate(2);
+        $query = Customer::query(true);
+        if ($request->name) {
+            $query->where('name', 'LIKE', '%' . $request->name . '%');
+            $query->orwhere('phone', 'LIKE', '%' . $request->name . '%');
+        }
+        $items = $query->paginate(5);
         return response()->json($items, 200);
     }
 
@@ -37,7 +43,30 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $customer = new Customer();
+        $customer->name     = $request->name;
+        $customer->address  = $request->address;
+        $customer->phone    = $request->phone;
+        $customer->note     = $request->note;
+        $customer->user_id  = $this->user->id;
+        
+        try {
+            $customer->save();
+            return response()->json([
+                'message' => 'Thêm khách hàng thành công',
+                'customer' => $customer
+            ], 201);
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return response()->json([
+                'message' => 'Thêm khách hàng không thành công'
+            ], 200);
+        }
+
+        return response()->json([
+            'message' => 'User successfully registered',
+            'user' => $user
+        ], 201);
     }
 
     /**
