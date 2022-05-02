@@ -18,15 +18,12 @@
           <div class="form-group boxed">
             <div class="input-wrapper">
               <input
-                type="email"
+                type="text"
                 class="form-control"
-                v-model="form.email"
+                v-model="form.phone"
                 placeholder="Số Điện Thoại"
                 autocomplete="off"
               />
-              <i class="clear-input">
-                <ion-icon name="close-circle"></ion-icon>
-              </i>
             </div>
           </div>
           <div class="form-group boxed">
@@ -39,9 +36,6 @@
                 placeholder="Mật Khẩu"
                 autocomplete="off"
               />
-              <i class="clear-input">
-                <ion-icon name="close-circle"></ion-icon>
-              </i>
             </div>
           </div>
 
@@ -66,27 +60,40 @@
     </div>
   </div>
   <LoadingElement v-if="isRunning"/>
+  <NotificationElement 
+      @notificationHide="this.notification.show = false" 
+      v-if="notification.show" 
+      :sub_title="notification.sub_title" 
+      :type="notification.type"  
+    />
   <!-- * App Capsule -->
 </template>
  
 <script>
 import { login } from '../../helpers/auth';
 import LoadingElement from "../elements/LoadingElement.vue";
+import NotificationElement from "../elements/NotificationElement.vue";
 export default {
   name: "Login",
   data() {
       return {
           isRunning:false,
           form: {
-              email: '',
+              phone: '',
               password: '',
           },
           type: 'login',
           error: null,
+          notification : {
+            show      : false,
+            sub_title : 'Cập nhật thành công',
+            type      : 'success',
+          }
       }
   },
   components: {
-    LoadingElement
+    LoadingElement,
+    NotificationElement
   },
   methods: {
       authenticate() {
@@ -94,12 +101,17 @@ export default {
           this.isRunning = true;
           login(this.$data.form)
           .then(res => {
+              this.isRunning = false
               this.$store.commit("LOGIN_SUCCESS", res);
               this.$router.push({path: '/'});
           })
           .catch(err => {
-              this.$store.commit("LOGIN_FAILED", {err})
-              this.showAlert(this.authError, 'error');
+              this.isRunning = false
+              this.notification = {
+                show      : true,
+                sub_title : 'Đăng nhập thất bại',
+                type      : 'error',
+              }
           })
       },
   },

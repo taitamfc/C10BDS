@@ -63,20 +63,6 @@
               </i>
             </div>
           </div>
-          <div class="form-group boxed">
-            <label class="form-label">Ảnh Đại Diện</label>
-            <div class="custom-file-upload" id="fileUpload1">
-                  <input type="file" id="fileuploadInput" accept=".png, .jpg, .jpeg">
-                  <label for="fileuploadInput">
-                      <span>
-                          <strong>
-                              <ion-icon name="cloud-upload-outline" role="img" class="md hydrated" aria-label="cloud upload outline"></ion-icon>
-                              <i>Nhấn vào để chọn hình</i>
-                          </strong>
-                      </span>
-                  </label>
-              </div>
-          </div>
 
           <div class="mt-1">
             <button type="submit" class="btn btn-warning btn-lg btn-block">
