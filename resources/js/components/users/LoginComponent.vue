@@ -65,17 +65,18 @@
       </div>
     </div>
   </div>
+  <LoadingElement v-if="isRunning"/>
   <!-- * App Capsule -->
 </template>
  
 <script>
-import HeaderComponent from "./../includes/HeaderComponent.vue";
 import { login } from '../../helpers/auth';
-
+import LoadingElement from "../elements/LoadingElement.vue";
 export default {
   name: "Login",
   data() {
       return {
+          isRunning:false,
           form: {
               email: '',
               password: '',
@@ -85,12 +86,12 @@ export default {
       }
   },
   components: {
-    HeaderComponent,
+    LoadingElement
   },
   methods: {
       authenticate() {
           this.$store.dispatch("LOGIN");
-
+          this.isRunning = true;
           login(this.$data.form)
           .then(res => {
               this.$store.commit("LOGIN_SUCCESS", res);
