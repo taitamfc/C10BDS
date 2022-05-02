@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
@@ -97,6 +98,12 @@ class AuthController extends Controller
     public function userProfile() {
         $userId = auth('api')->user()->id;
         $user = User::with('userGroup')->where('id',$userId)->first();
+
+        $total_sold = DB::table('products')->where('sold_by_user_id',$userId)->count();
+        $total_customer = DB::table('customers')->where('user_id',$userId)->count();
+        $user->total_sold = $total_sold;
+        $user->total_customer = $total_customer;
+
         return response()->json($user);
     }
 

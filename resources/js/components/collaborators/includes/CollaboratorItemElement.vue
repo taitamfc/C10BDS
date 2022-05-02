@@ -1,6 +1,6 @@
 <template>
   <li>
-    <router-link :to="{ name: 'collaborators.show', params: {id:1} }" class="item" >
+    <router-link :to="{ name: 'collaborators.show', params: {id:item.id} }" class="item" >
       <div class="in">
         <div>
           <header>{{ item.address }}</header>
