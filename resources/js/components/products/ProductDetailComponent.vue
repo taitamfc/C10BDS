@@ -63,16 +63,23 @@
         <!-- feed -->
         <div class="tab-pane fade" :class="{ active: tab == 'info' , show: tab == 'info' }" >
           <div class="section mb-2 pt-2">
-            <div class="form-group">
-              <div class="input-wrapper">
-                <label class="form-label" for="name5">Giấy tờ pháp lý</label>
-                <p class="form-control-static">{{ item.juridical }}</p>
-              </div>
-            </div>
+            
             <div class="form-group">
               <div class="input-wrapper">
                 <label class="form-label" for="name5">Dài</label>
                 <p class="form-control-static">{{ item.area }} m2</p>
+              </div>
+            </div>
+             <div class="form-group">
+              <div class="input-wrapper">
+                <label class="form-label" for="name5">Rộng</label>
+                <p class="form-control-static">{{ item.facade }} m2</p>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="input-wrapper">
+                <label class="form-label" for="name5">Giấy tờ pháp lý</label>
+                <p class="form-control-static">{{ item.juridical }}</p>
               </div>
             </div>
             <div class="form-group">
@@ -87,12 +94,7 @@
                 <p class="form-control-static">{{ item.stress_width }} m2</p>
               </div>
             </div>
-            <div class="form-group">
-              <div class="input-wrapper">
-                <label class="form-label" for="name5">Mặt tiền</label>
-                <p class="form-control-static">{{ item.facade }} m2</p>
-              </div>
-            </div>
+           
           </div>
           
         </div>
