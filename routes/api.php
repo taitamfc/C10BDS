@@ -39,6 +39,7 @@ Route::group([
     Route::get('/profile', [AuthController::class, 'userProfile']);
     Route::post('/changeNotification', [AuthController::class, 'changeNotification']);
     Route::post('/change-pass', [AuthController::class, 'changePassWord']);    
+    Route::post('/forgot-pass', [AuthController::class, 'forgotPassWord']);    
 });
 
 Route::group([

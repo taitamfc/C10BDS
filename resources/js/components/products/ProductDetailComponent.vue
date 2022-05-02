@@ -1,17 +1,16 @@
 <template>
-  <HeaderComponent layout="single" title="Sản phẩm đang đảm nhận"  />
+  <HeaderComponent layout="single" title="Thông tin sản phẩm"  />
 
   <!-- App Capsule -->
   <div id="appCapsule" v-if="item">
     <!-- carousel full -->
     <div class="carousel-full" v-if="item.product_images">
-      <div class="splide__track" v-for="(image, index) in item.product_images.splice(0,1)" :key="index">
-        <img
-          v-bind:src="image.image_url"
-          alt="alt"
-          class="imaged w-100 square"
-        />
-      </div>
+      <Splide :options="{perPage: 1,arrows:true,pagination:false,height:200,autoHeight:true}" >
+        <SplideSlide v-for="image of item.product_images" :key="image.id">
+          <img :src="image.image_url" style="height:200px;width:100%;"/>
+        </SplideSlide>
+      </Splide>
+
     </div>
     <!-- * carousel full -->
 
@@ -39,33 +38,18 @@
       <div class="wide-block transparent p-0">
         <ul class="nav nav-tabs lined" role="tablist">
           <li class="nav-item">
-            <a
-              class="nav-link active"
-              data-bs-toggle="tab"
-              href="#feed"
-              role="tab"
-            >
+            <a class="nav-link" href="javascript:;" :class="{ active: tab == 'info' }"  @click="changeTab('info')">
               Thông Tin
             </a>
           </li>
 
           <li class="nav-item">
-            <a
-              class="nav-link"
-              data-bs-toggle="tab"
-              href="#collaborators"
-              role="tab"
-            >
+            <a class="nav-link" href="javascript:;" :class="{ active: tab == 'custommer' }"  @click="changeTab('custommer')">
               Thành Viên
             </a>
           </li>
           <li class="nav-item">
-            <a
-              class="nav-link"
-              data-bs-toggle="tab"
-              href="#histories"
-              role="tab"
-            >
+            <a class="nav-link" href="javascript:;" :class="{ active: tab == 'history' }"  @click="changeTab('history')">
               Cập Nhật
             </a>
           </li>
@@ -77,7 +61,7 @@
     <div class="section full mb-2">
       <div class="tab-content">
         <!-- feed -->
-        <div class="tab-pane fade show active" id="feed" role="tabpanel">
+        <div class="tab-pane fade" :class="{ active: tab == 'info' , show: tab == 'info' }" >
           <div class="section mb-2 pt-2">
             <div class="form-group">
               <div class="input-wrapper">
@@ -87,7 +71,7 @@
             </div>
             <div class="form-group">
               <div class="input-wrapper">
-                <label class="form-label" for="name5">Diện tích</label>
+                <label class="form-label" for="name5">Dài</label>
                 <p class="form-control-static">{{ item.area }} m2</p>
               </div>
             </div>
@@ -116,19 +100,14 @@
 
 
         <!--  histories -->
-        <div class="tab-pane fade" id="collaborators" role="tabpanel">
+        <div class="tab-pane fade" :class="{ active: tab == 'custommer' , show: tab == 'custommer' }">
           <ul class="listview image-listview flush">
-            <CollaboratorItemElement />
-            <CollaboratorItemElement />
-            <CollaboratorItemElement />
-            <CollaboratorItemElement />
-            <CollaboratorItemElement />
-            <CollaboratorItemElement />
+            
           </ul>
         </div>
         <!-- * histories -->
         <!--  histories -->
-        <div class="tab-pane fade" id="histories" role="tabpanel">
+        <div class="tab-pane fade" :class="{ active: tab == 'history' , show: tab == 'history' }">
           <div class="timeline timed">
 
             <div class="item" v-for="(product_log, index) in item.product_logs" :key="index">
@@ -173,6 +152,7 @@ import CollaboratorItemElement from "../collaborators/includes/CollaboratorItemE
 import ConfirmElement from "../elements/ConfirmElement.vue";
 import LoadingElement from "../elements/LoadingElement.vue";
 import NotificationElement from "../elements/NotificationElement.vue";
+import { Splide, SplideSlide } from '@splidejs/vue-splide';
 export default {
   components: {
     HeaderComponent,
@@ -180,10 +160,13 @@ export default {
     CollaboratorItemElement,
     ConfirmElement,
     NotificationElement,
-    LoadingElement
+    LoadingElement,
+    Splide,
+    SplideSlide,
   },
   data() {
     return {
+      tab: 'info',
       isRunning : false,
       item : null,
       show : {
@@ -195,6 +178,9 @@ export default {
     }
   },
   methods: {
+    changeTab(tab){
+      this.tab = tab;
+    },
     get_item(id) {
       this.isRunning = true;
       axios.get('/api/products/'+id)
