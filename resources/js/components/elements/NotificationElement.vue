@@ -6,7 +6,7 @@
 	 }">
       <div class="notification-content">
         <div class="in">
-          <h3 class="subtitle">{{ title }}</h3>
+          <h3 class="subtitle">{{ (type == 'success' ? 'Thành công' : 'Thất bại') }}</h3>
           <div class="text">{{ sub_title }}</div>
         </div>
       </div>

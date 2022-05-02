@@ -50,16 +50,6 @@
           </div>
         </li>
 
-        <li>
-          <router-link
-            :to="{ name: 'users.update', params: {} }"
-            class="item"
-          >
-            <div class="in">
-              <div>Cập Nhật Tài Khoản</div>
-            </div>
-          </router-link>
-        </li>
 
         <li>
           <router-link

@@ -8,20 +8,18 @@
       </div>
 
       <div class="section mt-1 mb-5">
-        <form @submit.prevent="authenticate" autocomplete="off">
+        <form @submit.prevent="handleSubmitForm" autocomplete="off" class="needs-validation">
           <div class="form-group boxed">
             <div class="input-wrapper">
               <label class="form-label">Số Điện Thoại</label>
               <input
-                type="email"
+                type="phone"
                 class="form-control"
-                v-model="form.email"
+                v-model="form.phone"
                 placeholder="Số Điện Thoại"
                 autocomplete="off"
               />
-              <i class="clear-input">
-                <ion-icon name="close-circle"></ion-icon>
-              </i>
+              <div class="invalid-feedback" v-bind:class="{'d-block':error.phone}">Vui lòng nhập số điện thoại.</div>
             </div>
           </div>
 
@@ -46,41 +44,72 @@
       </div>
     </div>
   </div>
+  <LoadingElement v-if="isRunning"/>
+  <NotificationElement 
+      @notificationHide="this.notification.show = false" 
+      v-if="notification.show" 
+      :sub_title="notification.sub_title" 
+      :type="notification.type"  
+    />
   <!-- * App Capsule -->
 </template>
  
 <script>
 import HeaderComponent from "./../includes/HeaderComponent.vue";
-import { login } from '../../helpers/auth';
+import LoadingElement from "../elements/LoadingElement.vue";
+import NotificationElement from "../elements/NotificationElement.vue";
 
 export default {
   name: "Login",
   data() {
       return {
           form: {
-              email: '',
-              password: '',
+              phone: '',
           },
           type: 'login',
-          error: null,
+          error: {
+              phone: false,
+          },
+          notification : {
+            show      : false,
+            sub_title : 'Yêu cầu thành công',
+            type      : 'success',
+          }
       }
   },
   components: {
     HeaderComponent,
+    LoadingElement,
+    NotificationElement
   },
   methods: {
-      authenticate() {
-          this.$store.dispatch("LOGIN");
-
-          login(this.$data.form)
-          .then(res => {
-              this.$store.commit("LOGIN_SUCCESS", res);
-              this.$router.push({path: '/'});
+      handleSubmitForm() {
+        let can_submit = true;
+        this.error.phone = false;
+        if( this.form.phone == '' ){ this.error.phone = true; can_submit = false }
+        if(can_submit){
+          this.isRunning = true;
+          axios.post('/api/auth/forgot-pass',this.form)
+          .then(result => {
+              this.isRunning = false;
+              if( result.data.status == 0 ){
+                this.notification = {
+                  show      : true,
+                  sub_title : result.data.message,
+                  type      : 'error',
+                }
+              }else{
+                this.notification = {
+                  show      : true,
+                  sub_title : result.data.message,
+                  type      : 'success',
+                }
+                setTimeout(() => {
+                  this.$router.push({path: '/login'});
+                }, 1000);
+              }
           })
-          .catch(err => {
-              this.$store.commit("LOGIN_FAILED", {err})
-              this.showAlert(this.authError, 'error');
-          })
+        }
       },
   },
 };

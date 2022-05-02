@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\SystemLog;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -17,7 +19,7 @@ class AuthController extends Controller
      * @return void
      */
     public function __construct() {
-        $this->middleware('auth:api', ['except' => ['login', 'register']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register','forgotPassWord']]);
     }
 
     /**
@@ -26,8 +28,9 @@ class AuthController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function login(Request $request){
+        
     	$validator = Validator::make($request->all(), [
-            'email' => 'required|email',
+            'phone' => 'required',
             'password' => 'required|string|min:6',
         ]);
 
@@ -35,11 +38,15 @@ class AuthController extends Controller
             return response()->json($validator->errors(), 422);
         }
 
-        if (! $token = auth('api')->attempt($validator->validated())) {
+        $phone = $request->phone;
+        $checkUserByPhone = User::where('phone',$phone)->take(1)->first();
+
+        if ($checkUserByPhone && Hash::check($request->password,$checkUserByPhone->password)) {
+            $token = auth('api')->login($checkUserByPhone);
+            return $this->createNewToken($token);
+        }else{
             return response()->json(['error' => 'Unauthorized'], 401);
         }
-
-        return $this->createNewToken($token);
     }
 
     /**
@@ -135,23 +142,39 @@ class AuthController extends Controller
         ], 201);
     }
     public function changePassWord(Request $request) {
-        $validator = Validator::make($request->all(), [
-            'old_password' => 'required|string|min:6',
-            'new_password' => 'required|string|confirmed|min:6',
-        ]);
-
-        if($validator->fails()){
-            return response()->json($validator->errors()->toJson(), 400);
-        }
         $userId = auth('api')->user()->id;
 
-        $user = User::where('id', $userId)->update(
-                    ['password' => bcrypt($request->new_password)]
-                );
-
-        return response()->json([
-            'message' => 'User successfully changed password',
-            'user' => $user,
-        ], 201);
+        if (Hash::check($request->current_password,auth('api')->user()->password)) {
+            $user = User::where('id', $userId)->update(
+                ['password' => Hash::make($request->new_password)]
+            );
+    
+            return response()->json([
+                'message'   => 'Thay đổi mật khẩu thành công',
+                'status'    => 1,
+            ], 201);
+        }else{
+            return response()->json([
+                'message'   => 'Mật khẩu hiện tại không đúng.',
+                'status'    => 0,
+            ], 201);
+        }
+    }
+    public function forgotPassWord(Request $request) {
+        $SystemLog = new SystemLog();
+        $SystemLog->type = 'UserForgot';
+        $SystemLog->data = $request->phone .' vừa yêu cầu lấy lại mật khẩu !';
+        $saved = $SystemLog->save();
+        if ( $saved ) {
+            return response()->json([
+                'message'   => 'Yêu cầu đổi mật khẩu thành công',
+                'status'    => 1,
+            ], 201);
+        }else{
+            return response()->json([
+                'message'   => 'Yêu cầu đổi mật khẩu thất bại.',
+                'status'    => 0,
+            ], 201);
+        }
     }
 }

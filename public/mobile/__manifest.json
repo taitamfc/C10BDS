@@ -1,6 +1,6 @@
 {
-    "name": "QuangGroup CRM",
-    "short_name": "QuangGroup CRM",
+    "name": "Quang Group",
+    "short_name": "Quang Group",
     "start_url": "https://quanggroup.herokuapp.com",
     "display": "standalone",
     "scope" : "https://quanggroup.herokuapp.com/",
