@@ -257,7 +257,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     to: {
       name: 'collaborators.show',
       params: {
-        id: 1
+        id: $props.item.id
       }
     },
     "class": "item"

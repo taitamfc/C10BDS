@@ -38,7 +38,7 @@ class CustomerController extends Controller
         //sắp xếp thứ tự lên trước khi update
         $query->orderBy('id', 'DESC');
         //phân trang
-        $customers = $query->paginate(3);
+        $customers = $query->paginate(10);
         return view('admin.customers.index', compact('customers'));
     }
 
