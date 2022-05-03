@@ -1,9 +1,9 @@
 {
     "name": "Quang Group",
     "short_name": "Quang Group",
-    "start_url": "https://quanggroup.herokuapp.com/login",
-    "display": "fullscreen",
-    "scope" : "https://quanggroup.herokuapp.com/",
+    "start_url": "/",
+    "display": "standalone",
+    "scope" : ".",
     "background_color": "#ffcb05",
     "theme_color": "#ffcb05",
     "orientation": "portrait",
