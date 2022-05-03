@@ -21,3 +21,6 @@
 .fs17 {
 	font-size: 17px !important;
 }
+.frame-100 iframe {
+	width: 100% !important;
+}

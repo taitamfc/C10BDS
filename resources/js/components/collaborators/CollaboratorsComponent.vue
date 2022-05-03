@@ -11,6 +11,7 @@
         :index="index"
         :key="index"
         v-bind:data-id="item.id"
+        :layout="'main'"
       ></CollaboratorItemElement>
       </ul>
     </div>

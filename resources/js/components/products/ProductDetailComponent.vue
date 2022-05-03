@@ -16,7 +16,7 @@
 
     <div class="section full">
       <div class="wide-block pt-2 pb-2 product-detail-header">
-        <h1 class="title">{{ item.name }}</h1>
+        <h1 class="title">[#{{ item.id }}] - {{ item.name }}</h1>
         <div class="text">{{ item.address }} {{ item.tinh_thanh_pho }}</div>
         <div class="text-center">
           <!-- price -->
@@ -44,8 +44,8 @@
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" href="javascript:;" :class="{ active: tab == 'custommer' }"  @click="changeTab('custommer')">
-              Thành Viên
+            <a class="nav-link" href="javascript:;" :class="{ active: tab == 'customer' }"  @click="changeTab('customer')">
+              Khách Hàng
             </a>
           </li>
           <li class="nav-item">
@@ -94,6 +94,13 @@
                 <p class="form-control-static">{{ item.stress_width }} m2</p>
               </div>
             </div>
+            <div class="form-group">
+              <div class="input-wrapper">
+                <label class="form-label" for="name5">Vị trí</label>
+                <div class="embed-responsive embed-responsive-16by9 overflow-hidden frame-100" v-html="item.google_map"></div>
+                
+              </div>
+            </div>
            
           </div>
           
@@ -102,27 +109,41 @@
 
 
         <!--  histories -->
-        <div class="tab-pane fade" :class="{ active: tab == 'custommer' , show: tab == 'custommer' }">
-          <ul class="listview image-listview flush">
-            
-          </ul>
+        <div class="tab-pane fade" :class="{ active: tab == 'customer' , show: tab == 'customer' }">
+          <div class="section mb-2">
+            <ul class="listview image-listview flush" v-if="item.product_customers.length">
+              <CollaboratorItemElement
+                v-for="(product_customer, index) in item.product_customers"
+                :item="product_customer"
+                :index="index"
+                :key="index"
+                v-bind:data-id="product_customer.id"
+                :layout="'product'"
+              ></CollaboratorItemElement>
+            </ul>
+          </div>
+          <div class="section mb-2">
+            <a href="javascript:;" class="btn btn-success btn-block" @click="show_CustomerModal = true">Thêm khách hàng</a>
+          </div>
         </div>
         <!-- * histories -->
         <!--  histories -->
         <div class="tab-pane fade" :class="{ active: tab == 'history' , show: tab == 'history' }">
-          <div class="timeline timed">
+          <div class="section mb-2">
+            <div class="timeline timed" v-if="item.product_logs.length">
 
-            <div class="item" v-for="(product_log, index) in item.product_logs" :key="index">
-              <span class="time">{{ product_log.time_format }}</span>
-              <div class="dot"></div>
-              <div class="content">
-                <div class="text">{{ product_log.content }}</div>
+              <div class="item" v-for="(product_log, index) in item.product_logs" :key="index">
+                <span class="time">{{ product_log.time_format }}</span>
+                <div class="dot"></div>
+                <div class="content">
+                  <div class="text">{{ product_log.content }}</div>
+                </div>
               </div>
             </div>
           </div>
 
-          <div class="section mb-2" v-if="item.status == 'selling'">
-            <a href="#" class="btn btn-success btn-block" @click="handleButtonSubmit()">Xác Nhận Đã Bán</a>
+          <div class="section mb-2">
+            <a href="javascript:;" class="btn btn-success btn-block" @click="show_LogModal = true">Thêm ghi chú</a>
           </div>
 
         </div>
@@ -132,42 +153,43 @@
     <!-- * tab content -->
   </div>
   <!-- * App Capsule -->
-  <ConfirmElement 
-    v-if="show.showConfirm" 
-    :title="'Xác Nhận'" 
-    :sub_title="'Xác nhận đã bán'" 
-    :cancel_button="'Hủy'" 
-    :confirm_button="'Đồng Ý'" 
-    @modalCancel="this.show.showConfirm = false"
-    @modalConfirm="handleProductSold(this.$route.params.id)"
-    />
-  <LoadingElement v-if="show.showLoading" />
-  <NotificationElement @notificationHide="this.show.notifiError = false" v-if="show.notifiError" :title="'Không Thành Công'" :sub_title="'Cập nhật không thành công'" :type="'error'"  />
-  <NotificationElement @notificationHide="this.show.notifiSuccess = false" v-if="show.notifiSuccess" :title="'Thành Công'" :sub_title="'Cập nhật thành công'" :type="'success'"  />
+  <LoadingElement v-if="isRunning" />
+  <ProductCustomerModalForm 
+   :show_modal="show_CustomerModal" 
+   @modalCancel="this.show_CustomerModal = false"
+   @modalConfirm="handleCustomerModalFormSubmit()"
+  />
+  <ProductLogModalForm 
+   :show_modal="show_LogModal"
+   @modalCancel="this.show_LogModal = false"
+   @modalConfirm="handleLogModalFormSubmit()"
+  />
   <FooterComponent layout="main" />
 </template>
 
 <script>
 import HeaderComponent from "../includes/HeaderComponent.vue";
 import FooterComponent from "../includes/FooterComponent.vue";
-import CollaboratorItemElement from "../collaborators/includes/CollaboratorItemElement.vue";
-import ConfirmElement from "../elements/ConfirmElement.vue";
 import LoadingElement from "../elements/LoadingElement.vue";
-import NotificationElement from "../elements/NotificationElement.vue";
+import ProductCustomerModalForm from "./includes/ProductCustomerModalForm.vue";
+import ProductLogModalForm from "./includes/ProductLogModalForm.vue";
+import CollaboratorItemElement from "../collaborators/includes/CollaboratorItemElement.vue";
 import { Splide, SplideSlide } from '@splidejs/vue-splide';
 export default {
   components: {
     HeaderComponent,
     FooterComponent,
-    CollaboratorItemElement,
-    ConfirmElement,
-    NotificationElement,
     LoadingElement,
     Splide,
     SplideSlide,
+    ProductCustomerModalForm,
+    ProductLogModalForm,
+    CollaboratorItemElement
   },
   data() {
     return {
+      show_CustomerModal:false,
+      show_LogModal:false,
       tab: 'info',
       isRunning : false,
       item : null,
@@ -182,6 +204,7 @@ export default {
   methods: {
     changeTab(tab){
       this.tab = tab;
+      window.scrollTo(0, 1000);
     },
     get_item(id) {
       this.isRunning = true;
@@ -191,22 +214,13 @@ export default {
           this.item = result.data;
       })
     },
-    handleButtonSubmit(){
-       this.show.showConfirm = true;
+    handleLogModalFormSubmit(){
+      this.get_item(this.$route.params.id);
+      this.changeTab('history');
     },
-    handleProductSold(id){
-      this.show.showConfirm = false;
-      this.show.showLoading = true;
-
-      axios.put('/api/products/'+id,{
-        'status':'sold',
-        'sold_by_user_id':this.$store.getters.CURRENT_USER.id
-      })
-      .then(result => {
-          this.show.showLoading = false;
-          this.show.notifiSuccess = true;
-          this.item.status = 'sold';
-      })
+    handleCustomerModalFormSubmit(){
+      this.get_item(this.$route.params.id);
+      this.changeTab('customer');
     }
   },
   mounted()  {
