@@ -2,7 +2,7 @@
     "name": "Quang Group",
     "short_name": "Quang Group",
     "start_url": "https://quanggroup.herokuapp.com",
-    "display": "standalone",
+    "display": "fullscreen",
     "scope" : "https://quanggroup.herokuapp.com/",
     "background_color": "#ffcb05",
     "theme_color": "#ffcb05",

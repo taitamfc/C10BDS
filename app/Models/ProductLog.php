@@ -11,7 +11,7 @@ class ProductLog extends Model
     protected $table = 'product_logs';
 
 
-    public $timestamps = false;
+    public $timestamps = true;
 
     public function product()
     {
