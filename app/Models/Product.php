@@ -14,7 +14,11 @@ class Product extends Model
 
     public function product_logs()
     {
-        return $this->hasMany(ProductLog::class)->orderBy('created_at','DESC');;
+        return $this->hasMany(ProductLog::class)->orderBy('created_at','DESC');
+    }
+    public function product_customers()
+    {
+        return $this->hasMany(ProductCustomer::class);
     }
 
     public function branch()

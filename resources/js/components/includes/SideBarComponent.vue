@@ -125,42 +125,7 @@
         
       </ul>
     </div>
-    <!-- sidebar buttons -->
-    <div class="sidebar-buttons">
-      <a href="#" class="button">
-        <ion-icon
-          name="person-outline"
-          role="img"
-          class="md hydrated"
-          aria-label="person outline"
-        ></ion-icon>
-      </a>
-      <a href="#" class="button">
-        <ion-icon
-          name="archive-outline"
-          role="img"
-          class="md hydrated"
-          aria-label="archive outline"
-        ></ion-icon>
-      </a>
-      <a href="#" class="button">
-        <ion-icon
-          name="settings-outline"
-          role="img"
-          class="md hydrated"
-          aria-label="settings outline"
-        ></ion-icon>
-      </a>
-      <a href="#" class="button">
-        <ion-icon
-          name="log-out-outline"
-          role="img"
-          class="md hydrated"
-          aria-label="log out outline"
-        ></ion-icon>
-      </a>
-    </div>
-    <!-- * sidebar buttons -->
+
   </div>
 
   <div class="offcanvas-backdrop fade show" v-if="show_sidebar" @click="this.$emit('closeSidebarCallBack')"></div>
