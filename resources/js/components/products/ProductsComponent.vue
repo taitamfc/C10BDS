@@ -67,7 +67,7 @@ export default {
       console.log(form_data);
       this.show.searchForm = false;
       this.form_data = form_data;
-      this.form_data.page = this.nextPage - 1;
+      this.form_data.page = 1;
       this.get_items()
     },
     get_items(product_type = null) {

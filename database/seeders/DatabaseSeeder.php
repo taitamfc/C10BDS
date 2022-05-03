@@ -114,6 +114,23 @@ class DatabaseSeeder extends Seeder
     public function importUsers()
     {
         $user = new User();
+        $user->name = 'Admin';
+        $user->email = 'admin@gmail.com';
+        $user->password = Hash::make('123456');
+        $user->day_of_birth = '1995/11/15';
+        $user->phone = '0123456789';
+        $user->address = 'Quảng Trị';
+        $user->start_day = '2021/10/29';
+        $user->user_group_id  = 1;
+        $user->branch_id  = 1;
+        $user->note = '123';
+        $user->province_id  = '30';
+        $user->district_id  = '343';
+        $user->ward_id  = '6192';
+        $user->gender = 'Nam';
+        $user->save();
+
+        $user = new User();
         $user->name = 'Mai Chiếm An';
         $user->email = 'an@gmail.com';
         $user->password = Hash::make('123456');
@@ -161,25 +178,6 @@ class DatabaseSeeder extends Seeder
         $user->province_id  = '30';
         $user->district_id  = '342';
         $user->ward_id  = '6183';
-        $user->gender = 'Nam';
-        $user->save();
-
-
-
-        $user = new User();
-        $user->name = 'Admin';
-        $user->email = 'admin@gmail.com';
-        $user->password = Hash::make('123456');
-        $user->day_of_birth = '1995/11/15';
-        $user->phone = '01648511610';
-        $user->address = 'Quảng Trị';
-        $user->start_day = '2021/10/29';
-        $user->user_group_id  = 1;
-        $user->branch_id  = 1;
-        $user->note = '123';
-        $user->province_id  = '30';
-        $user->district_id  = '343';
-        $user->ward_id  = '6192';
         $user->gender = 'Nam';
         $user->save();
     }

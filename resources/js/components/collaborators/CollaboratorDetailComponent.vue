@@ -1,5 +1,6 @@
 <template>
   <HeaderComponent layout="single" :title="'Thông Tin Khách Hàng'" />
+  <LoadingElement v-if="isRunning"/>
   <div id="appCapsule">
 
 
@@ -20,6 +21,12 @@
         <div class="input-wrapper">
           <label class="form-label" for="name5">Địa Chỉ</label>
           <p class="form-control-static">{{ item.address }}</p>
+        </div>
+      </div>
+      <div class="form-group ">
+        <div class="input-wrapper">
+          <label class="form-label" for="name5">Ghi Chú</label>
+          <p class="form-control-static">{{ item.note }}</p>
         </div>
       </div>
     </div>
@@ -49,12 +56,14 @@ import HeaderComponent from "../includes/HeaderComponent.vue";
 import FooterComponent from "../includes/FooterComponent.vue";
 import ConfirmElement from "../elements/ConfirmElement.vue";
 import NotificationElement from "../elements/NotificationElement.vue";
+import LoadingElement from "../elements/LoadingElement.vue";
 export default {
   components: {
     HeaderComponent,
     FooterComponent,
     ConfirmElement,
-    NotificationElement
+    NotificationElement,
+    LoadingElement
   },
   data() {
     return {
