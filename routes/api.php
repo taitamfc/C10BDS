@@ -8,9 +8,9 @@ use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\Api\WardController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\NotificationController;
-use App\Http\Controllers\API\ProductUserController;
-use App\Http\Controllers\API\ProductLogController;
-use App\Http\Controllers\API\ProductCustomerController;
+use App\Http\Controllers\Api\ProductUserController;
+use App\Http\Controllers\Api\ProductLogController;
+use App\Http\Controllers\Api\ProductCustomerController;
 use App\Http\Controllers\Api\ProvinceController;
 use App\Http\Controllers\Api\CustomerController;
 
