@@ -22,7 +22,7 @@ class BranchController extends Controller
      */
     public function index(Request $request)
     {
-        // $this->authorize('viewAny',Branch::class);
+        $this->authorize('viewAny',Branch::class);
         $query = Branch::select('*');
         // dd($query);
         if (isset($request->filter['name']) && $request->filter['name']) {
@@ -69,7 +69,7 @@ class BranchController extends Controller
      */
     public function create()
     {
-        // $this->authorize('create', Branch::class);
+        $this->authorize('create', Branch::class);
         $branches = Branch::all();
         $provinces = Province::all();
         // $districts = District::all();
@@ -116,7 +116,7 @@ class BranchController extends Controller
      */
     public function show(Branch $branch)
     {
-        //   $this->authorize('view', Branch::class);
+          $this->authorize('view', Branch::class);
     }
 
     /**
@@ -128,7 +128,7 @@ class BranchController extends Controller
     public function edit($id)
     {
         $branch = Branch::find($id);
-        // $this->authorize('update', $branch);
+        $this->authorize('update', $branch);
         $provinces = Province::all();
         $districts = District::where('province_id', $branch->province_id)->get();
         $wards = Ward::where('district_id', $branch->district_id)->get();
@@ -175,7 +175,7 @@ class BranchController extends Controller
      */
     public function destroy($id, $request)
     {
-        // $this->authorize('delete', Branch::class);
+        $this->authorize('delete', Branch::class);
         $branch = Branch::find($id);
         try {
             $branch->delete();
