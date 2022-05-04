@@ -8,13 +8,25 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#000000">
-    <title>Mobilekit Mobile UI Kit</title>
-    <meta name="description" content="Mobilekit HTML Mobile UI Kit">
-    <meta name="keywords" content="bootstrap 5, mobile template, cordova, phonegap, mobile, html" />
+    <title>Quang Group</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="" />
     <link rel="icon" type="image/png" href="{{ asset('mobile/assets/img/favicon.png')}}" sizes="32x32">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#ffffff">
+    <meta name="apple-mobile-web-app-title" content="PWA Splash">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('mobile/assets/img/icon/192x192.png')}}">
+    <link rel="apple-touch-startup-image" href="{{ asset('mobile/assets/img/splash/launch-640x1136.png')}}" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="{{ asset('mobile/assets/img/splash/launch-750x1294.png')}}" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="{{ asset('mobile/assets/img/splash/launch-1242x2148.png')}}" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="{{ asset('mobile/assets/img/splash/launch-1125x2436.png')}}" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="{{ asset('mobile/assets/img/splash/launch-1536x2048.png')}}" media="(min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="{{ asset('mobile/assets/img/splash/launch-1668x2224.png')}}" media="(min-device-width: 834px) and (max-device-width: 834px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="{{ asset('mobile/assets/img/splash/launch-2048x2732.png')}}" media="(min-device-width: 1024px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait)">
+
     <link rel="stylesheet" href="{{ asset('mobile/assets/css/style.css')}}">
-    <link rel="manifest" href="mobile/__manifest.json">
+    <link rel="stylesheet" href="{{ asset('mobile/assets/css/custom.css')}}">
+    <link rel="manifest" href="{{ asset('manifest.json')}}">
     <link href="{{ mix('css/app.css') }}" type="text/css" rel="stylesheet"/>
     <style>
         .no-padding {
@@ -25,18 +37,22 @@
 
 <body class="bg-white">
     <div id="app"></div>
-    <!-- ============== Js Files ==============  -->
-    <!-- Bootstrap -->
-    <script src="{{ asset('mobile/assets/js/lib/bootstrap.min.js')}}"></script>
-    <!-- Ionicons -->
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-    <!-- Splide -->
-    <!-- ProgressBar js -->
-    <script src="{{ asset('mobile/assets/js/plugins/progressbar-js/progressbar.min.js')}}"></script>
-    
-    <!-- Base Js File -->
     <script src="{{ mix('js/app.js') }}" type="text/javascript"></script>
-    
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker
+            .register('/service-worker.js')
+            .then(function(registration) {
+            console.log(
+                'Service Worker registration successful with scope: ',
+                registration.scope
+            );
+            })
+            .catch(function(err) {
+            console.log('Service Worker registration failed: ', err);
+            });
+        }
+    </script>
 </body>
-
 </html>

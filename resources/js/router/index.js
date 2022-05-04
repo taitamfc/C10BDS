@@ -62,10 +62,16 @@ const routes = [
         component: ProductsComponent
     },
     {
+        path: '/type_products/:product_type',
+        name: 'products.type',
+        meta: { requiresAuth: true },
+        component: ProductsComponent
+    },
+    {
         path: '/sold_products',
         name: 'products.sold',
         meta: { requiresAuth: true },
-        component: SoldProductsComponent
+        component: ProductsComponent
     },
     {
         path: '/products/:id',

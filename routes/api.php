@@ -8,8 +8,11 @@ use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\Api\WardController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\NotificationController;
-use App\Http\Controllers\API\ProductUserController;
+use App\Http\Controllers\Api\ProductUserController;
+use App\Http\Controllers\Api\ProductLogController;
+use App\Http\Controllers\Api\ProductCustomerController;
 use App\Http\Controllers\Api\ProvinceController;
+use App\Http\Controllers\Api\CustomerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +41,7 @@ Route::group([
     Route::get('/profile', [AuthController::class, 'userProfile']);
     Route::post('/changeNotification', [AuthController::class, 'changeNotification']);
     Route::post('/change-pass', [AuthController::class, 'changePassWord']);    
+    Route::post('/forgot-pass', [AuthController::class, 'forgotPassWord']);    
 });
 
 Route::group([
@@ -45,6 +49,9 @@ Route::group([
 ], function ($router) {
     Route::resource('products', ProductController::class);
     Route::resource('notifications', NotificationController::class);
+    Route::resource('customers', CustomerController::class);
+    Route::resource('product_logs', ProductLogController::class);
+    Route::resource('product_customers', ProductCustomerController::class);
 });
 
 Route::get('/get_districts/{province_id}',[DistrictController::class,'get_districts_by_province_id']);

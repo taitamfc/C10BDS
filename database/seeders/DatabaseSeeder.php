@@ -109,6 +109,23 @@ class DatabaseSeeder extends Seeder
     public function importUsers()
     {
         $user = new User();
+        $user->name = 'Admin';
+        $user->email = 'admin@gmail.com';
+        $user->password = Hash::make('123456');
+        $user->day_of_birth = '1995/11/15';
+        $user->phone = '0123456789';
+        $user->address = 'Quảng Trị';
+        $user->start_day = '2021/10/29';
+        $user->user_group_id  = 1;
+        $user->branch_id  = 1;
+        $user->note = '123';
+        $user->province_id  = '30';
+        $user->district_id  = '343';
+        $user->ward_id  = '6192';
+        $user->gender = 'Nam';
+        $user->save();
+
+        $user = new User();
         $user->name = 'Mai Chiếm An';
         $user->email = 'an@gmail.com';
         $user->password = Hash::make('123456');
@@ -158,25 +175,6 @@ class DatabaseSeeder extends Seeder
         $user->ward_id  = '6183';
         $user->gender = 'Nam';
         $user->save();
-
-
-
-        $user = new User();
-        $user->name = 'Admin';
-        $user->email = 'admin@gmail.com';
-        $user->password = Hash::make('123456');
-        $user->day_of_birth = '1995/11/15';
-        $user->phone = '01648511610';
-        $user->address = 'Quảng Trị';
-        $user->start_day = '2021/10/29';
-        $user->user_group_id  = 1;
-        $user->branch_id  = 1;
-        $user->note = '123';
-        $user->province_id  = '30';
-        $user->district_id  = '343';
-        $user->ward_id  = '6192';
-        $user->gender = 'Nam';
-        $user->save();
     }
     public function importProducts()
     {
@@ -210,9 +208,10 @@ class DatabaseSeeder extends Seeder
             'linkYoutube' => 'https://file4.batdongsan.com.vn/resize/745x510/2022/04/17/20220417200500-9939_wm.jpeg',
             'branch_id' => 1,
             'user_id' => 1,
-            'google_map' => 'The google_map tag can be used to easily create a Google map on a web page. ... Please see Core Concepts - Google Maps for a discussion on this tag. Parameters.',
-            'product_type' => array_rand(array_flip(['Regular', 'Block', 'Consignment'])),
-            'product_hot' => array_rand([0, 1]),
+            'google_map' => '',
+            'product_type' => array_rand( array_flip(['Regular','Block','Consignment'])),
+            'product_hot' => array_rand([0,1]),
+            'product_open' => array_rand([0,1]),
             'product_start_date' => date('Y-m-d'),
             'product_end_date' => date('Y-m-d', strtotime('+10 days')),
             'product_images' => [
@@ -253,9 +252,9 @@ class DatabaseSeeder extends Seeder
     {
         $Customer = new Customer();
         $Customer->name = 'NGUYEN THI HUYEN TRANG';
-        $Customer->email = 'trang@gmail.com';
         $Customer->address = 'Thanh Hóa';
         $Customer->phone = '0977983360';
+        $Customer->user_id = 1;
         $Customer->save();
     }
 }

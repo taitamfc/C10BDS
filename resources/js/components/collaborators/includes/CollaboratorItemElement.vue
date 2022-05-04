@@ -1,24 +1,32 @@
 <template>
   <li>
-    <router-link :to="{ name: 'collaborators.show', params: {id:1} }" class="item" >
-      <img
-        src="/mobile/assets/img/sample/avatar/avatar3.jpg"
-        alt="image"
-        class="image"
-      />
+    <router-link :to="{ name: 'collaborators.show', params: {id:item.id} }" class="item" v-if="layout == 'main'">
       <div class="in">
         <div>
-          <header>Quảng Trị</header>
-          Nguyễn Văn A
-          <footer>0123456789</footer>
+          <header>{{ item.address }}</header>
+          {{ item.name }}
+          <footer> {{ item.phone }}</footer>
         </div>
       </div>
     </router-link>
+
+    <div class="item" v-if="layout == 'product'">
+      <div class="in">
+        <div>
+          <header>{{ item.address }}</header>
+          {{ item.name }}
+          <footer> {{ item.phone }}</footer>
+        </div>
+      </div>
+    </div>
   </li>
 </template>
 
 <script>
-export default {};
+export default {
+  props: ["item","layout"],
+  emits: ["itemHandleDelete"],
+};
 </script>
 
 <style>

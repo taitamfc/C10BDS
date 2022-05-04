@@ -28,16 +28,12 @@
       </div>
     </router-link>
   </div>
-  <!-- * App Bottom Menu -->
-  <SideBarComponent></SideBarComponent>
+  
 </template>
 
 <script>
-import SideBarComponent from "./SideBarComponent.vue";
 export default {
-  components: {
-    SideBarComponent
-  },
+ 
 };
 </script>
 

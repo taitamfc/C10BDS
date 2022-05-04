@@ -17,7 +17,7 @@
     </div>
 
     <div class="error-page" v-if="items && items.length ==0">
-        <h1 class="title">Thông báo trống</h1>
+        <h1 class="title">Không có dữ liệu</h1>
         <div class="text mb-5">
             Chưa có thông báo mới !
         </div>

@@ -68,7 +68,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="tf1">Địa chỉ</label> <input name="address" type="text" class="form-control" placeholder="Bạn có thể bổ sung hẻm, ngách, ngõ..." value="{{ old('address') }}"> <small class="form-text text-muted"></small>
+                    <label for="tf1">Địa chỉ</label> <input name="address" type="text" class="form-control" placeholder="Bạn có thể bổ sung hẻm, ngách, ngõ..." value="{{ old('address') }}"> 
                     @if ($errors->any())
                     <p style="color:red">{{ $errors->first('address') }}</p>
                     @endif
@@ -86,7 +86,7 @@
                 </div>
                 <div class="form-group">
                     <label for="tf1">Chi tiết thông tin</label>
-                    <input name="description" type="text" class="form-control" placeholder="Nhập mô tả chung về bất động sản của bạn. Ví dụ: Khu nhà có vị trí thuận lợi, gần công viên, gần trường học ... " value="{{ old('description') }}"></input>
+                    <textarea name="description" class="form-control" placeholder="Nhập mô tả chung về bất động sản của bạn. Ví dụ: Khu nhà có vị trí thuận lợi, gần công viên, gần trường học ... ">{{ old('description') }}</textarea>
                     @if ($errors->any())
                     <p style="color:red">{{ $errors->first('description') }}</p>
                     @endif
@@ -103,25 +103,47 @@
                 <legend>Cài đặt sản phẩm</legend>
                 <div class="row">
 
-                    <div class="col-lg-10">
+                    <div class="col-lg-4">
                         <div class="form-group">
                             <label>Loại sản phẩm</label>
                             <select name="product_type" class="form-control" id="product_type">
                                 <option value="Regular">Sản phẩm thường</option>
                                 <option value="Consignment">Sản phẩm ký gửi</option>
+<<<<<<< HEAD
                                 <option value="deliver_expired">Hết hạn ký gửi</option>
+=======
+                                <option value="Block">Sản phẩm ký gửi</option>
+>>>>>>> da7346dd96171068fb32a5115873e01588a7ac88
                             </select>
                             @if ($errors->any())
                             <p style="color:red">{{ $errors->first('product_type') }}</p>
                             @endif
                         </div>
                     </div>
-                    <div class="col-lg-2 card-body border-bot">
+                    <div class="col-lg-2">
                         <label>Sản phẩm HOT</label>
-                        <div class="togglebutton">
-                            <label>
-                                <input type="checkbox" name="product_hot" {{ old('product_hot') ? 'checked' : '' }}>
+                        <div class="form-group">
+                            <label class="switcher-control">
+                                <input type="checkbox" class="switcher-input" name="product_hot" @checked(old('product_hot',0))> 
+                                <span class="switcher-indicator"></span>
                             </label>
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Sắp mở bán</label>
+                        <div class="form-group">
+                            <label class="switcher-control">
+                                <input type="checkbox" class="switcher-input" name="product_open" @checked(old('product_open',0))> 
+                                <span class="switcher-indicator"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label for="tf1">Ngày mở bán</label> <input name="product_open_date" type="date" class="form-control" placeholder="" value="{{ old('product_open_date') }}"> 
+                            @if ($errors->any())
+                            <p style="color:red">{{ $errors->first('product_open_date') }}</p>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -172,15 +194,29 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="form-group">
-                            <label for="tf1">Diện tích</label>
+                            <label for="tf1">Chiều dài</label>
                             <div class="input-group input-group-alt">
-                                <input type="text" name="area" type="number" class="form-control" placeholder="Nhập diện tích, VD 80" value="{{ old('area') }}">
+                                <input name="area" type="number" class="form-control" placeholder="Nhập chiều dài, VD 80" value="{{ old('area') }}">
                                 <div class="input-group-append">
                                     <span class="input-group-text">m²</span>
                                 </div>
                             </div>
                             @if ($errors->any())
                             <p style="color:red">{{ $errors->first('area') }}</p>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="tf1">Chiều rộng</label>
+                            <div class="input-group input-group-alt">
+                                <input name="facade" type="number" class="form-control" placeholder="Nhập chiều rộng, VD 80" value="{{ old('facade') }}">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">m²</span>
+                                </div>
+                            </div>
+                            @if ($errors->any())
+                            <p style="color:red">{{ $errors->first('facade') }}</p>
                             @endif
                         </div>
                     </div>
@@ -206,7 +242,7 @@
                         <div class="form-group">
                             <label for="tf1">Đường vào</label>
                             <div class="input-group input-group-alt">
-                                <input type="text" name="stress_width" type="number" class="form-control" placeholder="Nhập số" value="{{ old('stress_width') }}">
+                                <input name="stress_width" type="number" class="form-control" placeholder="Nhập số" value="{{ old('stress_width') }}">
                                 <div class="input-group-append">
                                     <span class="input-group-text">m²</span>
                                 </div>
@@ -216,20 +252,7 @@
                             @endif
                         </div>
                     </div>
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <label for="tf1">Mặt tiền</label>
-                            <div class="input-group input-group-alt">
-                                <input type="text" name="facade" type="number" class="form-control" placeholder="Nhập số" value="{{ old('facade') }}">
-                                <div class="input-group-append">
-                                    <span class="input-group-text">m²</span>
-                                </div>
-                            </div>
-                            @if ($errors->any())
-                            <p style="color:red">{{ $errors->first('facade') }}</p>
-                            @endif
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
             <div class="card-body border-top">
@@ -263,7 +286,7 @@
                     </div>
                     <div class="col-lg-4">
                         <div class="form-group">
-                            <label for="tf1">Bắt đầu</label> <input name="product_start_date" type="date" class="form-control" placeholder="" value="{{ old('product_start_date') }}"> <small class="form-text text-muted"></small>
+                            <label for="tf1">Bắt đầu</label> <input name="product_start_date" type="date" class="form-control" placeholder="" value="{{ old('product_start_date') }}"> 
                             @if ($errors->any())
                             <p style="color:red">{{ $errors->first('product_start_date') }}</p>
                             @endif
@@ -272,7 +295,7 @@
 
                     <div class="col-lg-4">
                         <div class="form-group">
-                            <label for="tf1">Kết thúc</label> <input name="product_end_date" type="date" class="form-control" placeholder="" value="{{ old('product_end_date') }}"> <small class="form-text text-muted"></small>
+                            <label for="tf1">Kết thúc</label> <input name="product_end_date" type="date" class="form-control" placeholder="" value="{{ old('product_end_date') }}"> 
                             @if ($errors->any())
                             <p style="color:red">{{ $errors->first('product_end_date') }}</p>
                             @endif
@@ -302,7 +325,7 @@
                     </div>
                     <div class="col-lg-4">
                         <div class="form-group">
-                            <label>Nhân viên phụ trách</label>
+                            <label>Người đăng</label>
                             <select name="user_id" class="form-control user_id">
                                 <option value="">Vui lòng chọn</option>
                             </select>

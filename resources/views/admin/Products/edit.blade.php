@@ -102,7 +102,7 @@
                 </div>
                 <div class="form-group">
                     <label for="tf1">Mô tả về địa chỉ trên bản đồ</label>
-                    <input name="google_map" type="text" class="form-control" placeholder="Mô tả trên bản đồ" value="{{ $product->google_map }}"></textarea>
+                    <textarea name="google_map" class="form-control" placeholder="Mô tả trên bản đồ">{{ $product->google_map }}</textarea>
                     @if ($errors->any())
                     <p style="color:red">{{ $errors->first('google_map') }}</p>
                     @endif

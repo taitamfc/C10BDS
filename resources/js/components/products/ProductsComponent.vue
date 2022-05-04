@@ -1,6 +1,11 @@
 <template>
-  <HeaderComponent layout="main" title="Sản phẩm đang đảm nhận" search="1" @searchHeaderButtonCallBack="show.searchForm = true" />
-  <ProductSearchForm v-show="show.searchForm" @clickSearch="handleSearch" @clickClose="show.searchForm = false"/>
+  <HeaderComponent layout="main" :title="page_title" search="1" @searchHeaderButtonCallBack="show.searchForm = true" />
+  <ProductSearchForm 
+    v-show="show.searchForm" 
+    @clickSearch="handleSearch" 
+    @clickClose="show.searchForm = false"
+    :show_type_product="show.type_product"
+    />
   
   <LoadingElement v-if="isRunning"/>
   <div id="appCapsule">
@@ -38,13 +43,15 @@ import LoadingElement from "../elements/LoadingElement.vue";
 export default {
   data() {
     return {
+      page_title : 'Sản phẩm đang bán',
       isRunning : false,
       items : null,
       nextPage : null,
       next_page_url : null,
       form_data: {},
       show : {
-        searchForm: false
+        searchForm: false,
+        type_product: true,
       }
     }
   },
@@ -57,13 +64,17 @@ export default {
   },
   methods: {
     handleSearch(form_data){
+      console.log(form_data);
       this.show.searchForm = false;
       this.form_data = form_data;
-      this.form_data.page = this.nextPage - 1;
+      this.form_data.page = 1;
       this.get_items()
     },
-    get_items() {
+    get_items(product_type = null) {
       this.isRunning = true;
+      if(this.$route.params.product_type){
+        this.form_data.product_type = product_type;
+      }
       axios.get('/api/products',{ params: this.form_data })
       .then(result => {
           this.isRunning = false;
@@ -82,10 +93,52 @@ export default {
           this.nextPage = result.data.current_page + 1;
           this.next_page_url = result.data.next_page_url;
       })
+    },
+    change_title(product_type){
+      console.log('change_title',product_type);
+      this.show.type_product = false;
+      switch (product_type) {
+        case 'hot_products':
+          this.page_title = 'Sản phẩm hot';
+          break;
+        case 'future_products':
+          this.page_title = 'Sản phẩm sắp mở bán';
+          break;
+        case 'block_products':
+          this.page_title = 'Sản phẩm block';
+          break;
+        case 'sold':
+          this.page_title = 'Sản phẩm đã bán';
+          break;
+        case 'delivery_products':
+          this.page_title = 'Sản phẩm ký gửi';
+          break;
+        default:
+          this.page_title = 'Tất cả sản phẩm';
+          this.form_data.product_type = '';
+          this.show.type_product = true;
+          break;
+      }
     }
   },
+  created() {
+    this.$watch(
+      () => this.$route.params,
+      (toParams, previousParams) => {
+        if( typeof toParams.product_type != 'undefined' ){
+          this.get_items(toParams.product_type);
+          this.change_title(toParams.product_type);
+        }else{
+          this.change_title('');
+          this.get_items();
+        }
+      }
+    )
+  },
   mounted()  {
-    this.get_items()
+    this.get_items(this.$route.params.product_type);
+    this.change_title(this.$route.params.product_type);
+    
   }
 };
 </script>

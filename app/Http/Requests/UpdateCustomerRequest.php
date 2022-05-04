@@ -24,7 +24,6 @@ class UpdateCustomerRequest extends FormRequest
     {
         return [
             'name'    => 'required',
-            'email'   => 'required',
             'address' => 'required',
             'phone'   => 'required',
             
@@ -34,9 +33,8 @@ class UpdateCustomerRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required'   => 'Vui lòng nhập chi nhánh',
-            'email.required'  => 'Vui lòng nhập email',
-            'address.required'=> 'Vui lòng nhập địa chỉ chi nhánh',
+            'name.required'   => 'Vui lòng nhập tên',
+            'address.required'=> 'Vui lòng nhập địa chỉ',
             'phone.required'  => 'Vui lòng nhập số điện thoại',
         ];
     }

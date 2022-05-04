@@ -1,18 +1,38 @@
 <template>
-  <HeaderComponent layout="main" :title="'Danh Sách Cộng Tác Viên'" :search="1" />
+  <HeaderComponent layout="main" :title="'Danh Sách Khách Hàng'" :search="1" @searchHeaderButtonCallBack="show.searchForm = true"/>
+  <CollaboratorSearchForm v-show="show.searchForm" @clickSearch="handleSearch" @clickClose="show.searchForm = false"/>
+  <LoadingElement v-if="isRunning"/>
   <div id="appCapsule">
     <div class="section full mt-2 mb-2">
       <ul class="listview image-listview flush">
-        <CollaboratorItemElement/>
-        <CollaboratorItemElement/>
-        <CollaboratorItemElement/>
-        <CollaboratorItemElement/>
-        <CollaboratorItemElement/>
-        <CollaboratorItemElement/>
+        <CollaboratorItemElement
+        v-for="(item, index) in items"
+        :item="item"
+        :index="index"
+        :key="index"
+        v-bind:data-id="item.id"
+        :layout="'main'"
+      ></CollaboratorItemElement>
       </ul>
     </div>
-    <div class="section mb-2"><a href="#" class="btn btn-warning btn-block">Xem thêm</a></div>
+    <div class="section mb-2" v-if="items && next_page_url">
+      <button type="button" @click="get_more_items()" class="btn btn-warning btn-block">Xem thêm</button>
+    </div>
+    <div class="error-page" v-if="items && items.length ==0">
+        <h1 class="title">Không có dữ liệu</h1>
+        <div class="text mb-5">
+            Danh sách khách hàng trống
+        </div>
+    </div>
+    <div class="section mb-2" >
+      <button type="button" class="btn btn-success btn-block" @click="this.show_modal = true">Thêm khách hàng</button>
+    </div>
   </div>
+  <CollaboratorModalForm 
+    :show_modal="show_modal" 
+    @modalCancel="this.show_modal = false"
+    @modalConfirm="handleFormSubmit()"
+    />
   <FooterComponent layout="main" />
 </template>
 
@@ -20,12 +40,68 @@
 import HeaderComponent from "../includes/HeaderComponent.vue";
 import FooterComponent from "../includes/FooterComponent.vue";
 import CollaboratorItemElement from "./includes/CollaboratorItemElement.vue";
+import CollaboratorModalForm from "./includes/CollaboratorModalForm.vue";
+import CollaboratorSearchForm from "./includes/CollaboratorSearchForm.vue";
+import LoadingElement from "../elements/LoadingElement.vue";
 export default {
+  data() {
+    return {
+      show_modal: false,
+      isRunning : false,
+      items : null,
+      nextPage : null,
+      next_page_url : null,
+      show : {
+        searchForm: false
+      },
+      form_data: {},
+    }
+  },
   components: {
     HeaderComponent,
     FooterComponent,
-    CollaboratorItemElement
+    CollaboratorItemElement,
+    LoadingElement,
+    CollaboratorModalForm,
+    CollaboratorSearchForm
   },
+  methods: {
+    handleFormSubmit(){
+      this.get_items()
+    },
+    handleSearch(form_data){
+      this.show.searchForm = false;
+      this.form_data = form_data;
+      this.form_data.page = this.nextPage - 1;
+      this.get_items()
+    },
+    deleteItem(){
+      this.get_items()
+    },
+    get_items() {
+      this.isRunning = true;
+      axios.get('/api/customers',{ params: this.form_data })
+      .then(result => {
+          this.isRunning = false;
+          this.items = result.data.data;
+          this.nextPage = result.data.current_page + 1;
+          this.next_page_url = result.data.next_page_url;
+      })
+    },
+    get_more_items(){
+      this.isRunning = true;
+      axios.get('/api/customers/?page='+this.nextPage)
+      .then(result => {
+          this.isRunning = false;
+          this.items = this.items.concat(result.data.data);
+          this.nextPage = result.data.current_page + 1;
+          this.next_page_url = result.data.next_page_url;
+      })
+    }
+  },
+  mounted()  {
+    this.get_items()
+  }
 };
 </script>
 

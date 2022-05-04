@@ -19,9 +19,8 @@
 
     <div class="section full mt-2">
       <div class="profile-stats ps-2 pe-2">
-        <a href="#" class="item"> <strong>152</strong>sản phẩm đã bán </a>
-        <a href="#" class="item"> <strong>52</strong>cộng tác viên </a>
-        <a href="#" class="item"> <strong>2.300.000.000</strong>doanh thu </a>
+        <a href="#" class="item"> <strong>{{ current_user.total_sold }}</strong>sản phẩm đã bán </a>
+        <a href="#" class="item"> <strong>{{ current_user.total_customer }}</strong>khách hàng </a>
       </div>
     </div>
 
@@ -51,16 +50,6 @@
           </div>
         </li>
 
-        <li>
-          <router-link
-            :to="{ name: 'users.update', params: {} }"
-            class="item"
-          >
-            <div class="in">
-              <div>Cập Nhật Tài Khoản</div>
-            </div>
-          </router-link>
-        </li>
 
         <li>
           <router-link
@@ -74,26 +63,35 @@
         </li>
         
         <li>
-          <router-link
-            :to="{ name: 'users.logout', params: {} }"
-            class="item"
-          >
+          <a class="item" href="javascript:;" @click="show.showConfirm = true">
             <div class="in">
               <div class="text-danger">Đăng Xuất</div>
             </div>
-          </router-link>
+          </a>
         </li>
       </ul>
     </div>
     <!-- * tab content -->
   </div>
   <!-- * App Capsule -->
+  <ConfirmElement 
+    v-if="show.showConfirm" 
+    :title="'Xác Nhận'" 
+    :sub_title="'Xác nhận đăng xuất'" 
+    :cancel_button="'Hủy'" 
+    :confirm_button="'Đồng Ý'" 
+    @modalCancel="this.show.showConfirm = false"
+    @modalConfirm="handleFormSubmit()"
+    />
   <FooterComponent layout="main" />
 </template>
  
 <script>
 import HeaderComponent from "../includes/HeaderComponent.vue";
 import FooterComponent from "../includes/FooterComponent.vue";
+import ConfirmElement from "../elements/ConfirmElement.vue";
+import LoadingElement from "../elements/LoadingElement.vue";
+import NotificationElement from "../elements/NotificationElement.vue";
 export default {
   data() {
     return {
@@ -108,9 +106,21 @@ export default {
   },
   components: {
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    ConfirmElement,
+    LoadingElement,
   },
   methods: {
+    handleFormSubmit(){
+      this.show.showConfirm = false;
+      this.show.showLoading = true;
+       axios.post('/api/auth/logout')
+      .then(result => {
+          this.show.showLoading = false;
+          this.show.notifiSuccess = true;
+          this.$router.push({path: '/login'});
+      })
+    },
     handleTurnOffNotification(value){
       axios.post('/api/auth/changeNotification',{'status':value.checked})
       .then(result => {
@@ -129,6 +139,9 @@ export default {
     }
   },
   mounted()  {
+    if (this.$store.getters.CURRENT_USER) {
+        axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.getters.CURRENT_USER.token}`;
+    }
     this.getItem()
   }
 };
