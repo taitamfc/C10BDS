@@ -77,6 +77,7 @@
                             <th>Giá</th>
                             <th>Tên chi nhánh</th>
                             <th>Địa chỉ</th>
+                            <th>Loại sản phẩm</th>
                             <th>Trạng thái</th>
                             <th>Chức năng </th>
                         </tr>
@@ -89,6 +90,7 @@
                             <td class="align-middle"> {{number_format($product->price)}} </td> 
                             <td class="align-middle"> {{ $product->branch->name }} </td>
                             <td class="align-middle"> {{ $product->address }} </td>
+                            <td class="align-middle"> {{ $product->product_type }} </td>
                             <td class="align-middle"> {{ $product->status }} </td>
                             <td>
                                 <a href="{{route('products.edit',$product->id)}}" title="Edit Student"><button class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-pencil-alt"></i> </button></a>

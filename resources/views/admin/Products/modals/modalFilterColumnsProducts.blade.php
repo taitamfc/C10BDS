@@ -91,15 +91,28 @@
                             <div class="input text">
                                 <select name="filter[status]" class="form-control status">
                                     <option value="">Vui lòng chọn</option>
-
                                     <option value="draft">Bản Thảo</option>
                                     <option value="sold">Đã Bán</option>
                                     <option value="selling">Đang Bán</option>
                                 </select>
                             </div>
                         </div>
-                    </div>
 
+                    </div>
+                    <div class="form-group form-row filter-row">
+                        <div class="col-lg-4">
+                            <label class="">Loại sản phẩm </label>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="input text">
+                                <select name="filter[product_type]" class="form-control product_type">
+                                    <option value="deliver_expired">Hết hạn ký gửi</option>
+                                    <option value="Regular">Sản phẩm thường</option>
+                                    <option value="Consignment">Sản phẩm ký gửi</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
                 </div><!-- #filter-columns -->
                 <!-- .btn -->
             </div><!-- /.modal-body -->

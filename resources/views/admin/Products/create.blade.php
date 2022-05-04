@@ -109,6 +109,7 @@
                             <select name="product_type" class="form-control" id="product_type">
                                 <option value="Regular">Sản phẩm thường</option>
                                 <option value="Consignment">Sản phẩm ký gửi</option>
+                                <option value="deliver_expired">Hết hạn ký gửi</option>
                             </select>
                             @if ($errors->any())
                             <p style="color:red">{{ $errors->first('product_type') }}</p>
@@ -153,15 +154,15 @@
                 <div class="form-group">
                     <label class="d-block">Giấy tờ pháp lý</label>
                     <div class="custom-control custom-control-inline custom-radio">
-                        <input type="radio" class="custom-control-input" name="juridical" id="rd1" checked="" value="Sổ đỏ/ Sổ hồng">
+                        <input type="radio" class="custom-control-input" name="juridical" id="rd1" checked="" value="Red book / Pink book">
                         <label class="custom-control-label" for="rd1">Sổ đỏ/ Sổ hồng</label>
                     </div>
                     <div class="custom-control custom-control-inline custom-radio">
-                        <input type="radio" class="custom-control-input" name="juridical" id="rd2" value="Hợp đồng mua bán">
+                        <input type="radio" class="custom-control-input" name="juridical" id="rd2" value="Sale contract">
                         <label class="custom-control-label" for="rd2">Hợp đồng mua bán</label>
                     </div>
                     <div class="custom-control custom-control-inline custom-radio">
-                        <input type="radio" class="custom-control-input" name="juridical" id="rd3" value="Đang chờ sổ">
+                        <input type="radio" class="custom-control-input" name="juridical" id="rd3" value="Waiting for the book">
                         <label class="custom-control-label" for="rd3">Đang chờ sổ</label>
                     </div>
                     @if ($errors->any())

@@ -54,7 +54,10 @@ class ProductController extends Controller
             $branch_id = $request->filter['branch_id'];
             $product->where('branch_id', $branch_id);
         }
-
+        if (isset($request->filter['product_type']) && $request->filter['product_type']) {
+            $product_type = $request->filter['product_type'];
+            $product->where('product_type', $product_type);
+        }
         if (isset($request->filter['status']) && $request->filter['status']) {
             $status = $request->filter['status'];
             $product->where('status', $status);
@@ -72,7 +75,6 @@ class ProductController extends Controller
             'products' => $products,
             'branches' => $branches
         ];
-
 
         return view('admin.products.index', $params);
     }

@@ -1,6 +1,5 @@
 @extends('admin.layouts.master')
 @section('content')
-<!-- .page-title-bar -->
 <header class="page-title-bar">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -109,7 +108,7 @@
                     @endif
                 </div>
             </div>
-            
+
             <div class="card-body border-top">
                 <legend>Thông tin bất động sản</legend>
                 <div class="row">
@@ -137,22 +136,21 @@
                 <div class="form-group">
                     <label class="d-block">Giấy tờ pháp lý</label>
                     <div class="custom-control custom-control-inline custom-radio">
-                        <input type="radio" class="custom-control-input" name="juridical" id="rd1" checked="" value="Sổ đỏ/ Sổ hồng">
+                        <input type="radio" class="custom-control-input" name="juridical" id="rd1" checked="" value="Red book / Pink book">
                         <label class="custom-control-label" for="rd1">Sổ đỏ/ Sổ hồng</label>
                     </div>
                     <div class="custom-control custom-control-inline custom-radio">
-                        <input type="radio" class="custom-control-input" name="juridical" id="rd2" value="Hợp đồng mua bán">
+                        <input type="radio" class="custom-control-input" name="juridical" id="rd2" value="Sale contract">
                         <label class="custom-control-label" for="rd2">Hợp đồng mua bán</label>
                     </div>
                     <div class="custom-control custom-control-inline custom-radio">
-                        <input type="radio" class="custom-control-input" name="juridical" id="rd3" value="Đang chờ sổ">
+                        <input type="radio" class="custom-control-input" name="juridical" id="rd3" value="Waiting for the book">
                         <label class="custom-control-label" for="rd3">Đang chờ sổ</label>
                     </div>
                     @if ($errors->any())
                     <p style="color:red">{{ $errors->first('juridical') }}</p>
                     @endif
                 </div>
-
 
                 <div class="row">
                     <div class="col-lg-6">
@@ -230,13 +228,13 @@
             <div class="card-body border-top">
                 <legend>Cài đặt sản phẩm</legend>
                 <div class="row">
-
                     <div class="col-lg-10">
                         <div class="form-group">
                             <label>Loại sản phẩm</label>
                             <select name="product_type" class="form-control" id="product_type">
                                 <option value="Regular" @if($product->product_type == 'Regular') ? selected : null @endif >Sản phẩm thường</option>
                                 <option value="Consignment" @if($product->product_type == 'Consignment') ? selected : null @endif >Sản phẩm ký gửi</option>
+                                <option value="deliver_expired" @if($product->product_type == 'deliver_expired') ? selected : null @endif >Hết hạn ký gửi</option>
                                 <option value="Block" @if($product->product_type == 'Block') ? selected : null @endif >Block công ty</option>
                             </select>
                             @if ($errors->any())
@@ -326,9 +324,9 @@
                         <div class="form-group">
                             <label>Tình trạng</label>
                             <select name="status" class="form-control">
-                                <option value="draft">Bản Thảo</option>
-                                <option value="selling">Đang Bán</option>
-                                <option value="sold">Đã Bán</option>
+                                <option value="draft" @if($product->status == 'draft') ? selected : null @endif>Bản Thảo</option>
+                                <option value="selling" @if($product->status == 'selling') ? selected : null @endif>Đang Bán</option>
+                                <option value="sold" @if($product->status == 'sold') ? selected : null @endif>Đã Bán</option>
                             </select>
                             @if ($errors->any())
                             <p style="color:red">{{ $errors->first('status') }}</p>

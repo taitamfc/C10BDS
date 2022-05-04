@@ -48,7 +48,7 @@ class DatabaseSeeder extends Seeder
     }
     public function importRoles()
     {
-        $groups     = ['Branch','Product','Customer','ProductCategory','User'];
+        $groups     = ['Branch', 'Product', 'Customer', 'ProductCategory', 'User'];
         $actions    = ['viewAny', 'view', 'create', 'update', 'delete', 'restore', 'forceDelete'];
         foreach ($groups as $group) {
             foreach ($actions as $action) {
@@ -63,7 +63,6 @@ class DatabaseSeeder extends Seeder
     public function importBranches()
     {
         $branch = new Branch();
-        $branch->id = 1;
         $branch->name = 'Quảng Trị';
         $branch->address = 'Quảng Trị';
         $branch->phone = '0977983360';
@@ -74,7 +73,6 @@ class DatabaseSeeder extends Seeder
 
 
         $branch = new Branch();
-        $branch->id = 2;
         $branch->name = 'Đà Nẵng';
         $branch->address = 'Đà Nẵng';
         $branch->phone = '0164851161';
@@ -85,7 +83,6 @@ class DatabaseSeeder extends Seeder
 
 
         $branch = new Branch();
-        $branch->id = 3;
         $branch->name = 'Quảng Bình';
         $branch->address = 'Quảng Bình';
         $branch->phone = '0979061738';
@@ -93,7 +90,6 @@ class DatabaseSeeder extends Seeder
         $branch->district_id = 7;
         $branch->ward_id = 1;
         $branch->save();
-
     }
     public function importUserGroups()
     {
@@ -109,7 +105,6 @@ class DatabaseSeeder extends Seeder
         $userGroup->name = 'Nhân Viên';
         $userGroup->description = '';
         $userGroup->save();
-
     }
     public function importUsers()
     {
@@ -196,7 +191,7 @@ class DatabaseSeeder extends Seeder
             'Block 8 lô Gio Linh',
             'Bán đất biển Ocean Dune ngay trung tâm thành phố'
         ];
-        
+
         $fields = [
             'address' => 'Ocean Dunes',
             'description' => 'KHU A: A1 140m2 đối diện biệt thự 740m2 10 tỷ 5<br>A2',
@@ -207,36 +202,37 @@ class DatabaseSeeder extends Seeder
             'ward_id' => 1,
             'unit' => 'agree',
             'status' => 'selling',
-            'juridical' => array_rand( array_flip(['red_book_pink_book','waiting_book'])),
+            'juridical' => array_rand(array_flip(['red_book_pink_book', 'waiting_book'])),
             'area' => rand(5, 15),
-            'houseDirection' => array_rand( array_flip(['East', 'West', 'South', 'North', 'Northeast', 'Northwest', 'Southeast',  'Southwest']) ),
+            'houseDirection' => array_rand(array_flip(['East', 'West', 'South', 'North', 'Northeast', 'Northwest', 'Southeast',  'Southwest'])),
             'stress_width' => rand(5, 15),
             'facade' => rand(5, 15),
             'linkYoutube' => 'https://file4.batdongsan.com.vn/resize/745x510/2022/04/17/20220417200500-9939_wm.jpeg',
             'branch_id' => 1,
             'user_id' => 1,
-            'google_map' => '',
-            'product_type' => array_rand( array_flip(['Regular','Block','Consignment'])),
-            'product_hot' => array_rand([0,1]),
+            'google_map' => 'The google_map tag can be used to easily create a Google map on a web page. ... Please see Core Concepts - Google Maps for a discussion on this tag. Parameters.',
+            'product_type' => array_rand(array_flip(['Regular', 'Block', 'Consignment'])),
+            'product_hot' => array_rand([0, 1]),
             'product_start_date' => date('Y-m-d'),
-            'product_end_date' => date('Y-m-d',strtotime('+10 days')),
+            'product_end_date' => date('Y-m-d', strtotime('+10 days')),
             'product_images' => [
                 'https://file4.batdongsan.com.vn/resize/745x510/2022/04/17/20220417200500-9939_wm.jpeg',
                 'https://file4.batdongsan.com.vn/2022/04/05/20220405105613-203d_wm.jpg',
             ]
         ];
 
-
+        $product_images = [];
         foreach ($products as $product) {
             $objProduct = new Product();
             $objProduct->name = $product;
             foreach ($fields as $field => $value) {
-                if( $field != 'product_images' ){
+                if ($field != 'product_images') {
                     $objProduct->$field = $value;
                 }
             }
             $objProduct->save();
-            foreach( $fields['product_images'] as $product_image ){
+            $product_images = $fields['product_images'];
+            foreach ($product_images as $product_image) {
                 $objProductImage = new ProductImage();
                 $objProductImage->product_id = $objProduct->id;
                 $objProductImage->image_url = $product_image;
