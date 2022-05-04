@@ -103,12 +103,13 @@
                 </div>
                 <div class="form-group">
                     <label for="tf1">Mô tả về địa chỉ trên bản đồ</label>
-                    <input name="google_map" type="text" class="form-control" placeholder="Mô tả trên bản đồ" value="{{ $product->google_map }}"></textarea>
+                    <textarea name="google_map" class="form-control" placeholder="Mô tả trên bản đồ">{{ $product->google_map }}</textarea>
                     @if ($errors->any())
                     <p style="color:red">{{ $errors->first('google_map') }}</p>
                     @endif
                 </div>
             </div>
+            
             <div class="card-body border-top">
                 <legend>Thông tin bất động sản</legend>
                 <div class="row">
@@ -227,6 +228,68 @@
                 </div>
             </div>
             <div class="card-body border-top">
+                <legend>Cài đặt sản phẩm</legend>
+                <div class="row">
+
+                    <div class="col-lg-10">
+                        <div class="form-group">
+                            <label>Loại sản phẩm</label>
+                            <select name="product_type" class="form-control" id="product_type">
+                                <option value="Regular" @if($product->product_type == 'Regular') ? selected : null @endif >Sản phẩm thường</option>
+                                <option value="Consignment" @if($product->product_type == 'Consignment') ? selected : null @endif >Sản phẩm ký gửi</option>
+                                <option value="Block" @if($product->product_type == 'Block') ? selected : null @endif >Block công ty</option>
+                            </select>
+                            @if ($errors->any())
+                            <p style="color:red">{{ $errors->first('product_type') }}</p>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col-lg-2 card-body border-bot">
+                        <label>Sản phẩm HOT</label>
+                        <div class="togglebutton">
+                            <label>
+                                <input type="checkbox" name="product_hot" checked {{ old('product_hot') ? 'checked' : '' }}>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body border-top">
+                <legend>Thông tin ký gửi</legend>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label>Nhân viên phụ trách</label>
+                            <select name="user_id" class="form-control" id='product_user_id'>
+                                <option value="" selected='selected'>Vui lòng chọn</option>
+                            </select>
+                            @if ($errors->any())
+                            <p style="color:red">{{ $errors->first('user_id') }}</p>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label for="tf1">Bắt đầu</label> <input name="product_start_date" type="date" class="form-control" placeholder="" value="{{$product->product_start_date}}"> <small class="form-text text-muted"></small>
+                            @if ($errors->any())
+                            <p style="color:red">{{ $errors->first('product_start_date') }}</p>
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label for="tf1">Kết thúc</label> <input name="product_end_date" type="date" class="form-control" placeholder="" value="{{$product->product_end_date}}"> <small class="form-text text-muted"></small>
+                            @if ($errors->any())
+                            <p style="color:red">{{ $errors->first('product_end_date') }}</p>
+                            @endif
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="card-body border-top">
+
                 <legend>Thông tin liên hệ</legend>
                 <div class="row">
                     <div class="col-lg-4">
@@ -331,6 +394,21 @@
             });
         });
 
+        jQuery('#product_type').on('change', function() {
+            var product_user_id = jQuery(this).val();
+            $.ajax({
+                url: "/api/get_product_type_by_product_user_id/" + product_user_id,
+                type: "GET",
+                success: function(data) {
+                    console.log(data);
+                    var product_html = '';
+                    for (const user of data) {
+                        product_html += '<option value="' + user.id + '">' + user.name + '</option>';
+                    }
+                    jQuery('#product_user_id').html(product_html);
+                }
+            });
+        });
     });
 </script>
 @endsection

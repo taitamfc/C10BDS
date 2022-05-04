@@ -12,7 +12,7 @@
     </nav>
     <a href="{{route('products.index')}}" class="btn btn-success btn-floated"></a>
     <div class="d-md-flex align-items-md-start">
-        <h1 class="page-title mr-sm-auto">Quản lý sản phẩm</h1>
+        <h1 class="page-title mr-sm-auto">Quản Lý Sản Phẩm</h1>
         <div class="btn-toolbar">
             <a href="{{route('products.create')}}" class="btn btn-primary">
                 <i class="fa-solid fa fa-plus"></i>
@@ -46,7 +46,7 @@
                                 <div class="input-group-prepend trigger-submit">
                                     <span class="input-group-text"><span class="fas fa-search"></span></span>
                                 </div>
-                                <input type="text" class="form-control" name="query" value="" placeholder="Tìm nhanh theo cú pháp (ma:Mã kết quả hoặc ten:Tên kết quả)">
+                                <input type="text" class="form-control" name="s" value="" placeholder="Tìm nhanh theo cú pháp (ma:Mã kết quả hoặc ten:Tên kết quả)">
                             </div>
                             <div class="input-group-append">
                                 <button class="btn btn-secondary" data-toggle="modal" data-target="#modalSaveSearchProducts" type="button">Lưu bộ lọc</button>
@@ -72,20 +72,30 @@
                         @endif
                         <br>
                         <tr>
-                            <th> # </th>
-                            <th>Tên người sở hữu</th>
-                            <th>Tên chi nhánh</th>
+
+                            <th>Tên</th>
                             <th>Giá</th>
-                            <th> chức năng </th>
+                            <th>Địa chỉ</th>
+                            <th>Trạng thái</th>
+                            <th>Chức năng </th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($products as $product)
                         <tr>
-                            <td class="align-middle"> {{ $product->id }} </td>
-                            <td class="align-middle"> {{ $product->name }} </td>
-                            <td class="align-middle"> {{ $product->branch_id }} </td>
-                            <td class="align-middle"> {{ $product->price }} </td>
+
+                            <td class="align-middle"> {{ $product->name }} 
+                                <br><span class="badge badge-success">CN: {{ $product->branch->name }}</span>
+                                <span class="badge badge-primary">Mã: {{ $product->id }}</span>
+                                <span class="badge badge-warning">Loại: {{ $product->product_type }}</span>
+                                @if( $product->product_hot)
+                                <span class="badge badge-danger">Sản phẩm HOT</span>
+                                @endif
+
+                            </td>
+                            <td class="align-middle"> {{number_format($product->price)}} </td> 
+                            <td class="align-middle"> {{ $product->address }} </td>
+                            <td class="align-middle"> {{ $product->status }} </td>
                             <td>
                                 <a href="{{route('products.edit',$product->id)}}" title="Edit Student"><button class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-pencil-alt"></i> </button></a>
                                 <form method="POST" action="{{ route('products.destroy',$product->id )}}" accept-charset="UTF-8" style="display:inline">

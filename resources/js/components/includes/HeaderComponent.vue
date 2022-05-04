@@ -36,7 +36,9 @@
 
   <div class="appHeader bg-warning text-light" v-if="layout == 'main'" v-bind:class="{scrolled:scrolled}">
     <div class="left">
-      
+        <a href="javascript:;"  class="headerButton" @click="showSidebar()">
+            <ion-icon name="menu-outline" role="img" class="md hydrated" aria-label="menu outline"></ion-icon>
+        </a>
     </div>
     <div class="pageTitle">{{ title }}</div>
     <div class="right">
@@ -45,15 +47,33 @@
       </a>
       <router-link :to="{ name: 'notifications.index', params: {} }" class="headerButton" v-if="notification == 1">
           <ion-icon name="notifications-outline" role="img" class="md hydrated" aria-label="call outline"></ion-icon>
-          <span class="badge badge-danger">1</span>
+          <span class="badge badge-danger">
+            {{ this.$store.getters.NOTIFICATIONS.total }}
+          </span>
       </router-link>
     </div>
   </div>
+  <!-- * App Bottom Menu -->
+  <SideBarComponent @closeSidebarCallBack="show_sidebar = false" :show_sidebar="show_sidebar"></SideBarComponent>
 </template>
 
 <script>
+import SideBarComponent from "./SideBarComponent.vue";
 export default {
   props: ["layout","title","search","notification","scrolled"],
+  data() {
+    return {
+      show_sidebar : false,
+    }
+  },
+  components: {
+    SideBarComponent
+  },
+  methods: {
+    showSidebar(){
+      this.show_sidebar = !this.show_sidebar
+    }
+  }
 };
 </script>
 

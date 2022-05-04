@@ -28,11 +28,13 @@
       </div>
     </router-link>
   </div>
-  <!-- * App Bottom Menu -->
+  
 </template>
 
 <script>
-export default {};
+export default {
+ 
+};
 </script>
 
 <style>

@@ -1,106 +1,116 @@
 <template>
-  <HeaderComponent layout="single" :title="'Đổi Mật Khẩu'" />
-  <div id="appCapsule">
-    <div class="section full">
-      <div class="wide-block pb-2">
-        <form>
-          <div class="form-group boxed">
-            <div class="input-wrapper">
-              <label class="form-label">Họ Và Tên</label>
-              <input
-                type="text"
-                class="form-control form-control-sm"
-                id="name5"
-                placeholder="Name"
-              />
-              <i class="clear-input">
-                <ion-icon
-                  name="close-circle"
-                  role="img"
-                  class="md hydrated"
-                  aria-label="close circle"
-                ></ion-icon>
-              </i>
-            </div>
-          </div>
+   <HeaderComponent layout="single" :title="'Quên Mật Khẩu'" />
+  <!-- App Capsule -->
+  <div id="appCapsule" class="pt-0">
+    <div class="login-form mt-1">
+      <div class="section mt-1">
+        <h1>Quên Mật Khẩu</h1>
+      </div>
 
+      <div class="section mt-1 mb-5">
+        <form @submit.prevent="handleSubmitForm" autocomplete="off" class="needs-validation">
           <div class="form-group boxed">
             <div class="input-wrapper">
               <label class="form-label">Số Điện Thoại</label>
               <input
-                type="email"
-                class="form-control form-control-sm"
-                id="email5"
-                placeholder="Email"
+                type="phone"
+                class="form-control"
+                v-model="form.phone"
+                placeholder="Số Điện Thoại"
+                autocomplete="off"
               />
-              <i class="clear-input">
-                <ion-icon
-                  name="close-circle"
-                  role="img"
-                  class="md hydrated"
-                  aria-label="close circle"
-                ></ion-icon>
-              </i>
+              <div class="invalid-feedback" v-bind:class="{'d-block':error.phone}">Vui lòng nhập số điện thoại.</div>
             </div>
           </div>
 
-          <div class="form-group boxed">
-            <div class="input-wrapper">
-              <label class="form-label">Địa Chỉ</label>
-              <textarea
-                id="address5"
-                rows="4"
-                class="form-control form-control-sm"
-                placeholder="Message"
-              ></textarea>
-              <i class="clear-input">
-                <ion-icon
-                  name="close-circle"
-                  role="img"
-                  class="md hydrated"
-                  aria-label="close circle"
-                ></ion-icon>
-              </i>
+
+          <div class="form-links mt-2">
+            <div>
+              
+            </div>
+            <div>
+              <router-link :to="{ name: 'users.login', params: {}}" class="text-muted">
+                Đăng Nhập
+              </router-link>
             </div>
           </div>
-          <div class="form-group boxed">
-				 <div class="input-wrapper">
-            <label for="formFileSm" class="form-label"
-              >Ảnh Đại Diện</label
-            >
-            <input
-              class="form-control form-control-sm"
-              id="formFileSm"
-              type="file"
-            />
-          	</div>
-          </div>
 
-          <div class="mt-1">
-            <button type="submit" class="btn btn-warning btn-lg btn-block">
-              Cập Nhật
+          <div class="form-button-group">
+            <button type="submit" class="btn btn-warning btn-block btn-lg">
+              Gửi
             </button>
           </div>
         </form>
       </div>
-      <div class="content-footer mt-05">
-        * This form is only html based. Not included any mail script.
-      </div>
     </div>
   </div>
+  <LoadingElement v-if="isRunning"/>
+  <NotificationElement 
+      @notificationHide="this.notification.show = false" 
+      v-if="notification.show" 
+      :sub_title="notification.sub_title" 
+      :type="notification.type"  
+    />
   <!-- * App Capsule -->
-  <FooterComponent layout="main" />
 </template>
  
 <script>
-import HeaderComponent from "../includes/HeaderComponent.vue";
-import FooterComponent from "../includes/FooterComponent.vue";
-import UserTabHomeComponent from "./includes/UserTabHomeComponent.vue";
+import HeaderComponent from "./../includes/HeaderComponent.vue";
+import LoadingElement from "../elements/LoadingElement.vue";
+import NotificationElement from "../elements/NotificationElement.vue";
+
 export default {
+  name: "Login",
+  data() {
+      return {
+          form: {
+              phone: '',
+          },
+          type: 'login',
+          error: {
+              phone: false,
+          },
+          notification : {
+            show      : false,
+            sub_title : 'Yêu cầu thành công',
+            type      : 'success',
+          }
+      }
+  },
   components: {
     HeaderComponent,
-    FooterComponent,
-    UserTabHomeComponent,
+    LoadingElement,
+    NotificationElement
+  },
+  methods: {
+      handleSubmitForm() {
+        let can_submit = true;
+        this.error.phone = false;
+        if( this.form.phone == '' ){ this.error.phone = true; can_submit = false }
+        if(can_submit){
+          this.isRunning = true;
+          axios.post('/api/auth/forgot-pass',this.form)
+          .then(result => {
+              this.isRunning = false;
+              if( result.data.status == 0 ){
+                this.notification = {
+                  show      : true,
+                  sub_title : result.data.message,
+                  type      : 'error',
+                }
+              }else{
+                this.notification = {
+                  show      : true,
+                  sub_title : result.data.message,
+                  type      : 'success',
+                }
+                setTimeout(() => {
+                  this.$router.push({path: '/login'});
+                }, 1000);
+              }
+          })
+        }
+      },
   },
 };
 </script>

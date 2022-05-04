@@ -23,49 +23,53 @@
             <ul class="menu">
               <!-- .menu-item -->
               <li class="menu-item">
-                <a href="{{route('index')}}" class="menu-link"><span class="menu-icon fas fa-home"></span> <span class="menu-text">Trang chủ</span></a>
+                <a href="{{route('admin.index')}}" class="menu-link">
+                  <span class="menu-icon fas fa-home"></span> 
+                  <span class="menu-text">Trang Chủ</span>
+                </a>
               </li><!-- /.menu-item -->
-              <!-- .menu-item -->
+              <li class="menu-header">Bán Hàng </li>
+
+              <li class="menu-item">
+                  <a href="{{ route('products.index') }}" class="menu-link">
+                    <span class="menu-icon oi oi-list-rich"></span> 
+                    <span class="menu-text">Sản Phẩm</span>
+                  </a>
+              </li>
+
+              <li class="menu-item">
+                  <a href="{{ route('productCategories.index') }}" class="menu-link">
+                    <span class="menu-icon oi oi-puzzle-piece"></span> 
+                    <span class="menu-text">Loại Sản Phẩm</span>
+                  </a>
+              </li>
+
+              <li class="menu-header">Nguồn Lực</li>
+              <li class="menu-item has-child">
+                  <a href="{{ route('users.index') }}" class="menu-link">
+                    <span class="menu-icon oi oi-person"></span> 
+                    <span class="menu-text">Nhân Viên</span>
+                  </a>
+              </li>
+              <li class="menu-item">
+                  <a href="{{ route('userGroups.index') }}" class="menu-link">
+                    <span class="menu-icon oi oi-people"></span> 
+                    <span class="menu-text">Nhóm Nhân Viên</span>
+                  </a>
+              </li>
+              
               <li class="menu-item">
                   <a href="{{ route('branches.index') }}" class="menu-link">
                     <span class="menu-icon fas fa-rocket"></span> 
-                    <span class="menu-text">Chi nhánh</span>
+                    <span class="menu-text">Chi Nhánh</span>
                   </a>
               </li>
-
-              <li class="menu-item has-child">
-                  <a href="#" class="menu-link">
-                    <span class="menu-icon fas fa-rocket"></span> 
-                    <span class="menu-text">Nhân viên</span>
+              <li class="menu-item">
+                  <a href="{{ route('customers.index') }}" class="menu-link">
+                    <span class="menu-icon oi oi-shield"></span> 
+                    <span class="menu-text">Khách Hàng</span>
                   </a>
-                  <ul class="menu">
-                    <li class="menu-item">
-                      <a href="{{ route('users.index') }}" class="menu-link">Nhân viên</a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="{{ route('userGroups.index') }}" class="menu-link">Nhóm nhân viên</a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="{{route('roles.index')}}" class="menu-link">Vai trò</a>
-                    </li>
-                  </ul>
               </li>
-
-              <li class="menu-item has-child">
-                  <a href="#" class="menu-link">
-                    <span class="menu-icon fas fa-rocket"></span> 
-                    <span class="menu-text">Sản Phẩm</span>
-                  </a>
-                  <ul class="menu">
-                    <li class="menu-item">
-                      <a href="{{ route('products.index') }}" class="menu-link">Sản Phẩm</a>
-                    </li>
-                    <li class="menu-item">
-                      <a href="{{ route('productCategories.index') }}" class="menu-link">Nhóm sản phẩm</a>
-                    </li>
-                  </ul>
-              </li>
-
               
 
               <!-- .menu-item -->

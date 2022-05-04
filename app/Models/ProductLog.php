@@ -9,11 +9,9 @@ class ProductLog extends Model
 {
     use HasFactory;
     protected $table = 'product_logs';
-    protected $fillable = [
-        'id', 'product_id', 'content'
-    ];
 
-    public $timestamps = false;
+
+    public $timestamps = true;
 
     public function product()
     {

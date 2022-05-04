@@ -9,9 +9,7 @@ class UserGroupRole extends Model
 {
     use HasFactory;
     protected $table = 'user_groups';
-    protected $fillable = [
-        'id', 'user_group_id', 'role_id'
-    ];
+
     public $timestamps = false;
 
     function user_group(){

@@ -18,7 +18,7 @@
 <div class="page-section">
 
 
-    <form method="post" action="{{route('users.update',$users->id)}}">
+    <form method="post" action="{{route('users.update',$user->id)}}">
         @csrf
         @method('PUT')
         <div class="card">
@@ -26,7 +26,7 @@
                 <legend>Thông tin cơ bản</legend>
 
                 <div class="form-group">
-                    <label> Email </label> <input name="email" type="email" class="form-control" id="" placeholder="Nhập email" value="{{ $users->email }}">
+                    <label> Email </label> <input name="email" type="email" class="form-control" id="" placeholder="Nhập email" value="{{ $user->email }}">
 
                     @if ($errors->any())
                     <p style="color:red">{{ $errors->first('email') }}</p>
@@ -46,7 +46,7 @@
                             <label for="exampleInputEmail1">Tỉnh/Thành phố</label>
                             <select name="province_id" class="form-control province_id">
                                 @foreach($provinces as $province)
-                                <option value="{{ $province->id }}">{{$province->name}}</option>
+                                <option value="{{ $province->id }}" @selected($province->id == $user->province_id)>{{$province->name}}</option>
                                 @endforeach
                             </select>
                             @if ($errors->any())
@@ -58,7 +58,9 @@
                         <div class="form-group">
                             <label for="exampleInputEmail1">Quận/Huyện</label>
                             <select name="district_id" class="form-control district_id">
-                                <option value="">Vui lòng chọn</option>
+                                @foreach($districts as $district)
+                                <option value="{{ $district->id }}" @selected($district->id == $user->district_id)>{{$district->name}}</option>
+                                @endforeach;
                             </select>
                             @if ($errors->any())
                             <p style="color:red">{{ $errors->first('district_id') }}</p>
@@ -69,7 +71,9 @@
                         <div class="form-group">
                             <label for="exampleInputEmail1">Xã/Phường</label>
                             <select name="ward_id" class="form-control ward_id">
-                                <option value="">Vui lòng chọn</option>
+                                @foreach($wards as $ward)
+                                <option value="{{ $ward->id }}" @selected($ward->id == $user->ward_id)>{{$ward->name}}</option>
+                                @endforeach;
                             </select>
                             @if ($errors->any())
                             <p style="color:red">{{ $errors->first('ward_id')}}</p>
@@ -83,7 +87,7 @@
 
                 <div class="form-group">
                     <label>Tên nhân viên<noscript></noscript></label>
-                    <input name="name" type="text" class="form-control" id="" placeholder="Nhập tên nhân viên" value="{{ $users->name }}">
+                    <input name="name" type="text" class="form-control" id="" placeholder="Nhập tên nhân viên" value="{{ $user->name }}">
 
                     @if ($errors->any())
                     <p style="color:red">{{ $errors->first('name') }}</p>
@@ -103,7 +107,7 @@
                 </div>
                 <div class="form-group">
                     <label>Ngày sinh <noscript></noscript></label>
-                    <input name="day_of_birth" type="date" class="form-control" id="" placeholder="Nhập ngày sinh " value="{{ $users->day_of_birth }}">
+                    <input name="day_of_birth" type="date" class="form-control" id="" placeholder="Nhập ngày sinh " value="{{ $user->day_of_birth }}">
 
                     @if ($errors->any())
                     <p style="color:red">{{ $errors->first('day_of_birth') }}</p>
@@ -111,7 +115,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label> Địa chỉ </label> <input name="address" type="text" class="form-control" id="" placeholder="Nhập địa chỉ" value="{{ $users->address }}">
+                    <label> Địa chỉ </label> <input name="address" type="text" class="form-control" id="" placeholder="Nhập địa chỉ" value="{{ $user->address }}">
 
                     @if ($errors->any())
                     <p style="color:red">{{ $errors->first('address') }}</p>
@@ -119,7 +123,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Ngày làm việc</label> <input name="start_day" type="date" class="form-control" id="" placeholder="Nhập ngày làm việc" value="{{ $users->start_day }}">
+                    <label>Ngày làm việc</label> <input name="start_day" type="date" class="form-control" id="" placeholder="Nhập ngày làm việc" value="{{ $user->start_day }}">
 
                     @if ($errors->any())
                     <p style="color:red">{{ $errors->first('start_day') }}</p>
@@ -128,7 +132,7 @@
 
 
                 <div class="form-group">
-                    <label>Ghi chú</label> <input name="note" type="text" class="form-control" id="" placeholder="Nhập ghi chú" value="{{ $users->note }}">
+                    <label>Ghi chú</label> <input name="note" type="text" class="form-control" id="" placeholder="Nhập ghi chú" value="{{ $user->note }}">
 
                     @if ($errors->any())
                     <p style="color:red">{{ $errors->first('note') }}</p>
@@ -140,7 +144,7 @@
             <div class="card-body border-top">
                 <legend>Thông tin liên hệ</legend>
                 <div class="form-group">
-                    <label> Số điện thoại </label> <input name="phone" type="text" class="form-control" id="" placeholder="Nhập số điện thoại" value="{{ $users->phone }}">
+                    <label> Số điện thoại </label> <input name="phone" type="text" class="form-control" id="" placeholder="Nhập số điện thoại" value="{{ $user->phone }}">
 
                     @if ($errors->any())
                     <p style="color:red">{{ $errors->first('phone') }}</p>
@@ -153,7 +157,7 @@
                             <select class="form-select form-control" name="user_group_id">
 
                                 @foreach($userGroups as $userGroup)
-                                <option value="{{ $userGroup->id }}" @selected($userGroup->id == $users->user_group_id)>
+                                <option value="{{ $userGroup->id }}" @selected($userGroup->id == $user->user_group_id)>
                                     {{ $userGroup->name }}
                                 </option>
                                 @endforeach
@@ -168,7 +172,7 @@
                             <label>Chi nhánh</label>
                             <select class="form-select form-control" name="branch_id">
                                 @foreach($branches as $branch)
-                                <option value="{{ $branch->id }}" @selected($branch->id == $users->branch_id)>
+                                <option value="{{ $branch->id }}" @selected($branch->id == $user->branch_id)>
                                     {{ $branch->name }}
                                 </option>
                                 @endforeach

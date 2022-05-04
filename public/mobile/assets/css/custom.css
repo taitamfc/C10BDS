@@ -1,3 +1,26 @@
 .bg-primary {
     
 }
+.splide__list {
+    width: 100% !important;
+}
+.product-badge {
+	z-index: 9;
+	top: 11px;
+	left: 10px;
+	border-radius: 4px;
+    position: absolute;
+}
+.product-badge-price {
+	right: 10px;
+	left: unset;
+}
+.profileBox {
+    background: #FE9500;
+}
+.fs17 {
+	font-size: 17px !important;
+}
+.frame-100 iframe {
+	width: 100% !important;
+}

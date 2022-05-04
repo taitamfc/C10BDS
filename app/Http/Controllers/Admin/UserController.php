@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\UserGroup;
 use App\Http\Requests\StoreUserRequest;
-use App\Http\Requests\UpdateUser;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\Branch;
 use App\Models\District;
@@ -23,6 +22,7 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    
     public function index(Request $request)
     {
   
@@ -52,6 +52,11 @@ class UserController extends Controller
             $user_group_id = $request->filter['user_group_id'];
             $query->where('user_group_id', 'LIKE', '%' . $user_group_id . '%');
         }
+
+        if ($request->s){
+            $query->where('name', 'LIKE', '%' . $request->s . '%');
+            $query->orwhere('id', $request->s);
+        }
     
 
         $query->orderBy('id', 'desc');
@@ -60,12 +65,16 @@ class UserController extends Controller
         $userGroups = UserGroup::all();
         $branches = Branch::all();
         $provinces = Province::all();
+        $districts = District::all();
+        $wards = Ward::all();
         
         $params = [
             'provinces' => $provinces,
             'users' => $users,
             'userGroups' =>  $userGroups,
-            'branches' => $branches
+            'branches' => $branches,
+            'districts' => $districts,
+            'wards' => $wards
         ];
         return view('admin.users.index', $params);
     }
@@ -79,15 +88,11 @@ class UserController extends Controller
         $userGroups = UserGroup::all();
         $branches = Branch::all();
         $provinces = Province::all();
-        $districts = District::all();
-        $wards = Ward::all();
         $users = User::select('*');
         $users = $users->paginate(3);
         $params = [
 
-            'wards' => $wards,
             'provinces' => $provinces,
-            'districts' => $districts,
             'userGroups' => $userGroups,
             'branches' => $branches,
             'users' => $users
@@ -146,17 +151,17 @@ class UserController extends Controller
     {
         $userGroups = UserGroup::all();
         $branches = Branch::all();
-        $users =  User::find($id);
+        $user =  User::find($id);
         $provinces = Province::all();
-        $districts = District::all();
-        $wards = Ward::all();
+        $districts = District::where('province_id',$user->province_id)->get();
+        $wards = Ward::where('district_id',$user->district_id)->get();
         $params = [
-            'wards' => $wards,
             'provinces' => $provinces,
-            'districts' => $districts,
-            'users' => $users,
+            'user' => $user,
             'userGroups' => $userGroups,
-            'branches' => $branches
+            'branches' => $branches,
+            'districts' => $districts,
+            'wards' => $wards
         ];
         return view('admin.users.edit', $params);
     }
@@ -203,7 +208,14 @@ class UserController extends Controller
     public function destroy($id)
     {
         $user = User::find($id);
-        $user->delete();
-        return redirect()->route('users.index')->with('success', 'Xóa  thành công');
+
+        try {
+            $user->delete();
+            return redirect()->route('users.index')->with('success', 'Xóa  thành công');
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return redirect()->route('users.index')->with('success', 'Xóa không  thành công');
+        }
+
     }
 }

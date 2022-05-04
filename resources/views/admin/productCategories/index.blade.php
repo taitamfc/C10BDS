@@ -12,7 +12,7 @@
     </nav>
     <a href="{{route('productCategories.index')}}" class="btn btn-success btn-floated"></a>
     <div class="d-md-flex align-items-md-start">
-        <h1 class="page-title mr-sm-auto"> Quản lý nhân viên</h1>
+        <h1 class="page-title mr-sm-auto"> Quản Lý Loại Sản Phẩm</h1>
         <div class="btn-toolbar">
             <a href="{{route('productCategories.create')}}" class="btn btn-primary">
                 <i class="fa-solid fa fa-plus"></i>
@@ -47,7 +47,7 @@
                                 <div class="input-group-prepend trigger-submit">
                                     <span class="input-group-text"><span class="fas fa-search"></span></span>
                                 </div>
-                                <input type="text" class="form-control" name="query" value="" placeholder="Tìm nhanh theo cú pháp (ma:Mã kết quả hoặc ten:Tên kết quả)">
+                                <input type="text" class="form-control" name="s" value="" placeholder="Tìm nhanh theo cú pháp (ma:Mã kết quả hoặc ten:Tên kết quả)">
                             </div>
                             <div class="input-group-append">
                                 <button class="btn btn-secondary" data-toggle="modal" data-target="#modalSaveSearchproductCategories" type="button">Lưu bộ lọc</button>
@@ -71,8 +71,8 @@
                         <br>
                         <tr>
                             <th> # </th>
-                            <th> Tên danh mục</th>
-                            <th> chức năng </th>
+                            <th> Tên</th>
+                            <th> Chức năng </th>
                         </tr>
                     </thead>
                     <tbody>

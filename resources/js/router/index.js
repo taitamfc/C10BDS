@@ -8,6 +8,7 @@ const ProfileUpdateComponent = () => import('../components/users/ProfileUpdateCo
 const ProfileChangePassComponent = () => import('../components/users/ProfileChangePassComponent.vue')
 const HomeComponent = () => import('../components/HomeComponent.vue')
 const ProductsComponent = () => import('../components/products/ProductsComponent.vue')
+const SoldProductsComponent = () => import('../components/products/SoldProductsComponent.vue')
 const ProductDetailComponent = () => import('../components/products/ProductDetailComponent.vue')
 const CollaboratorsComponent = () => import('../components/collaborators/CollaboratorsComponent.vue')
 const CollaboratorDetailComponent = () => import('../components/collaborators/CollaboratorDetailComponent.vue')
@@ -55,8 +56,20 @@ const routes = [
         component: ProfileUpdateComponent
     },
     {
-        path: '/products',
+        path: '/selling_products',
         name: 'products.index',
+        meta: { requiresAuth: true },
+        component: ProductsComponent
+    },
+    {
+        path: '/type_products/:product_type',
+        name: 'products.type',
+        meta: { requiresAuth: true },
+        component: ProductsComponent
+    },
+    {
+        path: '/sold_products',
+        name: 'products.sold',
         meta: { requiresAuth: true },
         component: ProductsComponent
     },

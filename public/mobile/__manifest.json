@@ -1,11 +1,11 @@
 {
-    "name": "Mobilekit",
-    "short_name": "Mobilekit",
-    "start_url": "https://mobilekit.bragherstudio.com/view29/index.html",
+    "name": "Quang Group",
+    "short_name": "Quang Group",
+    "start_url": "/",
     "display": "standalone",
-    "scope" : "https://mobilekit.bragherstudio.com/view29/",
-    "background_color": "#000000",
-    "theme_color": "#000000",
+    "scope" : ".",
+    "background_color": "#ffcb05",
+    "theme_color": "#ffcb05",
     "orientation": "portrait",
     "icons": [
         {
