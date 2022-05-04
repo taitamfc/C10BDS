@@ -23,7 +23,7 @@ trait HasPermissions
     private function getPermissions()
     {
         
-        $this->permissionList = $this->userGroup->roles;
+        $this->permissionList = $this->userGroup->roles;// $this->belongsTo(userGroup)->hasMany(roles)
         return $this->permissionList ?? collect();
-    }
+    } 
 }

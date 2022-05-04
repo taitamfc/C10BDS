@@ -22,6 +22,7 @@ class BranchController extends Controller
      */
     public function index(Request $request)
     {
+        //phân quyền
         // $this->authorize('viewAny',Branch::class);
         $query = Branch::select('*');
         // dd($query);
