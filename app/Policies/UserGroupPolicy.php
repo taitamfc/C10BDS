@@ -18,7 +18,8 @@ class UserGroupPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return $user->hasPermission('UserGroup_viewAny');
+
     }
 
     /**
@@ -30,7 +31,7 @@ class UserGroupPolicy
      */
     public function view(User $user, UserGroup $userGroup)
     {
-        //
+        return $user->hasPermission('UserGroup_view');
     }
 
     /**
@@ -41,7 +42,7 @@ class UserGroupPolicy
      */
     public function create(User $user)
     {
-        //
+        return $user->hasPermission('UserGroup_create');
     }
 
     /**
@@ -53,7 +54,7 @@ class UserGroupPolicy
      */
     public function update(User $user, UserGroup $userGroup)
     {
-        //
+        return $user->hasPermission('UserGroup_update');
     }
 
     /**
@@ -65,7 +66,7 @@ class UserGroupPolicy
      */
     public function delete(User $user, UserGroup $userGroup)
     {
-        //
+        return $user->hasPermission('UserGroup_delete');
     }
 
     /**
@@ -77,7 +78,7 @@ class UserGroupPolicy
      */
     public function restore(User $user, UserGroup $userGroup)
     {
-        //
+        return $user->hasPermission('UserGroup_restore');
     }
 
     /**
@@ -89,6 +90,6 @@ class UserGroupPolicy
      */
     public function forceDelete(User $user, UserGroup $userGroup)
     {
-        //
+        return $user->hasPermission('UserGroup_forceDelete');
     }
 }
