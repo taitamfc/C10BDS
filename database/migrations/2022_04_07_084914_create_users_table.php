@@ -17,9 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->date('day_of_birth');
-            $table->string('phone');
             $table->string('address');
-            $table->string('email');
             $table->string('password');
             $table->date('start_day');
             $table->unsignedBigInteger('user_group_id');
