@@ -8,10 +8,10 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\UserGroupController;
 use App\Http\Controllers\Admin\IndexController;
 use App\Http\Controllers\Admin\AuthController;
-
+use App\Http\Controllers\Admin\ConfigController;
 use App\Http\Controllers\Admin\ImageController;
 use App\Http\Controllers\Admin\CustomerController;
-
+use App\Http\Controllers\Admin\OptionController;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +36,8 @@ Route::group([
     Route::resource('productCategories', ProductCategoryController::class);
     Route::resource('branches', BranchController::class);
     Route::resource('customers', CustomerController::class);
+    Route::resource('options', OptionController::class);
+    Route::resource('configs', ConfigController::class);
 });
 
 

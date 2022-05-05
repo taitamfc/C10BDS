@@ -1,11 +1,12 @@
 <?php
+
 namespace App\Policies;
 
-use App\Models\Branch;
+use App\Models\Option;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class BranchPolicy
+class OptionPolicy
 {
     use HandlesAuthorization;
 
@@ -17,20 +18,19 @@ class BranchPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->hasPermission('Branch_viewAny');
+        return $user->hasPermission('Option_viewAny');
     }
 
     /**
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Branch  $branch
+     * @param  \App\Models\Option  $option
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Branch $branch)
+    public function view(User $user, Option $option)
     {
-        
-        return $user->hasPermission('Branch_view');
+        return $user->hasPermission('Option_view');
     }
 
     /**
@@ -41,54 +41,54 @@ class BranchPolicy
      */
     public function create(User $user)
     {
-        return $user->hasPermission('Branch_create');
+        return $user->hasPermission('Option_create');
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Branch  $branch
+     * @param  \App\Models\Option  $option
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Branch $branch)
+    public function update(User $user, Option $option)
     {
-        return $user->hasPermission('Branch_update');
+        return $user->hasPermission('Option_update');
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Branch  $branch
+     * @param  \App\Models\Option  $option
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Branch $branch)
+    public function delete(User $user, Option $option)
     {
-        return $user->hasPermission('Branch_delete');
+        return $user->hasPermission('Option_delete');
     }
 
     /**
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Branch  $branch
+     * @param  \App\Models\Option  $option
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Branch $branch)
+    public function restore(User $user, Option $option)
     {
-        return $user->hasPermission('Branch_restore');
+        return $user->hasPermission('Option_restore');
     }
 
     /**
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Branch  $branch
+     * @param  \App\Models\Option  $option
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Branch $branch)
+    public function forceDelete(User $user, Option $option)
     {
-        return $user->hasPermission('Branch_forceDelete');
+        return $user->hasPermission('Option_forceDelete');
     }
 }

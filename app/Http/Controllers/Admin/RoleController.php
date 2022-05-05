@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
@@ -18,6 +17,7 @@ class RoleController extends Controller
      */
     public function index(Request $request)
     {
+        $this->authorize('viewAny',Role::class);
         //$query = Role::query(true);
         $query = Role::select('*');
         if (isset($request->filter['name']) && $request->filter['name']) {
@@ -42,6 +42,7 @@ class RoleController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Role::class);
         return view('admin.roles.add');
     }
 
@@ -73,7 +74,7 @@ class RoleController extends Controller
      */
     public function show(Role $role)
     {
-        //
+        $this->authorize('view', Role::class);
     }
 
     /**
@@ -85,6 +86,7 @@ class RoleController extends Controller
     public function edit($id)
     {
         $role = Role::find($id);
+        $this->authorize('update', Role::class);
         $params = [
             'role' => $role
         ];
@@ -101,6 +103,7 @@ class RoleController extends Controller
      */
     public function update(UpdateRoleRequest $request, $id)
     {
+        
         $role = Role::find($id);
         $role->name = $request->name;
         $role->group_name = $request->group_name;
@@ -121,6 +124,7 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('delete', Role::class);
         $role = Role::find($id);
         try {
             $role->delete();
