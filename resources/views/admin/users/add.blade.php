@@ -17,17 +17,16 @@
 <div class="page-section">
 
 
-    <form method="post" action="{{route('users.store')}}">
+    <form method="post" action="{{route('users.store')}}" enctype="multipart/form-data">
         @csrf
         <div class="card">
             <div class="card-body">
                 <legend>Thông tin cơ bản</legend>
-
                 <div class="form-group">
-                    <label for="tf1"> Email </label> <input name="email" type="email" class="form-control" id="" placeholder="Nhập email" value="{{ old('email') }}">
+                    <label for="tf1"> Số điện thoại </label> <input name="phone" type="text" class="form-control" id="" placeholder="Nhập số điện thoại" value="{{ old('phone') }}">
 
                     @if ($errors->any())
-                    <p style="color:red">{{ $errors->first('email') }}</p>
+                    <p style="color:red">{{ $errors->first('phone') }}</p>
                     @endif
                 </div>
 
@@ -43,7 +42,9 @@
                         <div class="form-group">
                             <label for="exampleInputEmail1">Tỉnh/Thành phố</label>
                             <select name="province_id" class="form-control province_id">
+                                <option value="">Vui lòng chọn</option>
                                 @foreach($provinces as $province)
+
                                 <option value="{{ $province->id }}">{{$province->name}}</option>
                                 @endforeach
                             </select>
@@ -78,34 +79,49 @@
             </div>
             <div class="card-body border-top">
                 <legend>Thông tin cá nhân</legend>
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="form-group">
+                            <label>Hình ảnh nhân viên</label>
+                            <input type="file" name="avatar" class="form-control">
 
-                <div class="form-group">
-                    <label>Tên nhân viên<noscript></noscript></label>
-                    <input name="name" type="text" class="form-control" id="" placeholder="Nhập tên nhân viên" value="{{old('name') }}">
+                        </div>
+                        <div class="form-group">
+                            <label>Tên nhân viên<noscript></noscript></label>
+                            <input name="name" type="text" class="form-control" id="" placeholder="Nhập tên nhân viên" value="{{ old('name') }}">
 
-                    @if ($errors->any())
-                    <p style="color:red">{{ $errors->first('name') }}</p>
-                    @endif
-                </div>
-                <div class="form-group">
-                    <label class="d-block">Giới tính</label>
-                    <div class="custom-control custom-control-inline custom-radio">
-                        <input type="radio" class="custom-control-input" name="gender" id="rd1" checked="" value="male">
-                        <label class="custom-control-label" for="rd1">Nam</label>
+                            @if ($errors->any())
+                            <p style="color:red">{{ $errors->first('name') }}</p>
+                            @endif
+                        </div>
+
+                        <div class="form-group">
+                            <label class="d-block">Giới tính</label>
+                            <div class="custom-control custom-control-inline custom-radio">
+                                <input type="radio" class="custom-control-input" name="gender" id="rd1" checked="" value="male">
+                                <label class="custom-control-label" for="rd1">Nam</label>
+                            </div>
+                            <div class="custom-control custom-control-inline custom-radio">
+                                <input type="radio" class="custom-control-input" name="gender" id="rd2" value="female">
+                                <label class="custom-control-label" for="rd2">Nữ</label>
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label for="tf1">Ngày sinh <noscript></noscript></label>
+                            <input name="day_of_birth" type="date" class="form-control" id="" placeholder="Nhập ngày sinh " value="{{ old('day_of_birth') }}">
+
+                            @if ($errors->any())
+                            <p style="color:red">{{ $errors->first('day_of_birth') }}</p>
+                            @endif
+                        </div>
+
+
                     </div>
-                    <div class="custom-control custom-control-inline custom-radio">
-                        <input type="radio" class="custom-control-input" name="gender" id="rd2" value="female">
-                        <label class="custom-control-label" for="rd2">Nữ</label>
+                    <div class="col-lg-4">
+                        <img src="https://us.123rf.com/450wm/urfandadashov/urfandadashov1806/urfandadashov180601827/150417827-photo-not-available-vector-icon-isolated-on-transparent-background-photo-not-available-logo-concept.jpg?ver=6" width="320px" alt="">
                     </div>
 
-                </div>
-                <div class="form-group">
-                    <label for="tf1">Ngày sinh <noscript></noscript></label>
-                    <input name="day_of_birth" type="date" class="form-control" id="" placeholder="Nhập ngày sinh " value="{{ old('day_of_birth') }}">
-
-                    @if ($errors->any())
-                    <p style="color:red">{{ $errors->first('day_of_birth') }}</p>
-                    @endif
                 </div>
 
                 <div class="form-group">
@@ -137,13 +153,6 @@
             </div>
             <div class="card-body border-top">
                 <legend>Thông tin liên hệ</legend>
-                <div class="form-group">
-                    <label for="tf1"> Số điện thoại </label> <input name="phone" type="text" class="form-control" id="" placeholder="Nhập số điện thoại" value="{{ old('phone') }}">
-
-                    @if ($errors->any())
-                    <p style="color:red">{{ $errors->first('phone') }}</p>
-                    @endif
-                </div>
 
 
 

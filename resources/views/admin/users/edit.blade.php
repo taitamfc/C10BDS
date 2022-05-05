@@ -18,7 +18,8 @@
 <div class="page-section">
 
 
-    <form method="post" action="{{route('users.update',$user->id)}}">
+
+    <form method="post" action="{{route('users.update',$user->id)}}" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <div class="card">
@@ -26,10 +27,10 @@
                 <legend>Thông tin cơ bản</legend>
 
                 <div class="form-group">
-                    <label> Email </label> <input name="email" type="email" class="form-control" id="" placeholder="Nhập email" value="{{ $user->email }}">
+                    <label> Số điện thoại </label> <input name="phone" type="phone" class="form-control" id="" placeholder="Nhập số điện thoại" value="{{ $user->phone }}">
 
                     @if ($errors->any())
-                    <p style="color:red">{{ $errors->first('email') }}</p>
+                    <p style="color:red">{{ $errors->first('phone') }}</p>
                     @endif
                 </div>
 
@@ -85,34 +86,60 @@
             <div class="card-body border-top">
                 <legend>Thông tin cá nhân</legend>
 
-                <div class="form-group">
-                    <label>Tên nhân viên<noscript></noscript></label>
-                    <input name="name" type="text" class="form-control" id="" placeholder="Nhập tên nhân viên" value="{{ $user->name }}">
+                <div class="row">
 
-                    @if ($errors->any())
-                    <p style="color:red">{{ $errors->first('name') }}</p>
-                    @endif
-                </div>
-                <div class="form-group">
-                    <label class="d-block">Giới tính</label>
-                    <div class="custom-control custom-control-inline custom-radio">
-                        <input type="radio" class="custom-control-input" name="gender" id="rd1" checked="" value="male">
-                        <label class="custom-control-label" for="rd1">Nam</label>
+
+                    <div class="col-lg-8">
+                        <div class="form-group">
+                            <label>Hình ảnh nhân viên</label>
+                            <input type="file" name="avatar" class="form-control">
+
+                        </div>
+                        <div class="form-group">
+                            <label>Tên nhân viên<noscript></noscript></label>
+                            <input name="name" type="text" class="form-control" id="" placeholder="Nhập tên nhân viên" value="{{ $user->name }}">
+
+                            @if ($errors->any())
+                            <p style="color:red">{{ $errors->first('name') }}</p>
+                            @endif
+                        </div>
+                        <div class="form-group">
+                            <label class="d-block">Giới tính</label>
+                            <div class="custom-control custom-control-inline custom-radio">
+                                <input type="radio" class="custom-control-input" name="gender" id="rd1" checked="" value="male">
+                                <label class="custom-control-label" for="rd1">Nam</label>
+                            </div>
+                            <div class="custom-control custom-control-inline custom-radio">
+                                <input type="radio" class="custom-control-input" name="gender" id="rd2" value="female">
+                                <label class="custom-control-label" for="rd2">Nữ</label>
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label>Ngày sinh <noscript></noscript></label>
+                            <input name="day_of_birth" type="date" class="form-control" id="" placeholder="Nhập ngày sinh " value="{{ $user->day_of_birth }}">
+
+                            @if ($errors->any())
+                            <p style="color:red">{{ $errors->first('day_of_birth') }}</p>
+                            @endif
+                        </div>
+
                     </div>
-                    <div class="custom-control custom-control-inline custom-radio">
-                        <input type="radio" class="custom-control-input" name="gender" id="rd2" value="female">
-                        <label class="custom-control-label" for="rd2">Nữ</label>
+
+                    <div class="col-lg-4">
+                        @if( $user->avatar )
+                        <img src="/{{ $user->avatar}}" width="260px" alt="">
+                        @else
+                        <img src="https://us.123rf.com/450wm/urfandadashov/urfandadashov1806/urfandadashov180601827/150417827-photo-not-available-vector-icon-isolated-on-transparent-background-photo-not-available-logo-concept.jpg?ver=6" width="220px" alt="">
+                        @endif
                     </div>
 
-                </div>
-                <div class="form-group">
-                    <label>Ngày sinh <noscript></noscript></label>
-                    <input name="day_of_birth" type="date" class="form-control" id="" placeholder="Nhập ngày sinh " value="{{ $user->day_of_birth }}">
 
-                    @if ($errors->any())
-                    <p style="color:red">{{ $errors->first('day_of_birth') }}</p>
-                    @endif
                 </div>
+
+
+
 
                 <div class="form-group">
                     <label> Địa chỉ </label> <input name="address" type="text" class="form-control" id="" placeholder="Nhập địa chỉ" value="{{ $user->address }}">
@@ -143,13 +170,7 @@
             </div>
             <div class="card-body border-top">
                 <legend>Thông tin liên hệ</legend>
-                <div class="form-group">
-                    <label> Số điện thoại </label> <input name="phone" type="text" class="form-control" id="" placeholder="Nhập số điện thoại" value="{{ $user->phone }}">
 
-                    @if ($errors->any())
-                    <p style="color:red">{{ $errors->first('phone') }}</p>
-                    @endif
-                </div>
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="form-group">
