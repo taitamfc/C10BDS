@@ -17,7 +17,7 @@ class StoreBranchRequest extends FormRequest
     }
 
     /**
-     * Get the validation rules that apply to the request.
+     * Get the Validation rules that apply to the request.
      *
      * @return array
      */
@@ -37,13 +37,13 @@ class StoreBranchRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'vui lòng nhập chi nhánh',
-            'address.required' => 'vui lòng nhập địa chỉ chi nhánh',
-            'phone.required' => 'vui lòng nhập số điện thoại',
-            'province_id.required' => 'vui lòng nhập id tỉnh',
-            'district_id.required' => 'vui lòng nhập id quận huyện',
-            'ward_id.required' => 'vui lòng nhập id xã',
-            'user_id.required' => 'vui lòng nhập id người dùng',
+            'name.required' => 'Vui lòng nhập chi nhánh',
+            'address.required' => 'Vui lòng nhập địa chỉ chi nhánh',
+            'phone.required' => 'Vui lòng nhập số điện thoại',
+            'province_id.required' => 'Vui lòng nhập id tỉnh',
+            'district_id.required' => 'Vui lòng nhập id quận huyện',
+            'ward_id.required' => 'Vui lòng nhập id xã',
+            'user_id.required' => 'Vui lòng nhập id người dùng',
         ];
     }
 

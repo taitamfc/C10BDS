@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\UserGroup;
 use App\Http\Requests\StoreUserGroupRequest;
 use App\Http\Requests\UpdateUserGroupRequest;
+use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 
 class UserGroupController extends Controller
 {
@@ -19,6 +21,8 @@ class UserGroupController extends Controller
      */
     public function index(Request $request)
     {
+        // $this->authorize('viewAny',UserGroup::class);
+
         $query = UserGroup::select('*');
         if (isset($request->filter['name']) && $request->filter['name']) {
             $name = $request->filter['name'];
@@ -44,6 +48,8 @@ class UserGroupController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', UserGroup::class);
+
         return view('admin.userGroups.add');
     }
 
@@ -87,7 +93,18 @@ class UserGroupController extends Controller
     public function edit($id)
     {
         $userGroup = UserGroup::find($id);
+        // $this->authorize('update',  $userGroup);
+        $current_user = Auth::user();
+        $userRoles = $userGroup->roles->pluck('id','name')->toArray();
+        // dd($current_user->userGroup->roles->toArray());
+        $roles = Role::all()->toArray();
+        $group_names = [];
+        foreach ($roles as $role){
+            $group_names[$role['group_name']][] = $role;
+        }
         $params = [
+            'userRoles' => $userRoles,
+            'group_names' => $group_names,
             'userGroup' => $userGroup
         ];
         return view('admin.userGroups.edit', $params);
@@ -102,12 +119,18 @@ class UserGroupController extends Controller
      */
     public function update(UpdateUserGroupRequest $request, $id)
     {
+        // dd($request->all());
+        
         $userGroup = UserGroup::find($id);
         $userGroup->name = $request->name;
         $userGroup->description = $request->description;
 
         try {
             $userGroup->save();
+            //detach xóa hết tất cả các record của bảng trung gian hiện tại
+            $userGroup->roles()->detach();
+            //attach cập nhập các record của bảng trung gian hiện tại
+            $userGroup->roles()->attach($request->roles);
             return redirect()->route('userGroups.index')->with('success', 'Sửa' . ' ' . $request->name . ' ' .  'thành công');
         } catch (\Exception $e) {
             Log::error($e->getMessage());
@@ -123,6 +146,8 @@ class UserGroupController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('delete', UserGroup::class);
+
         $userGroup = UserGroup::find($id);
 
         try {
