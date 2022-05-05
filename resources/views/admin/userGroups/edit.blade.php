@@ -23,16 +23,42 @@
                 @method('PUT')
                 <fieldset>
                     <div class="form-group">
-                        <label for="tf1">Tên nhóm nhân viên</label> <input type="text" name="name" value="{{ $userGroup->name }}" class="form-control" placeholder="nhập tên nhóm nhân viên"> <small class="form-text text-muted"></small>
+                        <label for="tf1">Tên nhóm</label> <input type="text" name="name" value="{{ $userGroup->name }}" class="form-control" placeholder="nhập tên nhóm nhân viên"> <small class="form-text text-muted"></small>
                         @if ($errors->any())
                         <p style="color:red">{{ $errors->first('name') }}</p>
                         @endif
                     </div>
                     <div class="form-group">
-                        <label for="tf1"> Nhóm nhân viên </label> <input type="text" name="description" value="{{ $userGroup->description }} " class="form-control" placeholder="nhập địa chỉ"> <small class="form-text text-muted"></small>
+                        <label for="tf1"> Mô tả </label>
+                        <textarea name="description" class="form-control" >{{ $userGroup->description }}</textarea>
+
                         @if ($errors->any())
                         <p style="color:red">{{ $errors->first('description') }}</p>
                         @endif
+                    </div>
+                    <div class="form-group">
+                        <label for="tf1">Quyền hạn </label>
+                        <div class="row">
+                            @foreach ($group_names as $group_name => $roles)
+                            <div class="list-group list-group-flush list-group-bordered col-lg-4" >
+                                <div class="list-group-header"> {{ $group_name }} </div>
+                                @foreach ($roles as $role)
+                                <div class="list-group-item d-flex justify-content-between align-items-center">
+                                    <span>{{ $role['name'] }}</span> 
+                                    <!-- .switcher-control -->
+                                    <label class="switcher-control">
+                                        <input type="checkbox" 
+                                        @checked( in_array($role['id'],$userRoles) )
+                                        name="roles[]" class="switcher-input" value="{{ $role['id'] }}" > 
+                                        <span class="switcher-indicator"></span>
+                                    </label> 
+                                    <!-- /.switcher-control -->
+                                </div>
+                            @endforeach
+                            </div>
+                            @endforeach
+                        </div>
+                       
                     </div>
                 </fieldset>
                 <br>

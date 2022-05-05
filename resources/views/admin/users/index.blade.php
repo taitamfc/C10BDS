@@ -67,6 +67,7 @@
                     <thead>
                         <tr>
                             <th> # </th>
+                            <th> avatar </th>
                             <th> Tên nhân viên</th>
                             <th> Số điện thoại</th>
                             <th> Nhóm nhân viên</th>
@@ -79,12 +80,14 @@
                         @foreach($users as $user)
                         <tr>
                             <td class="align-middle"> {{ $user->id }} </td>
+                            <td> <img src="{{asset($user->avatar)}}" width="100px" alt=""> </td>
                             <td class="align-middle"> {{ $user->name }} </td>
                             <td class="align-middle"> {{ $user->phone }} </td>
                             <td class="align-middle"> {{ $user->userGroup->name }} </td>
                             <td class="align-middle">{{ $user->branch->name }} </td>
                             <td class="align-middle">{{ $user->province->name }} </td>
                             <td>
+                                @if($user->id != 1)
                                 <form action="{{ route('users.destroy',$user->id )}}" style="display:inline" method="post">
 
                                     <button onclick="return confirm('Xóa {{$user->name}} ?')" class="btn btn-sm btn-icon btn-secondary">
@@ -93,6 +96,7 @@
                                     @csrf
                                     @method('delete')
                                 </form>
+                                @endif
                                 <span class="sr-only">Edit</span></a>
                                 <a href="{{route('users.edit',$user->id)}}" class="btn btn-sm btn-icon btn-secondary">
                                     <i class="fa fa-pencil-alt"></i>
