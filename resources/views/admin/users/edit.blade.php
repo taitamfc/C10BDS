@@ -133,13 +133,9 @@
                         @else
                         <img src="https://us.123rf.com/450wm/urfandadashov/urfandadashov1806/urfandadashov180601827/150417827-photo-not-available-vector-icon-isolated-on-transparent-background-photo-not-available-logo-concept.jpg?ver=6" width="220px" alt="">
                         @endif
-                    </div>
-
+                    </div>            
 
                 </div>
-
-
-
 
                 <div class="form-group">
                     <label> Địa chỉ </label> <input name="address" type="text" class="form-control" id="" placeholder="Nhập địa chỉ" value="{{ $user->address }}">

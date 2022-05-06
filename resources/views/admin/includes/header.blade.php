@@ -181,7 +181,7 @@
                     <button class="btn-account" type="button" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false">
                         <span class="user-avatar user-avatar-md">
-                            <img src="{{asset('admin/images/avatars/profile.jpg')}}" alt="">
+                           <img src="{{asset($current_user->avatar)}}" alt="">
                         </span>
                         <span class="account-summary pr-lg-4 d-none d-lg-block">
                             <a href="{{ route('users.index',$current_user->id)}}" class="account-name">{{ $current_user->name}}</a>
