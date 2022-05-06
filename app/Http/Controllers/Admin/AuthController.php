@@ -26,10 +26,6 @@ class AuthController extends Controller
 
     public function postLogin(LoginRequest $request)
     {
-
-
-
-        // dd($request->phone);
         $phone = $request->phone;
         $password = $request->password;
         $checkUserByPhone = User::where('phone',$phone)->take(1)->first();

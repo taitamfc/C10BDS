@@ -1,6 +1,5 @@
 @extends('admin.layouts.master')
 @section('content')
-<!-- .page-title-bar -->
 <header class="page-title-bar">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -96,20 +95,20 @@
                 </div>
                 <div class="form-group">
                     <label for="tf1">Chi tiết thông tin</label>
-                    <input name="description" type="text" class="form-control" placeholder="Nhập mô tả chung về bất động sản của bạn. Ví dụ: Khu nhà có vị trí thuận lợi, gần công viên, gần trường học ... " value="{{ $product->description }}"></textarea>
+                    <input name="description" type="text" class="form-control" placeholder="Nhập mô tả chung về bất động sản của bạn. Ví dụ: Khu nhà có vị trí thuận lợi, gần công viên, gần trường học ... " value="{{ $product->description }}"></input>
                     @if ($errors->any())
                     <p style="color:red">{{ $errors->first('description') }}</p>
                     @endif
                 </div>
                 <div class="form-group">
                     <label for="tf1">Mô tả về địa chỉ trên bản đồ</label>
-                    <textarea name="google_map" class="form-control" placeholder="Mô tả trên bản đồ">{{ $product->google_map }}</textarea>
+                    <input name="google_map" type="text" class="form-control" placeholder="Mô tả trên bản đồ" value="{{ $product->google_map }}"></input>
                     @if ($errors->any())
                     <p style="color:red">{{ $errors->first('google_map') }}</p>
                     @endif
                 </div>
             </div>
-            
+
             <div class="card-body border-top">
                 <legend>Thông tin bất động sản</legend>
                 <div class="row">
@@ -137,22 +136,21 @@
                 <div class="form-group">
                     <label class="d-block">Giấy tờ pháp lý</label>
                     <div class="custom-control custom-control-inline custom-radio">
-                        <input type="radio" class="custom-control-input" name="juridical" id="rd1" checked="" value="Sổ đỏ/ Sổ hồng">
+                        <input type="radio" class="custom-control-input" name="juridical" id="rd1" checked="" value="Red book / Pink book">
                         <label class="custom-control-label" for="rd1">Sổ đỏ/ Sổ hồng</label>
                     </div>
                     <div class="custom-control custom-control-inline custom-radio">
-                        <input type="radio" class="custom-control-input" name="juridical" id="rd2" value="Hợp đồng mua bán">
+                        <input type="radio" class="custom-control-input" name="juridical" id="rd2" value="Sale contract">
                         <label class="custom-control-label" for="rd2">Hợp đồng mua bán</label>
                     </div>
                     <div class="custom-control custom-control-inline custom-radio">
-                        <input type="radio" class="custom-control-input" name="juridical" id="rd3" value="Đang chờ sổ">
+                        <input type="radio" class="custom-control-input" name="juridical" id="rd3" value="Waiting for the book">
                         <label class="custom-control-label" for="rd3">Đang chờ sổ</label>
                     </div>
                     @if ($errors->any())
                     <p style="color:red">{{ $errors->first('juridical') }}</p>
                     @endif
                 </div>
-
 
                 <div class="row">
                     <div class="col-lg-6">
@@ -230,8 +228,7 @@
             <div class="card-body border-top">
                 <legend>Cài đặt sản phẩm</legend>
                 <div class="row">
-
-                    <div class="col-lg-10">
+                    <div class="col-lg-4">
                         <div class="form-group">
                             <label>Loại sản phẩm</label>
                             <select name="product_type" class="form-control" id="product_type">
@@ -244,12 +241,33 @@
                             @endif
                         </div>
                     </div>
-                    <div class="col-lg-2 card-body border-bot">
+                    <div class="col-lg-2">
                         <label>Sản phẩm HOT</label>
-                        <div class="togglebutton">
-                            <label>
-                                <input type="checkbox" name="product_hot" checked {{ old('product_hot') ? 'checked' : '' }}>
+                        <div class="form-group">
+                            <label class="switcher-control">
+                                <input type="checkbox" class="switcher-input" checked="checked" name="product_hot" @checked(old('product_hot',0))>
+                                <span class="switcher-indicator"></span>
                             </label>
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <label>Sắp mở bán</label>
+                        <div class="form-group">
+                            <label class="switcher-control">
+                                <input type="checkbox" class="switcher-input" checked="checked" name="product_open" value="1" @checked(old('product_open',0))>
+                                <span class="switcher-indicator"></span>
+                            </label>
+                            @if ($errors->any())
+                            <p style="color:red">{{ $errors->first('product_open') }}</p>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label for="tf1">Ngày mở bán</label> <input name="product_open_date" type="date" class="form-control"  value="{{$product->product_open_date}}">
+                            @if ($errors->any())
+                            <p style="color:red">{{ $errors->first('product_open_date') }}</p>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -260,8 +278,12 @@
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label>Nhân viên phụ trách</label>
-                            <select name="user_id" class="form-control" id='product_user_id'>
-                                <option value="" selected='selected'>Vui lòng chọn</option>
+                            <select name="user_contact_id" class="form-control">
+                                @foreach($users as $user)
+                                <option value="{{ $user->id }}" @selected(old('user')==$user)>
+                                    {{ $user->name }}
+                                </option>
+                                @endforeach
                             </select>
                             @if ($errors->any())
                             <p style="color:red">{{ $errors->first('user_id') }}</p>
@@ -270,16 +292,15 @@
                     </div>
                     <div class="col-lg-4">
                         <div class="form-group">
-                            <label for="tf1">Bắt đầu</label> <input name="product_start_date" type="date" class="form-control" placeholder="" value="{{$product->product_start_date}}"> <small class="form-text text-muted"></small>
+                            <label for="tf1">Bắt đầu</label> <input name="product_start_date" type="date" class="form-control" placeholder="" value="{{$product->product_start_date}}"> 
                             @if ($errors->any())
                             <p style="color:red">{{ $errors->first('product_start_date') }}</p>
                             @endif
                         </div>
                     </div>
-
                     <div class="col-lg-4">
                         <div class="form-group">
-                            <label for="tf1">Kết thúc</label> <input name="product_end_date" type="date" class="form-control" placeholder="" value="{{$product->product_end_date}}"> <small class="form-text text-muted"></small>
+                            <label for="tf1">Kết thúc</label> <input name="product_end_date" type="date" class="form-control" placeholder="" value="{{$product->product_end_date}}"> 
                             @if ($errors->any())
                             <p style="color:red">{{ $errors->first('product_end_date') }}</p>
                             @endif
@@ -326,9 +347,9 @@
                         <div class="form-group">
                             <label>Tình trạng</label>
                             <select name="status" class="form-control">
-                                <option value="draft">Bản Thảo</option>
-                                <option value="selling">Đang Bán</option>
-                                <option value="sold">Đã Bán</option>
+                                <option value="draft" @if($product->status == 'draft') ? selected : null @endif>Bản Thảo</option>
+                                <option value="selling" @if($product->status == 'selling') ? selected : null @endif>Đang Bán</option>
+                                <option value="sold" @if($product->status == 'sold') ? selected : null @endif>Đã Bán</option>
                             </select>
                             @if ($errors->any())
                             <p style="color:red">{{ $errors->first('status') }}</p>
