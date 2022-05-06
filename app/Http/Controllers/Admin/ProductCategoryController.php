@@ -25,7 +25,7 @@ class ProductCategoryController extends Controller
             $name = $request->filter['name'];
             $productCategories->where('name', 'LIKE', '%' . $name . '%');
         }
-        if ($request->s){
+        if ($request->s) {
             $productCategories->where('name', 'LIKE', '%' . $request->s . '%');
             $productCategories->orwhere('id', $request->s);
         }
@@ -42,7 +42,7 @@ class ProductCategoryController extends Controller
      */
     public function create()
     {
-      // $this->authorize('create', ProductCategory::class);
+        // $this->authorize('create', ProductCategory::class);
         return view('admin.productCategories.create');
     }
 
@@ -85,7 +85,7 @@ class ProductCategoryController extends Controller
     public function edit($id)
     {
         $productCategory = ProductCategory::find($id);
-       // $this->authorize('update', $productCategory);
+        // $this->authorize('update', $productCategory);
         $params = [
             'productCategory' => $productCategory
         ];

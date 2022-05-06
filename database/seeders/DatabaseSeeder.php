@@ -63,7 +63,6 @@ class DatabaseSeeder extends Seeder
     public function importBranches()
     {
         $branch = new Branch();
-        $branch->id = 1;
         $branch->name = 'Quảng Trị';
         $branch->address = 'Quảng Trị';
         $branch->phone = '0977983360';
@@ -74,7 +73,6 @@ class DatabaseSeeder extends Seeder
 
 
         $branch = new Branch();
-        $branch->id = 2;
         $branch->name = 'Đà Nẵng';
         $branch->address = 'Đà Nẵng';
         $branch->phone = '0164851161';
@@ -85,7 +83,6 @@ class DatabaseSeeder extends Seeder
 
 
         $branch = new Branch();
-        $branch->id = 3;
         $branch->name = 'Quảng Bình';
         $branch->address = 'Quảng Bình';
         $branch->phone = '0979061738';
@@ -218,11 +215,12 @@ class DatabaseSeeder extends Seeder
             'linkYoutube' => 'https://file4.batdongsan.com.vn/resize/745x510/2022/04/17/20220417200500-9939_wm.jpeg',
             'branch_id' => 1,
             'user_id' => 1,
-            'google_map' => '',
-            'product_type' => array_rand(array_flip(['Regular', 'Block', 'Consignment'])),
-            'product_hot' => array_rand([0, 1]),
-            'product_open' => array_rand([0, 1]),
+            'google_map' => 'Quảng Trị là tỉnh ven biển thuộc vùng Bắc Trung Bộ Việt Nam. Phía bắc giáp tỉnh Quảng Bình, phía nam giáp tỉnh Thừa Thiên-Huế,',
+            'product_type' => array_rand( array_flip(['Regular','Block','Consignment'])),
+            'product_hot' => array_rand([0,1]),
+            'product_open' => array_rand([0,1]),
             'product_start_date' => date('Y-m-d'),
+            'product_open_date' => date('Y-m-d'),
             'product_end_date' => date('Y-m-d', strtotime('+10 days')),
             'product_images' => [
                 'https://file4.batdongsan.com.vn/resize/745x510/2022/04/17/20220417200500-9939_wm.jpeg',
@@ -230,7 +228,7 @@ class DatabaseSeeder extends Seeder
             ]
         ];
 
-
+        $product_images = [];
         foreach ($products as $product) {
             $objProduct = new Product();
             $objProduct->name = $product;
@@ -240,7 +238,8 @@ class DatabaseSeeder extends Seeder
                 }
             }
             $objProduct->save();
-            foreach ($fields['product_images'] as $product_image) {
+            $product_images = $fields['product_images'];
+            foreach ($product_images as $product_image) {
                 $objProductImage = new ProductImage();
                 $objProductImage->product_id = $objProduct->id;
                 $objProductImage->image_url = $product_image;
