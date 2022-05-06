@@ -30,19 +30,16 @@ class AuthController extends Controller
             'password' => $request->password
         ];
 
-        if(Auth::attempt($credentials)) {
+        if (Auth::attempt($credentials)) {
             return redirect()->route('admin.index');
-        } 
-        else {
-            $checkEmail = User::where("email",$request->email)->first();
-            if($checkEmail){
-                Session::flash('error_password','Mật khẩu của bạn không chính xác');
-            }else{
-                Session::flash('error_email','Email của bạn không chính xác');
+        } else {
+            $checkEmail = User::where("email", $request->email)->first();
+            if ($checkEmail) {
+                Session::flash('error_password', 'Mật khẩu của bạn không chính xác');
+            } else {
+                Session::flash('error_email', 'Email của bạn không chính xác');
             }
             return redirect()->back();
         }
-       
     }
 }
-

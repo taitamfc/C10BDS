@@ -14,10 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->string('product_type');
-            $table->string('product_hot');
-            $table->date('product_start_date');
-            $table->date('product_end_date');
+            $table->string('product_type')->nullable();
+            $table->string('product_hot')->nullable();
+            $table->date('product_start_date')->nullable();
+            $table->date('product_end_date')->nullable();
         });
     }
 

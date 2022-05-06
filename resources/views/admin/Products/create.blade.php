@@ -86,7 +86,7 @@
                 </div>
                 <div class="form-group">
                     <label for="tf1">Chi tiết thông tin</label>
-                    <textarea name="description" class="form-control" placeholder="Nhập mô tả chung về bất động sản của bạn. Ví dụ: Khu nhà có vị trí thuận lợi, gần công viên, gần trường học ... ">{{ old('description') }}</textarea>
+                    <input name="description" type="text" class="form-control" placeholder="Nhập mô tả chung về bất động sản của bạn. Ví dụ: Khu nhà có vị trí thuận lợi, gần công viên, gần trường học ... ">{{ old('description') }}</input>
                     @if ($errors->any())
                     <p style="color:red">{{ $errors->first('description') }}</p>
                     @endif
@@ -102,18 +102,14 @@
             <div class="card-body border-top">
                 <legend>Cài đặt sản phẩm</legend>
                 <div class="row">
-
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label>Loại sản phẩm</label>
                             <select name="product_type" class="form-control" id="product_type">
                                 <option value="Regular">Sản phẩm thường</option>
                                 <option value="Consignment">Sản phẩm ký gửi</option>
-<<<<<<< HEAD
-                                <option value="deliver_expired">Hết hạn ký gửi</option>
-=======
                                 <option value="Block">Sản phẩm ký gửi</option>
->>>>>>> da7346dd96171068fb32a5115873e01588a7ac88
+                                <option value="deliver_expired">Hết hạn ký gửi</option>
                             </select>
                             @if ($errors->any())
                             <p style="color:red">{{ $errors->first('product_type') }}</p>
@@ -124,7 +120,7 @@
                         <label>Sản phẩm HOT</label>
                         <div class="form-group">
                             <label class="switcher-control">
-                                <input type="checkbox" class="switcher-input" name="product_hot" @checked(old('product_hot',0))> 
+                                <input type="checkbox" class="switcher-input" checked name="product_hot" @checked(old('product_hot',0))> 
                                 <span class="switcher-indicator"></span>
                             </label>
                         </div>
@@ -133,9 +129,12 @@
                         <label>Sắp mở bán</label>
                         <div class="form-group">
                             <label class="switcher-control">
-                                <input type="checkbox" class="switcher-input" name="product_open" @checked(old('product_open',0))> 
+                                <input type="checkbox" class="switcher-input" checked name="product_open" value="1" @checked(old('product_open',0))> 
                                 <span class="switcher-indicator"></span>
                             </label>
+                            @if ($errors->any())
+                            <p style="color:red">{{ $errors->first('product_open') }}</p>
+                            @endif
                         </div>
                     </div>
                     <div class="col-lg-4">
@@ -276,8 +275,11 @@
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label>Nhân viên phụ trách</label>
-                            <select name="user_id" class="form-control" id='product_user_id'>
+                            <select name="user_contact_id" class="form-control">
                                 <option value="">Vui lòng chọn</option>
+                                @foreach($users as $user)
+                                <option value="{{ $user->id }}">{{$user->name}}</option>
+                                @endforeach
                             </select>
                             @if ($errors->any())
                             <p style="color:red">{{ $errors->first('user_id') }}</p>
@@ -405,7 +407,7 @@
             });
         });
 
-        jQuery('#product_type').on('change', function() {
+        jQuery('#').on('change', function() {
             var product_user_id = jQuery(this).val();
             $.ajax({
                 url: "/api/get_product_type_by_product_user_id/" + product_user_id,

@@ -28,7 +28,7 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        $this->authorize('viewAny', Product::class);
+        // $this->authorize('viewAny', Product::class);
         $product = Product::select('*');
         if (isset($request->filter['name']) && $request->filter['name']) {
             $name = $request->filter['name'];
@@ -56,7 +56,26 @@ class ProductController extends Controller
         }
         if (isset($request->filter['product_type']) && $request->filter['product_type']) {
             $product_type = $request->filter['product_type'];
-            $product->where('product_type', $product_type);
+            switch ($product_type) {
+                case 'hot_products':
+                    $product->where('product_hot', 1);
+                    break;
+                case 'future_products':
+                    $product->where('product_open', 1);
+                    break;
+                case 'block_products':
+                    $product->where('product_type', 'Block');
+                    break;
+                case 'regular_products':
+                    $product->where('product_type', 'Regular');
+                    break;
+                case 'delivery_products':
+                    $product->where('product_type', 'Consignment');
+                    break;
+                default:
+                    # code...
+                    break;
+            }
         }
         if (isset($request->filter['status']) && $request->filter['status']) {
             $status = $request->filter['status'];
@@ -66,6 +85,7 @@ class ProductController extends Controller
             $product->where('name', 'LIKE', '%' . $request->s . '%');
             $product->orwhere('id', $request->s);
         }
+
         $product->orderBy('id', 'desc');
         $provinces = Province::all();
         $branches = Branch::all();
@@ -86,15 +106,18 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $this->authorize('create', Product::class);
+        // $this->authorize('create', Product::class);
         $productCategories = ProductCategory::all();
         $provinces = Province::all();
         $branches = Branch::all();
+        $users = User::all();
+
 
         $params = [
             'productCategories' => $productCategories,
             'provinces' => $provinces,
-            'branches' => $branches
+            'branches' => $branches,
+            'users' => $users
         ];
         return view('admin.products.create', $params);
     }
@@ -132,6 +155,9 @@ class ProductController extends Controller
         $product->product_hot = $request->product_hot;
         $product->product_start_date = $request->product_start_date;
         $product->product_end_date = $request->product_end_date;
+        $product->product_open = $request->product_open;
+        $product->product_open_date = $request->product_open_date;
+        $product->user_contact_id = $request->user_contact_id;
         $product_images = [];
         if ($request->hasFile('image_urls')) {
             $image_urls          = $request->image_urls;
@@ -148,7 +174,6 @@ class ProductController extends Controller
                 $image->move($path, $new_image); //chuyển file ảnh tới thư mục
                 $product_images[] = $new_image;
             }
-            // dd($product_images);
         }
         try {
             $product->save();
@@ -160,6 +185,7 @@ class ProductController extends Controller
                     $ProducImage->image_url = $product_image;
                 }
             }
+
             $ProducImage->save();
             Session::flash('success', 'Thêm' . ' ' . $request->name . ' ' .  'thành công');
         } catch (\Exception $e) {
@@ -189,13 +215,14 @@ class ProductController extends Controller
     public function edit($id)
     {
         $product = Product::find($id);
-        $this->authorize('update', $product);
+        // $this->authorize('update', $product);
         $productCategories = ProductCategory::all();
         $provinces = Province::all();
         $branches = Branch::all();
         $districts = District::where('province_id', $product->province_id)->get();
         $wards = Ward::where('district_id', $product->district_id)->get();
         $users = User::where('branch_id', $product->branch_id)->get();
+        
 
         $params = [
             'productCategories' => $productCategories,
@@ -237,13 +264,15 @@ class ProductController extends Controller
         $product->province_id = $request->province_id;
         $product->branch_id = $request->branch_id;
         $product->user_id = $request->user_id;
-        $product->district_id = $request->district_id;
         $product->ward_id = $request->ward_id;
+        $product->district_id = $request->district_id;
         $product->product_type = $request->product_type;
         $product->product_hot = $request->product_hot;
         $product->product_start_date = $request->product_start_date;
         $product->product_end_date = $request->product_end_date;
-        //dd($product->status);
+        $product->product_open = $request->product_open;
+        $product->product_open_date = $request->product_open_date;
+        $product->user_contact_id = $request->user_contact_id;
 
         try {
             $product->save();
@@ -274,8 +303,9 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        $this->authorize('delete', Product::class);
-        $product = Product::find($id);
+        // $this->authorize('delete', Product::class);
+        $product = Product::where('product_id',$id)->with('product_log')->first()->find($id);
+        // $product = Product::find($id);
         try {
             $product->delete();
         } catch (\Exception $e) {

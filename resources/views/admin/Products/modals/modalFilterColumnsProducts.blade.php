@@ -52,7 +52,6 @@
                             </div>
                         </div>
                     </div>
-
                     <!-- .form-row -->
                     <div class="form-group form-row filter-row">
                         <div class="col-lg-4">
@@ -97,8 +96,8 @@
                                 </select>
                             </div>
                         </div>
-
                     </div>
+
                     <div class="form-group form-row filter-row">
                         <div class="col-lg-4">
                             <label class="">Loại sản phẩm </label>
@@ -106,9 +105,10 @@
                         <div class="col-lg-8">
                             <div class="input text">
                                 <select name="filter[product_type]" class="form-control product_type">
-                                    <option value="deliver_expired">Hết hạn ký gửi</option>
-                                    <option value="Regular">Sản phẩm thường</option>
-                                    <option value="Consignment">Sản phẩm ký gửi</option>
+                                    <option value="hot_products">Sản Phẩm Hot</option>
+                                    <option value="block_products">Hết Hạn Block</option>
+                                    <option value="delivery_products">Sản Phẩm Ký Gửi</option>
+                                    <option value="future_products">Chuẩn Bị Mở Bán</option>
                                 </select>
                             </div>
                         </div>
