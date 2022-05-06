@@ -92,7 +92,6 @@
                                 @if( $product->product_hot)
                                 <span class="badge badge-danger">Sản phẩm HOT</span>
                                 @endif
-
                             </td>
                             <td class="align-middle"> {{number_format($product->price)}} </td> 
                             <td class="align-middle"> {{ $product->address }} </td>
