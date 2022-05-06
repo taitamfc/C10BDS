@@ -123,6 +123,7 @@ class DatabaseSeeder extends Seeder
         $user->district_id  = '343';
         $user->ward_id  = '6192';
         $user->gender = 'Nam';
+        $user->avatar = 'https://e7.pngegg.com/pngimages/348/800/png-clipart-man-wearing-blue-shirt-illustration-computer-icons-avatar-user-login-avatar-blue-child.png';
         $user->save();
 
         $user = new User();
@@ -140,6 +141,8 @@ class DatabaseSeeder extends Seeder
         $user->district_id  = '335';
         $user->ward_id  = '6083';
         $user->gender = 'Nam';
+        $user->avatar = 'https://e7.pngegg.com/pngimages/348/800/png-clipart-man-wearing-blue-shirt-illustration-computer-icons-avatar-user-login-avatar-blue-child.png';
+
         $user->save();
 
         $user = new User();
@@ -157,6 +160,8 @@ class DatabaseSeeder extends Seeder
         $user->district_id  = '343';
         $user->ward_id  = '6199';
         $user->gender = 'Nữ';
+        $user->avatar = 'https://e7.pngegg.com/pngimages/348/800/png-clipart-man-wearing-blue-shirt-illustration-computer-icons-avatar-user-login-avatar-blue-child.png';
+
         $user->save();
 
         $user = new User();
@@ -174,6 +179,8 @@ class DatabaseSeeder extends Seeder
         $user->district_id  = '342';
         $user->ward_id  = '6183';
         $user->gender = 'Nam';
+        $user->avatar = 'https://e7.pngegg.com/pngimages/348/800/png-clipart-man-wearing-blue-shirt-illustration-computer-icons-avatar-user-login-avatar-blue-child.png';
+
         $user->save();
     }
     public function importProducts()

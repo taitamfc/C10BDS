@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
+use App\Models\Option;
 use App\Models\User;
-use App\Models\UserGroup;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class UserGroupPolicy
+class OptionPolicy
 {
     use HandlesAuthorization;
 
@@ -18,20 +18,19 @@ class UserGroupPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->hasPermission('UserGroup_viewAny');
-
+        return $user->hasPermission('Option_viewAny');
     }
 
     /**
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\UserGroup  $userGroup
+     * @param  \App\Models\Option  $option
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, UserGroup $userGroup)
+    public function view(User $user, Option $option)
     {
-        return $user->hasPermission('UserGroup_view');
+        return $user->hasPermission('Option_view');
     }
 
     /**
@@ -42,54 +41,54 @@ class UserGroupPolicy
      */
     public function create(User $user)
     {
-        return $user->hasPermission('UserGroup_create');
+        return $user->hasPermission('Option_create');
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\UserGroup  $userGroup
+     * @param  \App\Models\Option  $option
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, UserGroup $userGroup)
+    public function update(User $user, Option $option)
     {
-        return $user->hasPermission('UserGroup_update');
+        return $user->hasPermission('Option_update');
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\UserGroup  $userGroup
+     * @param  \App\Models\Option  $option
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, UserGroup $userGroup)
+    public function delete(User $user, Option $option)
     {
-        return $user->hasPermission('UserGroup_delete');
+        return $user->hasPermission('Option_delete');
     }
 
     /**
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\UserGroup  $userGroup
+     * @param  \App\Models\Option  $option
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, UserGroup $userGroup)
+    public function restore(User $user, Option $option)
     {
-        return $user->hasPermission('UserGroup_restore');
+        return $user->hasPermission('Option_restore');
     }
 
     /**
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\UserGroup  $userGroup
+     * @param  \App\Models\Option  $option
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, UserGroup $userGroup)
+    public function forceDelete(User $user, Option $option)
     {
-        return $user->hasPermission('UserGroup_forceDelete');
+        return $user->hasPermission('Option_forceDelete');
     }
 }

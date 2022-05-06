@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
@@ -25,20 +26,14 @@ class AuthController extends Controller
 
     public function postLogin(LoginRequest $request)
     {
-        $credentials = [
-            'email' => $request->email,
-            'password' => $request->password
-        ];
-
-        if (Auth::attempt($credentials)) {
+        $phone = $request->phone;
+        $password = $request->password;
+        $checkUserByPhone = User::where('phone',$phone)->take(1)->first();
+        if ($checkUserByPhone && Hash::check($request->password,$checkUserByPhone->password)) {
+            Auth::login($checkUserByPhone);
             return redirect()->route('admin.index');
         } else {
-            $checkEmail = User::where("email", $request->email)->first();
-            if ($checkEmail) {
-                Session::flash('error_password', 'Mật khẩu của bạn không chính xác');
-            } else {
-                Session::flash('error_email', 'Email của bạn không chính xác');
-            }
+            Session::flash('error_phone','Đăng nhập không thành công');
             return redirect()->back();
         }
     }
