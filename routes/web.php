@@ -9,7 +9,6 @@ use App\Http\Controllers\Admin\UserGroupController;
 use App\Http\Controllers\Admin\IndexController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\ConfigController;
-use App\Http\Controllers\Admin\ImageController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\OptionController;
 use Illuminate\Support\Facades\Route;

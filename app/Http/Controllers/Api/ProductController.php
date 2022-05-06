@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\ProductLog;
 use App\Models\ProductCustomer;
-use App\Models\User;
 use Illuminate\Support\Str;
 
 class ProductController extends Controller
@@ -26,16 +25,14 @@ class ProductController extends Controller
     {
         $can_view_other_branch = true;
         $status = ($request->status) ? $request->status : 'selling';
-        $items = Product::with(['product_images','product_customers', 'product_logs', 'district', 'province'])->where('status', $status);
-        
+        $items = Product::with(['product_images', 'product_customers', 'product_logs', 'district', 'province'])->where('status', $status);
 
         //chỉ xem sản phẩm thuộc chi nhánh hiện tại
-        if(!$can_view_other_branch){
+        if (!$can_view_other_branch) {
             $items->where('branch_id', $this->user->branch_id);
         }
 
-
-        if( $request->product_type ){
+        if ($request->product_type) {
             switch ($request->product_type) {
                 case 'hot_products':
                     $items->where('product_hot', 1);
@@ -91,7 +88,7 @@ class ProductController extends Controller
 
     public function show($id)
     {
-        $item = Product::with(['product_images','district', 'province'])
+        $item = Product::with(['product_images', 'district', 'province'])
             ->where('id', $id)
             ->where('branch_id', $this->user->branch_id)
             ->first();
@@ -100,33 +97,33 @@ class ProductController extends Controller
         $item->price = number_format($item->price);
 
         //chỉ xem được log của bản thân và hệ thống
-        if(true){
-            $item->product_logs = ProductLog::whereIn('user_id', [1,$this->user->id])
-            ->where('product_id', $id)->orderBy('created_at','DESC')
-            ->get();
-        }else{
+        if (true) {
+            $item->product_logs = ProductLog::whereIn('user_id', [1, $this->user->id])
+                ->where('product_id', $id)->orderBy('created_at', 'DESC')
+                ->get();
+        } else {
             //cho phép xem toàn bộ
-            $item->product_logs = ProductLog::where('product_id', $id)->orderBy('created_at','DESC')
-            ->get();
+            $item->product_logs = ProductLog::where('product_id', $id)->orderBy('created_at', 'DESC')
+                ->get();
         }
 
         //chỉ xem được log của bản thân và hệ thống
-        if(true){
+        if (true) {
             $item->product_customers = ProductCustomer::select('customers.*')
-            ->join('customers', 'customers.id', '=', 'product_customers.customer_id')
-            ->whereIn('product_customers.user_id', [1,$this->user->id])
-            ->where('product_customers.product_id', $id)
-            ->where('customers.deleted_at', NULL)
-            ->orderBy('product_customers.created_at','DESC')
-            ->get();
-        }else{
+                ->join('customers', 'customers.id', '=', 'product_customers.customer_id')
+                ->whereIn('product_customers.user_id', [1, $this->user->id])
+                ->where('product_customers.product_id', $id)
+                ->where('customers.deleted_at', NULL)
+                ->orderBy('product_customers.created_at', 'DESC')
+                ->get();
+        } else {
             //cho phép xem toàn bộ
             $item->product_customers = ProductCustomer::select('customers.*')
-            ->join('customers', 'customers.id', '=', 'product_customers.customer_id')
-            ->where('product_customers.product_id', $id)
-            ->where('customers.deleted_at', NULL)
-            ->orderBy('product_customers.created_at','DESC')
-            ->get();
+                ->join('customers', 'customers.id', '=', 'product_customers.customer_id')
+                ->where('product_customers.product_id', $id)
+                ->where('customers.deleted_at', NULL)
+                ->orderBy('product_customers.created_at', 'DESC')
+                ->get();
         }
 
         if ($item->product_logs) {

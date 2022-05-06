@@ -44,9 +44,6 @@ class StoreProductRequest extends FormRequest
             'district_id' => 'required',
             'ward_id' => 'required',
             'product_type' => 'required',
-            'product_hot' => 'required',
-            'product_start_date' => 'required',
-            'product_end_date' => 'required',
         ];
     }
     public function messages()
@@ -71,9 +68,7 @@ class StoreProductRequest extends FormRequest
             'province_id.required' => 'Trường này là bắt buộc',
             'district_id.required' => 'Trường này là bắt buộc',
             'product_type.required' => 'Trường này là bắt buộc',
-            'product_hot.required' => 'Trường này là bắt buộc',
-            'product_start_date.required' => 'Trường này là bắt buộc',
-            'product_end_date.required' => 'Trường này là bắt buộc',
+            'user_contact_id.required' => 'Trường này là bắt buộc',
         ];
         return $messages;
     }
