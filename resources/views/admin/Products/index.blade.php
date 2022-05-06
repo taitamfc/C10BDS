@@ -59,7 +59,6 @@
                     @include('admin.products.modals.modalSaveSearchProducts')
                 </div>
             </div>
-            
             <div class="table-responsive">
                 <table class="table">
                     <thead>
@@ -72,7 +71,6 @@
                         @endif
                         <br>
                         <tr>
-
                             <th>Tên</th>
                             <th>Giá</th>
                             <th>Địa chỉ</th>
@@ -84,8 +82,7 @@
                     <tbody>
                         @foreach ($products as $product)
                         <tr>
-
-                            <td class="align-middle"> {{ $product->name }} 
+                            <td class="align-middle"> {{ $product->name }}
                                 <br><span class="badge badge-success">CN: {{ $product->branch->name }}</span>
                                 <span class="badge badge-primary">Mã: {{ $product->id }}</span>
                                 <span class="badge badge-warning">Loại: {{ $product->product_type }}</span>
@@ -93,7 +90,7 @@
                                 <span class="badge badge-danger">Sản phẩm HOT</span>
                                 @endif
                             </td>
-                            <td class="align-middle"> {{number_format($product->price)}} </td> 
+                            <td class="align-middle"> {{number_format($product->price)}} </td>
                             <td class="align-middle"> {{ $product->address }} </td>
                             <td class="align-middle"> {{ $product->product_type }} </td>
                             <td class="align-middle"> {{ $product->status }} </td>
@@ -109,15 +106,13 @@
                         @endforeach
                     </tbody>
                 </table>
-
             </div>
         </div>
         <nav aria-label="Page navigation example">
             <div class='float:right'>
                 <ul class="pagination">
-                    <span aria-hidden="true"> {{ $products->links() }}</span>
+                    <span aria-hidden="true">{{ $products->links() }}</span>
                 </ul>
             </div>
         </nav>
-
         @endsection

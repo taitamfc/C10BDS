@@ -123,6 +123,7 @@ class DatabaseSeeder extends Seeder
         $user->district_id  = '343';
         $user->ward_id  = '6192';
         $user->gender = 'Nam';
+        $user->avatar = 'https://e7.pngegg.com/pngimages/348/800/png-clipart-man-wearing-blue-shirt-illustration-computer-icons-avatar-user-login-avatar-blue-child.png';
         $user->save();
 
         $user = new User();
@@ -140,6 +141,8 @@ class DatabaseSeeder extends Seeder
         $user->district_id  = '335';
         $user->ward_id  = '6083';
         $user->gender = 'Nam';
+        $user->avatar = 'https://e7.pngegg.com/pngimages/348/800/png-clipart-man-wearing-blue-shirt-illustration-computer-icons-avatar-user-login-avatar-blue-child.png';
+
         $user->save();
 
         $user = new User();
@@ -157,6 +160,8 @@ class DatabaseSeeder extends Seeder
         $user->district_id  = '343';
         $user->ward_id  = '6199';
         $user->gender = 'Nữ';
+        $user->avatar = 'https://e7.pngegg.com/pngimages/348/800/png-clipart-man-wearing-blue-shirt-illustration-computer-icons-avatar-user-login-avatar-blue-child.png';
+
         $user->save();
 
         $user = new User();
@@ -174,6 +179,8 @@ class DatabaseSeeder extends Seeder
         $user->district_id  = '342';
         $user->ward_id  = '6183';
         $user->gender = 'Nam';
+        $user->avatar = 'https://e7.pngegg.com/pngimages/348/800/png-clipart-man-wearing-blue-shirt-illustration-computer-icons-avatar-user-login-avatar-blue-child.png';
+
         $user->save();
     }
     public function importProducts()
@@ -208,11 +215,12 @@ class DatabaseSeeder extends Seeder
             'linkYoutube' => 'https://file4.batdongsan.com.vn/resize/745x510/2022/04/17/20220417200500-9939_wm.jpeg',
             'branch_id' => 1,
             'user_id' => 1,
-            'google_map' => '',
+            'google_map' => 'Quảng Trị là tỉnh ven biển thuộc vùng Bắc Trung Bộ Việt Nam. Phía bắc giáp tỉnh Quảng Bình, phía nam giáp tỉnh Thừa Thiên-Huế,',
             'product_type' => array_rand( array_flip(['Regular','Block','Consignment'])),
             'product_hot' => array_rand([0,1]),
             'product_open' => array_rand([0,1]),
             'product_start_date' => date('Y-m-d'),
+            'product_open_date' => date('Y-m-d'),
             'product_end_date' => date('Y-m-d', strtotime('+10 days')),
             'product_images' => [
                 'https://file4.batdongsan.com.vn/resize/745x510/2022/04/17/20220417200500-9939_wm.jpeg',

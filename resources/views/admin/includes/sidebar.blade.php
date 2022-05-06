@@ -70,7 +70,12 @@
                     <span class="menu-text">Khách Hàng</span>
                   </a>
               </li>
-              
+              <li class="menu-item">
+                  <a href="{{ route('options.index') }}" class="menu-link">
+                    <span class="menu-icon oi oi-shield"></span> 
+                    <span class="menu-text">Lựa Chọn</span>
+                  </a>
+              </li>
 
               <!-- .menu-item -->
 

@@ -3,7 +3,8 @@
 use Illuminate\Support\Facades\Facade;
 
 return [
-
+    'log_max_files' => 30,
+    'log_level' => env('APP_LOG_LEVEL', 'error'),
     /*
     |--------------------------------------------------------------------------
     | Application Name

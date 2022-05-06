@@ -22,11 +22,11 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    
+
     public function index(Request $request)
     {
-  
-// dd($request->filter);
+
+        // dd($request->filter);
         $query = User::select('*');
         if (isset($request->filter['name']) && $request->filter['name']) {
             $name = $request->filter['name'];
@@ -53,11 +53,11 @@ class UserController extends Controller
             $query->where('user_group_id', 'LIKE', '%' . $user_group_id . '%');
         }
 
-        if ($request->s){
+        if ($request->s) {
             $query->where('name', 'LIKE', '%' . $request->s . '%');
             $query->orwhere('id', $request->s);
         }
-    
+
 
         $query->orderBy('id', 'desc');
         $users = $query->paginate(4);
@@ -67,7 +67,7 @@ class UserController extends Controller
         $provinces = Province::all();
         $districts = District::all();
         $wards = Ward::all();
-        
+
         $params = [
             'provinces' => $provinces,
             'users' => $users,
@@ -123,6 +123,15 @@ class UserController extends Controller
         $user->district_id      = $request->district_id;
         $user->ward_id          = $request->ward_id;
         $user->note             = $request->note;
+
+        if ($request->hasFile('avatar')) {
+            $avatar = $request->file('avatar');
+            $storedPath = $avatar->move('avatars', $avatar->getClientOriginalName());
+            $user->avatar           = 'avatars/' . $avatar->getClientOriginalName();
+        }
+
+        // dd($avatar);
+
         try {
             $user->save();
             return redirect()->route('users.index')->with('success', 'Thêm' . ' ' . $request->name . ' ' .  'thành công');
@@ -153,8 +162,8 @@ class UserController extends Controller
         $branches = Branch::all();
         $user =  User::find($id);
         $provinces = Province::all();
-        $districts = District::where('province_id',$user->province_id)->get();
-        $wards = Ward::where('district_id',$user->district_id)->get();
+        $districts = District::where('province_id', $user->province_id)->get();
+        $wards = Ward::where('district_id', $user->district_id)->get();
         $params = [
             'provinces' => $provinces,
             'user' => $user,
@@ -181,7 +190,7 @@ class UserController extends Controller
         $user->address          = $request->address;
         $user->email            = $request->email;
         $user->phone            = $request->phone;
-        if ($request->password){
+        if ($request->password) {
             $user->password         = Hash::make($request->password);
         }
         $user->start_day        = $request->start_day;
@@ -191,6 +200,14 @@ class UserController extends Controller
         $user->district_id      = $request->district_id;
         $user->ward_id          = $request->ward_id;
         $user->note             = $request->note;
+
+        if ($request->hasFile('avatar')) {
+            $avatar = $request->file('avatar');
+            $storedPath = $avatar->move('avatars', $avatar->getClientOriginalName());
+            $user->avatar           = 'avatars/' . $avatar->getClientOriginalName();
+        }
+
+
         try {
             $user->save();
             return redirect()->route('users.index')->with('success', 'Sửa' . ' ' . $request->name . ' ' .  'thành công');
@@ -216,6 +233,5 @@ class UserController extends Controller
             Log::error($e->getMessage());
             return redirect()->route('users.index')->with('success', 'Xóa không  thành công');
         }
-
     }
 }
