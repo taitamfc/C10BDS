@@ -13,11 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('products', function (Blueprint $table) {
-            $table->tinyInteger('product_open')->default(0);
-            $table->date('product_open_date')->nullable();
-            $table->integer('user_contact_id')->nullable()->default(0);
-        });
+        Schema::table('options', function (Blueprint $table) {
+            $table->string('option_type');
+            $table->string('option_options')->nullable();
+        });  
     }
 
     /**

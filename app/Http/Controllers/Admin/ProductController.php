@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Session;
 use App\Events\ProductCreated;
 use App\Events\ProductSold;
 use App\Models\ProductImage;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -89,7 +90,7 @@ class ProductController extends Controller
         $product->orderBy('id', 'desc');
         $provinces = Province::all();
         $branches = Branch::all();
-        $products = $product->paginate(5);
+        $products = $product->paginate(20);
         $params = [
             'provinces' => $provinces,
             'products' => $products,
@@ -147,8 +148,6 @@ class ProductController extends Controller
         $product->linkYoutube = $request->linkYoutube;
         $product->stress_width = $request->stress_width;
         $product->province_id = $request->province_id;
-        $product->branch_id = $request->branch_id;
-        $product->user_id = $request->user_id;
         $product->ward_id = $request->ward_id;
         $product->district_id = $request->district_id;
         $product->product_type = $request->product_type;
@@ -158,6 +157,10 @@ class ProductController extends Controller
         $product->product_open = $request->product_open;
         $product->product_open_date = $request->product_open_date;
         $product->user_contact_id = $request->user_contact_id;
+       
+        $product->branch_id = ($request->branch_id) ? $request->branch_id : Auth::user()->branch_id;
+        $product->user_id = ($request->user_id) ? $request->user_id : Auth::user()->id;
+
         $product_images = [];
         if ($request->hasFile('image_urls')) {
             $image_urls          = $request->image_urls;
@@ -183,10 +186,9 @@ class ProductController extends Controller
                     $ProducImage = new ProductImage();
                     $ProducImage->product_id = $product->id;
                     $ProducImage->image_url = $product_image;
+                    $ProducImage->save();
                 }
-            }
-
-            $ProducImage->save();
+            }            
             Session::flash('success', 'Thêm' . ' ' . $request->name . ' ' .  'thành công');
         } catch (\Exception $e) {
             Log::error($e->getMessage());
@@ -262,8 +264,6 @@ class ProductController extends Controller
         $product->linkYoutube = $request->linkYoutube;
         $product->stress_width = $request->stress_width;
         $product->province_id = $request->province_id;
-        $product->branch_id = $request->branch_id;
-        $product->user_id = $request->user_id;
         $product->ward_id = $request->ward_id;
         $product->district_id = $request->district_id;
         $product->product_type = $request->product_type;
@@ -273,6 +273,9 @@ class ProductController extends Controller
         $product->product_open = $request->product_open;
         $product->product_open_date = $request->product_open_date;
         $product->user_contact_id = $request->user_contact_id;
+
+        $product->branch_id = ($request->branch_id) ? $request->branch_id : Auth::user()->branch_id;
+        $product->user_id = ($request->user_id) ? $request->user_id : Auth::user()->id;
 
         try {
             $product->save();
