@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ProductLog extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
     protected $table = 'product_logs';
     protected static $logAttributes = ['name'];
     protected static $logName = 'product_logs';

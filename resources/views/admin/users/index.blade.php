@@ -67,7 +67,6 @@
                     <thead>
                         <tr>
                             <th> # </th>
-                            <th> avatar </th>
                             <th> Tên nhân viên</th>
                             <th> Số điện thoại</th>
                             <th> Nhóm nhân viên</th>
@@ -80,7 +79,6 @@
                         @foreach($users as $user)
                         <tr>
                             <td class="align-middle"> {{ $user->id }} </td>
-                            <td> <img src="{{asset($user->avatar)}}" width="100px" alt=""> </td>
                             <td class="align-middle"> {{ $user->name }} </td>
                             <td class="align-middle"> {{ $user->phone }} </td>
                             <td class="align-middle"> {{ $user->userGroup->name }} </td>
