@@ -70,7 +70,6 @@
                         <tr>
                             <th> # </th>
                             <th> Tên khách hàng </th>
-                            <th> Email </th>
                             <th> Địa chỉ </th>
                             <th> Số điện thoại </th>
                             <th> Chức năng </th>
@@ -81,7 +80,6 @@
                         <tr>
                             <td class="align-middle"> {{ $customer->id }} </td>
                             <td class="align-middle"> {{ $customer->name }} </td>
-                            <td class="align-middle"> {{ $customer->email }} </td>
                             <td class="align-middle"> {{ $customer->phone }} </td>
                             <td class="align-middle"> {{ $customer->address }} </td>                           
                             <td>

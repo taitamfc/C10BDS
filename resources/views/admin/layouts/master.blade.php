@@ -38,7 +38,8 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 
-
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <link rel="stylesheet" href="{{asset('admin/stylesheets/theme.min.css')}}" data-skin="default">
     <link rel="stylesheet" href="{{asset('admin/stylesheets/theme-dark.min.css')}}" data-skin="dark">
     <link rel="stylesheet" href="{{asset('admin/stylesheets/custom.css')}}">
@@ -48,8 +49,7 @@
       // Disable unused skin immediately
       disabledSkinStylesheet.setAttribute('rel', '');
       disabledSkinStylesheet.setAttribute('disabled', true);
-      // add loading class to html immediately
-      document.querySelector('html').classList.add('loading');
+ 
     </script>
 </head>
 
@@ -90,12 +90,9 @@
 
     <!-- BEGIN BASE JS -->
     <script src="{{asset('admin/vendor/jquery/jquery.min.js')}}"></script>
-    <script src="{{asset('admin/vendor/popper.js/umd/popper.min.js')}}"></script>
+
     <script src="{{asset('admin/vendor/bootstrap/js/bootstrap.min.js')}}"></script> <!-- END BASE JS -->
     <!-- BEGIN PLUGINS JS -->
-    <script src="{{asset('admin/vendor/pace-progress/pace.min.js')}}"></script>
-    <script src="{{asset('admin/vendor/stacked-menu/js/stacked-menu.min.js')}}"></script>
-    <script src="{{asset('admin/vendor/perfect-scrollbar/perfect-scrollbar.min.js')}}"></script>
     <!-- END PLUGINS JS -->
     <!-- BEGIN THEME JS -->
     <script src="{{asset('admin/javascript/theme.min.js')}}"></script> <!-- END THEME JS -->

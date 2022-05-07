@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\User;
 use App\Models\UserGroup;
+use App\Models\Option;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -30,6 +31,7 @@ class DatabaseSeeder extends Seeder
         $this->importProducts();
         $this->importUserGroupRoles();
         $this->importCustomers();
+        $this->importConfigs();
     }
     public function importProductCategories()
     {
@@ -264,5 +266,31 @@ class DatabaseSeeder extends Seeder
         $Customer->phone = '0977983360';
         $Customer->user_id = 1;
         $Customer->save();
+    }
+    public function importConfigs()
+    {
+        $configs = [
+            [
+                'option_name'  => 'site_logo',
+                'option_group' => 'General',
+                'option_value' => 'images/logo.png',
+                'option_label' => 'Logo',
+                'option_type'  => 'text',
+            ],
+            [
+                'option_name'  => 'site_name',
+                'option_group' => 'General',
+                'option_value' => 'Quang Group',
+                'option_label' => 'Tên ứng dụng',
+                'option_type'  => 'text',
+            ]
+        ];
+        foreach( $configs as $config ){
+            $objConfig = new Option();
+            foreach( $config as $field => $value ){
+                $objConfig->$field = $value;
+            }
+            $objConfig->save();
+        }   
     }
 }
