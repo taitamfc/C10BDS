@@ -191,7 +191,7 @@
                             <select name="unit" class="form-control">
                                 <option value="VND" @selected( $product->unit == 'VND')>VND</option>
                                 <option value="m2" @selected( $product->unit == 'm2')>Giá / m²</option>
-                                <option value="custom" @selected( $product->unit == 'custom')>Thoả thuận</option>
+                                <option value="agree" @selected( $product->unit == 'agree')>Thoả thuận</option>
                             </select>
                             @if ($errors->any())
                             <p style="color:red">{{ $errors->first('unit') }}</p>

@@ -93,7 +93,15 @@
                                 <span class="badge badge-info">Sắp mở bán</span>
                                 @endif
                             </td>
-                            <td class="align-middle"> {{number_format($product->price)}} </td>
+                            <td class="align-middle"> 
+                                @if( $product->unit == 'agree' )
+                                Thỏa thuận
+                                @elseif( $product->unit == 'm2' )
+                                {{number_format($product->price)}}/{{ $product->unit }}</td>
+                                @else
+                                {{number_format($product->price)}} {{ $product->unit }}</td>
+                                @endif
+                            
                             <td class="align-middle"> {{ $product->address }} </td>
                             <td class="align-middle"> {{ __($product->product_type) }} </td>
                             <td class="align-middle"> {{ __($product->status) }} </td>
