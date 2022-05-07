@@ -22,6 +22,7 @@ class ProfileComposer
     public function __construct()
     {
         $this->current_user = Auth::user();
+       
      
     }
  

@@ -34,5 +34,10 @@ class SendNewProductNotification
         $admins = User::where('user_group_id', 1)->get();
 
         Notification::send($admins, new NewProductNotification($event->product));
+
+
+        
+
+        
     }
 }

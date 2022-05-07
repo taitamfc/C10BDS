@@ -105,8 +105,9 @@
                         <div class="col-lg-8">
                             <div class="input text">
                                 <select name="filter[product_type]" class="form-control product_type">
+                                    <option value="">Tất Cả</option>
                                     <option value="hot_products">Sản Phẩm Hot</option>
-                                    <option value="block_products">Hết Hạn Block</option>
+                                    <option value="block_products">Sản Phẩm Block</option>
                                     <option value="delivery_products">Sản Phẩm Ký Gửi</option>
                                     <option value="future_products">Chuẩn Bị Mở Bán</option>
                                 </select>

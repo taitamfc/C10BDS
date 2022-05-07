@@ -89,12 +89,8 @@
                 <div class="row">
 
 
-                    <div class="col-lg-8">
-                        <div class="form-group">
-                            <label>Hình ảnh nhân viên</label>
-                            <input type="file" name="avatar" class="form-control">
-
-                        </div>
+                    <div class="col-lg-9">
+                        
                         <div class="form-group">
                             <label>Tên nhân viên<noscript></noscript></label>
                             <input name="name" type="text" class="form-control" id="" placeholder="Nhập tên nhân viên" value="{{ $user->name }}">
@@ -127,19 +123,27 @@
 
                     </div>
 
-                    <div class="col-lg-4">
-                        @if( $user->avatar )
-                        <img src="/{{ $user->avatar}}" width="260px" alt="">
-                        @else
-                        <img src="https://us.123rf.com/450wm/urfandadashov/urfandadashov1806/urfandadashov180601827/150417827-photo-not-available-vector-icon-isolated-on-transparent-background-photo-not-available-logo-concept.jpg?ver=6" width="220px" alt="">
-                        @endif
-                    </div>
-
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <label>Hình ảnh nhân viên</label>
+                            <input type="file" name="avatar" class="form-control">
+                        </div>
+                        <div class="card card-figure">
+                            <figure class="figure">
+                                <div class="figure-img">
+                                    <img class="img-fluid" src="/{{ $user->avatar}}">
+                                    <a target="_blank" href="/{{ $user->avatar}}" class="img-link" data-size="600x450">
+                                        <span class="tile tile-circle bg-danger"><span class="oi oi-eye"></span></span>
+                                    </a>
+                                    <div class="figure-action">
+                                        <a href="javascript:;" class="btn btn-block btn-sm btn-primary">Xóa</a>
+                                    </div>
+                                </div>
+                            </figure>
+                        </div>
+                    </div>            
 
                 </div>
-
-
-
 
                 <div class="form-group">
                     <label> Địa chỉ </label> <input name="address" type="text" class="form-control" id="" placeholder="Nhập địa chỉ" value="{{ $user->address }}">

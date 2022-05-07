@@ -80,12 +80,8 @@
             <div class="card-body border-top">
                 <legend>Thông tin cá nhân</legend>
                 <div class="row">
-                    <div class="col-lg-8">
-                        <div class="form-group">
-                            <label>Hình ảnh nhân viên</label>
-                            <input type="file" name="avatar" class="form-control">
-
-                        </div>
+                    <div class="col-lg-9">
+                        
                         <div class="form-group">
                             <label>Tên nhân viên<noscript></noscript></label>
                             <input name="name" type="text" class="form-control" id="" placeholder="Nhập tên nhân viên" value="{{ old('name') }}">
@@ -118,8 +114,11 @@
 
 
                     </div>
-                    <div class="col-lg-4">
-                        <img src="https://us.123rf.com/450wm/urfandadashov/urfandadashov1806/urfandadashov180601827/150417827-photo-not-available-vector-icon-isolated-on-transparent-background-photo-not-available-logo-concept.jpg?ver=6" width="320px" alt="">
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <label>Hình ảnh nhân viên</label>
+                            <input type="file" name="avatar" class="form-control">
+                        </div>
                     </div>
 
                 </div>
