@@ -8,10 +8,15 @@ use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvi
 use Illuminate\Support\Facades\Event;
 
 use App\Events\ProductCreated;
+use App\Events\ProductLogEvent;
 use App\Listeners\SendNewProductNotification;
 
 use App\Events\ProductSold;
+use App\Events\ProductSubmitEvent;
+use App\Listeners\ProductLogListener;
+use App\Listeners\ProductSubmitListener;
 use App\Listeners\SendSoldProductNotification;
+
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -29,6 +34,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         ProductSold::class => [
             SendSoldProductNotification::class
+        ],
+        ProductSubmitEvent::class => [
+            ProductSubmitListener::class,
         ]
     ];
 

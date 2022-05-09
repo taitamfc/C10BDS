@@ -101,7 +101,6 @@
                                 @else
                                 {{number_format($product->price)}} {{ $product->unit }}</td>
                                 @endif
-                            
                             <td class="align-middle"> {{ $product->address }} </td>
                             <td class="align-middle"> {{ __($product->product_type) }} </td>
                             <td class="align-middle"> {{ __($product->status) }} </td>
