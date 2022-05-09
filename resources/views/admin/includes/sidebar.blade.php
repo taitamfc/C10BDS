@@ -78,6 +78,12 @@
                   </a>
               </li>
               <li class="menu-item">
+                  <a href="{{ route('configs.index') }}" class="menu-link">
+                    <span class="menu-icon fa fa-book"></span> 
+                    <span class="menu-text">Nhật Ký Hệ Thống</span>
+                  </a>
+              </li>
+              <li class="menu-item">
                   <a href="{{ route('systemlogs.index') }}" class="menu-link">
                     <span class="menu-icon fa fa-book"></span> 
                     <span class="menu-text">Nhật Ký Hoạt Động</span>
