@@ -7,8 +7,8 @@ if (!function_exists('get_option')) {
     }
 }
 if (!function_exists('update_option')) {
-    function update_option($key, $value)
+    function update_option($key, $value,$group)
     {
-
+        
     }
 }

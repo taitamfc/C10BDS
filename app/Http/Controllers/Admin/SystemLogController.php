@@ -4,9 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Option;
 
-class ConfigController extends Controller
+class SystemLogController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,12 +14,7 @@ class ConfigController extends Controller
      */
     public function index()
     {
-        $options = Option::all();
-        $option_groups = [];
-        foreach( $options as $option ){
-            $option_groups[$option->option_group][] = $option;
-        }
-        return view('admin.configs.index',compact('option_groups'));
+        //
     }
 
     /**
@@ -41,7 +35,7 @@ class ConfigController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+        //
     }
 
     /**

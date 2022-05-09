@@ -66,14 +66,21 @@
               </li>
               <li class="menu-item">
                   <a href="{{ route('customers.index') }}" class="menu-link">
-                    <span class="menu-icon oi oi-shield"></span> 
+                    <span class="menu-icon oi oi-aperture"></span> 
                     <span class="menu-text">Khách Hàng</span>
                   </a>
               </li>
+              <li class="menu-header">Hệ Thống</li>
               <li class="menu-item">
-                  <a href="{{ route('options.index') }}" class="menu-link">
-                    <span class="menu-icon oi oi-shield"></span> 
-                    <span class="menu-text">Lựa Chọn</span>
+                  <a href="{{ route('configs.index') }}" class="menu-link">
+                    <span class="menu-icon fa fa-cog"></span> 
+                    <span class="menu-text">Cấu Hình</span>
+                  </a>
+              </li>
+              <li class="menu-item">
+                  <a href="{{ route('configs.index') }}" class="menu-link">
+                    <span class="menu-icon fa fa-book"></span> 
+                    <span class="menu-text">Nhật Ký Hệ Thống</span>
                   </a>
               </li>
 

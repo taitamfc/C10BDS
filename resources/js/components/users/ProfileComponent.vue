@@ -5,7 +5,7 @@
       <div class="profile-head">
         <div class="avatar">
           <img
-            src="mobile/assets/img/sample/avatar/avatar1.jpg"
+            v-bind:src="'/'+current_user.avatar"
             alt="avatar"
             class="imaged w64 rounded"
           />

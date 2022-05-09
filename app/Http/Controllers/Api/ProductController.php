@@ -80,8 +80,16 @@ class ProductController extends Controller
                 $item->tinh_thanh_pho = $item->district->name . ', ' . $item->province->name;
                 $item->price = number_format($item->price);
                 $item->name = Str::words($item->name, 15, ' ...');
+
+                if( !count($item->product_images) ){
+                    $item->product_images[] = [
+                        'image_url' => '/upload/no-image.jpg'
+                    ];
+                }
+
             }
         }
+ 
         return response()->json($items, 200);
     }
 
@@ -130,6 +138,12 @@ class ProductController extends Controller
             foreach ($item->product_logs as $product_log) {
                 $product_log->time_format = date('d/m/Y H:s', strtotime($product_log->created_at));
             }
+        }
+
+        if( !count($item->product_images) ){
+            $item->product_images[] = [
+                'image_url' => '/upload/no-image.jpg'
+            ];
         }
 
         return response()->json($item, 200);
