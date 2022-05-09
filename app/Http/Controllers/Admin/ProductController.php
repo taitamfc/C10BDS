@@ -280,8 +280,35 @@ class ProductController extends Controller
         $product->branch_id = ($request->branch_id) ? $request->branch_id : Auth::user()->branch_id;
         $product->user_id = ($request->user_id) ? $request->user_id : Auth::user()->id;
 
+        $product_images = [];
+        if ($request->hasFile('image_urls')) {
+            $image_urls          = $request->image_urls;
+            foreach ($image_urls as $key => $image) {
+                //tạo file upload trong public để chạy ảnh
+                $path               = 'upload';
+                $get_name_image     = $image->getClientOriginalName(); //abc.jpg
+                //explode "." [abc,jpg]
+                $name_image         = current(explode('.', $get_name_image));
+                //trả về phần tử thứ 1 của mản -> abc
+                //getClientOriginalExtension: tra ve  đuôi ảnh
+                $new_image          = $name_image . rand(0, 99) . '.' . $image->getClientOriginalExtension();
+                //abc nối số ngẫu nhiên từ 0-99, nối "." ->đuôi file jpg
+                $image->move($path, $new_image); //chuyển file ảnh tới thư mục
+                $product_images[] = $new_image;
+            }
+        }
+
         try {
             $product->save();
+            //luu vao bang product_images
+            if (count($product_images)) {
+                foreach ($product_images as $product_image) {
+                    $ProducImage = new ProductImage();
+                    $ProducImage->product_id = $product->id;
+                    $ProducImage->image_url = $product_image;
+                    $ProducImage->save();
+                }
+            }
             //kiểm tra trạng thái cũ của sản phẩm
             if ($old_status != $product->status) {
                 if ($product->status == 'selling') {
