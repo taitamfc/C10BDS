@@ -39,10 +39,6 @@ Route::group([
     Route::resource('configs', ConfigController::class);
 });
 
-
-
-
-
 Route::get('administrator/login',[AuthController::class,'login'])->name('login');
 Route::get('administrator/logout',[AuthController::class,'logout'])->name('logout');
 Route::post('administrator/postLogin', [AuthController::class, 'postLogin'])->name('postLogin');
