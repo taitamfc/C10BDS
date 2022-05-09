@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\ConfigController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\OptionController;
+use App\Http\Controllers\Admin\SystemLogController;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -37,11 +38,8 @@ Route::group([
     Route::resource('customers', CustomerController::class);
     Route::resource('options', OptionController::class);
     Route::resource('configs', ConfigController::class);
+    Route::resource('systemlogs', SystemLogController::class);
 });
-
-
-
-
 
 Route::get('administrator/login',[AuthController::class,'login'])->name('login');
 Route::get('administrator/logout',[AuthController::class,'logout'])->name('logout');
