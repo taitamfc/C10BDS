@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\SystemLog;
 use Illuminate\Http\Request;
 
 class SystemLogController extends Controller
@@ -12,9 +13,30 @@ class SystemLogController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $systemlogs = SystemLog::paginate(5);
+
+        $systemlog = SystemLog::select('*');
+
+        if (isset($request->filter['id']) && $request->filter['id']) {
+            $id = $request->filter['id'];
+            $systemlog->where('id', 'LIKE', '%' . $id . '%');
+        }
+
+        if (isset($request->filter['start_date']) && $request->filter['start_date']) {
+            $start_date = $request->filter['start_date'];
+            $systemlog->where('created_at', '<=', $start_date);
+        }
+
+        if (isset($request->filter['end_date']) && $request->filter['end_date']) {
+            $end_date = $request->filter['end_date'];
+            $systemlog->where('created_at', '>=', $end_date);
+        }
+
+        $systemlogs = $systemlog->paginate(5);
+
+        return view('admin.systemlogs.index', compact('systemlogs'));
     }
 
     /**
