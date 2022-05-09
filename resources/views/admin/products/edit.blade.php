@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('content')
-
+<!-- .page-title-bar -->
 <header class="page-title-bar">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -9,19 +9,19 @@
             </li>
         </ol>
     </nav>
-    <h1 class="page-title">Thêm Sản Phẩm</h1>
+    <h1 class="page-title"> Chỉnh sửa sản phẩm</h1>
 </header>
 
 <div class="page-section">
-    <form method="post" action="{{route('products.store')}}" enctype="multipart/form-data">
+    <form method="post" action="{{route('products.update',$product->id)}}">
         @csrf
-        {{ csrf_field() }}
+        @method('PUT')
         <div class="card">
             <div class="card-body">
                 <legend>Thông tin cơ bản</legend>
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Loại bất động sản</label>
-                    <select name="product_category_id" class="form-control" value="{{ old('product_category_id') }}">
+                    <label for="exampleInputEmail1">Loại bất động sản (Tên)</label>
+                    <select name="product_category_id" class="form-control">
                         @foreach($productCategories as $productCategory)
                         <option value="{{$productCategory->id}}">{{$productCategory->name}}</option>
                         @endforeach
@@ -33,11 +33,12 @@
                 <div class="row">
                     <div class="col-lg-4">
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Tỉnh/Thành phố <abbr title="Trường bắt buộc">*</abbr></label>
-                            <select name="province_id" class="form-control province_id" value="{{ old('province_id') }}">
-                                <option value="">Vui lòng chọn</option>                                
+                            <label for="exampleInputEmail1">Tỉnh/Thành phố</label>
+                            <select name="province_id" class="form-control province_id">
                                 @foreach($provinces as $province)
-                                <option value="{{ $province->id }}">{{$province->name}}</option>
+                                <option value="{{ $province->id }}" @selected(old('province')==$province)>
+                                    {{ $province->name }}
+                                </option>
                                 @endforeach
                             </select>
                             @if ($errors->any())
@@ -47,9 +48,13 @@
                     </div>
                     <div class="col-lg-4">
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Quận/Huyện <abbr title="Trường bắt buộc">*</abbr></label>
-                            <select name="district_id" class="form-control district_id" value="{{ old('district_id') }}">
-                                <option value="">Vui lòng chọn</option>
+                            <label for="exampleInputEmail1">Quận/Huyện</label>
+                            <select name="district_id" class="form-control district_id">
+                                @foreach($districts as $district)
+                                <option value="{{ $district->id }}" @selected(old('district')==$district)>
+                                    {{ $district->name }}
+                                </option>
+                                @endforeach
                             </select>
                             @if ($errors->any())
                             <p style="color:red">{{ $errors->first('district_id') }}</p>
@@ -58,9 +63,13 @@
                     </div>
                     <div class="col-lg-4">
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Xã/Phường <abbr title="Trường bắt buộc">*</abbr></label>
-                            <select name="ward_id" class="form-control ward_id" value="{{ old('ward_id') }}">
-                                <option value="">Vui lòng chọn</option>
+                            <label for="exampleInputEmail1">Xã/Phường</label>
+                            <select name="ward_id" class="form-control ward_id">
+                                @foreach($wards as $ward)
+                                <option value="{{ $ward->id }}" @selected(old('ward')==$ward)>
+                                    {{ $ward->name }}
+                                </option>
+                                @endforeach
                             </select>
                             @if ($errors->any())
                             <p style="color:red">{{ $errors->first('ward_id')}}</p>
@@ -69,7 +78,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="tf1">Địa chỉ <abbr title="Trường bắt buộc">*</abbr></label> <input name="address" type="text" class="form-control" placeholder="Bạn có thể bổ sung hẻm, ngách, ngõ..." value="{{ old('address') }}"> 
+                    <label for="tf1">Địa chỉ</label> <input name="address" type="text" class="form-control" placeholder="Bạn có thể bổ sung hẻm, ngách, ngõ..." value="{{ $product->address }}"> <small class="form-text text-muted"></small>
                     @if ($errors->any())
                     <p style="color:red">{{ $errors->first('address') }}</p>
                     @endif
@@ -79,85 +88,35 @@
                 <legend>Thông tin bài viết</legend>
                 <div class="form-group">
                     <label for="tf1">Tiêu đề <abbr title="Trường bắt buộc">*</abbr></label>
-                    <input name="name" type="text" class="form-control" placeholder="Nhập tên" value="{{ old('name') }}">
+                    <input name="name" type="text" value="{{ $product->name }}" class="form-control" placeholder="Nhập tên">
                     <small class="form-text text-muted">Tối thiểu 30 ký tự, tối đa 99 ký tự</small>
                     @if ($errors->any())
                     <p style="color:red">{{ $errors->first('name') }}</p>
                     @endif
                 </div>
                 <div class="form-group">
-                    <label for="tf1">Chi tiết thông tin <abbr title="Trường bắt buộc">*</abbr></label>
-                    <textarea name="description" type="text" class="form-control" placeholder="Nhập mô tả chung về bất động sản của bạn. Ví dụ: Khu nhà có vị trí thuận lợi, gần công viên, gần trường học ... ">{{ old('description') }}</textarea>
+                    <label for="tf1">Chi tiết thông tin</label>
+                    <input name="description" type="text" class="form-control" placeholder="Nhập mô tả chung về bất động sản của bạn. Ví dụ: Khu nhà có vị trí thuận lợi, gần công viên, gần trường học ... " value="{{ $product->description }}"></textarea>
                     @if ($errors->any())
                     <p style="color:red">{{ $errors->first('description') }}</p>
                     @endif
                 </div>
                 <div class="form-group">
                     <label for="tf1">Mô tả về địa chỉ trên bản đồ</label>
-                    <input name="google_map" type="text" class="form-control" placeholder="Mô tả trên bản đồ" value="{{ old('google_map') }}"></input>
+                    <textarea name="google_map" class="form-control" placeholder="Mô tả trên bản đồ">{{ $product->google_map }}</textarea>
                     @if ($errors->any())
                     <p style="color:red">{{ $errors->first('google_map') }}</p>
                     @endif
                 </div>
             </div>
-            <div class="card-body border-top">
-                <legend>Cài đặt sản phẩm</legend>
-                <div class="row">
-                    <div class="col-lg-4">
-                        <div class="form-group">
-                            <label>Loại sản phẩm</label>
-                            <select name="product_type" class="form-control" id="product_type">
-                                <option value="Regular">Sản phẩm thường</option>
-                                <option value="Consignment">Sản phẩm ký gửi</option>
-                                <option value="Block">Sản phẩm block</option>
-                                <option value="Expired">Hết hạn ký gửi</option>
-                            </select>
-                            @if ($errors->any())
-                            <p style="color:red">{{ $errors->first('product_type') }}</p>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="col-lg-2">
-                        <label>Sản phẩm HOT</label>
-                        <div class="form-group">
-                            <label class="switcher-control">
-                                <input type="hidden" name="product_hot" value="0"> 
-                                <input type="checkbox" class="switcher-input" name="product_hot" @checked(old('product_hot') == 1) value="1"> 
-                                <span class="switcher-indicator"></span>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="col-lg-2">
-                        <label>Sắp mở bán</label>
-                        <div class="form-group">
-                            <label class="switcher-control">
-                                <input type="hidden" name="product_open" value="0"> 
-                                <input type="checkbox" class="switcher-input" name="product_open" value="1" @checked( old('product_open') == 1 )> 
-                                <span class="switcher-indicator"></span>
-                            </label>
-                            @if ($errors->any())
-                            <p style="color:red">{{ $errors->first('product_open') }}</p>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="form-group">
-                            <label for="tf1">Ngày mở bán</label> <input name="product_open_date" type="date" class="form-control" placeholder="" value="{{ old('product_open_date') }}"> 
-                            @if ($errors->any())
-                            <p style="color:red">{{ $errors->first('product_open_date') }}</p>
-                            @endif
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+            
             <div class="card-body border-top">
                 <legend>Thông tin bất động sản</legend>
                 <div class="row">
                     <div class="col-lg-10">
                         <div class="form-group">
-                            <label>Mức giá <abbr title="Trường bắt buộc">*</abbr></label>
-                            <input name="price" type="text" class="form-control" placeholder="Nhập giá, VD 12000000" value="{{ old('price') }}">
+                            <label>Mức giá</label>
+                            <input name="price" type="text" class="form-control" placeholder="Nhập giá, VD 12000000" value="{{ $product->price }}">
                             @if ($errors->any())
                             <p style="color:red">{{ $errors->first('price') }}</p>
                             @endif
@@ -167,9 +126,7 @@
                         <div class="form-group">
                             <label>Đơn vị</label>
                             <select name="unit" class="form-control">
-                                <option value="VND" @selected( old('unit') == 'VND')>VND</option>
-                                <option value="m2" @selected( old('unit') == 'm2')>Giá / m²</option>
-                                <option value="agree" @selected( old('unit') == 'agree')>Thoả thuận</option>
+                                <option value="VND">VND</option>
                             </select>
                             @if ($errors->any())
                             <p style="color:red">{{ $errors->first('unit') }}</p>
@@ -180,31 +137,29 @@
                 <div class="form-group">
                     <label class="d-block">Giấy tờ pháp lý</label>
                     <div class="custom-control custom-control-inline custom-radio">
-                        <input type="radio" class="custom-control-input" name="juridical" id="rd1" @checked( old('juridical') == 'red_book_pink_book') value="red_book_pink_book">
+                        <input type="radio" class="custom-control-input" name="juridical" id="rd1" checked="" value="Sổ đỏ/ Sổ hồng">
                         <label class="custom-control-label" for="rd1">Sổ đỏ/ Sổ hồng</label>
                     </div>
                     <div class="custom-control custom-control-inline custom-radio">
-                        <input type="radio" class="custom-control-input" name="juridical" id="rd2" @checked( old('juridical') == 'sale_contract') value="Sale contract">
+                        <input type="radio" class="custom-control-input" name="juridical" id="rd2" value="Hợp đồng mua bán">
                         <label class="custom-control-label" for="rd2">Hợp đồng mua bán</label>
                     </div>
                     <div class="custom-control custom-control-inline custom-radio">
-                        <input type="radio" class="custom-control-input" name="juridical" id="rd3" @checked( old('juridical') == 'waiting_book') value="waiting_book">
+                        <input type="radio" class="custom-control-input" name="juridical" id="rd3" value="Đang chờ sổ">
                         <label class="custom-control-label" for="rd3">Đang chờ sổ</label>
-                    </div>
-                    <div class="custom-control custom-control-inline custom-radio">
-                        <input type="radio" class="custom-control-input" name="juridical" id="rd4" @checked( old('juridical') == 'split_plot') value="split_plot">
-                        <label class="custom-control-label" for="rd4">Tách thửa</label>
                     </div>
                     @if ($errors->any())
                     <p style="color:red">{{ $errors->first('juridical') }}</p>
                     @endif
                 </div>
+
+
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="form-group">
-                            <label for="tf1">Chiều dài <abbr title="Trường bắt buộc">*</abbr></label>
+                            <label for="tf1">Diện tích</label>
                             <div class="input-group input-group-alt">
-                                <input name="area" type="number" class="form-control" placeholder="Nhập chiều dài, VD 80" value="{{ old('area') }}">
+                                <input type="text" value="{{ $product->area }}" name="area" type="number" class="form-control" placeholder="Nhập diện tích, VD 80">
                                 <div class="input-group-append">
                                     <span class="input-group-text">m²</span>
                                 </div>
@@ -216,30 +171,16 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="form-group">
-                            <label for="tf1">Chiều rộng <abbr title="Trường bắt buộc">*</abbr></label>
-                            <div class="input-group input-group-alt">
-                                <input name="facade" type="number" class="form-control" placeholder="Nhập chiều rộng, VD 80" value="{{ old('facade') }}">
-                                <div class="input-group-append">
-                                    <span class="input-group-text">m²</span>
-                                </div>
-                            </div>
-                            @if ($errors->any())
-                            <p style="color:red">{{ $errors->first('facade') }}</p>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="form-group">
                             <label>Hướng nhà</label>
                             <select name="houseDirection" class="form-control">
-                                <option value="East">Đông</option>
-                                <option value="West">Tây</option>
-                                <option value="South">Nam</option>
-                                <option value="North">Bắc</option>
-                                <option value="Northeast">Đông Bắc</option>
-                                <option value="Northwest">Tây Bắc</option>
-                                <option value="Southeast">Đông Nam</option>
-                                <option value="Southwest">Tây Nam</option>
+                                <option value="VND">Đông</option>
+                                <option value="VND">Tây</option>
+                                <option value="VND">Nam</option>
+                                <option value="VND">Bắc</option>
+                                <option value="VND">Đông Bắc</option>
+                                <option value="VND">Tây Bắc</option>
+                                <option value="VND">Đông Nam</option>
+                                <option value="VND">Tây Nam</option>
                             </select>
                             @if ($errors->any())
                             <p style="color:red">{{ $errors->first('houseDirection') }}</p>
@@ -248,9 +189,9 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="form-group">
-                            <label for="tf1">Đường vào <abbr title="Trường bắt buộc">*</abbr></label>
+                            <label for="tf1">Đường vào</label>
                             <div class="input-group input-group-alt">
-                                <input name="stress_width" type="number" class="form-control" placeholder="Nhập số" value="{{ old('stress_width') }}">
+                                <input type="text" value="{{ $product->stress_width }}" name="stress_width" type="number" class="form-control" placeholder="Nhập số">
                                 <div class="input-group-append">
                                     <span class="input-group-text">m²</span>
                                 </div>
@@ -260,44 +201,76 @@
                             @endif
                         </div>
                     </div>
-                    
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="tf1">Mặt tiền</label>
+                            <div class="input-group input-group-alt">
+                                <input type="text" value="{{ $product->facade }}" name="facade" type="number" class="form-control" placeholder="Nhập số">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">m²</span>
+                                </div>
+                            </div>
+                            @if ($errors->any())
+                            <p style="color:red">{{ $errors->first('facade') }}</p>
+                            @endif
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="card-body border-top">
                 <legend>Hình ảnh & Video</legend>
                 <div class="form-group">
-                    <label>Chọn nhiều hình ảnh</label>
-                    <input type="file" name="image_urls[]" class="form-control" value="{{ old('image_urls[]') }}" multiple>
-                </div>
-                <div class="form-group">
                     <label for="tf1">Thêm video từ Youtube</label>
-                    <input name="linkYoutube" type="text" class="form-control" placeholder="VD: https://www.youtube.com/watch?v=Y-Dw0NpfRug" value="{{ old('linkYoutube') }}">
+                    <input name="linkYoutube" value="{{ $product->linkYoutube }}" type="text" class="form-control" placeholder="VD: https://www.youtube.com/watch?v=Y-Dw0NpfRug">
                     @if ($errors->any())
                     <p style="color:red">{{ $errors->first('linkYoutube') }}</p>
                     @endif
                 </div>
             </div>
+            <div class="card-body border-top">
+                <legend>Cài đặt sản phẩm</legend>
+                <div class="row">
 
+                    <div class="col-lg-10">
+                        <div class="form-group">
+                            <label>Loại sản phẩm</label>
+                            <select name="product_type" class="form-control" id="product_type">
+                                <option value="Regular" @if($product->product_type == 'Regular') ? selected : null @endif >Sản phẩm thường</option>
+                                <option value="Consignment" @if($product->product_type == 'Consignment') ? selected : null @endif >Sản phẩm ký gửi</option>
+                                <option value="Block" @if($product->product_type == 'Block') ? selected : null @endif >Block công ty</option>
+                            </select>
+                            @if ($errors->any())
+                            <p style="color:red">{{ $errors->first('product_type') }}</p>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col-lg-2 card-body border-bot">
+                        <label>Sản phẩm HOT</label>
+                        <div class="togglebutton">
+                            <label>
+                                <input type="checkbox" name="product_hot" checked {{ old('product_hot') ? 'checked' : '' }}>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="card-body border-top">
                 <legend>Thông tin ký gửi</legend>
                 <div class="row">
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label>Nhân viên phụ trách</label>
-                            <select name="user_contact_id" class="form-control">
-                                <option value="">Vui lòng chọn</option>
-                                @foreach($users as $user)
-                                <option value="{{ $user->id }}">{{$user->name}}</option>
-                                @endforeach
+                            <select name="user_id" class="form-control" id='product_user_id'>
+                                <option value="" selected='selected'>Vui lòng chọn</option>
                             </select>
                             @if ($errors->any())
-                            <p style="color:red">{{ $errors->first('user_contact_id') }}</p>
+                            <p style="color:red">{{ $errors->first('user_id') }}</p>
                             @endif
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="form-group">
-                            <label for="tf1">Bắt đầu</label> <input name="product_start_date" type="date" class="form-control" placeholder="" value="{{ old('product_start_date') }}"> 
+                            <label for="tf1">Bắt đầu</label> <input name="product_start_date" type="date" class="form-control" placeholder="" value="{{$product->product_start_date}}"> <small class="form-text text-muted"></small>
                             @if ($errors->any())
                             <p style="color:red">{{ $errors->first('product_start_date') }}</p>
                             @endif
@@ -306,7 +279,7 @@
 
                     <div class="col-lg-4">
                         <div class="form-group">
-                            <label for="tf1">Kết thúc</label> <input name="product_end_date" type="date" class="form-control" placeholder="" value="{{ old('product_end_date') }}"> 
+                            <label for="tf1">Kết thúc</label> <input name="product_end_date" type="date" class="form-control" placeholder="" value="{{$product->product_end_date}}"> <small class="form-text text-muted"></small>
                             @if ($errors->any())
                             <p style="color:red">{{ $errors->first('product_end_date') }}</p>
                             @endif
@@ -315,20 +288,20 @@
 
                 </div>
             </div>
-
             <div class="card-body border-top">
+
                 <legend>Thông tin liên hệ</legend>
                 <div class="row">
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label>Chi nhánh</label>
                             <select name="branch_id" class="form-control branch_id">
-                                <option value="">Vui lòng chọn</option>
                                 @foreach($branches as $branch)
-                                <option value="{{ $branch->id }}">{{$branch->name}}</option>
+                                <option value="{{ $branch->id }}" @selected(old('branch')==$branch)>
+                                    {{ $branch->name }}
+                                </option>
                                 @endforeach
                             </select>
-
                             @if ($errors->any())
                             <p style="color:red">{{ $errors->first('branch_id') }}</p>
                             @endif
@@ -336,9 +309,13 @@
                     </div>
                     <div class="col-lg-4">
                         <div class="form-group">
-                            <label>Người đăng</label>
+                            <label>Nhân viên phụ trách</label>
                             <select name="user_id" class="form-control user_id">
-                                <option value="">Vui lòng chọn</option>
+                                @foreach($users as $user)
+                                <option value="{{ $user->id }}" @selected(old('user')==$user)>
+                                    {{ $user->name }}
+                                </option>
+                                @endforeach
                             </select>
                             @if ($errors->any())
                             <p style="color:red">{{ $errors->first('user_id') }}</p>
@@ -348,7 +325,7 @@
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label>Tình trạng</label>
-                            <select name="status" class="form-control" value="{{ old('status') }}">
+                            <select name="status" class="form-control">
                                 <option value="draft">Bản Thảo</option>
                                 <option value="selling">Đang Bán</option>
                                 <option value="sold">Đã Bán</option>
@@ -367,9 +344,9 @@
         </div>
     </form>
 </div>
-
 <script>
     jQuery(document).ready(function() {
+
         jQuery('.province_id').on('change', function() {
             var province_id = jQuery(this).val();
 
@@ -389,6 +366,7 @@
 
         jQuery('.district_id').on('change', function() {
             var district_id = jQuery(this).val();
+
             $.ajax({
                 url: "/api/get_wards/" + district_id,
                 type: "GET",
@@ -416,7 +394,7 @@
             });
         });
 
-        jQuery('#').on('change', function() {
+        jQuery('#product_type').on('change', function() {
             var product_user_id = jQuery(this).val();
             $.ajax({
                 url: "/api/get_product_type_by_product_user_id/" + product_user_id,
@@ -431,7 +409,6 @@
                 }
             });
         });
-
     });
 </script>
 @endsection

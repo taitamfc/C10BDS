@@ -5,9 +5,6 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport"
         content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="theme-color" content="#000000">
     <title>Quang Group</title>
     <meta name="description" content="">
     <meta name="keywords" content="" />
@@ -23,6 +20,8 @@
     <link rel="apple-touch-startup-image" href="{{ asset('mobile/assets/img/splash/launch-1536x2048.png')}}" media="(min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait)">
     <link rel="apple-touch-startup-image" href="{{ asset('mobile/assets/img/splash/launch-1668x2224.png')}}" media="(min-device-width: 834px) and (max-device-width: 834px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait)">
     <link rel="apple-touch-startup-image" href="{{ asset('mobile/assets/img/splash/launch-2048x2732.png')}}" media="(min-device-width: 1024px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait)">
+    <meta name="msapplication-TileColor" content="#00aba9">
+    <meta name="theme-color" content="#ffffff">
 
     <link rel="stylesheet" href="{{ asset('mobile/assets/css/style.css')}}">
     <link rel="stylesheet" href="{{ asset('mobile/assets/css/custom.css')}}">

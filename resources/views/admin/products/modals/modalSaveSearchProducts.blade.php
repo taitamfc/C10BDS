@@ -18,6 +18,7 @@
                             <input type="text" name="name-search" class="form-control" id="name-search" />
                         </div>
                     </div>
+
                 </div><!-- #filter-columns -->
                 <!-- .btn -->
             </div><!-- /.modal-body -->
