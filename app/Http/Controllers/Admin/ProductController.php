@@ -17,6 +17,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Events\ProductCreated;
 use App\Events\ProductSold;
+use App\Events\ProductSubmitEvent;
 use App\Models\ProductImage;
 use Illuminate\Support\Facades\Auth;
 
@@ -188,7 +189,9 @@ class ProductController extends Controller
                     $ProducImage->image_url = $product_image;
                     $ProducImage->save();
                 }
-            }            
+            }
+            $product->active = 'store';
+            event(new ProductSubmitEvent($product));            
             Session::flash('success', 'Thêm' . ' ' . $request->name . ' ' .  'thành công');
         } catch (\Exception $e) {
             Log::error($e->getMessage());
@@ -290,6 +293,8 @@ class ProductController extends Controller
                     event(new ProductSold($product));
                 }
             }
+            $product->active = 'update';
+            event(new ProductSubmitEvent($product));
             return redirect()->route('products.index')
                 ->with('success', 'Cập nhật ' . $request->name  . ' thành công');
         } catch (\Exception $e) {
@@ -307,10 +312,11 @@ class ProductController extends Controller
     public function destroy($id)
     {
         // $this->authorize('delete', Product::class);
-        $product = Product::where('product_id',$id)->with('product_log')->first()->find($id);
-        // $product = Product::find($id);
+        $product = Product::find($id);
         try {
             $product->delete();
+            $product->active = 'destroy';
+            event(new ProductSubmitEvent($product));
         } catch (\Exception $e) {
             Log::error($e->getMessage());
             return redirect()->route('products.index')->with('success', 'Xóa  thành công');

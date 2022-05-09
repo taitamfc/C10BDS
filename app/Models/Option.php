@@ -12,6 +12,5 @@ class Option extends Model
     public $timestamps = false;
     protected $fillable = [
         'option_name', 'option_group', 'option_value', 'option_label'
-    ];
-    
+    ]; 
 }
