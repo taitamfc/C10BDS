@@ -35,6 +35,17 @@
       </div>
     </div>
 
+     <div class="section full" v-if="regular_products && regular_products.length">
+      <div class="section-title pb-0">SẢN PHẨM THƯỜNG</div>
+      <div class="splice-wrapp ">
+        <Splide :options="{perPage: 2,padding:5,trimSpace:true,arrows:false,pagination:false}" >
+          <SplideSlide v-for="regular_product of regular_products" :key="regular_product.id">
+            <ProductItemElement :item="regular_product"></ProductItemElement>
+          </SplideSlide>
+        </Splide>
+      </div>
+    </div>
+
      <div class="section full" v-if="delivery_products && delivery_products.length">
       <div class="section-title pb-0">SẢN PHẨM KÝ GỬI</div>
       <div class="splice-wrapp ">
@@ -75,6 +86,7 @@ export default {
       future_products:null,
       block_products:null,
       delivery_products:null,
+      regular_products:null,
       isRunning:true
     }
   },
@@ -109,6 +121,14 @@ export default {
       .then(result => {
           this.isRunning = false;
           this.delivery_products = result.data.data;
+          this.get_regular_products();
+      })
+    },
+    get_regular_products(){
+      axios.get('/api/products?product_type=regular_products')
+      .then(result => {
+          this.isRunning = false;
+          this.regular_products = result.data.data;
       })
     }
   },

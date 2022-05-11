@@ -13,10 +13,11 @@ use App\Listeners\SendNewProductNotification;
 
 use App\Events\ProductSold;
 use App\Events\ProductSubmitEvent;
+use App\Events\UserSubmitEvent;
 use App\Listeners\ProductLogListener;
 use App\Listeners\ProductSubmitListener;
 use App\Listeners\SendSoldProductNotification;
-
+use App\Listeners\UserSubmitListener;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -26,6 +27,10 @@ class EventServiceProvider extends ServiceProvider
      * @var array<class-string, array<int, class-string>>
      */
     protected $listen = [
+
+        UserSubmitEvent::class => [
+            UserSubmitListener::class
+        ],
         Registered::class => [
             SendEmailVerificationNotification::class
         ],

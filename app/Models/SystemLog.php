@@ -10,5 +10,5 @@ class SystemLog extends Model
     use HasFactory;
     protected $table = 'system_logs';
 
-    public $timestamps = false;
+    // public $timestamps = false;
 }
