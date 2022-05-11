@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Repositories\ProductRepository;
 use Tests\TestCase;
 use Faker\Factory as Faker;
+use Illuminate\Support\Facades\Log;
 
 class ProductTest extends TestCase
 {
@@ -129,10 +130,13 @@ class ProductTest extends TestCase
         $product->district_id = rand(1,2);
         $product->ward_id = rand(1,2);
         $product->product_type = 'Block';
+        $product->branch_id = 1;
+        $product->user_id = 1;
         try {
             $product->save();
             $this->assertTrue(true);
         } catch (\Exception $e) {
+            Log::error($e->getMessage());
             $this->assertTrue(false);
         }
      
