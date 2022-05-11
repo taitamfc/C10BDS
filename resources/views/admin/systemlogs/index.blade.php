@@ -66,8 +66,7 @@
                             <th> # </th>
                             <th> Hoạt động</th>
                             <th> Dữ liệu</th>
-                            <th> Ngày bắt đầu</th>
-                            <th> Ngày kết thúc</th>
+                            <th> Thời gian</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -77,7 +76,6 @@
                             <td class="align-middle"> {{ $systemlog->type }} </td>
                             <td class="align-middle"> {{ $systemlog->data }} </td>
                             <td class="align-middle"> {{ $systemlog->created_at }} </td>
-                            <td class="align-middle"> {{ $systemlog->updated_at }} </td>
                         </tr>
                         @endforeach
                     </tbody>
