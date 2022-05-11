@@ -4,5 +4,22 @@
     "The :attribute must contain at least one symbol.": "The :attribute must contain at least one symbol.",
     "The :attribute must contain at least one uppercase and one lowercase letter.": "The :attribute must contain at least one uppercase and one lowercase letter.",
     "The given :attribute has appeared in a data leak. Please choose a different :attribute.": "The given :attribute has appeared in a data leak. Please choose a different :attribute.",
-    "selling": "Đang bán"
+    "selling": "Đang bán",
+    "sold": "Đã bán",
+    "draft": "Bản Thảo",
+    "Regular": "Thường",
+    "Consignment": "Ký gửi",
+    "Block": "Block",
+    "red_book_pink_book":"Sổ đỏ/ Sổ hồng",
+    "sale_contract":"Hợp đồng mua bán",
+    "waiting_book":"Đang chờ sổ",
+    "split_plot":"Tách thửa",
+    "East":"Đông",
+    "West":"Tây",
+    "South":"Nam",
+    "North":"Bắc",
+    "Northeast":"Đông Bắc",
+    "Northwest":"Tây Bắc",
+    "Southeast":"Đông Nam",
+    "Southwest":"Tây Nam"
 }
