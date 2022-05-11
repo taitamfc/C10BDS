@@ -110,7 +110,6 @@
                                 <option value="Regular">Sản phẩm thường</option>
                                 <option value="Consignment">Sản phẩm ký gửi</option>
                                 <option value="Block">Sản phẩm block</option>
-                                <option value="Expired">Hết hạn ký gửi</option>
                             </select>
                             @if ($errors->any())
                             <p style="color:red">{{ $errors->first('product_type') }}</p>
@@ -180,7 +179,7 @@
                 <div class="form-group">
                     <label class="d-block">Giấy tờ pháp lý</label>
                     <div class="custom-control custom-control-inline custom-radio">
-                        <input type="radio" class="custom-control-input" name="juridical" id="rd1" @checked( old('juridical') == 'red_book_pink_book') value="red_book_pink_book">
+                        <input type="radio" class="custom-control-input" name="juridical" id="rd1"  @checked( old('juridical') == 'red_book_pink_book' || old('juridical') == '') value="red_book_pink_book">
                         <label class="custom-control-label" for="rd1">Sổ đỏ/ Sổ hồng</label>
                     </div>
                     <div class="custom-control custom-control-inline custom-radio">
@@ -349,9 +348,10 @@
                         <div class="form-group">
                             <label>Tình trạng</label>
                             <select name="status" class="form-control" value="{{ old('status') }}">
-                                <option value="draft">Bản Thảo</option>
-                                <option value="selling">Đang Bán</option>
-                                <option value="sold">Đã Bán</option>
+                                <option value="draft" @selected(old('status') == 'draft') >Bản Thảo</option>
+                                <option value="selling" @selected(old('status') == 'selling') >Đang Bán</option>
+                                <option value="sold" @selected(old('status') == 'sold'>Đã Bán</option>
+                                <option value="expried" @selected(old('status') == 'expried'>Hết Hạn</option>
                             </select>
                             @if ($errors->any())
                             <p style="color:red">{{ $errors->first('status') }}</p>

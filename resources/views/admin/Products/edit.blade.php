@@ -128,8 +128,6 @@
                                     ký gửi</option>
                                 <option value="Block" @selected( $product->product_type == 'Block')>Sản phẩm block
                                 </option>
-                                <option value="Expired" @selected( $product->product_type == 'Expired')>Hết hạn ký gửi
-                                </option>
                             </select>
                             @if ($errors->any())
                             <p style="color:red">{{ $errors->first('product_type') }}</p>
@@ -410,12 +408,10 @@
                         <div class="form-group">
                             <label>Tình trạng</label>
                             <select name="status" class="form-control">
-                                <option value="draft" @if($product->status == 'draft') ? selected : null @endif>Bản Thảo
-                                </option>
-                                <option value="selling" @if($product->status == 'selling') ? selected : null @endif>Đang
-                                    Bán</option>
-                                <option value="sold" @if($product->status == 'sold') ? selected : null @endif>Đã Bán
-                                </option>
+                                <option value="draft" @selected($product->status == 'draft') >Bản Thảo</option>
+                                <option value="selling" @selected($product->selling == 'draft') >Đang Bán</option>
+                                <option value="sold" @selected($product->selling == 'sold'>Đã Bán</option>
+                                <option value="expried" @selected($product->expried == 'sold'>Hết Hạn</option>
                             </select>
                             @if ($errors->any())
                             <p style="color:red">{{ $errors->first('status') }}</p>
