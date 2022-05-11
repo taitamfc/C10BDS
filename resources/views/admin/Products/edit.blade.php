@@ -244,14 +244,14 @@
                         <div class="form-group">
                             <label>Hướng nhà</label>
                             <select name="houseDirection" class="form-control">
-                                <option value="VND">Đông</option>
-                                <option value="VND">Tây</option>
-                                <option value="VND">Nam</option>
-                                <option value="VND">Bắc</option>
-                                <option value="VND">Đông Bắc</option>
-                                <option value="VND">Tây Bắc</option>
-                                <option value="VND">Đông Nam</option>
-                                <option value="VND">Tây Nam</option>
+                                <option value="East">Đông</option>
+                                <option value="West">Tây</option>
+                                <option value="South">Nam</option>
+                                <option value="North">Bắc</option>
+                                <option value="Northeast">Đông Bắc</option>
+                                <option value="Northwest">Tây Bắc</option>
+                                <option value="Southeast">Đông Nam</option>
+                                <option value="Southwest">Tây Nam</option>
                             </select>
                             @if ($errors->any())
                             <p style="color:red">{{ $errors->first('houseDirection') }}</p>
@@ -409,9 +409,9 @@
                             <label>Tình trạng</label>
                             <select name="status" class="form-control">
                                 <option value="draft" @selected($product->status == 'draft') >Bản Thảo</option>
-                                <option value="selling" @selected($product->selling == 'selling') >Đang Bán</option>
-                                <option value="sold" @selected($product->selling == 'sold')>Đã Bán</option>
-                                <option value="expried" @selected($product->expried == 'expried')>Hết Hạn</option>
+                                <option value="selling" @selected($product->status == 'selling') >Đang Bán</option>
+                                <option value="sold" @selected($product->status == 'sold')>Đã Bán</option>
+                                <option value="expried" @selected($product->status == 'expried')>Hết Hạn</option>
                             </select>
                             @if ($errors->any())
                             <p style="color:red">{{ $errors->first('status') }}</p>
