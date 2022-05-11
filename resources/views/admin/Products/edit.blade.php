@@ -409,9 +409,9 @@
                             <label>Tình trạng</label>
                             <select name="status" class="form-control">
                                 <option value="draft" @selected($product->status == 'draft') >Bản Thảo</option>
-                                <option value="selling" @selected($product->selling == 'draft') >Đang Bán</option>
+                                <option value="selling" @selected($product->selling == 'selling') >Đang Bán</option>
                                 <option value="sold" @selected($product->selling == 'sold'>Đã Bán</option>
-                                <option value="expried" @selected($product->expried == 'sold'>Hết Hạn</option>
+                                <option value="expried" @selected($product->expried == 'expried'>Hết Hạn</option>
                             </select>
                             @if ($errors->any())
                             <p style="color:red">{{ $errors->first('status') }}</p>
