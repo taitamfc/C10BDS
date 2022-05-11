@@ -350,8 +350,8 @@
                             <select name="status" class="form-control" value="{{ old('status') }}">
                                 <option value="draft" @selected(old('status') == 'draft') >Bản Thảo</option>
                                 <option value="selling" @selected(old('status') == 'selling') >Đang Bán</option>
-                                <option value="sold" @selected(old('status') == 'sold'>Đã Bán</option>
-                                <option value="expried" @selected(old('status') == 'expried'>Hết Hạn</option>
+                                <option value="sold" @selected(old('status') == 'sold')>Đã Bán</option>
+                                <option value="expried" @selected(old('status') == 'expried')>Hết Hạn</option>
                             </select>
                             @if ($errors->any())
                             <p style="color:red">{{ $errors->first('status') }}</p>
