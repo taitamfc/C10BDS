@@ -12,6 +12,13 @@ class Product extends Model
 
     protected $table = 'products';
 
+    protected $fillable = ['id', 'name','address', 'price','description'
+    ,'product_category_id','area','juridical','unit','status','houseDirection'
+    ,'facade','google_map','branch_id','linkYoutube','user_id'
+    ,'stress_width','province_id','district_id','ward_id'
+    ,'sold_by_user_id','product_type','product_hot','product_start_date','product_end_date'
+    ,'product_open','product_open_date','user_contact_id'];
+    
     public function product_logs()
     {
         return $this->hasMany(ProductLog::class)->orderBy('created_at','DESC');
