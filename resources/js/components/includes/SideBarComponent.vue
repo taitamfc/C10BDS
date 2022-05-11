@@ -15,7 +15,7 @@
       <div class="profileBox">
         <div class="image-wrapper">
           <img
-            src="mobile/assets/img/logo.png"
+            src="/mobile/assets/img/logo.png"
             alt="image"
             class="imaged rounded"
           />

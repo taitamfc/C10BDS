@@ -12,7 +12,7 @@
 </header>
 
 <div class="page-section">
-    <form method="post" action="{{route('products.update',$product->id)}}">
+    <form method="post" action="{{route('products.update',$product->id)}}" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <div class="card">

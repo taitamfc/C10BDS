@@ -78,7 +78,7 @@ class ProductController extends Controller
         if (count($items)) {
             foreach ($items as $item) {
                 $item->tinh_thanh_pho = $item->district->name . ', ' . $item->province->name;
-                $item->price = number_format($item->price);
+                $item->price = $this->formatPrice($item->unit,$item->price);
                 $item->name = Str::words($item->name, 15, ' ...');
 
                 if( !count($item->product_images) ){
@@ -102,7 +102,6 @@ class ProductController extends Controller
             ->first();
 
         $item->tinh_thanh_pho = $item->district->name . ', ' . $item->province->name;
-        $item->price = number_format($item->price);
 
         //chỉ xem được log của bản thân và hệ thống
         if (true) {
@@ -146,6 +145,12 @@ class ProductController extends Controller
             ];
         }
 
+        $item->price = $this->formatPrice($item->unit,$item->price);
+        $item->product_type = __($item->product_type);
+        $item->juridical = __($item->juridical);
+        $item->juridical = __($item->juridical);
+        $item->houseDirection = __($item->houseDirection);
+
         return response()->json($item, 200);
     }
     /**
@@ -164,5 +169,22 @@ class ProductController extends Controller
         }
         $product->save();
         return response()->json($product, 201);
+    }
+
+    private function formatPrice($unit,$price){
+        switch ($unit) {
+            case 'VND':
+                return number_format($price).' VND';
+                break;
+            case 'm2':
+                return number_format($price).'/m2';
+                break;
+            case 'agree':
+                return 'Thỏa thuận';
+                break;
+            default:
+                # code...
+                break;
+        }
     }
 }
