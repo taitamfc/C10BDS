@@ -51,6 +51,7 @@ class ProductSubmitListener
         $product = new SystemLog();
         $product->type = 'ProductSubmitEvent';
         $product->data = $data;
+        $product->user_id = $user->id;
         $product->save();
     }
 }

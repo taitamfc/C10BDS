@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Events\UserSubmitEvent;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\UserGroup;
@@ -134,6 +135,9 @@ class UserController extends Controller
 
         try {
             $user->save();
+            $user->active='store';
+            event(new UserSubmitEvent($user));
+            
             return redirect()->route('users.index')->with('success', 'Thêm' . ' ' . $request->name . ' ' .  'thành công');
         } catch (\Exception $e) {
             Log::error($e->getMessage());
@@ -210,6 +214,9 @@ class UserController extends Controller
 
         try {
             $user->save();
+            $user->active='update';
+            event(new UserSubmitEvent($user));
+
             return redirect()->route('users.index')->with('success', 'Sửa' . ' ' . $request->name . ' ' .  'thành công');
         } catch (\Exception $e) {
             Log::error($e->getMessage());
@@ -228,6 +235,8 @@ class UserController extends Controller
 
         try {
             $user->delete();
+            $user->active='destroy';
+            event(new UserSubmitEvent($user));
             return redirect()->route('users.index')->with('success', 'Xóa  thành công');
         } catch (\Exception $e) {
             Log::error($e->getMessage());

@@ -35,18 +35,24 @@ class DatabaseSeeder extends Seeder
     }
     public function importProductCategories()
     {
-        $product_categories = [
-            [
-                'name' => 'Đất công nghiệp',
-            ]
-        ];
-        foreach ($product_categories as $productCategory) {
-            $objproductCategory = new ProductCategory();
-            foreach ($productCategory as $field => $value) {
-                $objproductCategory->$field = $value;
-            }
-            $objproductCategory->save();
-        }
+        // $product_categories = [
+        //     [
+        //         'name' => 'Đất công nghiệp',
+        //     ]
+        // ];
+        // foreach ($product_categories as $productCategory) {
+        //     $objproductCategory = new ProductCategory();
+        //     foreach ($productCategory as $field => $value) {
+        //         $objproductCategory->$field = $value;
+        //     }
+        //     $objproductCategory->save();
+        // }
+        $product_category = new ProductCategory();
+        $product_category->name = 'Đất công nghiệp';
+        $product_category->save();
+        $product_category = new ProductCategory();
+        $product_category->name = 'Đất thổ cư';
+        $product_category->save();
     }
     public function importRoles()
     {

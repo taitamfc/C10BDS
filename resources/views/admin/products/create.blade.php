@@ -23,7 +23,7 @@
                     <label for="exampleInputEmail1">Loại bất động sản</label>
                     <select name="product_category_id" class="form-control" value="{{ old('product_category_id') }}">
                         @foreach($productCategories as $productCategory)
-                        <option value="{{$productCategory->id}}">{{$productCategory->name}}</option>
+                        <option value="{{$productCategory->id}}" @selected(old('product_category_id') == $productCategory->id )>{{$productCategory->name}}</option>
                         @endforeach
                     </select>
                     @if ($errors->any())
@@ -37,7 +37,7 @@
                             <select name="province_id" class="form-control province_id" value="{{ old('province_id') }}">
                                 <option value="">Vui lòng chọn</option>                                
                                 @foreach($provinces as $province)
-                                <option value="{{ $province->id }}">{{$province->name}}</option>
+                                <option value="{{ $province->id }}" @selected(old('province_id') == $province->id )>{{$province->name}}</option>
                                 @endforeach
                             </select>
                             @if ($errors->any())
@@ -107,10 +107,9 @@
                         <div class="form-group">
                             <label>Loại sản phẩm</label>
                             <select name="product_type" class="form-control" id="product_type">
-                                <option value="Regular">Sản phẩm thường</option>
-                                <option value="Consignment">Sản phẩm ký gửi</option>
-                                <option value="Block">Sản phẩm block</option>
-                                <option value="Expired">Hết hạn ký gửi</option>
+                                <option value="Regular" @selected(old('product_type') == 'Regular')>Sản phẩm thường</option>
+                                <option value="Consignment" @selected(old('product_type') == 'Consignment')>Sản phẩm ký gửi</option>
+                                <option value="Block" @selected(old('product_type') == 'Block')>Sản phẩm block</option>
                             </select>
                             @if ($errors->any())
                             <p style="color:red">{{ $errors->first('product_type') }}</p>
@@ -180,7 +179,7 @@
                 <div class="form-group">
                     <label class="d-block">Giấy tờ pháp lý</label>
                     <div class="custom-control custom-control-inline custom-radio">
-                        <input type="radio" class="custom-control-input" name="juridical" id="rd1" @checked( old('juridical') == 'red_book_pink_book') value="red_book_pink_book">
+                        <input type="radio" class="custom-control-input" name="juridical" id="rd1"  @checked( old('juridical') == 'red_book_pink_book' || old('juridical') == '') value="red_book_pink_book">
                         <label class="custom-control-label" for="rd1">Sổ đỏ/ Sổ hồng</label>
                     </div>
                     <div class="custom-control custom-control-inline custom-radio">
@@ -232,14 +231,14 @@
                         <div class="form-group">
                             <label>Hướng nhà</label>
                             <select name="houseDirection" class="form-control">
-                                <option value="East">Đông</option>
-                                <option value="West">Tây</option>
-                                <option value="South">Nam</option>
-                                <option value="North">Bắc</option>
-                                <option value="Northeast">Đông Bắc</option>
-                                <option value="Northwest">Tây Bắc</option>
-                                <option value="Southeast">Đông Nam</option>
-                                <option value="Southwest">Tây Nam</option>
+                                <option value="East" @selected(old('houseDirection') == 'East') >Đông</option>
+                                <option value="West" @selected(old('houseDirection') == 'West')>Tây</option>
+                                <option value="South" @selected(old('houseDirection') == 'South')>Nam</option>
+                                <option value="North" @selected(old('houseDirection') == 'North')>Bắc</option>
+                                <option value="Northeast" @selected(old('houseDirection') == 'Northeast')>Đông Bắc</option>
+                                <option value="Northwest" @selected(old('houseDirection') == 'Northwest')>Tây Bắc</option>
+                                <option value="Southeast" @selected(old('houseDirection') == 'Southeast')>Đông Nam</option>
+                                <option value="Southwest" @selected(old('houseDirection') == 'Southwest')>Tây Nam</option>
                             </select>
                             @if ($errors->any())
                             <p style="color:red">{{ $errors->first('houseDirection') }}</p>
@@ -287,7 +286,7 @@
                             <select name="user_contact_id" class="form-control">
                                 <option value="">Vui lòng chọn</option>
                                 @foreach($users as $user)
-                                <option value="{{ $user->id }}">{{$user->name}}</option>
+                                <option value="{{ $user->id }}" @selected(old('user_contact_id') == $user->id)>{{$user->name}}</option>
                                 @endforeach
                             </select>
                             @if ($errors->any())
@@ -325,7 +324,7 @@
                             <select name="branch_id" class="form-control branch_id">
                                 <option value="">Vui lòng chọn</option>
                                 @foreach($branches as $branch)
-                                <option value="{{ $branch->id }}">{{$branch->name}}</option>
+                                <option value="{{ $branch->id }}" @selected(old('branch_id') == $branch->id)>{{$branch->name}}</option>
                                 @endforeach
                             </select>
 
@@ -349,9 +348,10 @@
                         <div class="form-group">
                             <label>Tình trạng</label>
                             <select name="status" class="form-control" value="{{ old('status') }}">
-                                <option value="draft">Bản Thảo</option>
-                                <option value="selling">Đang Bán</option>
-                                <option value="sold">Đã Bán</option>
+                                <option value="draft" @selected(old('status') == 'draft') >Bản Thảo</option>
+                                <option value="selling" @selected(old('status') == 'selling') >Đang Bán</option>
+                                <option value="sold" @selected(old('status') == 'sold')>Đã Bán</option>
+                                <option value="expried" @selected(old('status') == 'expried')>Hết Hạn</option>
                             </select>
                             @if ($errors->any())
                             <p style="color:red">{{ $errors->first('status') }}</p>
@@ -415,23 +415,6 @@
                 }
             });
         });
-
-        jQuery('#').on('change', function() {
-            var product_user_id = jQuery(this).val();
-            $.ajax({
-                url: "/api/get_product_type_by_product_user_id/" + product_user_id,
-                type: "GET",
-                success: function(data) {
-                    console.log(data);
-                    var product_html = '';
-                    for (const user of data) {
-                        product_html += '<option value="' + user.id + '">' + user.name + '</option>';
-                    }
-                    jQuery('#product_user_id').html(product_html);
-                }
-            });
-        });
-
     });
 </script>
 @endsection
