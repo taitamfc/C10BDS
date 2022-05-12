@@ -29,13 +29,7 @@
                     <p style="color:red">{{ $errors->first('name') }}</p>
                     @endif
                 </div>
-                <div class="form-group">
-                    <label for="tf1"> Email </label> <input type="text" name="email" value="{{ $customer->email }}" class="form-control" placeholder="Nhập email"> 
-                    <small class="form-text text-muted"></small>
-                    @if ($errors->any())
-                    <p style="color:red">{{ $errors->first('email') }}</p>
-                    @endif
-                </div>
+  
                 <div class="form-group">
                     <label for="tf1"> Địa chỉ </label> <input type="text" name="address" value="{{ $customer->address }}" class="form-control" placeholder="Nhập địa chỉ"> 
                     <small class="form-text text-muted"></small>

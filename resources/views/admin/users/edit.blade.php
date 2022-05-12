@@ -105,6 +105,9 @@
                                 <input type="radio" class="custom-control-input" name="gender" id="rd1" checked="" value="male">
                                 <label class="custom-control-label" for="rd1">Nam</label>
                             </div>
+                            
+                            
+                            
                             <div class="custom-control custom-control-inline custom-radio">
                                 <input type="radio" class="custom-control-input" name="gender" id="rd2" value="female">
                                 <label class="custom-control-label" for="rd2">Nữ</label>
