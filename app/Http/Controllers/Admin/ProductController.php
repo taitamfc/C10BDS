@@ -176,7 +176,7 @@ class ProductController extends Controller
                 $new_image          = $name_image . rand(0, 99) . '.' . $image->getClientOriginalExtension();
                 //abc nối số ngẫu nhiên từ 0-99, nối "." ->đuôi file jpg
                 $image->move($path, $new_image); //chuyển file ảnh tới thư mục
-                $product_images[] = $new_image;
+                $product_images[] = '/upload/'.$new_image;
             }
         }
         try {
@@ -294,7 +294,7 @@ class ProductController extends Controller
                 $new_image          = $name_image . rand(0, 99) . '.' . $image->getClientOriginalExtension();
                 //abc nối số ngẫu nhiên từ 0-99, nối "." ->đuôi file jpg
                 $image->move($path, $new_image); //chuyển file ảnh tới thư mục
-                $product_images[] = $new_image;
+                $product_images[] = '/upload/'.$new_image;
             }
         }
         try {

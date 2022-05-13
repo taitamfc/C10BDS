@@ -687,7 +687,7 @@ var _hoisted_2 = {
 var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "image-wrapper"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
-  src: "mobile/assets/img/logo.png",
+  src: "/mobile/assets/img/logo.png",
   alt: "image",
   "class": "imaged rounded"
 })], -1
