@@ -19,7 +19,7 @@
                         </div>
                         <div class="col-lg-8">
                             <div class="input text">
-                                <input type="text" name="filter[name]" class="form-control filter-column f-name" id="name" />
+                                <input type="text" name="filter[name]" class="form-control filter-column f-name" value=" {{ (isset($filter['name']) ? $filter['name'] : '') }} " id="name" />
                             </div>
                         </div>
                     </div>
@@ -31,8 +31,11 @@
                         <div class="col-lg-8">
                             <div class="input text">
                                 <select name="filter[province_id]" class="form-control province_id">
+                                    <option value="">Vui lòng chọn</option>
                                     @foreach($provinces as $province)
-                                    <option value="{{ $province->id }}">{{$province->name}}</option>
+                                    <option value="{{ $province->id }}" @selected(isset($filter['province_id']) ? ($province->id == $filter['province_id']) : false)>
+                                        {{$province->name}}
+                                    </option>
                                     @endforeach
                                 </select>
                             </div>
@@ -76,7 +79,8 @@
                                     <option value="">Vui lòng chọn</option>
 
                                     @foreach($branches as $branch)
-                                    <option value="{{ $branch->id }}">{{$branch->name}}</option>
+                                    <option value="{{ $branch->id }}" @selected( isset($filter['branch_id']) ? ($branch->id == $filter['branch_id']) : false )
+                                        >{{$branch->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -90,9 +94,9 @@
                             <div class="input text">
                                 <select name="filter[status]" class="form-control status">
                                     <option value="">Vui lòng chọn</option>
-                                    <option value="draft">Bản Thảo</option>
-                                    <option value="sold">Đã Bán</option>
-                                    <option value="selling">Đang Bán</option>
+                                    <option value="draft" @selected( isset($filter['status']) ? ($filter['status'] == 'draft') : false)>Bản Thảo</option>
+                                    <option value="sold" @selected( isset($filter['status']) ? ($filter['status'] == 'sold') : false)>Đã Bán</option>
+                                    <option value="selling" @selected( isset($filter['status']) ? ($filter['status'] == 'selling') : false)>Đang Bán</option>
                                 </select>
                             </div>
                         </div>
@@ -106,10 +110,10 @@
                             <div class="input text">
                                 <select name="filter[product_type]" class="form-control product_type">
                                     <option value="">Tất Cả</option>
-                                    <option value="hot_products">Sản Phẩm Hot</option>
-                                    <option value="block_products">Sản Phẩm Block</option>
-                                    <option value="delivery_products">Sản Phẩm Ký Gửi</option>
-                                    <option value="future_products">Chuẩn Bị Mở Bán</option>
+                                    <option value="hot_products" @selected( isset($filter['product_type']) ? ($filter['product_type'] == 'hot_products') : false)>Sản Phẩm Hot</option>
+                                    <option value="block_products" @selected( isset($filter['product_type']) ? ($filter['product_type'] == 'block_products') : false) >Sản Phẩm Block</option>
+                                    <option value="delivery_products" @selected( isset($filter['product_type']) ? ($filter['product_type'] == 'delivery_products') : false)>Sản Phẩm Ký Gửi</option>
+                                    <option value="future_products" @selected( isset($filter['product_type']) ? ($filter['product_type'] == 'future_products') : false)>Chuẩn Bị Mở Bán</option>
                                 </select>
                             </div>
                         </div>
@@ -120,7 +124,8 @@
             <!-- .modal-footer -->
             <div class="modal-footer justify-content-start">
                 <button type="submit" class="btn btn-primary" id="apply-filter">Áp dụng</button>
-                <button type="button" data-dismiss="modal" class="btn btn-light" id="clear-filter">Hủy</button>
+                <a href="{{ route('products.index') }}" class="btn btn-dark ">Đặt lại</a>
+                <button type="button" data-dismiss="modal" class="btn btn-secondary ml-auto" id="clear-filter">Hủy</button>
             </div><!-- /.modal-footer -->
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

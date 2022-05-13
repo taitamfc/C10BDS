@@ -66,16 +66,13 @@ class UserController extends Controller
         $userGroups = UserGroup::all();
         $branches = Branch::all();
         $provinces = Province::all();
-        $districts = District::all();
-        $wards = Ward::all();
 
         $params = [
             'provinces' => $provinces,
             'users' => $users,
             'userGroups' =>  $userGroups,
             'branches' => $branches,
-            'districts' => $districts,
-            'wards' => $wards
+            'filter' => $request->filter
         ];
         return view('admin.users.index', $params);
     }

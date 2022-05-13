@@ -18,7 +18,7 @@
                             <label class="">Tên nhân viên</label>
                         </div>
                         <div class="col-lg-8">
-                            <div class="input text"><input type="text" name="filter[name]" class="form-control filter-column f-name" id="name" /></div>
+                        <input type="text" name="filter[name]" class="form-control filter-column f-name" value="{{ ( isset($filter['name']) ) ? $filter['name'] : '' }}" id="name" />
                         </div>
                     </div>
                     <div class="form-group form-row filter-row">
@@ -29,7 +29,8 @@
                             <select class="form-select form-control province_id" name="filter[province_id]">
                                 <option value="">Vui lòng chọn</option>
                                 @foreach($provinces as $province)
-                                <option value="{{ $province->id }}">{{ $province->name }} </option>
+                                <option value="{{ $province->id }}" @selected(isset($filter['province_id']) ? ($province->id == $filter['province_id']) : false)>
+                                    {{ $province->name }} </option>
                                 @endforeach
                             </select>
                         </div>
@@ -63,7 +64,7 @@
                         </div>
                         <div class="col-lg-8">
                             <div class="input text">
-                                <input type="text" name="filter[phone]" class="form-control filter-column f-phone" id="phone" />
+                                <input type="text" name="filter[phone]" class="form-control filter-column f-phone" value="{{ ( isset($filter['phone']) ) ? $filter['phone'] : '' }}" id="phone" />
                             </div>
                         </div>
                     </div>
@@ -73,9 +74,11 @@
                         </div>
                         <div class="col-lg-8">
                             <select class="form-select form-control" name="filter[user_group_id]">
-                            <option value="">Vui lòng chọn</option>
+                                <option value="">Vui lòng chọn</option>
                                 @foreach($userGroups as $userGroup)
-                                <option value="{{ $userGroup->id }}">{{ $userGroup->name }} </option>
+                                <option value="{{ $userGroup->id }}" @selected(isset($filter['user_group_id']) ? ($userGroup->id == $filter['user_group_id']) : false)>
+                                    {{ $userGroup->name }}
+                                </option>
                                 @endforeach
                             </select>
                         </div>
@@ -86,9 +89,10 @@
                         </div>
                         <div class="col-lg-8">
                             <select class="form-select form-control" name="filter[branch_id]">
-                            <option value="">Vui lòng chọn</option>
+                                <option value="">Vui lòng chọn</option>
                                 @foreach($branches as $branch)
-                                <option value="{{ $branch->id }}">{{ $branch->name }} </option>
+                                <option value="{{ $branch->id }}" @selected( isset($filter['branch_id']) ? ($branch->id == $filter['branch_id']) : false )
+                                    >{{ $branch->name }} </option>
                                 @endforeach
                             </select>
                         </div>
@@ -99,7 +103,8 @@
             <!-- .modal-footer -->
             <div class="modal-footer justify-content-start">
                 <button type="submit" class="btn btn-primary" id="apply-filter">Áp dụng</button>
-                <button type="button" data-dismiss="modal" class="btn btn-light" id="clear-filter">Hủy</button>
+                <a href="{{ route('users.index') }}" class="btn btn-dark " >Đặt lại</a>
+                <button type="button" data-dismiss="modal"  class="btn btn-secondary ml-auto" id="clear-filter">Hủy</button>
             </div><!-- /.modal-footer -->
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
