@@ -135,4 +135,48 @@ class ProductCategoryController extends Controller
             return redirect()->route('productCategories.index')->with('success', 'Xóa không thành công');
         }
     }
+
+
+
+    public function trashedItems(Request $request)
+    {
+        $productCategories = ProductCategory::onlyTrashed();
+        //sắp xếp thứ tự lên trước khi update
+        $productCategories = $productCategories->orderBy('id', 'desc')->paginate(3);
+
+        $params = [
+            'productCategories' => $productCategories,
+            'filter' => $request->filter
+        ];
+
+        return view('admin.productCategories.trash', $params);
+    }
+
+    public function force_destroy($id)
+    {
+
+        $productCategory = ProductCategory::withTrashed()->find($id);
+        // dd($ProductCategory);
+        // $this->authorize('forceDelete', $ProductCategory);
+        try {
+            $productCategory->forceDelete();
+            return redirect()->route('productCategories.trash')->with('success', 'Xóa' . ' ' . $productCategory->name . ' ' .  'thành công');
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return redirect()->route('productCategories.trash')->with('error', 'Xóa' . ' ' . $productCategory->name . ' ' .  'không thành công');
+        }
+    }
+
+
+    public function restore($id)
+    {
+        $productCategory = ProductCategory::withTrashed()->find($id);
+        try {
+            $productCategory->restore();
+            return redirect()->route('productCategories.trash')->with('success', 'Khôi phục' . ' ' . $productCategory->name . ' ' .  'thành công');
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return redirect()->route('productCategories.trash')->with('error', 'Khôi phục' . ' ' . $productCategory->name . ' ' .  'không thành công');
+        }
+    }
 }

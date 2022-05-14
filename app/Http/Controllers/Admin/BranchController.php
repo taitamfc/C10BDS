@@ -176,14 +176,57 @@ class BranchController extends Controller
      */
     public function destroy($id)
     {
-        $this->authorize('delete', Branch::class);
+        
         $branch = Branch::find($id);
+        $this->authorize('delete', $branch);
         try {
             $branch->delete();
             return redirect()->route('branches.index')->with('success', 'Xóa' . ' ' . $branch->name . ' ' .  'thành công');
         } catch (\Exception $e) {
             Log::error($e->getMessage());
             return redirect()->route('branches.index')->with('error', 'Xóa' . ' ' . $branch->name . ' ' .  'không thành công');
+        }
+    }
+
+    public function trashedItems(Request $request)
+    {
+        $query = Branch::onlyTrashed();
+        //sắp xếp thứ tự lên trước khi update
+        $query->orderBy('id', 'DESC');
+        //phân trang
+        $branches = $query->paginate(3);
+        $provinces = Province::all();
+        $params = [
+            'provinces' => $provinces,
+            'branches' => $branches,
+            'filter' =>$request->filter
+        ];
+        return view('admin.branches.trash', $params);
+    }
+    public function force_destroy($id)
+    {
+        
+        $branch = Branch::withTrashed()->find($id);
+        // dd($branch);
+        // $this->authorize('forceDelete', $branch);
+        try {
+            $branch->forceDelete();
+            return redirect()->route('branches.trash')->with('success', 'Xóa' . ' ' . $branch->name . ' ' .  'thành công');
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return redirect()->route('branches.trash')->with('error', 'Xóa' . ' ' . $branch->name . ' ' .  'không thành công');
+        }
+    }
+
+    public function restore($id)
+    {
+        $branch = Branch::withTrashed()->find($id);
+        try {
+            $branch->restore();
+            return redirect()->route('branches.trash')->with('success', 'Khôi phục' . ' ' . $branch->name . ' ' .  'thành công');
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return redirect()->route('branches.trash')->with('error', 'Khôi phục' . ' ' . $branch->name . ' ' .  'không thành công');
         }
     }
 }
