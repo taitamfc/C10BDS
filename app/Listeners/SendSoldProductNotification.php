@@ -37,15 +37,14 @@ class SendSoldProductNotification
         Notification::send($users, new SoldProductNotification($event->product));
 
         //gửi cho các thành viên ở chi nhánh qua telegram
+        $productname = '['.$event->product->id . '] - ' .  $event->product->name;
         $telegram_channel_id = env('TELEGRAM_CHANNEL_ID', '');
-        $telegram_channel_id = '';
         if($telegram_channel_id){
             Telegram::sendMessage([
-                'chat_id' => env('TELEGRAM_CHANNEL_ID', ''),
+                'chat_id' => $telegram_channel_id,
                 'parse_mode' => 'HTML',
-                'text' => 'hello'
+                'text' => '[ĐÃ BÁN] Sản phẩm <strong>'.$productname.'</strong> đã được bán thành công !'
             ]);
         }
-        
     }
 }
