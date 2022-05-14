@@ -12,24 +12,18 @@
     </nav>
     <!-- <button type="button" class="btn btn-success btn-floated"><span class="fa fa-plus"></span></button> -->
     <div class="d-md-flex align-items-md-start">
-        <h1 class="page-title mr-sm-auto">Quản Lý Khách Hàng</h1>
-        <div class="btn-toolbar">
-            <a href="{{route('customers.create')}}" class="btn btn-primary">
-                <i class="fa-solid fa fa-plus"></i>
-                <span class="ml-1">Thêm Mới</span>
-            </a>
-        </div>
+        <h1 class="page-title mr-sm-auto">Quản Lý Chi Nhánh - Thùng Rác</h1>
     </div>
 </header>
 <div class="page-section">
     <div class="card card-fluid">
         <div class="card-header">
             <ul class="nav nav-tabs card-header-tabs">
-                <li class="nav-item">
-                    <a class="nav-link active " href="{{route('customers.index')}}">Tất Cả</a>
+            <li class="nav-item">
+                    <a class="nav-link  " href="{{route('branches.index')}}">Tất Cả</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('customers.trash')}}">Thùng Rác</a>
+                    <a class="nav-link active" href="{{route('branches.trash')}}">Thùng Rác</a>
                 </li>
             </ul>
         </div>
@@ -55,10 +49,10 @@
                             </div>
                         </div>
                         <!-- modalFilterColumns  -->
-                        @include('admin.customers.modals.modalFilterColumns')
+                        @include('admin.branches.modals.modalFilterColumns')
                     </form>
                     <!-- modalFilterColumns  -->
-                    @include('admin.customers.modals.modalSaveSearch')
+                    @include('admin.branches.modals.modalSaveSearch')
                 </div>
             </div>
             @if (Session::has('success'))
@@ -72,33 +66,40 @@
                     <thead>
                         <tr>
                             <th> # </th>
-                            <th> Tên khách hàng </th>
-                            <th> Địa chỉ </th>
+                            <th> Tên chi nhánh </th>
                             <th> Số điện thoại </th>
+                            <th> Địa chỉ </th>
+                            <th> Tỉnh/ Thành phố </th>
+                            <th> Quận/ Huyện </th>
+                            <th> Xã/ Phường </th>
                             <th> Chức năng </th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($customers as $customer)
+                        @foreach ($branches as $branch)
                         <tr>
-                            <td class="align-middle"> {{ $customer->id }} </td>
-                            <td class="align-middle"> {{ $customer->name }} </td>
-                            <td class="align-middle"> {{ $customer->address }} </td>
-                            <td class="align-middle"> {{ $customer->phone }} </td>
+                            <td class="align-middle"> {{ $branch->id }} </td>
+                            <td class="align-middle"> {{ $branch->name }} </td>
+                            <td class="align-middle"> {{ $branch->phone }} </td>
+                            <td class="align-middle"> {{ $branch->address }} </td>
+                            <td class="align-middle"> {{ $branch->province->name }} </td>
+                            <td class="align-middle"> {{ $branch->district->name }} </td>
+                            <td class="align-middle"> {{ $branch->ward->name }} </td>
+                            
                             <td>
-                                <form action="{{ route('customers.destroy',$customer->id )}}" style="display:inline" method="post">
-                                    <button onclick="return confirm('Xóa {{$customer->name}} ?')" class="btn btn-sm btn-icon btn-secondary"><i class="far fa-trash-alt"></i></button>
+                                <form action="{{ route('branches.force_destroy',$branch->id )}}" style="display:inline" method="post">
+                                    <button onclick="return confirm('Xóa vĩnh viễn {{$branch->name}} ?')" class="btn btn-sm btn-icon btn-secondary"><i class="far fa-trash-alt"></i></button>
                                     @csrf
                                     @method('delete')
                                 </form>
-                                <span class="sr-only">Edit</span></a> <a href="{{route('customers.edit',$customer->id)}}" class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-pencil-alt"></i> <span class="sr-only">Remove</span></a>
+                                <span class="sr-only">Edit</span></a> <a href="{{route('branches.restore',$branch->id)}}" class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-trash-restore"></i> <span class="sr-only">Remove</span></a>
                             </td>
                         </tr><!-- /tr -->
                         @endforeach
                     </tbody><!-- /tbody -->
                 </table><!-- /.table -->
                 <div style="float:right">
-                    {{ $customers->links() }}
+                    {{ $branches->links() }}
                 </div>
             </div>
             <!-- /.table-responsive -->
