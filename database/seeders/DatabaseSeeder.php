@@ -56,7 +56,7 @@ class DatabaseSeeder extends Seeder
     }
     public function importRoles()
     {
-        $groups     = ['Branch', 'Product', 'Customer', 'ProductCategory', 'User'];
+        $groups     = ['Branch', 'Product', 'Customer', 'ProductCategory', 'User', 'UserGroup','Customer','Config','SystemLog'];
         $actions    = ['viewAny', 'view', 'create', 'update', 'delete', 'restore', 'forceDelete'];
         foreach ($groups as $group) {
             foreach ($actions as $action) {
@@ -257,7 +257,7 @@ class DatabaseSeeder extends Seeder
     }
     public function importUserGroupRoles()
     {
-        for ($i = 1; $i <= 7; $i++) {
+        for ($i = 1; $i <= 63; $i++) {
             DB::table('user_group_role')->insert([
                 'user_group_id' => 1,
                 'role_id' => $i,
