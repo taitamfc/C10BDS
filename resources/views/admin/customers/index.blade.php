@@ -80,8 +80,8 @@
                         <tr>
                             <td class="align-middle"> {{ $customer->id }} </td>
                             <td class="align-middle"> {{ $customer->name }} </td>
+                            <td class="align-middle"> {{ $customer->address }} </td>
                             <td class="align-middle"> {{ $customer->phone }} </td>
-                            <td class="align-middle"> {{ $customer->address }} </td>                           
                             <td>
                                 <form action="{{ route('customers.destroy',$customer->id )}}" style="display:inline" method="post">
                                     <button onclick="return confirm('Xóa {{$customer->name}} ?')" class="btn btn-sm btn-icon btn-secondary"><i class="far fa-trash-alt"></i></button>

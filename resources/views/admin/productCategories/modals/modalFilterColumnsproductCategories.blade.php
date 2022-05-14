@@ -1,6 +1,5 @@
 <!-- #modalFilterColumnsproductCategories -->
-<div class="modal fade" id="modalFilterColumnsproductCategories" tabindex="-1" role="dialog" aria-labelledby="modalFilterColumnsproductCategoriesLabel"
-    aria-hidden="true">
+<div class="modal fade" id="modalFilterColumnsproductCategories" tabindex="-1" role="dialog" aria-labelledby="modalFilterColumnsproductCategoriesLabel" aria-hidden="true">
     <!-- .modal-dialog -->
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <!-- .modal-content -->
@@ -20,7 +19,7 @@
                         </div>
                         <div class="col-lg-8">
                             <div class="input text">
-                                <input type="text" name="filter[name]" class="form-control filter-column f-name" id="name" />
+                                <input type="text" name="filter[name]" class="form-control filter-column f-name" value="{{ ( isset($filter['name']) ) ? $filter['name'] : '' }}" id="name" />
                             </div>
                         </div>
                     </div>
@@ -31,7 +30,8 @@
             <!-- .modal-footer -->
             <div class="modal-footer justify-content-start">
                 <button type="submit" class="btn btn-primary" id="apply-filter">Áp dụng</button>
-                <button type="button" data-dismiss="modal" class="btn btn-light" id="clear-filter">Hủy</button>
+                <a href="{{ route('productCategories.index') }}" class="btn btn-dark ">Đặt lại</a>
+                <button type="button" data-dismiss="modal" class="btn btn-secondary ml-auto" id="clear-filter">Hủy</button>
             </div><!-- /.modal-footer -->
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

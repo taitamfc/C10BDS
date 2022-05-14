@@ -32,7 +32,12 @@ class ProductCategoryController extends Controller
 
         $productCategories = $productCategories->orderBy('id', 'desc')->paginate(3);
 
-        return view('admin.productCategories.index', compact('productCategories'));
+        $params = [
+            'productCategories' => $productCategories,
+            'filter' => $request->filter
+        ];
+
+        return view('admin.productCategories.index', $params);
     }
 
     /**
