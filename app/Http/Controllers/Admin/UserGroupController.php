@@ -36,6 +36,7 @@ class UserGroupController extends Controller
         $query->orderBy('id', 'desc');
         $userGroups = $query->paginate(4);
         $params = [
+            'filter' => $request->filter,
             'userGroups' => $userGroups
         ];
         return view('admin.userGroups.index', $params);

@@ -127,8 +127,8 @@ class DatabaseSeeder extends Seeder
         $user->user_group_id  = 1;
         $user->branch_id  = 1;
         $user->note = '123';
-        $user->province_id  = '30';
-        $user->district_id  = '343';
+        $user->province_id = '30';
+        $user->district_id = '343';
         $user->ward_id  = '6192';
         $user->gender = 'Nam';
         $user->avatar = 'https://e7.pngegg.com/pngimages/348/800/png-clipart-man-wearing-blue-shirt-illustration-computer-icons-avatar-user-login-avatar-blue-child.png';
