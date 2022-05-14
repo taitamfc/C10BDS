@@ -58,6 +58,7 @@ class BranchController extends Controller
         $params = [
             'provinces' => $provinces,
             'branches' => $branches,
+            'filter' =>$request->filter
         ];
         return view('admin.branches.index', $params);
     }
@@ -173,7 +174,7 @@ class BranchController extends Controller
      * @param  \App\Models\Branch  $branch
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id, $request)
+    public function destroy($id)
     {
         $this->authorize('delete', Branch::class);
         $branch = Branch::find($id);

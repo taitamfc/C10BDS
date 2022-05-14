@@ -95,7 +95,8 @@ class ProductController extends Controller
         $params = [
             'provinces' => $provinces,
             'products' => $products,
-            'branches' => $branches
+            'branches' => $branches,
+            'filter' => $request->filter
         ];
 
         return view('admin.products.index', $params);
