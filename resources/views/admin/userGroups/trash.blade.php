@@ -11,11 +11,11 @@
             </li>
         </ol>
     </nav>
-    <a href="{{route('users.index')}}" class="btn btn-success btn-floated"> </a>
+    <a href="{{route('userGroups.index')}}" class="btn btn-success btn-floated"> </a>
     <div class="d-md-flex align-items-md-start">
-        <h1 class="page-title mr-sm-auto"> Quản Lý Nhân Viên</h1><!-- .btn-toolbar -->
+        <h1 class="page-title mr-sm-auto"> Quản Lý Nhóm Nhân Viên - Thùng Rác</h1><!-- .btn-toolbar -->
         <div class="btn-toolbar">
-            <a href="{{ route('users.create') }}" class="btn btn-primary">
+            <a href="{{ route('userGroups.create') }}" class="btn btn-primary">
                 <i class="fa-solid fa fa-plus"></i>
                 <span class="ml-1">Thêm Mới</span>
             </a>
@@ -27,10 +27,11 @@
         <div class="card-header">
             <ul class="nav nav-tabs card-header-tabs">
                 <li class="nav-item">
-                    <a class="nav-link active " href="{{route('users.index')}}">Tất Cả</a>
+                    <a class="nav-link " href="{{route('userGroups.index')}}">Tất Cả</a>
                 </li>
+
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('users.trash')}}">Thùng Rác</a>
+                    <a class="nav-link active " href="{{route('userGroups.trash')}}">Thùng Rác</a>
                 </li>
             </ul>
         </div>
@@ -56,63 +57,47 @@
                             </div>
                         </div>
                         <!-- modalFilterColumns  -->
-                        @include('admin.users.modals.modalFilterColumns')
+                        @include('admin.userGroups.modals.modalFilterColumns')
                     </form>
                     <!-- modalFilterColumns  -->
-                    @include('admin.users.modals.modalSaveSearch')
+                    @include('admin.userGroups.modals.modalSaveSearch')
                 </div>
             </div>
             @if (Session::has('success'))
             <div class="alert alert-success">{{session::get('success')}}</div>
             @endif
+
             <div class="table-responsive">
                 <table class="table">
                     <thead>
                         <tr>
                             <th> # </th>
-                            <th> Tên nhân viên</th>
-                            <th> Số điện thoại</th>
-                            <th> Nhóm nhân viên</th>
-                            <th> Chi nhánh</th>
-                            <th> Tỉnh/Thành phố</th>
-                            <th> Chức năng</th>
+                            <th> Tên nhóm</th>
+                            <th> Miêu tả nhóm </th>
+                            <th> Chức năng </th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($users as $user)
+                        @foreach ($userGroups as $userGroup)
                         <tr>
-                            <td class="align-middle"> {{ $user->id }} </td>
-                            <td class="align-middle"> {{ $user->name }} </td>
-                            <td class="align-middle"> {{ $user->phone }} </td>
-                            <td class="align-middle"> {{ $user->userGroup->name }} </td>
-                            <td class="align-middle">{{ $user->branch->name }} </td>
-                            <td class="align-middle">{{ $user->province->name }} </td>
+                            <td class="align-middle"> {{ $userGroup->id }} </td>
+                            <td class="align-middle"> {{ $userGroup->name }} </td>
+                            <td class="align-middle"> {{ $userGroup->description }} </td>
                             <td>
-                                @if($user->id != 1)
-                                <form action="{{ route('users.destroy',$user->id )}}" style="display:inline" method="post">
-
-                                    <button onclick="return confirm('Xóa {{$user->name}} ?')" class="btn btn-sm btn-icon btn-secondary">
-                                        <i class="far fa-trash-alt"></i>
-                                    </button>
+                                <form action="{{ route('userGroups.force_destroy',$userGroup->id )}}" style="display:inline" method="post">
+                                    <button onclick="return confirm('Xóa vĩnh viễn {{$userGroup->name}} ?')" class="btn btn-sm btn-icon btn-secondary"><i class="far fa-trash-alt"></i></button>
                                     @csrf
                                     @method('delete')
                                 </form>
-                                @endif
-                                <span class="sr-only">Edit</span></a>
-                                <a href="{{route('users.edit',$user->id)}}" class="btn btn-sm btn-icon btn-secondary">
-                                    <i class="fa fa-pencil-alt"></i>
-                                    <span class="sr-only">Remove</span>
-                                </a>
+                                <span class="sr-only">Edit</span></a> <a href="{{route('userGroups.restore',$userGroup->id)}}" class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-trash-restore"></i> <span class="sr-only">Remove</span></a>
                             </td>
-                        </tr>
+                        </tr><!-- /tr -->
                         @endforeach
-
-                    </tbody>
-                </table>
-                <div style="float:right">
-                    {{ $users->links() }}
-                </div>
-
+                    </tbody><!-- /tbody -->
+                </table><!-- /.table -->
             </div>
-
-            @endsection
+            <div style="float:right">
+                {{ $userGroups->links() }}
+            </div>
+        </div><!-- /.card-body -->
+        @endsection

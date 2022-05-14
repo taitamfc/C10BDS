@@ -144,4 +144,46 @@ class CustomerController extends Controller
             return redirect()->route('customers.index')->with('error', 'Xóa' . ' ' . $customer->name . ' ' .  'không thành công');
         }    
     }
+
+    public function trashedItems(Request $request)
+    {
+        $query = Customer::onlyTrashed();
+        //sắp xếp thứ tự lên trước khi update
+        $query->orderBy('id', 'DESC');
+        //phân trang
+        $customers = $query->paginate(10);
+        $params = [ 
+            'customers' => $customers,
+            'filter' => $request->filter
+        ];
+        return view('admin.customers.trash', $params);
+    }
+
+    public function force_destroy($id)
+    {
+
+        $customer = Customer::withTrashed()->find($id);
+        // dd($customer);
+        // $this->authorize('forceDelete', $customer);
+        try {
+            $customer->forceDelete();
+            return redirect()->route('customers.trash')->with('success', 'Xóa' . ' ' . $customer->name . ' ' .  'thành công');
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return redirect()->route('customers.trash')->with('error', 'Xóa' . ' ' . $customer->name . ' ' .  'không thành công');
+        }
+    }
+
+    
+    public function restore($id)
+    {
+        $customer = Customer::withTrashed()->find($id);
+        try {
+            $customer->restore();
+            return redirect()->route('customers.trash')->with('success', 'Khôi phục' . ' ' . $customer->name . ' ' .  'thành công');
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return redirect()->route('customers.trash')->with('error', 'Khôi phục' . ' ' . $customer->name . ' ' .  'không thành công');
+        }
+    }
 }

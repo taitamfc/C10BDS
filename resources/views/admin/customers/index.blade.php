@@ -26,7 +26,10 @@
         <div class="card-header">
             <ul class="nav nav-tabs card-header-tabs">
                 <li class="nav-item">
-                    <a class="nav-link active show" data-toggle="tab" href="#tab1">Tất Cả</a>
+                    <a class="nav-link active " href="{{route('customers.index')}}">Tất Cả</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('customers.trash')}}">Thùng Rác</a>
                 </li>
             </ul>
         </div>
