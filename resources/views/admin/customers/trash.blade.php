@@ -12,24 +12,20 @@
     </nav>
     <!-- <button type="button" class="btn btn-success btn-floated"><span class="fa fa-plus"></span></button> -->
     <div class="d-md-flex align-items-md-start">
-        <h1 class="page-title mr-sm-auto">Quản Lý Khách Hàng</h1>
+        <h1 class="page-title mr-sm-auto">Quản Lý Khách Hàng - Thùng Rác</h1>
         <div class="btn-toolbar">
-            <a href="{{route('customers.create')}}" class="btn btn-primary">
-                <i class="fa-solid fa fa-plus"></i>
-                <span class="ml-1">Thêm Mới</span>
-            </a>
         </div>
     </div>
 </header>
 <div class="page-section">
     <div class="card card-fluid">
         <div class="card-header">
-            <ul class="nav nav-tabs card-header-tabs">
+        <ul class="nav nav-tabs card-header-tabs">
                 <li class="nav-item">
-                    <a class="nav-link active " href="{{route('customers.index')}}">Tất Cả</a>
+                    <a class="nav-link "href="{{route('customers.index')}}">Tất Cả</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('customers.trash')}}">Thùng Rác</a>
+                    <a class="nav-link active "href="{{route('customers.trash')}}">Thùng Rác</a>
                 </li>
             </ul>
         </div>
@@ -86,12 +82,12 @@
                             <td class="align-middle"> {{ $customer->address }} </td>
                             <td class="align-middle"> {{ $customer->phone }} </td>
                             <td>
-                                <form action="{{ route('customers.destroy',$customer->id )}}" style="display:inline" method="post">
-                                    <button onclick="return confirm('Xóa {{$customer->name}} ?')" class="btn btn-sm btn-icon btn-secondary"><i class="far fa-trash-alt"></i></button>
+                            <form action="{{ route('customers.force_destroy',$customer->id )}}" style="display:inline" method="post">
+                                    <button onclick="return confirm('Xóa vĩnh viễn {{$customer->name}} ?')" class="btn btn-sm btn-icon btn-secondary"><i class="far fa-trash-alt"></i></button>
                                     @csrf
                                     @method('delete')
                                 </form>
-                                <span class="sr-only">Edit</span></a> <a href="{{route('customers.edit',$customer->id)}}" class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-pencil-alt"></i> <span class="sr-only">Remove</span></a>
+                                <span class="sr-only">Edit</span></a> <a href="{{route('customers.restore',$customer->id)}}" class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-trash-restore"></i> <span class="sr-only">Remove</span></a>
                             </td>
                         </tr><!-- /tr -->
                         @endforeach

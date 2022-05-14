@@ -1,4 +1,5 @@
 @extends('admin.layouts.master')
+
 @section('content')
 
 
@@ -10,11 +11,11 @@
             </li>
         </ol>
     </nav>
-    <!-- <button type="button" class="btn btn-success btn-floated"><span class="fa fa-plus"></span></button> -->
+    <a href="{{route('userGroups.index')}}" class="btn btn-success btn-floated"> </a>
     <div class="d-md-flex align-items-md-start">
-        <h1 class="page-title mr-sm-auto">Quản Lý Khách Hàng</h1>
+        <h1 class="page-title mr-sm-auto"> Quản Lý Nhóm Nhân Viên - Thùng Rác</h1><!-- .btn-toolbar -->
         <div class="btn-toolbar">
-            <a href="{{route('customers.create')}}" class="btn btn-primary">
+            <a href="{{ route('userGroups.create') }}" class="btn btn-primary">
                 <i class="fa-solid fa fa-plus"></i>
                 <span class="ml-1">Thêm Mới</span>
             </a>
@@ -26,10 +27,11 @@
         <div class="card-header">
             <ul class="nav nav-tabs card-header-tabs">
                 <li class="nav-item">
-                    <a class="nav-link active " href="{{route('customers.index')}}">Tất Cả</a>
+                    <a class="nav-link " href="{{route('userGroups.index')}}">Tất Cả</a>
                 </li>
+
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('customers.trash')}}">Thùng Rác</a>
+                    <a class="nav-link active " href="{{route('userGroups.trash')}}">Thùng Rác</a>
                 </li>
             </ul>
         </div>
@@ -48,63 +50,54 @@
                                 <div class="input-group-prepend trigger-submit">
                                     <span class="input-group-text"><span class="fas fa-search"></span></span>
                                 </div>
-                                <input type="text" class="form-control" name="query" value="" placeholder="Tìm nhanh theo cú pháp (ma:Mã kết quả hoặc ten:Tên kết quả)">
+                                <input type="text" class="form-control" name="s" value="" placeholder="Tìm nhanh theo cú pháp (ma:Mã kết quả hoặc ten:Tên kết quả)">
                             </div>
                             <div class="input-group-append">
                                 <button class="btn btn-secondary" data-toggle="modal" data-target="#modalSaveSearch" type="button">Lưu bộ lọc</button>
                             </div>
                         </div>
                         <!-- modalFilterColumns  -->
-                        @include('admin.customers.modals.modalFilterColumns')
+                        @include('admin.userGroups.modals.modalFilterColumns')
                     </form>
                     <!-- modalFilterColumns  -->
-                    @include('admin.customers.modals.modalSaveSearch')
+                    @include('admin.userGroups.modals.modalSaveSearch')
                 </div>
             </div>
             @if (Session::has('success'))
             <div class="alert alert-success">{{session::get('success')}}</div>
             @endif
-            @if (Session::has('error'))
-            <div class="alert alert-danger">{{session::get('error')}}</div>
-            @endif
+
             <div class="table-responsive">
                 <table class="table">
                     <thead>
                         <tr>
                             <th> # </th>
-                            <th> Tên khách hàng </th>
-                            <th> Địa chỉ </th>
-                            <th> Số điện thoại </th>
+                            <th> Tên nhóm</th>
+                            <th> Miêu tả nhóm </th>
                             <th> Chức năng </th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($customers as $customer)
+                        @foreach ($userGroups as $userGroup)
                         <tr>
-                            <td class="align-middle"> {{ $customer->id }} </td>
-                            <td class="align-middle"> {{ $customer->name }} </td>
-                            <td class="align-middle"> {{ $customer->address }} </td>
-                            <td class="align-middle"> {{ $customer->phone }} </td>
+                            <td class="align-middle"> {{ $userGroup->id }} </td>
+                            <td class="align-middle"> {{ $userGroup->name }} </td>
+                            <td class="align-middle"> {{ $userGroup->description }} </td>
                             <td>
-                                <form action="{{ route('customers.destroy',$customer->id )}}" style="display:inline" method="post">
-                                    <button onclick="return confirm('Xóa {{$customer->name}} ?')" class="btn btn-sm btn-icon btn-secondary"><i class="far fa-trash-alt"></i></button>
+                                <form action="{{ route('userGroups.force_destroy',$userGroup->id )}}" style="display:inline" method="post">
+                                    <button onclick="return confirm('Xóa vĩnh viễn {{$userGroup->name}} ?')" class="btn btn-sm btn-icon btn-secondary"><i class="far fa-trash-alt"></i></button>
                                     @csrf
                                     @method('delete')
                                 </form>
-                                <span class="sr-only">Edit</span></a> <a href="{{route('customers.edit',$customer->id)}}" class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-pencil-alt"></i> <span class="sr-only">Remove</span></a>
+                                <span class="sr-only">Edit</span></a> <a href="{{route('userGroups.restore',$userGroup->id)}}" class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-trash-restore"></i> <span class="sr-only">Remove</span></a>
                             </td>
                         </tr><!-- /tr -->
                         @endforeach
                     </tbody><!-- /tbody -->
                 </table><!-- /.table -->
-                <div style="float:right">
-                    {{ $customers->links() }}
-                </div>
             </div>
-            <!-- /.table-responsive -->
-            <!-- .pagination -->
+            <div style="float:right">
+                {{ $userGroups->links() }}
+            </div>
         </div><!-- /.card-body -->
-    </div>
-</div>
-
-@endsection
+        @endsection
