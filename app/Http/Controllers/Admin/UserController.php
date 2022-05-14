@@ -240,4 +240,53 @@ class UserController extends Controller
             return redirect()->route('users.index')->with('success', 'Xóa không  thành công');
         }
     }
+
+    public function trashedItems(Request $request)
+    {
+        $query = User::onlyTrashed();
+        //sắp xếp thứ tự lên trước khi update
+        $query->orderBy('id', 'desc');
+        $users = $query->paginate(4);
+        // dd($users);
+        $userGroups = UserGroup::all();
+        $branches = Branch::all();
+        $provinces = Province::all();
+
+        $params = [
+            'provinces' => $provinces,
+            'users' => $users,
+            'userGroups' =>  $userGroups,
+            'branches' => $branches,
+            'filter' => $request->filter
+        ];
+        return view('admin.users.trash', $params);
+    }
+
+    public function force_destroy($id)
+    {
+        
+        $user = User::withTrashed()->find($id);
+        // dd($user);
+        // $this->authorize('forceDelete', $user);
+        try {
+            $user->forceDelete();
+            return redirect()->route('users.trash')->with('success', 'Xóa' . ' ' . $user->name . ' ' .  'thành công');
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return redirect()->route('users.trash')->with('error', 'Xóa' . ' ' . $user->name . ' ' .  'không thành công');
+        }
+    }
+
+    public function restore($id)
+    {
+        $user = User::withTrashed()->find($id);
+        try {
+            $user->restore();
+            return redirect()->route('users.trash')->with('success', 'Khôi phục' . ' ' . $user->name . ' ' .  'thành công');
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return redirect()->route('users.trash')->with('error', 'Khôi phục' . ' ' . $user->name . ' ' .  'không thành công');
+        }
+    }
+    
 }
