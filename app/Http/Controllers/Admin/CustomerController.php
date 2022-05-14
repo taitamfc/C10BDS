@@ -26,10 +26,6 @@ class CustomerController extends Controller
             $name = $request->filter['name'];
             $query->where('name', 'LIKE', '%' . $name . '%');
         }
-        if (isset($request->filter['email']) && $request->filter['email']) {
-            $email = $request->filter['email'];
-            $query->where('email', 'LIKE', '%' . $email . '%');
-        }
         if (isset($request->filter['address']) && $request->filter['address']) {
             $address = $request->filter['address'];
             $query->where('address', 'LIKE', '%' . $address . '%');
@@ -42,7 +38,11 @@ class CustomerController extends Controller
         $query->orderBy('id', 'DESC');
         //phân trang
         $customers = $query->paginate(10);
-        return view('admin.customers.index', compact('customers'));
+        $params = [ 
+            'customers' => $customers,
+            'filter' => $request->filter
+        ];
+        return view('admin.customers.index', $params);
     }
 
     /**
@@ -92,7 +92,7 @@ class CustomerController extends Controller
      */
     public function show(Customer $customer)
     {
-        $this->authorize('view', customer::class);
+      $this->authorize('view', Customer::class);
     }
 
     /**
