@@ -1,6 +1,8 @@
 <?php
+
 namespace App\Http\Controllers\Admin;
 
+use App\Events\CustomerSubmitEvent;
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
 use App\Http\Requests\StoreCustomerRequest;
@@ -70,6 +72,11 @@ class CustomerController extends Controller
 
         try {
             $customer->save();
+
+            $customer->active = 'store';
+            event(new CustomerSubmitEvent($customer));
+
+
             return redirect()->route('customers.index')->with('success', 'Thêm' . ' ' . $request->name . ' ' .  'thành công');
         } catch (\Exception $e) {
             Log::error($e->getMessage());
@@ -85,7 +92,7 @@ class CustomerController extends Controller
      */
     public function show(Customer $customer)
     {
-        //   $this->authorize('view', customer::class);
+      $this->authorize('view', Customer::class);
     }
 
     /**
@@ -120,11 +127,17 @@ class CustomerController extends Controller
         $customer->phone = $request->phone;
         try {
             $customer->save();
+
+            $customer->active = 'update';
+            event(new CustomerSubmitEvent($customer));
+
+
             return redirect()->route('customers.index')->with('success', 'Chỉnh sửa' . ' ' . $request->name . ' ' .  'thành công');
         } catch (\Exception $e) {
             Log::error($e->getMessage());
             return redirect()->route('customers.index')->with('error', 'Chỉnh sửa' . ' ' . $request->name . ' ' .  'không thành công');
-        }    }
+        }
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -138,10 +151,14 @@ class CustomerController extends Controller
         $customer = Customer::find($id);
         try {
             $customer->delete();
+
+            $customer->active = 'destroy';
+            event(new CustomerSubmitEvent($customer));
+
             return redirect()->route('customers.index')->with('success', 'Xóa' . ' ' . $customer->name . ' ' .  'thành công');
         } catch (\Exception $e) {
             Log::error($e->getMessage());
             return redirect()->route('customers.index')->with('error', 'Xóa' . ' ' . $customer->name . ' ' .  'không thành công');
-        }    
+        }
     }
 }

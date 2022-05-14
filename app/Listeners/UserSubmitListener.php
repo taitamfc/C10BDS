@@ -36,13 +36,13 @@ class UserSubmitListener
 
         switch ($event->user->active) {
             case 'update':
-                $data =  $username . ' đã cập nhật sản phẩm: ' . $nameUser;
+                $data =  $username . ' đã cập nhật nhân viên: ' . $nameUser;
                 break;
             case 'store':
-                $data =  $username . ' đã thêm sản phẩm: ' . $nameUser;
+                $data =  $username . ' đã thêm nhân viên: ' . $nameUser;
                 break;
             case 'destroy':
-                $data =  $username . ' đã xóa sản phẩm: ' . $nameUser;
+                $data =  $username . ' đã xóa nhân viên: ' . $nameUser;
                 break;
             default:
                 # code...
