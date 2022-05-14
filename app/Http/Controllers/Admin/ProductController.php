@@ -346,9 +346,9 @@ class ProductController extends Controller
             event(new ProductSubmitEvent($product));
         } catch (\Exception $e) {
             Log::error($e->getMessage());
-            return redirect()->route('products.index')->with('success', 'Xóa  thành công');
+            return redirect()->route('products.index')->with('error', 'Xóa không thành công');
         }
-        return redirect()->route('products.index')->with('success', 'Xóa không  thành công');
+        return redirect()->route('products.index')->with('success', 'Xóa thành công');
     }
 
 
