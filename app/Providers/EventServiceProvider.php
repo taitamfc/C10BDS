@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Events\CustomerSubmitEvent;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -14,6 +15,7 @@ use App\Listeners\SendNewProductNotification;
 use App\Events\ProductSold;
 use App\Events\ProductSubmitEvent;
 use App\Events\UserSubmitEvent;
+use App\Listeners\CustomerSubmitListener;
 use App\Listeners\ProductLogListener;
 use App\Listeners\ProductSubmitListener;
 use App\Listeners\SendSoldProductNotification;
@@ -28,6 +30,9 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $listen = [
 
+        CustomerSubmitEvent::class => [
+            CustomerSubmitListener::class
+        ],
         UserSubmitEvent::class => [
             UserSubmitListener::class
         ],

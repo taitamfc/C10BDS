@@ -29,7 +29,7 @@ Route::group([
     'middleware' => ['auth']
 ], function () {
     Route::get('/',[IndexController::class,'index'])->name('admin.index');
-    //chức năng thừng rác
+    
     Route::prefix('customers')->group(function () {
         Route::get('/trash', [CustomerController::class, 'trashedItems'])->name('customers.trash');
         Route::delete('/force_destroy/{id}', [CustomerController::class, 'force_destroy'])->name('customers.force_destroy');
@@ -67,11 +67,6 @@ Route::group([
         Route::get('/restore/{id}', [ProductCategoryController::class, 'restore'])->name('productCategories.restore');
     });
 
-
-
- 
-
-    
     Route::resource('userGroups', UserGroupController::class);
     Route::resource('users', UserController::class);
     Route::resource('roles', RoleController::class);
@@ -82,9 +77,7 @@ Route::group([
     Route::resource('options', OptionController::class);
     Route::resource('configs', ConfigController::class);
     Route::resource('systemlogs', SystemLogController::class);
-
-    
-
+    Route::get('administrator/logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
 });
 
 Route::get('administrator/login',[AuthController::class,'login'])->name('login');

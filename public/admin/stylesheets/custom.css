@@ -10,3 +10,6 @@
 	background-color: #bd9604;
 	border-color: #bd9604;
 }
+.figure-img .img-link {
+	background-color: hsla(0,0%,100%,.5)  !important;
+}
