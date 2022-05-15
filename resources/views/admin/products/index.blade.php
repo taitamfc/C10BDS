@@ -51,7 +51,7 @@
                     <a href="{{route('products.product_type','sold_products')}}" class="nav-link <?= ($product_type == 'sold_products') ? 'active' : '' ?>"> Đã Bán </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('products.trash')}}">Thùng Rác</a>
+                    <a class="nav-link <?= ($product_type == 'trash') ? 'active' : '' ?>"" href="{{route('products.trash')}}">Thùng Rác</a>
                 </li>
             </ul>
         </div>
@@ -86,14 +86,12 @@
             <div class="table-responsive">
                 <table class="table">
                     <thead>
-                        <br>
                         @if (Session::has('success'))
-                        <div class="alert alert-success">{{session::get('success')}}</div>
+                        <div class="alert alert-success mt-1">{{session::get('success')}}</div>
                         @endif
                         @if (Session::has('error'))
-                        <div class="alert alert-danger">{{session::get('error')}}</div>
+                        <div class="alert alert-danger mt-1">{{session::get('error')}}</div>
                         @endif
-                        <br>
                         <tr>
                             <th>Tên</th>
                             <th>Giá</th>
