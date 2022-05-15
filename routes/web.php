@@ -29,6 +29,10 @@ Route::group([
     'middleware' => ['auth']
 ], function () {
     Route::get('/',[IndexController::class,'index'])->name('admin.index');
+
+    Route::prefix('products')->group(function () {
+        route::get('/product_type/{product_type}', [ProductController::class, 'product_type'])->name('products.product_type');
+    });
     
     Route::prefix('customers')->group(function () {
         Route::get('/trash', [CustomerController::class, 'trashedItems'])->name('customers.trash');
