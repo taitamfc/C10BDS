@@ -23,10 +23,31 @@
     <div class="card-header">
             <ul class="nav nav-tabs card-header-tabs">
                 <li class="nav-item">
-                    <a class="nav-link  " href="{{route('products.index')}}">Tất Cả</a>
+                    <a href="{{route('products.index')}}" class="nav-link <?= ($product_type == 'all') ? 'active' : '' ?>">Tất Cả</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="{{route('products.trash')}}">Thùng Rác</a>
+                    <a href="{{route('products.product_type', 'hot_products')}}" class="nav-link <?= ($product_type == 'hot_products') ? 'active' : '' ?>">Hot</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{route('products.product_type','delivery_products')}}" class="nav-link <?= ($product_type == 'delivery_products') ? 'active' : '' ?>"> Ký Gửi </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{route('products.product_type','future_products')}}" class="nav-link <?= ($product_type == 'future_products') ? 'active' : '' ?>"> Sắp Mở Bán </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{route('products.product_type','block_products')}}" class="nav-link <?= ($product_type == 'block_products') ? 'active' : '' ?>"> Block</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{route('products.product_type','regular_products')}}" class="nav-link <?= ($product_type == 'regular_products') ? 'active' : '' ?>"> Thông Thường </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{route('products.product_type','expried_products')}}" class="nav-link <?= ($product_type == 'expried_products') ? 'active' : '' ?>"> Hết Hạn </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{route('products.product_type','sold_products')}}" class="nav-link <?= ($product_type == 'sold_products') ? 'active' : '' ?>"> Đã Bán </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link <?= ($product_type == 'trash') ? 'active' : '' ?>"" href="{{route('products.trash')}}">Thùng Rác</a>
                 </li>
             </ul>
         </div>
