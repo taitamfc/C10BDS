@@ -30,12 +30,14 @@
               </li><!-- /.menu-item -->
               <li class="menu-header">Bán Hàng </li>
 
+              @if(Auth::user()->hasPermission('Product_viewAny'))
               <li class="menu-item">
                   <a href="{{ route('products.index') }}" class="menu-link">
                     <span class="menu-icon oi oi-list-rich"></span> 
                     <span class="menu-text">Sản Phẩm</span>
                   </a>
               </li>
+              @endif
 
               <li class="menu-item">
                   <a href="{{ route('productCategories.index') }}" class="menu-link">
