@@ -440,7 +440,8 @@ class ProductController extends Controller
             'provinces' => $provinces,
             'products' => $products,
             'branches' => $branches,
-            'filter' => $request->filter
+            'filter' => $request->filter,
+            'product_type' => 'trash',
         ];
         return view('admin.products.trash', $params);
     }
