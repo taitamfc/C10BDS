@@ -28,6 +28,79 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function hot_products(Request $request)
+    {
+        $product = Product::select('*')->where('product_hot', 1);
+
+
+
+        $product->orderBy('id', 'desc');
+        $provinces = Province::all();
+        $branches = Branch::all();
+        $products = $product->paginate(20);
+        $params = [
+            'provinces' => $provinces,
+            'products' => $products,
+            'branches' => $branches,
+            'filter' => $request->filter
+        ];
+
+        return view('admin.products.index', $params);
+    }
+
+
+    public function product_type(Request $request,$product_type)
+    {
+        $product = Product::select('*');
+        switch ($product_type) {
+            case 'products':
+                $product->where(1);
+                break;
+            case 'hot_products':
+                $product->where('product_hot', 1);
+                break;
+            case 'future_products':
+                $product->where('product_open', 1);
+                break;
+            case 'block_products':
+                $product->where('product_type', 'Block');
+                break;
+            case 'regular_products':
+                $product->where('product_type', 'Regular');
+                break;
+            case 'delivery_products':
+                $product->where('product_type', 'Consignment');
+                break;
+            case 'delivery_products':
+                $product->where('product_type', 'Consignment');
+                break;
+            case 'expried_products':
+                $product->where('status', 'expried');
+                break;                
+            case 'sold_products':
+                $product->where('status', 'sold');
+                break;
+            default:
+                # code...
+                break;
+        }
+
+        $product->orderBy('id', 'desc');
+        $provinces = Province::all();
+        $branches = Branch::all();
+        $products = $product->paginate(20);
+        $params = [
+            'provinces' => $provinces,
+            'products' => $products,
+            'branches' => $branches,
+            'product_type' => $product_type,
+            'filter' => $request->filter
+        ];
+
+        return view('admin.products.index', $params);
+    }
+
+
     public function index(Request $request)
     {
         // $this->authorize('viewAny', Product::class);
@@ -96,7 +169,10 @@ class ProductController extends Controller
             'provinces' => $provinces,
             'products' => $products,
             'branches' => $branches,
-            'filter' => $request->filter
+            'filter' => $request->filter,
+            'product_type' => 'all'
+
+
         ];
 
         return view('admin.products.index', $params);
