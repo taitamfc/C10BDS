@@ -26,7 +26,7 @@
                     @endif
                 </div>
                 <div class="form-group">
-                    <label for="tf1">Nội Dung<abbr name="Trường bắt buộc">*</abbr></label> <textarea name="content" type="text" class="form-control" value="{{ $message->content }} " id="" placeholder="Nhập nội dung tin nhắn"></textarea>
+                    <label for="tf1">Nội Dung<abbr name="Trường bắt buộc">*</abbr></label> <input name="content" type="text" class="form-control" value="{{ $message->content }} " id="" placeholder="Nhập nội dung tin nhắn">
                     <small id="" class="form-text text-muted"></small>
                     @if ($errors->any())
                     <p style="color:red">{{ $errors->first('content') }}</p>
