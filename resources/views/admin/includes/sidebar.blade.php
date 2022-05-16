@@ -38,7 +38,6 @@
                   </a>
               </li>
               @endif
-
               <li class="menu-item">
                   <a href="{{ route('productCategories.index') }}" class="menu-link">
                     <span class="menu-icon oi oi-puzzle-piece"></span> 
