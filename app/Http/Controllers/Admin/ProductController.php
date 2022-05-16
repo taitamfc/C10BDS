@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProductRequest;
@@ -49,7 +50,7 @@ class ProductController extends Controller
     }
 
 
-    public function product_type(Request $request,$product_type)
+    public function product_type(Request $request, $product_type)
     {
         $product = Product::select('*');
         switch ($product_type) {
@@ -76,7 +77,7 @@ class ProductController extends Controller
                 break;
             case 'expried_products':
                 $product->where('status', 'expried');
-                break;                
+                break;
             case 'sold_products':
                 $product->where('status', 'sold');
                 break;
@@ -207,13 +208,14 @@ class ProductController extends Controller
      * @param  \App\Http\Requests\StoreProductRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreProductRequest $request)
+    public function store(Request $request)
     {
         $product = new Product();
         $old_product = $product;
         $product->name = $request->name;
         $product->address = $request->address;
         $product->price = $request->price;
+        $product->price = Str::replace(',', '', $product->price);
         $product->description = $request->description;
         $product->product_category_id = $request->product_category_id;
         $product->area = $request->area;
@@ -235,10 +237,17 @@ class ProductController extends Controller
         $product->product_open = $request->product_open;
         $product->product_open_date = $request->product_open_date;
         $product->user_contact_id = $request->user_contact_id;
-
+        if ($request->price_deposit) {
+            $product->price_deposit = Str::replace(',', '', $request->price_deposit);
+        }
+        if ($request->price_diff) {
+            $product->price_diff = Str::replace(',', '', $request->price_diff);
+        }
+        if ($request->price_commission) {
+            $product->price_commission = Str::replace(',', '', $request->price_commission);
+        }
         $product->branch_id = ($request->branch_id) ? $request->branch_id : Auth::user()->branch_id;
         $product->user_id = ($request->user_id) ? $request->user_id : Auth::user()->id;
-
         $product_images = [];
         if ($request->hasFile('image_urls')) {
             $image_urls          = $request->image_urls;
@@ -325,13 +334,14 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateProductRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $product = Product::find($id);
         $old_status =  $product->status;
         $product->name = $request->name;
         $product->address = $request->address;
         $product->price = $request->price;
+        $product->price = Str::replace(',', '', $product->price);
         $product->description = $request->description;
         $product->product_category_id = $request->product_category_id;
         $product->area = $request->area;
@@ -353,7 +363,15 @@ class ProductController extends Controller
         $product->product_open = $request->product_open;
         $product->product_open_date = $request->product_open_date;
         $product->user_contact_id = $request->user_contact_id;
-
+        if ($request->price_deposit) {
+            $product->price_deposit = Str::replace(',', '', $request->price_deposit);
+        }
+        if ($request->price_diff) {
+            $product->price_diff = Str::replace(',', '', $request->price_diff);
+        }
+        if ($request->price_commission) {
+            $product->price_commission = Str::replace(',', '', $request->price_commission);
+        }
         $product->branch_id = ($request->branch_id) ? $request->branch_id : Auth::user()->branch_id;
         $product->user_id = ($request->user_id) ? $request->user_id : Auth::user()->id;
 
@@ -461,7 +479,7 @@ class ProductController extends Controller
         }
     }
 
-    
+
     public function restore($id)
     {
         $product = Product::withTrashed()->find($id);
