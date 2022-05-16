@@ -13,10 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('user_groups', function (Blueprint $table) {
+        Schema::create('messages', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('title');
+            $table->text('content');
+            $table->string('type')->nullable();
+            $table->string('status')->nullable();
+            $table->date('date_send')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -27,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users_group');
+        Schema::dropIfExists('messages');
     }
 };

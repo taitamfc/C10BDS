@@ -8,6 +8,7 @@ use App\Models\ProductImage;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\User;
+use App\Models\Message;
 use App\Models\UserGroup;
 use App\Models\Option;
 use Illuminate\Database\Seeder;
@@ -31,6 +32,7 @@ class DatabaseSeeder extends Seeder
         $this->importProducts();
         $this->importUserGroupRoles();
         $this->importCustomers();
+        $this->importMessages();
         $this->importConfigs();
     }
     public function importProductCategories()
@@ -54,6 +56,27 @@ class DatabaseSeeder extends Seeder
         $product_category->name = 'Đất thổ cư';
         $product_category->save();
     }
+
+    public function importMessages()
+    {
+        $message = new Message();
+        $message->title = 'Vào học Angular';
+        $message->content = 'Thư mời Vào học Angular'; 
+        $message->type = 'Angular'; 
+        $message->status = 'Mệt'; 
+        $message->date_send ='2022/05/16'; 
+        $message->save();
+
+        $message = new Message();
+        $message->title = 'Chơi Lễ';
+        $message->content = 'Thử thách 6 ngày 6 đêm đi chơi lên không dụng vào máy tính. Let Go!'; 
+        $message->type = 'Lễ'; 
+        $message->status = 'Vui'; 
+        $message->date_send ='2022/05/22'; 
+        $message->save();
+
+    }
+
     public function importRoles()
     {
         $groups     = ['Branch', 'Product', 'Customer', 'ProductCategory', 'User', 'UserGroup','Customer','Config','SystemLog'];
