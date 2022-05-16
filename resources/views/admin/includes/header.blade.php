@@ -11,26 +11,36 @@
         </div><!-- /.top-bar-brand -->
         <!-- .top-bar-list -->
         <div class="top-bar-list">
+
             <!-- .top-bar-item -->
             <div class="top-bar-item px-2 d-md-none d-lg-none d-xl-none">
                 <!-- toggle menu -->
-                <button class="hamburger hamburger-squeeze" type="button" data-toggle="aside" aria-label="toggle menu"><span class="hamburger-box"><span class="hamburger-inner"></span></span></button> <!-- /toggle menu -->
             </div><!-- /.top-bar-item -->
             <!-- .top-bar-item -->
             <div class="top-bar-item top-bar-item-full">
-                
+                <form action="{{ route('products.index')}}" method="get" style="width: 100%;">
+                    <div class="input-group has-clearable">
+                        <button type="button" class="close trigger-submit trigger-submit-delay" aria-label="Close">
+                            <span aria-hidden="true"><i class="fa fa-times-circle"></i></span>
+                        </button>
+                        <div class="input-group-prepend trigger-submit">
+                            <span class="input-group-text"><span class="fas fa-search"></span></span>
+                        </div>
+                        <input type="text" class="form-control" name="s" value="" placeholder="Tìm kiếm">
+                    </div>
+                </form>
             </div><!-- /.top-bar-item -->
             <!-- .top-bar-item -->
             <div class="top-bar-item top-bar-item-right px-0 d-none d-sm-flex">
                 <!-- .nav -->
                 <ul class="header-nav nav">
-                    
+
                 </ul><!-- /.nav -->
                 <!-- .btn-account -->
                 <div class="dropdown d-none d-md-flex">
                     <button class="btn-account" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="user-avatar user-avatar-md">
-                           <img src="{{asset($current_user->avatar)}}" alt="">
+                            <img src="{{asset($current_user->avatar)}}" alt="">
                         </span>
                         <span class="account-summary pr-lg-4 d-none d-lg-block">
                             <a href="{{ route('users.index',$current_user->id)}}" class="account-name">{{ $current_user->name}}</a>
