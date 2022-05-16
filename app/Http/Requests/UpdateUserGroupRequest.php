@@ -25,8 +25,6 @@ class UpdateUserGroupRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'description' => 'required',
-
         ];
     }
 
@@ -34,7 +32,6 @@ class UpdateUserGroupRequest extends FormRequest
     {
         return [
             'name.required' => 'Vui lòng nhập tên nhóm',
-            'description.required' => 'Vui lòng nhập mô tả nhóm',
         ];
     }
 
