@@ -44,7 +44,7 @@
                                 <div class="list-group-header"> {{ $group_name }} </div>
                                 @foreach ($roles as $role)
                                 <div class="list-group-item d-flex justify-content-between align-items-center">
-                                    <span>{{ $role['name'] }}</span> 
+                                    <span>{{ __($role['name']) }}</span> 
                                     <!-- .switcher-control -->
                                     <label class="switcher-control">
                                         <input type="checkbox" 
