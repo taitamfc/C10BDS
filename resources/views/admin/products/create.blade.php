@@ -157,6 +157,7 @@
                         <div class="form-group">
                             <label>Mức giá <abbr title="Trường bắt buộc">*</abbr></label>
                             <input name="price" type="text" class="form-control" placeholder="Nhập giá, VD 12000000" value="{{ old('price') }}">
+                            <th> <?=str_replace('_', ' ', $str)?> </th>
                             @if ($errors->any())
                             <p style="color:red">{{ $errors->first('price') }}</p>
                             @endif
