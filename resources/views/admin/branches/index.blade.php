@@ -26,12 +26,15 @@
         <div class="card-header">
             <ul class="nav nav-tabs card-header-tabs">
                 <li class="nav-item">
-                    <a class="nav-link active show" data-toggle="tab" href="#tab1">Tất Cả</a>
+                    <a class="nav-link active " href="{{route('branches.index')}}">Tất Cả</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('branches.trash')}}">Thùng Rác</a>
                 </li>
             </ul>
         </div>
         <div class="card-body">
-            <div class="row mb-2">4
+            <div class="row mb-2">
                 <div class="col">
                     <form action="" method="GET" id="form-search">
                         <div class="input-group input-group-alt">

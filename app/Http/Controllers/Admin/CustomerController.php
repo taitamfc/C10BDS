@@ -1,6 +1,8 @@
 <?php
+
 namespace App\Http\Controllers\Admin;
 
+use App\Events\CustomerSubmitEvent;
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
 use App\Http\Requests\StoreCustomerRequest;
@@ -17,16 +19,12 @@ class CustomerController extends Controller
      */
     public function index(Request $request)
     {
-        $this->authorize('viewAny',Customer::class);
+        // $this->authorize('viewAny',Customer::class);
         //$query = customer::query(true);
         $query = Customer::select('*');
         if (isset($request->filter['name']) && $request->filter['name']) {
             $name = $request->filter['name'];
             $query->where('name', 'LIKE', '%' . $name . '%');
-        }
-        if (isset($request->filter['email']) && $request->filter['email']) {
-            $email = $request->filter['email'];
-            $query->where('email', 'LIKE', '%' . $email . '%');
         }
         if (isset($request->filter['address']) && $request->filter['address']) {
             $address = $request->filter['address'];
@@ -40,7 +38,11 @@ class CustomerController extends Controller
         $query->orderBy('id', 'DESC');
         //phân trang
         $customers = $query->paginate(10);
-        return view('admin.customers.index', compact('customers'));
+        $params = [ 
+            'customers' => $customers,
+            'filter' => $request->filter
+        ];
+        return view('admin.customers.index', $params);
     }
 
     /**
@@ -50,7 +52,7 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        $this->authorize('create', Customer::class);
+        // $this->authorize('create', Customer::class);
         $customers = Customer::all();
         return view('admin.customers.add', compact('customers'));
     }
@@ -65,12 +67,16 @@ class CustomerController extends Controller
     {
         $customer = new Customer();
         $customer->name = $request->name;
-        $customer->email = $request->email;
         $customer->address = $request->address;
         $customer->phone = $request->phone;
 
         try {
             $customer->save();
+
+            $customer->active = 'store';
+            event(new CustomerSubmitEvent($customer));
+
+
             return redirect()->route('customers.index')->with('success', 'Thêm' . ' ' . $request->name . ' ' .  'thành công');
         } catch (\Exception $e) {
             Log::error($e->getMessage());
@@ -86,7 +92,7 @@ class CustomerController extends Controller
      */
     public function show(Customer $customer)
     {
-          $this->authorize('view', customer::class);
+      $this->authorize('view', Customer::class);
     }
 
     /**
@@ -98,7 +104,7 @@ class CustomerController extends Controller
     public function edit($id)
     {
         $customer = Customer::find($id);
-        $this->authorize('update', Customer::class);
+        // $this->authorize('update', Customer::class);
         $params = [
             'customer' => $customer
         ];
@@ -117,16 +123,21 @@ class CustomerController extends Controller
     {
         $customer = Customer::find($id);
         $customer->name = $request->name;
-        $customer->email = $request->email;
         $customer->address = $request->address;
         $customer->phone = $request->phone;
         try {
             $customer->save();
+
+            $customer->active = 'update';
+            event(new CustomerSubmitEvent($customer));
+
+
             return redirect()->route('customers.index')->with('success', 'Chỉnh sửa' . ' ' . $request->name . ' ' .  'thành công');
         } catch (\Exception $e) {
             Log::error($e->getMessage());
             return redirect()->route('customers.index')->with('error', 'Chỉnh sửa' . ' ' . $request->name . ' ' .  'không thành công');
-        }    }
+        }
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -136,14 +147,60 @@ class CustomerController extends Controller
      */
     public function destroy($id)
     {
-        $this->authorize('delete', Customer::class);
+        // $this->authorize('delete', Customer::class);
         $customer = Customer::find($id);
         try {
             $customer->delete();
+
+            $customer->active = 'destroy';
+            event(new CustomerSubmitEvent($customer));
+
             return redirect()->route('customers.index')->with('success', 'Xóa' . ' ' . $customer->name . ' ' .  'thành công');
         } catch (\Exception $e) {
             Log::error($e->getMessage());
             return redirect()->route('customers.index')->with('error', 'Xóa' . ' ' . $customer->name . ' ' .  'không thành công');
-        }    
+        }
+    }
+
+    public function trashedItems(Request $request)
+    {
+        $query = Customer::onlyTrashed();
+        //sắp xếp thứ tự lên trước khi update
+        $query->orderBy('id', 'DESC');
+        //phân trang
+        $customers = $query->paginate(10);
+        $params = [ 
+            'customers' => $customers,
+            'filter' => $request->filter
+        ];
+        return view('admin.customers.trash', $params);
+    }
+
+    public function force_destroy($id)
+    {
+
+        $customer = Customer::withTrashed()->find($id);
+        // dd($customer);
+        // $this->authorize('forceDelete', $customer);
+        try {
+            $customer->forceDelete();
+            return redirect()->route('customers.trash')->with('success', 'Xóa' . ' ' . $customer->name . ' ' .  'thành công');
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return redirect()->route('customers.trash')->with('error', 'Xóa' . ' ' . $customer->name . ' ' .  'không thành công');
+        }
+    }
+
+    
+    public function restore($id)
+    {
+        $customer = Customer::withTrashed()->find($id);
+        try {
+            $customer->restore();
+            return redirect()->route('customers.trash')->with('success', 'Khôi phục' . ' ' . $customer->name . ' ' .  'thành công');
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return redirect()->route('customers.trash')->with('error', 'Khôi phục' . ' ' . $customer->name . ' ' .  'không thành công');
+        }
     }
 }

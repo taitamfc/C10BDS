@@ -15,19 +15,20 @@
                     <!-- .form-row -->
                     <div class="form-group form-row filter-row">
                         <div class="col-lg-4">
-                            <label class="">Tên nhóm</label>
+                            <label class="">Tiêu Đề</label>
                         </div>
                         <div class="col-lg-8">
-                            <div class="input text"><input type="text" name="filter[name]" class="form-control filter-column f-name" value="{{ ( isset($filter['name']) ) ? $filter['name'] : '' }}" id="name"></div>
+                            <div class="input text"><input type="text" name="filter[title]" class="form-control filter-column f-name" value=" {{ (isset($filter['title']) ? $filter['title'] : '') }} " id="title" /></div>
                         </div>
                     </div>
+
                 </div><!-- #filter-columns -->
                 <!-- .btn -->
             </div><!-- /.modal-body -->
             <!-- .modal-footer -->
             <div class="modal-footer justify-content-start">
                 <button type="submit" class="btn btn-primary" id="apply-filter">Áp dụng</button>
-                <a href="{{ route('userGroups.index') }}" class="btn btn-dark ">Đặt lại</a>
+                <a href="{{ route('messages.index') }}" class="btn btn-dark ">Đặt lại</a>
                 <button type="button" data-dismiss="modal" class="btn btn-secondary ml-auto" id="clear-filter">Hủy</button>
             </div><!-- /.modal-footer -->
         </div><!-- /.modal-content -->

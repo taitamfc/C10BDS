@@ -12,19 +12,15 @@
     </nav>
     <a href="{{route('products.index')}}" class="btn btn-success btn-floated"></a>
     <div class="d-md-flex align-items-md-start">
-        <h1 class="page-title mr-sm-auto">Quản Lý Sản Phẩm</h1>
+        <h1 class="page-title mr-sm-auto">Quản Lý Sản Phẩm - Thùng Rác</h1>
         <div class="btn-toolbar">
-            <a href="{{route('products.create')}}" class="btn btn-primary">
-                <i class="fa-solid fa fa-plus"></i>
-                <span class="ml-1">Thêm Mới</span>
-            </a>
         </div>
     </div>
 </header>
 
 <div class="page-section">
     <div class="card card-fluid">
-        <div class="card-header">
+    <div class="card-header">
             <ul class="nav nav-tabs card-header-tabs">
                 <li class="nav-item">
                     <a href="{{route('products.index')}}" class="nav-link <?= ($product_type == 'all') ? 'active' : '' ?>">Tất Cả</a>
@@ -86,12 +82,14 @@
             <div class="table-responsive">
                 <table class="table">
                     <thead>
+                        <br>
                         @if (Session::has('success'))
-                        <div class="alert alert-success mt-1">{{session::get('success')}}</div>
+                        <div class="alert alert-success">{{session::get('success')}}</div>
                         @endif
                         @if (Session::has('error'))
-                        <div class="alert alert-danger mt-1">{{session::get('error')}}</div>
+                        <div class="alert alert-danger">{{session::get('error')}}</div>
                         @endif
+                        <br>
                         <tr>
                             <th>Tên</th>
                             <th>Giá</th>
@@ -128,12 +126,12 @@
                             <td class="align-middle"> {{ __($product->product_type) }} </td>
                             <td class="align-middle"> {{ __($product->status) }} </td>
                             <td>
-                                <a href="{{route('products.edit',$product->id)}}" title="Edit Student"><button class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-pencil-alt"></i> </button></a>
-                                <form method="POST" action="{{ route('products.destroy',$product->id )}}" accept-charset="UTF-8" style="display:inline">
+                                <form action="{{ route('products.force_destroy',$product->id )}}" style="display:inline" method="post">
+                                    <button onclick="return confirm('Xóa vĩnh viễn {{$product->name}} ?')" class="btn btn-sm btn-icon btn-secondary"><i class="far fa-trash-alt"></i></button>
                                     @csrf
-                                    @method('DELETE')
-                                    <button onclick="return confirm('Xóa {{$product->name}} ?')" class="btn btn-sm btn-icon btn-secondary"><i class="far fa-trash-alt"></i></button>
+                                    @method('delete')
                                 </form>
+                                <span class="sr-only">Edit</span></a> <a href="{{route('products.restore',$product->id)}}" class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-trash-restore"></i> <span class="sr-only">Remove</span></a>
                             </td>
                         </tr>
                         @endforeach

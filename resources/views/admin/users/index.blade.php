@@ -14,12 +14,7 @@
     <a href="{{route('users.index')}}" class="btn btn-success btn-floated"> </a>
     <div class="d-md-flex align-items-md-start">
         <h1 class="page-title mr-sm-auto"> Quản Lý Nhân Viên</h1><!-- .btn-toolbar -->
-        <div class="btn-toolbar">
-            <a href="{{ route('users.create') }}" class="btn btn-primary">
-                <i class="fa-solid fa fa-plus"></i>
-                <span class="ml-1">Thêm Mới</span>
-            </a>
-        </div>
+
     </div>
 </header>
 <div class="page-section">
@@ -27,12 +22,15 @@
         <div class="card-header">
             <ul class="nav nav-tabs card-header-tabs">
                 <li class="nav-item">
-                    <a class="nav-link active show" data-toggle="tab" href="#tab1">Tất Cả</a>
+                    <a class="nav-link active " href="{{route('users.index')}}">Tất Cả</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('users.trash')}}">Thùng Rác</a>
                 </li>
             </ul>
         </div>
         <div class="card-body">
-        <div class="row mb-2">
+            <div class="row mb-2">
                 <div class="col">
                     <form action="" method="GET" id="form-search">
                         <div class="input-group input-group-alt">
@@ -103,7 +101,7 @@
                             </td>
                         </tr>
                         @endforeach
-        
+
                     </tbody>
                 </table>
                 <div style="float:right">

@@ -30,12 +30,14 @@
               </li><!-- /.menu-item -->
               <li class="menu-header">Bán Hàng </li>
 
+              @if(Auth::user()->hasPermission('Product_viewAny'))
               <li class="menu-item">
                   <a href="{{ route('products.index') }}" class="menu-link">
                     <span class="menu-icon oi oi-list-rich"></span> 
                     <span class="menu-text">Sản Phẩm</span>
                   </a>
               </li>
+              @endif
 
               <li class="menu-item">
                   <a href="{{ route('productCategories.index') }}" class="menu-link">
@@ -68,6 +70,12 @@
                   <a href="{{ route('customers.index') }}" class="menu-link">
                     <span class="menu-icon oi oi-aperture"></span> 
                     <span class="menu-text">Khách Hàng</span>
+                  </a>
+              </li>
+              <li class="menu-item">
+                  <a href="{{ route('messages.index') }}" class="menu-link">
+                    <span class="menu-icon fas fa-comment-alt"></span> 
+                    <span class="menu-text">Tin Nhắn</span>
                   </a>
               </li>
               <li class="menu-header">Hệ Thống</li>

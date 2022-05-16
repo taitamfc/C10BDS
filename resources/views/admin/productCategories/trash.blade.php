@@ -2,7 +2,6 @@
 
 @section('content')
 
-
 <header class="page-title-bar">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -11,27 +10,28 @@
             </li>
         </ol>
     </nav>
-    <a href="{{route('userGroups.index')}}" class="btn btn-success btn-floated"> </a>
+    <a href="{{route('productCategories.index')}}" class="btn btn-success btn-floated"></a>
     <div class="d-md-flex align-items-md-start">
-        <h1 class="page-title mr-sm-auto"> Quản Lý Nhóm Nhân Viên</h1><!-- .btn-toolbar -->
+        <h1 class="page-title mr-sm-auto"> Quản Lý Loại Sản Phẩm - Thùng Rác</h1>
         <div class="btn-toolbar">
-            <a href="{{ route('userGroups.create') }}" class="btn btn-primary">
+            <a href="{{route('productCategories.create')}}" class="btn btn-primary">
                 <i class="fa-solid fa fa-plus"></i>
                 <span class="ml-1">Thêm Mới</span>
             </a>
         </div>
     </div>
 </header>
+
+
 <div class="page-section">
     <div class="card card-fluid">
         <div class="card-header">
-            <ul class="nav nav-tabs card-header-tabs">
+        <ul class="nav nav-tabs card-header-tabs">
                 <li class="nav-item">
-                    <a class="nav-link active " href="{{route('userGroups.index')}}">Tất Cả</a>
+                    <a class="nav-link "href="{{route('productCategories.index')}}">Tất Cả</a>
                 </li>
-
                 <li class="nav-item">
-                    <a class="nav-link " href="{{route('userGroups.trash')}}">Thùng Rác</a>
+                    <a class="nav-link active "href="{{route('productCategories.trash')}}">Thùng Rác</a>
                 </li>
             </ul>
         </div>
@@ -41,7 +41,7 @@
                     <form action="" method="GET" id="form-search">
                         <div class="input-group input-group-alt">
                             <div class="input-group-prepend">
-                                <button class="btn btn-secondary" type="button" data-toggle="modal" data-target="#modalFilterColumns">Tìm nâng cao</button>
+                                <button class="btn btn-secondary" type="button" data-toggle="modal" data-target="#modalFilterColumnsproductCategories">Tìm nâng cao</button>
                             </div>
                             <div class="input-group has-clearable">
                                 <button type="button" class="close trigger-submit trigger-submit-delay" aria-label="Close">
@@ -53,51 +53,56 @@
                                 <input type="text" class="form-control" name="s" value="" placeholder="Tìm nhanh theo cú pháp (ma:Mã kết quả hoặc ten:Tên kết quả)">
                             </div>
                             <div class="input-group-append">
-                                <button class="btn btn-secondary" data-toggle="modal" data-target="#modalSaveSearch" type="button">Lưu bộ lọc</button>
+                                <button class="btn btn-secondary" data-toggle="modal" data-target="#modalSaveSearchproductCategories" type="button">Lưu bộ lọc</button>
                             </div>
                         </div>
                         <!-- modalFilterColumns  -->
-                        @include('admin.userGroups.modals.modalFilterColumns')
+                        @include('admin.productCategories.modals.modalFilterColumnsproductCategories')
                     </form>
                     <!-- modalFilterColumns  -->
-                    @include('admin.userGroups.modals.modalSaveSearch')
+                    @include('admin.productCategories.modals.modalSaveSearchproductCategories')
                 </div>
             </div>
-            @if (Session::has('success'))
-            <div class="alert alert-success">{{session::get('success')}}</div>
-            @endif
 
             <div class="table-responsive">
                 <table class="table">
                     <thead>
+                        <br>
+                        @if (Session::has('success'))
+                        <div class="alert alert-success">{{session::get('success')}}</div>
+                        @endif
+                        <br>
                         <tr>
                             <th> # </th>
-                            <th> Tên nhóm</th>
-                            <th> Miêu tả nhóm </th>
+                            <th> Tên</th>
                             <th> Chức năng </th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($userGroups as $userGroup)
+                        @foreach ($productCategories as $productCategory)
                         <tr>
-                            <td class="align-middle"> {{ $userGroup->id }} </td>
-                            <td class="align-middle"> {{ $userGroup->name }} </td>
-                            <td class="align-middle"> {{ $userGroup->description }} </td>
+                            <td class="align-middle"> {{ $productCategory->id }} </td>
+                            <td class="align-middle"> {{ $productCategory->name }} </td>
                             <td>
-                                <form action="{{ route('userGroups.destroy',$userGroup->id )}}" style="display:inline" method="post">
-                                    <button onclick="return confirm('Xóa {{$userGroup->name}} ?')" class="btn btn-sm btn-icon btn-secondary"><i class="far fa-trash-alt"></i></button>
+                            <form action="{{ route('productCategories.force_destroy',$productCategory->id )}}" style="display:inline" method="post">
+                                    <button onclick="return confirm('Xóa vĩnh viễn {{$productCategory->name}} ?')" class="btn btn-sm btn-icon btn-secondary"><i class="far fa-trash-alt"></i></button>
                                     @csrf
                                     @method('delete')
                                 </form>
-                                <span class="sr-only">Edit</span></a> <a href="{{route('userGroups.edit',$userGroup->id)}}" class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-pencil-alt"></i> <span class="sr-only">Remove</span></a>
+                                <span class="sr-only">Edit</span></a> <a href="{{route('productCategories.restore',$productCategory->id)}}" class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-trash-restore"></i> <span class="sr-only">Remove</span></a>
+                                </form>
                             </td>
-                        </tr><!-- /tr -->
+                        </tr>
                         @endforeach
-                    </tbody><!-- /tbody -->
-                </table><!-- /.table -->
+                    </tbody>
+                </table>
             </div>
-            <div style="float:right">
-                {{ $userGroups->links() }}
+        </div>
+        <nav aria-label="Page navigation example">
+            <div class='float:right'>
+                <ul class="pagination">
+                    <span aria-hidden="true"> {{ $productCategories->links() }}</span>
+                </ul>
             </div>
-        </div><!-- /.card-body -->
+        </nav>
         @endsection

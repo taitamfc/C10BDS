@@ -28,6 +28,79 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function hot_products(Request $request)
+    {
+        $product = Product::select('*')->where('product_hot', 1);
+
+
+
+        $product->orderBy('id', 'desc');
+        $provinces = Province::all();
+        $branches = Branch::all();
+        $products = $product->paginate(20);
+        $params = [
+            'provinces' => $provinces,
+            'products' => $products,
+            'branches' => $branches,
+            'filter' => $request->filter
+        ];
+
+        return view('admin.products.index', $params);
+    }
+
+
+    public function product_type(Request $request,$product_type)
+    {
+        $product = Product::select('*');
+        switch ($product_type) {
+            case 'products':
+                $product->where(1);
+                break;
+            case 'hot_products':
+                $product->where('product_hot', 1);
+                break;
+            case 'future_products':
+                $product->where('product_open', 1);
+                break;
+            case 'block_products':
+                $product->where('product_type', 'Block');
+                break;
+            case 'regular_products':
+                $product->where('product_type', 'Regular');
+                break;
+            case 'delivery_products':
+                $product->where('product_type', 'Consignment');
+                break;
+            case 'delivery_products':
+                $product->where('product_type', 'Consignment');
+                break;
+            case 'expried_products':
+                $product->where('status', 'expried');
+                break;                
+            case 'sold_products':
+                $product->where('status', 'sold');
+                break;
+            default:
+                # code...
+                break;
+        }
+
+        $product->orderBy('id', 'desc');
+        $provinces = Province::all();
+        $branches = Branch::all();
+        $products = $product->paginate(20);
+        $params = [
+            'provinces' => $provinces,
+            'products' => $products,
+            'branches' => $branches,
+            'product_type' => $product_type,
+            'filter' => $request->filter
+        ];
+
+        return view('admin.products.index', $params);
+    }
+
+
     public function index(Request $request)
     {
         // $this->authorize('viewAny', Product::class);
@@ -95,7 +168,11 @@ class ProductController extends Controller
         $params = [
             'provinces' => $provinces,
             'products' => $products,
-            'branches' => $branches
+            'branches' => $branches,
+            'filter' => $request->filter,
+            'product_type' => 'all'
+
+
         ];
 
         return view('admin.products.index', $params);
@@ -158,7 +235,7 @@ class ProductController extends Controller
         $product->product_open = $request->product_open;
         $product->product_open_date = $request->product_open_date;
         $product->user_contact_id = $request->user_contact_id;
-       
+
         $product->branch_id = ($request->branch_id) ? $request->branch_id : Auth::user()->branch_id;
         $product->user_id = ($request->user_id) ? $request->user_id : Auth::user()->id;
 
@@ -176,7 +253,7 @@ class ProductController extends Controller
                 $new_image          = $name_image . rand(0, 99) . '.' . $image->getClientOriginalExtension();
                 //abc nối số ngẫu nhiên từ 0-99, nối "." ->đuôi file jpg
                 $image->move($path, $new_image); //chuyển file ảnh tới thư mục
-                $product_images[] = '/upload/'.$new_image;
+                $product_images[] = '/upload/' . $new_image;
             }
         }
         try {
@@ -191,7 +268,7 @@ class ProductController extends Controller
                 }
             }
             $product->active = 'store';
-            event(new ProductSubmitEvent($product));            
+            event(new ProductSubmitEvent($product));
             Session::flash('success', 'Thêm' . ' ' . $request->name . ' ' .  'thành công');
         } catch (\Exception $e) {
             Log::error($e->getMessage());
@@ -227,7 +304,7 @@ class ProductController extends Controller
         $districts = District::where('province_id', $product->province_id)->get();
         $wards = Ward::where('district_id', $product->district_id)->get();
         $users = User::where('branch_id', $product->branch_id)->get();
-        
+
 
         $params = [
             'productCategories' => $productCategories,
@@ -294,7 +371,7 @@ class ProductController extends Controller
                 $new_image          = $name_image . rand(0, 99) . '.' . $image->getClientOriginalExtension();
                 //abc nối số ngẫu nhiên từ 0-99, nối "." ->đuôi file jpg
                 $image->move($path, $new_image); //chuyển file ảnh tới thư mục
-                $product_images[] = '/upload/'.$new_image;
+                $product_images[] = '/upload/' . $new_image;
             }
         }
         try {
@@ -348,5 +425,52 @@ class ProductController extends Controller
             return redirect()->route('products.index')->with('success', 'Xóa  thành công');
         }
         return redirect()->route('products.index')->with('success', 'Xóa không  thành công');
+    }
+
+
+    public function trashedItems(Request $request)
+    {
+        $product = Product::onlyTrashed();
+        //sắp xếp thứ tự lên trước khi update
+        $product->orderBy('id', 'desc');
+        $provinces = Province::all();
+        $branches = Branch::all();
+        $products = $product->paginate(20);
+        $params = [
+            'provinces' => $provinces,
+            'products' => $products,
+            'branches' => $branches,
+            'filter' => $request->filter,
+            'product_type' => 'trash',
+        ];
+        return view('admin.products.trash', $params);
+    }
+
+    public function force_destroy($id)
+    {
+
+        $product = Product::withTrashed()->find($id);
+        // dd($product);
+        // $this->authorize('forceDelete', $product);
+        try {
+            $product->forceDelete();
+            return redirect()->route('products.trash')->with('success', 'Xóa' . ' ' . $product->name . ' ' .  'thành công');
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return redirect()->route('products.trash')->with('error', 'Xóa' . ' ' . $product->name . ' ' .  'không thành công');
+        }
+    }
+
+    
+    public function restore($id)
+    {
+        $product = Product::withTrashed()->find($id);
+        try {
+            $product->restore();
+            return redirect()->route('products.trash')->with('success', 'Khôi phục' . ' ' . $product->name . ' ' .  'thành công');
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return redirect()->route('products.trash')->with('error', 'Khôi phục' . ' ' . $product->name . ' ' .  'không thành công');
+        }
     }
 }

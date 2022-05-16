@@ -36,6 +36,7 @@ class UserGroupController extends Controller
         $query->orderBy('id', 'desc');
         $userGroups = $query->paginate(4);
         $params = [
+            'filter' => $request->filter,
             'userGroups' => $userGroups
         ];
         return view('admin.userGroups.index', $params);
@@ -48,7 +49,7 @@ class UserGroupController extends Controller
      */
     public function create()
     {
-        $this->authorize('create', UserGroup::class);
+        // $this->authorize('create', UserGroup::class);
 
         return view('admin.userGroups.add');
     }
@@ -95,11 +96,11 @@ class UserGroupController extends Controller
         $userGroup = UserGroup::find($id);
         // $this->authorize('update',  $userGroup);
         $current_user = Auth::user();
-        $userRoles = $userGroup->roles->pluck('id','name')->toArray();
+        $userRoles = $userGroup->roles->pluck('id', 'name')->toArray();
         // dd($current_user->userGroup->roles->toArray());
         $roles = Role::all()->toArray();
         $group_names = [];
-        foreach ($roles as $role){
+        foreach ($roles as $role) {
             $group_names[$role['group_name']][] = $role;
         }
         $params = [
@@ -120,7 +121,7 @@ class UserGroupController extends Controller
     public function update(UpdateUserGroupRequest $request, $id)
     {
         // dd($request->all());
-        
+
         $userGroup = UserGroup::find($id);
         $userGroup->name = $request->name;
         $userGroup->description = $request->description;
@@ -146,7 +147,7 @@ class UserGroupController extends Controller
      */
     public function destroy($id)
     {
-        $this->authorize('delete', UserGroup::class);
+        // $this->authorize('delete', UserGroup::class);
 
         $userGroup = UserGroup::find($id);
 
@@ -156,6 +157,47 @@ class UserGroupController extends Controller
         } catch (\Exception $e) {
             Log::error($e->getMessage());
             return redirect()->route('userGroups.index')->with('success', 'Xóa không thành công');
+        }
+    }
+
+    public function trashedItems(Request $request)
+    {
+        $query = UserGroup::onlyTrashed();
+        //sắp xếp thứ tự lên trước khi update
+        $query->orderBy('id', 'desc');
+        $userGroups = $query->paginate(4);
+        $params = [
+            'userGroups' => $userGroups,
+            'filter' => $request->filter
+
+        ];
+        return view('admin.userGroups.trash', $params);
+    }
+
+    public function force_destroy($id)
+    {
+
+        $userGroup = UserGroup::withTrashed()->find($id);
+        // dd($userGroup);
+        // $this->authorize('forceDelete', $userGroup);
+        try {
+            $userGroup->forceDelete();
+            return redirect()->route('userGroups.trash')->with('success', 'Xóa' . ' ' . $userGroup->name . ' ' .  'thành công');
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return redirect()->route('userGroups.trash')->with('error', 'Xóa' . ' ' . $userGroup->name . ' ' .  'không thành công');
+        }
+    }
+
+    public function restore($id)
+    {
+        $userGroup = UserGroup::withTrashed()->find($id);
+        try {
+            $userGroup->restore();
+            return redirect()->route('userGroups.trash')->with('success', 'Khôi phục' . ' ' . $userGroup->name . ' ' .  'thành công');
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return redirect()->route('userGroups.trash')->with('error', 'Khôi phục' . ' ' . $userGroup->name . ' ' .  'không thành công');
         }
     }
 }

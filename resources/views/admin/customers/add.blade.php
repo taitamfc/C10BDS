@@ -26,13 +26,6 @@
                     @endif
                 </div>
                 <div class="form-group">
-                    <label for="tf1">Email<abbr name="Trường bắt buộc">*</abbr></label> <input name="email" type="text" class="form-control" id="" placeholder="Nhập email">
-                    <small id="" class="form-text text-muted"></small>
-                    @if ($errors->any())
-                    <p style="color:red">{{ $errors->first('email') }}</p>
-                    @endif
-                </div>
-                <div class="form-group">
                     <label for="tf1">Địa chỉ<abbr name="Trường bắt buộc">*</abbr></label> <input name="address" type="text" class="form-control" id="" placeholder="Nhập địa chỉ">
                     <small id="" class="form-text text-muted"></small>
                     @if ($errors->any())
