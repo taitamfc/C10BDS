@@ -72,6 +72,12 @@
                     <span class="menu-text">Khách Hàng</span>
                   </a>
               </li>
+              <li class="menu-item">
+                  <a href="{{ route('messages.index') }}" class="menu-link">
+                    <span class="menu-icon fas fa-comment-alt"></span> 
+                    <span class="menu-text">Tin Nhắn</span>
+                  </a>
+              </li>
               <li class="menu-header">Hệ Thống</li>
               <li class="menu-item">
                   <a href="{{ route('configs.index') }}" class="menu-link">
