@@ -19,6 +19,7 @@ class Kernel extends ConsoleKernel
         // $schedule->call(function () {
         //     DB::table('products')->delete();
         // })->daily();
+        $schedule->command('MessageCommand')->everyMinute();
     }
 
     /**

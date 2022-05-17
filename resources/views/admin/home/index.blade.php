@@ -51,7 +51,7 @@
                         <a href="javascript:;" class="metric metric-bordered align-items-center">
                             <h2 class="metric-label"> Tổng Doanh Thu </h2>
                             <p class="metric-value h3">
-                                <span class="value">{{ $product_price }}</span>
+                                <span class="value">  {{number_format($product_price) }} VNĐ</span>
                             </p>
                         </a> <!-- /.metric -->
                     </div><!-- /metric column -->
