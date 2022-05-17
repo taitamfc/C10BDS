@@ -21,6 +21,8 @@ use App\Events\ProductSold;
 use App\Events\ProductSubmitEvent;
 use App\Models\ProductImage;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
+
 
 class ProductController extends Controller
 {
@@ -237,6 +239,9 @@ class ProductController extends Controller
         $product->product_open = $request->product_open;
         $product->product_open_date = $request->product_open_date;
         $product->user_contact_id = $request->user_contact_id;
+
+        $product->product_end_date = Carbon::now('Asia/Ho_Chi_Minh');
+
         if ($request->price_deposit) {
             $product->price_deposit = Str::replace(',', '', $request->price_deposit);
         }
@@ -363,6 +368,9 @@ class ProductController extends Controller
         $product->product_open = $request->product_open;
         $product->product_open_date = $request->product_open_date;
         $product->user_contact_id = $request->user_contact_id;
+
+        $product->product_end_date = Carbon::now('Asia/Ho_Chi_Minh');
+
         if ($request->price_deposit) {
             $product->price_deposit = Str::replace(',', '', $request->price_deposit);
         }

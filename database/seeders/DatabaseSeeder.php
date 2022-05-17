@@ -133,7 +133,7 @@ class DatabaseSeeder extends Seeder
         $userGroup->description = '';
         $userGroup->save();
         $userGroup = new UserGroup();
-        $userGroup->name = 'Nhân Viên';
+        $userGroup->name = 'Giám Đốc';
         $userGroup->description = '';
         $userGroup->save();
     }

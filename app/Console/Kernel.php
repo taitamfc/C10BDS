@@ -5,6 +5,7 @@ namespace App\Console;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Illuminate\Support\Facades\DB;
+use App\Console\Commands\ProductExpriedCommand;
 
 class Kernel extends ConsoleKernel
 {
@@ -20,6 +21,7 @@ class Kernel extends ConsoleKernel
         //     DB::table('products')->delete();
         // })->daily();
         $schedule->command('MessageCommand')->everyMinute();
+        $schedule->job(ProductExpriedCommand::class)->everyMinute();
     }
 
     /**

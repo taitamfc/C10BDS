@@ -166,7 +166,7 @@
                             <label>Giá chênh <abbr title="Trường bắt buộc">*</abbr></label>
                             <input name="price_diff" type="text" class="form-control" placeholder="Nhập giá chênh, VD 12000000" value="{{ old('price_diff') }}" data-mask="currency">
                             @if ($errors->any())
-                            <p style="color:red">{{ $errors->first('price') }}</p>
+                            <p style="color:red">{{ $errors->first('price_diff') }}</p>
                             @endif
                         </div>
                     </div>
@@ -175,7 +175,7 @@
                             <label>Mức hoa hồng <abbr title="Trường bắt buộc">*</abbr></label>
                             <input name="price_commission" type="text" class="form-control" placeholder="Nhập mức hoa hồng, VD 12000000" value="{{ old('price_commission') }}" data-mask="currency">
                             @if ($errors->any())
-                            <p style="color:red">{{ $errors->first('price') }}</p>
+                            <p style="color:red">{{ $errors->first('price_commission') }}</p>
                             @endif
                         </div>
                     </div>
