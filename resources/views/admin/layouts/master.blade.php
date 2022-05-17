@@ -93,6 +93,9 @@
 
     <script src="{{asset('admin/vendor/bootstrap/js/bootstrap.min.js')}}"></script> <!-- END BASE JS -->
     <!-- BEGIN PLUGINS JS -->
+    <script src="https://uselooper.com/assets/vendor/vanilla-text-mask/vanillaTextMask.js"></script>
+    <script src="https://uselooper.com/assets/vendor/text-mask-addons/textMaskAddons.js"></script>
+
     <!-- END PLUGINS JS -->
     <!-- BEGIN THEME JS -->
     <script src="{{asset('admin/javascript/theme.min.js')}}"></script> <!-- END THEME JS -->
