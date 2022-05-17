@@ -107,8 +107,8 @@
                         <div class="form-group">
                             <label>Loại sản phẩm</label>
                             <select name="product_type" class="form-control" id="product_type">
-                                <option value="Block" @selected(old('product_type')=='Block' )>Sản phẩm block</option>
                                 <option value="Regular" @selected(old('product_type')=='Regular' )>Sản phẩm thường</option>
+                                <option value="Block" @selected(old('product_type')=='Block' )>Sản phẩm block</option>
                                 <option value="Consignment" @selected(old('product_type')=='Consignment' )>Sản phẩm ký gửi</option>
                             </select>
                             @if ($errors->any())
@@ -171,7 +171,7 @@
                         </div>
                     </div>
                     <div class="col-lg-4">
-                        <div class="form-group priceCommission" style="display:none">
+                        <div class="form-group showpriceCommission" style="display:none">
                             <label>Mức hoa hồng <abbr title="Trường bắt buộc">*</abbr></label>
                             <input name="price_commission" type="text" class="form-control" placeholder="Nhập mức hoa hồng, VD 12000000" value="{{ old('price_commission') }}" data-mask="currency">
                             @if ($errors->any())
@@ -447,7 +447,7 @@
             });
         });
 
-        //logic san pham 
+        //logic san pham
         jQuery('.product_open').on('click', function() {
             if ($(this).is(':checked')) {
                 $('.showIfProductOpen').show();
@@ -469,12 +469,23 @@
 
         jQuery('#product_type').on('change', function() {
             var product_type = jQuery(this).val();
-            //showIfProductprice_commission
+            //showIfProductpricecommission
             console.log(product_type);
             if (product_type == 'Regular') {
-                $('.priceCommission').show();
+                $('.showpriceCommission').show();
             } else {
-                $('.priceCommission').hide();
+                $('.showpriceCommission').hide();
+            }
+        });
+
+        jQuery('#product_type').on('change', function() {
+            var product_type = jQuery(this).val();
+            //showIBlock 
+            console.log(product_type);
+            if (product_type == 'Block') {
+                $('.showpriceCommission').show();
+            } else {
+                $('.showpriceCommission').hide();
             }
         });
     });
