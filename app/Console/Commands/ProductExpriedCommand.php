@@ -35,11 +35,12 @@ class ProductExpriedCommand extends Command
         $currentDate = $dt->toDateString();
         $products = Product::where('product_type', 'Consignment')
             ->where('product_end_date', $currentDate)
-            ->where('status', 'selling')->get();
+            ->where('status', 'selling')
+            ->get();
 
         if (count($products) > 0) {
             foreach ($products as $product) {
-                dispatch( new ProductExpriedJob($product) );
+                dispatch( new ProductExpriedJob($product) );    
             }
         }
     }
