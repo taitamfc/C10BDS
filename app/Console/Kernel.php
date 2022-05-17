@@ -21,6 +21,7 @@ class Kernel extends ConsoleKernel
         //     DB::table('products')->delete();
         // })->daily();
         $schedule->command(ProductNotifyCommand::class)->everyMinute();
+        $schedule->command('MessageCommand')->everyMinute();
     }
 
     /**

@@ -36,11 +36,12 @@ class ProductNotifyCommand extends Command
         $products = Product::where('product_type', '=', 'Consignment')
         ->where('product_end_date', $nextDate)
         ->where('status', '=', 'selling')
+        ->where('notifyExpired ',0)
         ->get();
 
         if (count($products) > 0){
             foreach ($products as $product){
-                dispatch( new ProductNotifyJob($product) );
+                dispatch( new ProductNotifyJob($product) )->delay(now()->addMinutes(1));
             }
         }
     }

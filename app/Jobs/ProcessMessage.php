@@ -8,21 +8,21 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use App\Models\Message;
 use Telegram\Bot\Laravel\Facades\Telegram;
-use App\Models\Product;
 
-class ProductNotifyJob implements ShouldQueue
+class ProcessMessage implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-    protected $product;
+    protected $message;
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct(Product $product)
+    public function __construct(Message $message)
     {
-       $this->product = $product;
+        $this->message = $message;
     }
 
     /**
@@ -33,17 +33,13 @@ class ProductNotifyJob implements ShouldQueue
     public function handle()
     {
         //gửi cho các thành viên ở chi nhánh qua telegram
-        $productname = '[' . $this->product->id . '] - ' .  $this->product->name;
         $telegram_channel_id = env('TELEGRAM_CHANNEL_ID', '');
-        if ($telegram_channel_id) {
+        if($telegram_channel_id){
             Telegram::sendMessage([
                 'chat_id' => $telegram_channel_id,
                 'parse_mode' => 'HTML',
-                'text' => 'Sản phẩm <strong>' . $productname . '</strong> sắp hết hạn !'
+                'text' => '[THÔNG BÁO] '.$this->message->content
             ]);
         }
-        //cập nhật trạng thái đã thông Báo
-        $this->product->notifyExpired = 1;
-        $this->product->save();
     }
 }
