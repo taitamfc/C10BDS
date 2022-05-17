@@ -23,7 +23,7 @@
                     <label for="exampleInputEmail1">Loại bất động sản</label>
                     <select name="product_category_id" class="form-control" value="{{ old('product_category_id') }}">
                         @foreach($productCategories as $productCategory)
-                        <option value="{{$productCategory->id}}" @selected(old('product_category_id') == $productCategory->id )>{{$productCategory->name}}</option>
+                        <option value="{{$productCategory->id}}" @selected(old('product_category_id')==$productCategory->id )>{{$productCategory->name}}</option>
                         @endforeach
                     </select>
                     @if ($errors->any())
@@ -35,9 +35,9 @@
                         <div class="form-group">
                             <label for="exampleInputEmail1">Tỉnh/Thành phố <abbr title="Trường bắt buộc">*</abbr></label>
                             <select name="province_id" class="form-control province_id" value="{{ old('province_id') }}">
-                                <option value="">Vui lòng chọn</option>                                
+                                <option value="">Vui lòng chọn</option>
                                 @foreach($provinces as $province)
-                                <option value="{{ $province->id }}" @selected(old('province_id') == $province->id )>{{$province->name}}</option>
+                                <option value="{{ $province->id }}" @selected(old('province_id')==$province->id )>{{$province->name}}</option>
                                 @endforeach
                             </select>
                             @if ($errors->any())
@@ -69,7 +69,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="tf1">Địa chỉ <abbr title="Trường bắt buộc">*</abbr></label> <input name="address" type="text" class="form-control" placeholder="Bạn có thể bổ sung hẻm, ngách, ngõ..." value="{{ old('address') }}"> 
+                    <label for="tf1">Địa chỉ <abbr title="Trường bắt buộc">*</abbr></label> <input name="address" type="text" class="form-control" placeholder="Bạn có thể bổ sung hẻm, ngách, ngõ..." value="{{ old('address') }}">
                     @if ($errors->any())
                     <p style="color:red">{{ $errors->first('address') }}</p>
                     @endif
@@ -107,9 +107,9 @@
                         <div class="form-group">
                             <label>Loại sản phẩm</label>
                             <select name="product_type" class="form-control" id="product_type">
-                                <option value="Regular" @selected(old('product_type') == 'Regular')>Sản phẩm thường</option>
-                                <option value="Consignment" @selected(old('product_type') == 'Consignment')>Sản phẩm ký gửi</option>
-                                <option value="Block" @selected(old('product_type') == 'Block')>Sản phẩm block</option>
+                                <option value="Regular" @selected(old('product_type')=='Regular' )>Sản phẩm thường</option>
+                                <option value="Block" @selected(old('product_type')=='Block' )>Sản phẩm block</option>
+                                <option value="Consignment" @selected(old('product_type')=='Consignment' )>Sản phẩm ký gửi</option>
                             </select>
                             @if ($errors->any())
                             <p style="color:red">{{ $errors->first('product_type') }}</p>
@@ -120,8 +120,8 @@
                         <label>Sản phẩm HOT</label>
                         <div class="form-group">
                             <label class="switcher-control">
-                                <input type="hidden" name="product_hot" value="0"> 
-                                <input type="checkbox" class="switcher-input" name="product_hot" @checked(old('product_hot') == 1) value="1"> 
+                                <input type="hidden" name="product_hot" value="0">
+                                <input type="checkbox" class="switcher-input" name="product_hot" @checked(old('product_hot')==1) value="1">
                                 <span class="switcher-indicator"></span>
                             </label>
                         </div>
@@ -130,8 +130,8 @@
                         <label>Sắp mở bán</label>
                         <div class="form-group">
                             <label class="switcher-control">
-                                <input type="hidden" name="product_open" value="0"> 
-                                <input type="checkbox" class="switcher-input" name="product_open" value="1" @checked( old('product_open') == 1 )> 
+                                <input type="hidden" name="product_open" value="0">
+                                <input type="checkbox" class="switcher-input product_open" name="product_open" value="1" @checked( old('product_open')==1 )>
                                 <span class="switcher-indicator"></span>
                             </label>
                             @if ($errors->any())
@@ -140,8 +140,8 @@
                         </div>
                     </div>
                     <div class="col-lg-4">
-                        <div class="form-group">
-                            <label for="tf1">Ngày mở bán</label> <input name="product_open_date" type="date" class="form-control" placeholder="" value="{{ old('product_open_date') }}"> 
+                        <div class="form-group showIfProductOpen" style="display:none">
+                            <label for="tf1">Ngày mở bán</label> <input name="product_open_date" type="date" class="form-control" placeholder="" value="{{ old('product_open_date') }}">
                             @if ($errors->any())
                             <p style="color:red">{{ $errors->first('product_open_date') }}</p>
                             @endif
@@ -149,14 +149,45 @@
                     </div>
                 </div>
             </div>
-
+            <div class="card-body border-top">
+                <legend>Thông tin giá tiền</legend>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="form-group showIfProductConsignment" style="display:none">
+                            <label>Giá ký gửi <abbr title="Trường bắt buộc">*</abbr></label>
+                            <input name="price_deposit" type="text" class="form-control" placeholder="Nhập giá ký gửi, VD 12000000" value="{{ old('price_deposit') }}" data-mask="currency">
+                            @if ($errors->any())
+                            <p style="color:red">{{ $errors->first('price_deposit') }}</p>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group showIfProductConsignment" style="display:none">
+                            <label>Giá chênh <abbr title="Trường bắt buộc">*</abbr></label>
+                            <input name="price_diff" type="text" class="form-control" placeholder="Nhập giá chênh, VD 12000000" value="{{ old('price_diff') }}" data-mask="currency">
+                            @if ($errors->any())
+                            <p style="color:red">{{ $errors->first('price_diff') }}</p>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group showpriceCommission" style="display:none">
+                            <label>Mức hoa hồng <abbr title="Trường bắt buộc">*</abbr></label>
+                            <input name="price_commission" type="text" class="form-control" placeholder="Nhập mức hoa hồng, VD 12000000" value="{{ old('price_commission') }}" data-mask="currency">
+                            @if ($errors->any())
+                            <p style="color:red">{{ $errors->first('price_commission') }}</p>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="card-body border-top">
                 <legend>Thông tin bất động sản</legend>
                 <div class="row">
                     <div class="col-lg-10">
                         <div class="form-group">
                             <label>Mức giá <abbr title="Trường bắt buộc">*</abbr></label>
-                            <input name="price" type="text" class="form-control" placeholder="Nhập giá, VD 12000000" value="{{ old('price') }}">
+                            <input name="price" type="text" class="form-control" placeholder="Nhập giá, VD 12000000" value="{{ old('price') }}" data-mask="currency">
                             @if ($errors->any())
                             <p style="color:red">{{ $errors->first('price') }}</p>
                             @endif
@@ -166,9 +197,9 @@
                         <div class="form-group">
                             <label>Đơn vị</label>
                             <select name="unit" class="form-control">
-                                <option value="VND" @selected( old('unit') == 'VND')>VND</option>
-                                <option value="m2" @selected( old('unit') == 'm2')>Giá / m²</option>
-                                <option value="agree" @selected( old('unit') == 'agree')>Thoả thuận</option>
+                                <option value="VND" @selected( old('unit')=='VND' )>VND</option>
+                                <option value="m2" @selected( old('unit')=='m2' )>Giá / m²</option>
+                                <option value="agree" @selected( old('unit')=='agree' )>Thoả thuận</option>
                             </select>
                             @if ($errors->any())
                             <p style="color:red">{{ $errors->first('unit') }}</p>
@@ -179,19 +210,19 @@
                 <div class="form-group">
                     <label class="d-block">Giấy tờ pháp lý</label>
                     <div class="custom-control custom-control-inline custom-radio">
-                        <input type="radio" class="custom-control-input" name="juridical" id="rd1"  @checked( old('juridical') == 'red_book_pink_book' || old('juridical') == '') value="red_book_pink_book">
+                        <input type="radio" class="custom-control-input" name="juridical" id="rd1" @checked( old('juridical')=='red_book_pink_book' || old('juridical')=='' ) value="red_book_pink_book">
                         <label class="custom-control-label" for="rd1">Sổ đỏ/ Sổ hồng</label>
                     </div>
                     <div class="custom-control custom-control-inline custom-radio">
-                        <input type="radio" class="custom-control-input" name="juridical" id="rd2" @checked( old('juridical') == 'sale_contract') value="Sale contract">
+                        <input type="radio" class="custom-control-input" name="juridical" id="rd2" @checked( old('juridical')=='sale_contract' ) value="Sale contract">
                         <label class="custom-control-label" for="rd2">Hợp đồng mua bán</label>
                     </div>
                     <div class="custom-control custom-control-inline custom-radio">
-                        <input type="radio" class="custom-control-input" name="juridical" id="rd3" @checked( old('juridical') == 'waiting_book') value="waiting_book">
+                        <input type="radio" class="custom-control-input" name="juridical" id="rd3" @checked( old('juridical')=='waiting_book' ) value="waiting_book">
                         <label class="custom-control-label" for="rd3">Đang chờ sổ</label>
                     </div>
                     <div class="custom-control custom-control-inline custom-radio">
-                        <input type="radio" class="custom-control-input" name="juridical" id="rd4" @checked( old('juridical') == 'split_plot') value="split_plot">
+                        <input type="radio" class="custom-control-input" name="juridical" id="rd4" @checked( old('juridical')=='split_plot' ) value="split_plot">
                         <label class="custom-control-label" for="rd4">Tách thửa</label>
                     </div>
                     @if ($errors->any())
@@ -231,14 +262,14 @@
                         <div class="form-group">
                             <label>Hướng nhà</label>
                             <select name="houseDirection" class="form-control">
-                                <option value="East" @selected(old('houseDirection') == 'East') >Đông</option>
-                                <option value="West" @selected(old('houseDirection') == 'West')>Tây</option>
-                                <option value="South" @selected(old('houseDirection') == 'South')>Nam</option>
-                                <option value="North" @selected(old('houseDirection') == 'North')>Bắc</option>
-                                <option value="Northeast" @selected(old('houseDirection') == 'Northeast')>Đông Bắc</option>
-                                <option value="Northwest" @selected(old('houseDirection') == 'Northwest')>Tây Bắc</option>
-                                <option value="Southeast" @selected(old('houseDirection') == 'Southeast')>Đông Nam</option>
-                                <option value="Southwest" @selected(old('houseDirection') == 'Southwest')>Tây Nam</option>
+                                <option value="East" @selected(old('houseDirection')=='East' )>Đông</option>
+                                <option value="West" @selected(old('houseDirection')=='West' )>Tây</option>
+                                <option value="South" @selected(old('houseDirection')=='South' )>Nam</option>
+                                <option value="North" @selected(old('houseDirection')=='North' )>Bắc</option>
+                                <option value="Northeast" @selected(old('houseDirection')=='Northeast' )>Đông Bắc</option>
+                                <option value="Northwest" @selected(old('houseDirection')=='Northwest' )>Tây Bắc</option>
+                                <option value="Southeast" @selected(old('houseDirection')=='Southeast' )>Đông Nam</option>
+                                <option value="Southwest" @selected(old('houseDirection')=='Southwest' )>Tây Nam</option>
                             </select>
                             @if ($errors->any())
                             <p style="color:red">{{ $errors->first('houseDirection') }}</p>
@@ -259,9 +290,10 @@
                             @endif
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
+
             <div class="card-body border-top">
                 <legend>Hình ảnh & Video</legend>
                 <div class="form-group">
@@ -277,7 +309,7 @@
                 </div>
             </div>
 
-            <div class="card-body border-top">
+            <div class="card-body border-top showIfProductConsignment" style="display:none">
                 <legend>Thông tin ký gửi</legend>
                 <div class="row">
                     <div class="col-lg-4">
@@ -286,7 +318,7 @@
                             <select name="user_contact_id" class="form-control">
                                 <option value="">Vui lòng chọn</option>
                                 @foreach($users as $user)
-                                <option value="{{ $user->id }}" @selected(old('user_contact_id') == $user->id)>{{$user->name}}</option>
+                                <option value="{{ $user->id }}" @selected(old('user_contact_id')==$user->id)>{{$user->name}}</option>
                                 @endforeach
                             </select>
                             @if ($errors->any())
@@ -296,7 +328,7 @@
                     </div>
                     <div class="col-lg-4">
                         <div class="form-group">
-                            <label for="tf1">Bắt đầu</label> <input name="product_start_date" type="date" class="form-control" placeholder="" value="{{ old('product_start_date') }}"> 
+                            <label for="tf1">Bắt đầu</label> <input name="product_start_date" type="date" class="form-control" placeholder="" value="{{ old('product_start_date') }}">
                             @if ($errors->any())
                             <p style="color:red">{{ $errors->first('product_start_date') }}</p>
                             @endif
@@ -305,7 +337,7 @@
 
                     <div class="col-lg-4">
                         <div class="form-group">
-                            <label for="tf1">Kết thúc</label> <input name="product_end_date" type="date" class="form-control" placeholder="" value="{{ old('product_end_date') }}"> 
+                            <label for="tf1">Kết thúc</label> <input name="product_end_date" type="date" class="form-control" placeholder="" value="{{ old('product_end_date') }}">
                             @if ($errors->any())
                             <p style="color:red">{{ $errors->first('product_end_date') }}</p>
                             @endif
@@ -324,7 +356,7 @@
                             <select name="branch_id" class="form-control branch_id">
                                 <option value="">Vui lòng chọn</option>
                                 @foreach($branches as $branch)
-                                <option value="{{ $branch->id }}" @selected(old('branch_id') == $branch->id)>{{$branch->name}}</option>
+                                <option value="{{ $branch->id }}" @selected(old('branch_id')==$branch->id)>{{$branch->name}}</option>
                                 @endforeach
                             </select>
 
@@ -348,10 +380,10 @@
                         <div class="form-group">
                             <label>Tình trạng</label>
                             <select name="status" class="form-control" value="{{ old('status') }}">
-                                <option value="draft" @selected(old('status') == 'draft') >Bản Thảo</option>
-                                <option value="selling" @selected(old('status') == 'selling') >Đang Bán</option>
-                                <option value="sold" @selected(old('status') == 'sold')>Đã Bán</option>
-                                <option value="expried" @selected(old('status') == 'expried')>Hết Hạn</option>
+                                <option value="draft" @selected(old('status')=='draft' )>Bản Thảo</option>
+                                <option value="selling" @selected(old('status')=='selling' )>Đang Bán</option>
+                                <option value="sold" @selected(old('status')=='sold' )>Đã Bán</option>
+                                <option value="expried" @selected(old('status')=='expried' )>Hết Hạn</option>
                             </select>
                             @if ($errors->any())
                             <p style="color:red">{{ $errors->first('status') }}</p>
@@ -367,7 +399,6 @@
         </div>
     </form>
 </div>
-
 <script>
     jQuery(document).ready(function() {
         jQuery('.province_id').on('change', function() {
@@ -414,6 +445,48 @@
                     jQuery('.user_id').html(branches_html);
                 }
             });
+        });
+
+        //logic san pham
+        jQuery('.product_open').on('click', function() {
+            if ($(this).is(':checked')) {
+                $('.showIfProductOpen').show();
+            } else {
+                $('.showIfProductOpen').hide();
+            }
+        });
+
+        jQuery('#product_type').on('change', function() {
+            var product_type = jQuery(this).val();
+            //showIfProductConsignment
+            console.log(product_type);
+            if (product_type == 'Consignment') {
+                $('.showIfProductConsignment').show();
+            } else {
+                $('.showIfProductConsignment').hide();
+            }
+        });
+
+        jQuery('#product_type').on('change', function() {
+            var product_type = jQuery(this).val();
+            //showIfProductpricecommission
+            console.log(product_type);
+            if (product_type == 'Regular') {
+                $('.showpriceCommission').show();
+            } else {
+                $('.showpriceCommission').hide();
+            }
+        });
+
+        jQuery('#product_type').on('change', function() {
+            var product_type = jQuery(this).val();
+            //showIBlock 
+            console.log(product_type);
+            if (product_type == 'Block') {
+                $('.showpriceCommission').show();
+            } else {
+                $('.showpriceCommission').hide();
+            }
         });
     });
 </script>

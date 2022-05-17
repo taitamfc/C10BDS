@@ -18,35 +18,37 @@
         <div class="card">
             <div class="card-body">
                 <div class="form-group">
-                    <label for="tf1">Tiêu Đề<abbr name="Trường bắt buộc">*</abbr></label> <input name="title" type="text" class="form-control" id="" placeholder="Nhập tiêu đề tin nhắn">
+                    <label for="tf1">Tiêu Đề<abbr name="Trường bắt buộc">*</abbr></label> 
+                    <input name="title" type="text" class="form-control" id="" value="{{ old('title')}}" placeholder="Nhập tiêu đề tin nhắn">
                     <small id="" class="form-text text-muted"></small>
                     @if ($errors->any())
                     <p style="color:red">{{ $errors->first('title') }}</p>
                     @endif
                 </div>
                 <div class="form-group">
-                    <label for="tf1">Nội Dung<abbr name="Trường bắt buộc">*</abbr></label> <textarea name="content" type="text" class="form-control" id="" placeholder="Nhập nội dung tin nhắn"></textarea>
+                    <label for="tf1">Nội Dung<abbr name="Trường bắt buộc">*</abbr></label> 
+                    <textarea name="content"class="form-control" id=""  type="text" placeholder="Nhập nội dung tin nhắn"> {{ old('content') }}</textarea>
                     <small id="" class="form-text text-muted"></small>
                     @if ($errors->any())
                     <p style="color:red">{{ $errors->first('content') }}</p>
                     @endif
                 </div>
                 <div class="form-group">
-                    <label for="tf1">Kiểu Tin Nhắn<abbr name="Trường bắt buộc">*</abbr></label> <input name="type" type="text" class="form-control" id="" placeholder="Nhập kiểu tin nhắn">
+                    <label for="tf1">Kiểu Tin Nhắn<abbr name="Trường bắt buộc">*</abbr></label> <input name="type" type="text" class="form-control" id="" value="{{ old('type')}}" placeholder="Nhập kiểu tin nhắn">
                     <small id="" class="form-text text-muted"></small>
                     @if ($errors->any())
                     <p style="color:red">{{ $errors->first('type') }}</p>
                     @endif
                 </div>
                 <div class="form-group">
-                    <label for="tf1">Trạng Thái<abbr name="Trường bắt buộc">*</abbr></label> <input name="status" type="text" class="form-control" id="" placeholder="Nhập trạng thái">
+                    <label for="tf1">Trạng Thái<abbr name="Trường bắt buộc">*</abbr></label> <input name="status" type="text" class="form-control" id="" value="{{ old('status')}}" placeholder="Nhập trạng thái">
                     <small id="" class="form-text text-muted"></small>
                     @if ($errors->any())
                     <p style="color:red">{{ $errors->first('status') }}</p>
                     @endif
                 </div>
                 <div class="form-group">
-                    <label for="tf1">Ngày Gửi<abbr name="Trường bắt buộc">*</abbr></label> <input name="date_send" type="date" class="form-control" id="">
+                    <label for="tf1">Ngày Gửi<abbr name="Trường bắt buộc">*</abbr></label> <input name="date_send" type="date" value="{{ old('date_send')}}" class="form-control" id="">
                     <small id="" class="form-text text-muted"></small>
                     @if ($errors->any())
                     <p style="color:red">{{ $errors->first('date_send') }}</p>

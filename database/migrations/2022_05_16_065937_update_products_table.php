@@ -14,9 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->double('price_deposit')->nullable();
-            $table->double('price_diff')->nullable();
-            $table->double('price_commission')->nullable();
+            $table->double('price_deposit')->default(0);
+            $table->double('price_diff')->default(0);
+            $table->double('price_commission')->default(0);
         });
     }
 

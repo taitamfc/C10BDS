@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProductRequest;
@@ -20,6 +21,8 @@ use App\Events\ProductSold;
 use App\Events\ProductSubmitEvent;
 use App\Models\ProductImage;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
+
 
 class ProductController extends Controller
 {
@@ -49,7 +52,7 @@ class ProductController extends Controller
     }
 
 
-    public function product_type(Request $request,$product_type)
+    public function product_type(Request $request, $product_type)
     {
         $product = Product::select('*');
         switch ($product_type) {
@@ -76,7 +79,7 @@ class ProductController extends Controller
                 break;
             case 'expried_products':
                 $product->where('status', 'expried');
-                break;                
+                break;
             case 'sold_products':
                 $product->where('status', 'sold');
                 break;
@@ -214,6 +217,7 @@ class ProductController extends Controller
         $product->name = $request->name;
         $product->address = $request->address;
         $product->price = $request->price;
+        $product->price = Str::replace(',', '', $product->price);
         $product->description = $request->description;
         $product->product_category_id = $request->product_category_id;
         $product->area = $request->area;
@@ -236,9 +240,19 @@ class ProductController extends Controller
         $product->product_open_date = $request->product_open_date;
         $product->user_contact_id = $request->user_contact_id;
 
+        $product->product_end_date = Carbon::now('Asia/Ho_Chi_Minh');
+
+        if ($request->price_deposit) {
+            $product->price_deposit = Str::replace(',', '', $request->price_deposit);
+        }
+        if ($request->price_diff) {
+            $product->price_diff = Str::replace(',', '', $request->price_diff);
+        }
+        if ($request->price_commission) {
+            $product->price_commission = Str::replace(',', '', $request->price_commission);
+        }
         $product->branch_id = ($request->branch_id) ? $request->branch_id : Auth::user()->branch_id;
         $product->user_id = ($request->user_id) ? $request->user_id : Auth::user()->id;
-
         $product_images = [];
         if ($request->hasFile('image_urls')) {
             $image_urls          = $request->image_urls;
@@ -332,6 +346,7 @@ class ProductController extends Controller
         $product->name = $request->name;
         $product->address = $request->address;
         $product->price = $request->price;
+        $product->price = Str::replace(',', '', $product->price);
         $product->description = $request->description;
         $product->product_category_id = $request->product_category_id;
         $product->area = $request->area;
@@ -354,6 +369,17 @@ class ProductController extends Controller
         $product->product_open_date = $request->product_open_date;
         $product->user_contact_id = $request->user_contact_id;
 
+        $product->product_end_date = Carbon::now('Asia/Ho_Chi_Minh');
+
+        if ($request->price_deposit) {
+            $product->price_deposit = Str::replace(',', '', $request->price_deposit);
+        }
+        if ($request->price_diff) {
+            $product->price_diff = Str::replace(',', '', $request->price_diff);
+        }
+        if ($request->price_commission) {
+            $product->price_commission = Str::replace(',', '', $request->price_commission);
+        }
         $product->branch_id = ($request->branch_id) ? $request->branch_id : Auth::user()->branch_id;
         $product->user_id = ($request->user_id) ? $request->user_id : Auth::user()->id;
 
@@ -461,7 +487,7 @@ class ProductController extends Controller
         }
     }
 
-    
+
     public function restore($id)
     {
         $product = Product::withTrashed()->find($id);
