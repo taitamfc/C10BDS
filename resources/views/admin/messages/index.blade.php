@@ -14,10 +14,12 @@
     <div class="d-md-flex align-items-md-start">
         <h1 class="page-title mr-sm-auto">Quản Lý Tin Nhắn</h1>
         <div class="btn-toolbar">
+            @if(Auth::user()->hasPermission('User_create'))
             <a href="{{route('messages.create')}}" class="btn btn-primary">
                 <i class="fa-solid fa fa-plus"></i>
                 <span class="ml-1">Thêm Mới</span>
             </a>
+            @endif
         </div>
     </div>
 </header>
@@ -87,12 +89,17 @@
                             <td class="align-middle"> {{ $message->status }} </td>
                             <td class="align-middle"> {{ $message->date_send }} </td>
                             <td>
+                                @if(Auth::user()->hasPermission('User_delete'))
                                 <form action="{{ route('messages.destroy',$message->id )}}" style="display:inline" method="post">
                                     <button onclick="return confirm('Xóa {{$message->title}} ?')" class="btn btn-sm btn-icon btn-secondary"><i class="far fa-trash-alt"></i></button>
                                     @csrf
                                     @method('delete')
                                 </form>
+                                @endif
+
+                                @if(Auth::user()->hasPermission('User_update'))
                                 <span class="sr-only">Edit</span></a> <a href="{{route('messages.edit',$message->id)}}" class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-pencil-alt"></i> <span class="sr-only">Remove</span></a>
+                                @endif
                             </td>
                         </tr><!-- /tr -->
                         @endforeach

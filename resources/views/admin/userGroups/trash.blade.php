@@ -15,10 +15,7 @@
     <div class="d-md-flex align-items-md-start">
         <h1 class="page-title mr-sm-auto"> Quản Lý Nhóm Nhân Viên - Thùng Rác</h1><!-- .btn-toolbar -->
         <div class="btn-toolbar">
-            <a href="{{ route('userGroups.create') }}" class="btn btn-primary">
-                <i class="fa-solid fa fa-plus"></i>
-                <span class="ml-1">Thêm Mới</span>
-            </a>
+
         </div>
     </div>
 </header>

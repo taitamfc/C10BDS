@@ -14,10 +14,12 @@
     <div class="d-md-flex align-items-md-start">
         <h1 class="page-title mr-sm-auto"> Quản Lý Loại Sản Phẩm</h1>
         <div class="btn-toolbar">
+            @if(Auth::user()->hasPermission('User_create'))
             <a href="{{route('productCategories.create')}}" class="btn btn-primary">
                 <i class="fa-solid fa fa-plus"></i>
                 <span class="ml-1">Thêm Mới</span>
             </a>
+            @endif
         </div>
     </div>
 </header>
@@ -26,9 +28,9 @@
 <div class="page-section">
     <div class="card card-fluid">
         <div class="card-header">
-        <ul class="nav nav-tabs card-header-tabs">
+            <ul class="nav nav-tabs card-header-tabs">
                 <li class="nav-item">
-                    <a class="nav-link active "href="{{route('productCategories.index')}}">Tất Cả</a>
+                    <a class="nav-link active " href="{{route('productCategories.index')}}">Tất Cả</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('productCategories.trash')}}">Thùng Rác</a>
@@ -84,12 +86,18 @@
                             <td class="align-middle"> {{ $productCategory->id }} </td>
                             <td class="align-middle"> {{ $productCategory->name }} </td>
                             <td>
+                                @if(Auth::user()->hasPermission('User_update'))
                                 <a href="{{route('productCategories.edit',$productCategory->id)}}" title="Edit Student"><button class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-pencil-alt"></i> </button></a>
+                                @endif
+
+                                @if(Auth::user()->hasPermission('User_delete'))
+
                                 <form method="POST" action="{{ route('productCategories.destroy',$productCategory->id )}}" accept-charset="UTF-8" style="display:inline">
                                     @csrf
                                     @method('DELETE')
                                     <button onclick="return confirm('Xóa {{$productCategory->name}} ?')" class="btn btn-sm btn-icon btn-secondary"><i class="far fa-trash-alt"></i></button>
                                 </form>
+                                @endif
                             </td>
                         </tr>
                         @endforeach
