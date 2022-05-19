@@ -14,10 +14,12 @@
     <div class="d-md-flex align-items-md-start">
         <h1 class="page-title mr-sm-auto">Quản Lý Sản Phẩm</h1>
         <div class="btn-toolbar">
+            @if(Auth::user()->hasPermission('Product_create'))
             <a href="{{route('products.create')}}" class="btn btn-primary">
                 <i class="fa-solid fa fa-plus"></i>
                 <span class="ml-1">Thêm Mới</span>
             </a>
+            @endif
         </div>
     </div>
 </header>
@@ -128,12 +130,20 @@
                             <td class="align-middle"> {{ __($product->product_type) }} </td>
                             <td class="align-middle"> {{ __($product->status) }} </td>
                             <td>
-                                <a href="{{route('products.edit',$product->id)}}" title="Edit Student"><button class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-pencil-alt"></i> </button></a>
+                                @if(Auth::user()->hasPermission('Product_update'))
+                                <a href="{{route('products.edit',$product->id)}}" title="Edit Student">
+                                    <button class="btn btn-sm btn-icon btn-secondary">
+                                        <i class="fa fa-pencil-alt"></i> 
+                                    </button>
+                                </a>
+                                @endif
+                                @if(Auth::user()->hasPermission('Product_delete'))
                                 <form method="POST" action="{{ route('products.destroy',$product->id )}}" accept-charset="UTF-8" style="display:inline">
                                     @csrf
                                     @method('DELETE')
                                     <button onclick="return confirm('Xóa {{$product->name}} ?')" class="btn btn-sm btn-icon btn-secondary"><i class="far fa-trash-alt"></i></button>
                                 </form>
+                                @endif
                             </td>
                         </tr>
                         @endforeach

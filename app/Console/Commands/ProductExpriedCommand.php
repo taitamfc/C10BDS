@@ -40,7 +40,7 @@ class ProductExpriedCommand extends Command
 
         if (count($products) > 0) {
             foreach ($products as $product) {
-                dispatch( new ProductExpriedJob($product) );    
+                dispatch( new ProductExpriedJob($product) ); 
             }
         }
     }

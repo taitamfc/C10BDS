@@ -289,7 +289,7 @@ class DatabaseSeeder extends Seeder
             'product_images' => [
                 'https://file4.batdongsan.com.vn/resize/745x510/2022/04/17/20220417200500-9939_wm.jpeg',
                 'https://file4.batdongsan.com.vn/2022/04/05/20220405105613-203d_wm.jpg',
-            ]
+            ],
         ];
 
         $product_images = [];

@@ -29,6 +29,13 @@
                     <p style="color:red">{{ $errors->first('product_category_id') }}</p>
                     @endif
                 </div>
+                <div class="form-group">
+                    <label for="tf1">Mã sản phẩm <abbr title="Trường bắt buộc">*</abbr></label>
+                    <textarea name="sku" type="text" class="form-control" placeholder="Mã sản phẩm">{{ $product->sku }}</textarea>
+                    @if ($errors->any())
+                    <p style="color:red">{{ $errors->first('sku') }}</p>
+                    @endif
+                </div>
                 <div class="row">
                     <div class="col-lg-4">
                         <div class="form-group">
