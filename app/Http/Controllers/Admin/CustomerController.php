@@ -19,7 +19,7 @@ class CustomerController extends Controller
      */
     public function index(Request $request)
     {
-        // $this->authorize('viewAny',Customer::class);
+        $this->authorize('viewAny',Customer::class);
         //$query = customer::query(true);
         $query = Customer::select('*');
         if (isset($request->filter['name']) && $request->filter['name']) {
@@ -52,7 +52,7 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        // $this->authorize('create', Customer::class);
+        $this->authorize('create', Customer::class);
         $customers = Customer::all();
         return view('admin.customers.add', compact('customers'));
     }
@@ -104,7 +104,7 @@ class CustomerController extends Controller
     public function edit($id)
     {
         $customer = Customer::find($id);
-        // $this->authorize('update', Customer::class);
+        $this->authorize('update', Customer::class);
         $params = [
             'customer' => $customer
         ];
@@ -147,7 +147,7 @@ class CustomerController extends Controller
      */
     public function destroy($id)
     {
-        // $this->authorize('delete', Customer::class);
+        $this->authorize('delete', Customer::class);
         $customer = Customer::find($id);
         try {
             $customer->delete();
@@ -181,7 +181,7 @@ class CustomerController extends Controller
 
         $customer = Customer::withTrashed()->find($id);
         // dd($customer);
-        // $this->authorize('forceDelete', $customer);
+        $this->authorize('forceDelete', $customer);
         try {
             $customer->forceDelete();
             return redirect()->route('customers.trash')->with('success', 'Xóa' . ' ' . $customer->name . ' ' .  'thành công');

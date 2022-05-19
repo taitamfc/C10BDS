@@ -14,6 +14,14 @@
     <a href="{{route('users.index')}}" class="btn btn-success btn-floated"> </a>
     <div class="d-md-flex align-items-md-start">
         <h1 class="page-title mr-sm-auto"> Quản Lý Nhân Viên</h1><!-- .btn-toolbar -->
+        <div class="btn-toolbar">
+            @if(Auth::user()->hasPermission('User_create'))
+            <a href="{{ route('users.create') }}" class="btn btn-primary">
+                <i class="fa-solid fa fa-plus"></i>
+                <span class="ml-1">Thêm Mới</span>
+            </a>
+            @endif
+        </div>
 
     </div>
 </header>
@@ -83,6 +91,7 @@
                             <td class="align-middle">{{ $user->branch->name }} </td>
                             <td class="align-middle">{{ $user->province->name }} </td>
                             <td>
+                                @if(Auth::user()->hasPermission('User_delete'))
                                 @if($user->id != 1)
                                 <form action="{{ route('users.destroy',$user->id )}}" style="display:inline" method="post">
 
@@ -93,11 +102,15 @@
                                     @method('delete')
                                 </form>
                                 @endif
+                                @endif
+
+                                @if(Auth::user()->hasPermission('User_upate'))
                                 <span class="sr-only">Edit</span></a>
                                 <a href="{{route('users.edit',$user->id)}}" class="btn btn-sm btn-icon btn-secondary">
                                     <i class="fa fa-pencil-alt"></i>
                                     <span class="sr-only">Remove</span>
                                 </a>
+                                @endif
                             </td>
                         </tr>
                         @endforeach

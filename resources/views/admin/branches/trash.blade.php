@@ -19,7 +19,7 @@
     <div class="card card-fluid">
         <div class="card-header">
             <ul class="nav nav-tabs card-header-tabs">
-            <li class="nav-item">
+                <li class="nav-item">
                     <a class="nav-link  " href="{{route('branches.index')}}">Tất Cả</a>
                 </li>
                 <li class="nav-item">
@@ -85,14 +85,20 @@
                             <td class="align-middle"> {{ $branch->province->name }} </td>
                             <td class="align-middle"> {{ $branch->district->name }} </td>
                             <td class="align-middle"> {{ $branch->ward->name }} </td>
-                            
+
                             <td>
+                                @if(Auth::user()->hasPermission('Branch_forceDelete'))
+
                                 <form action="{{ route('branches.force_destroy',$branch->id )}}" style="display:inline" method="post">
                                     <button onclick="return confirm('Xóa vĩnh viễn {{$branch->name}} ?')" class="btn btn-sm btn-icon btn-secondary"><i class="far fa-trash-alt"></i></button>
                                     @csrf
                                     @method('delete')
                                 </form>
+                                @endif
+
+                                @if(Auth::user()->hasPermission('Branch_restore'))
                                 <span class="sr-only">Edit</span></a> <a href="{{route('branches.restore',$branch->id)}}" class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-trash-restore"></i> <span class="sr-only">Remove</span></a>
+                                @endif
                             </td>
                         </tr><!-- /tr -->
                         @endforeach

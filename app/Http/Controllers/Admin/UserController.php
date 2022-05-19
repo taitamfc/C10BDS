@@ -267,7 +267,7 @@ class UserController extends Controller
         
         $user = User::withTrashed()->find($id);
         // dd($user);
-        // $this->authorize('forceDelete', $user);
+        $this->authorize('forceDelete', $user);
         try {
             $user->forceDelete();
             return redirect()->route('users.trash')->with('success', 'Xóa' . ' ' . $user->name . ' ' .  'thành công');

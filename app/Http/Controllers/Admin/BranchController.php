@@ -208,7 +208,7 @@ class BranchController extends Controller
         
         $branch = Branch::withTrashed()->find($id);
         // dd($branch);
-        // $this->authorize('forceDelete', $branch);
+        $this->authorize('forceDelete', $branch);
         try {
             $branch->forceDelete();
             return redirect()->route('branches.trash')->with('success', 'Xóa' . ' ' . $branch->name . ' ' .  'thành công');

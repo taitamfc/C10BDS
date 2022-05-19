@@ -15,10 +15,7 @@
     <div class="d-md-flex align-items-md-start">
         <h1 class="page-title mr-sm-auto"> Quản Lý Nhóm Nhân Viên - Thùng Rác</h1><!-- .btn-toolbar -->
         <div class="btn-toolbar">
-            <a href="{{ route('userGroups.create') }}" class="btn btn-primary">
-                <i class="fa-solid fa fa-plus"></i>
-                <span class="ml-1">Thêm Mới</span>
-            </a>
+
         </div>
     </div>
 </header>
@@ -84,12 +81,16 @@
                             <td class="align-middle"> {{ $userGroup->name }} </td>
                             <td class="align-middle"> {{ $userGroup->description }} </td>
                             <td>
+                                @if(Auth::user()->hasPermission('UserGroup_forceDelete'))
                                 <form action="{{ route('userGroups.force_destroy',$userGroup->id )}}" style="display:inline" method="post">
                                     <button onclick="return confirm('Xóa vĩnh viễn {{$userGroup->name}} ?')" class="btn btn-sm btn-icon btn-secondary"><i class="far fa-trash-alt"></i></button>
                                     @csrf
                                     @method('delete')
                                 </form>
+                                @endif
+                                @if(Auth::user()->hasPermission('UserGroup_restore'))
                                 <span class="sr-only">Edit</span></a> <a href="{{route('userGroups.restore',$userGroup->id)}}" class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-trash-restore"></i> <span class="sr-only">Remove</span></a>
+                                @endif
                             </td>
                         </tr><!-- /tr -->
                         @endforeach

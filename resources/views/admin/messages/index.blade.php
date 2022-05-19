@@ -14,9 +14,11 @@
     <div class="d-md-flex align-items-md-start">
         <h1 class="page-title mr-sm-auto">Quản Lý Tin Nhắn</h1>
         <div class="btn-toolbar">
+            @if(Auth::user()->hasPermission('Message_create'))
             <a href="{{route('messages.create')}}" class="btn btn-primary">
                 <i class="fa-solid fa fa-plus"></i>
                 <span class="ml-1">Thêm Mới</span>
+                @endif
             </a>
         </div>
     </div>
@@ -27,6 +29,9 @@
             <ul class="nav nav-tabs card-header-tabs">
                 <li class="nav-item">
                     <a class="nav-link active " href="{{route('messages.index')}}">Tất Cả</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link  " href="{{route('messages.trash')}}">Thùng Rác</a>
                 </li>
 
             </ul>
@@ -87,12 +92,16 @@
                             <td class="align-middle"> {{ $message->status }} </td>
                             <td class="align-middle"> {{ $message->date_send }} </td>
                             <td>
+                            @if(Auth::user()->hasPermission('Message_delete'))
                                 <form action="{{ route('messages.destroy',$message->id )}}" style="display:inline" method="post">
                                     <button onclick="return confirm('Xóa {{$message->title}} ?')" class="btn btn-sm btn-icon btn-secondary"><i class="far fa-trash-alt"></i></button>
                                     @csrf
                                     @method('delete')
                                 </form>
+                                @endif
+                                @if(Auth::user()->hasPermission('Message_update'))
                                 <span class="sr-only">Edit</span></a> <a href="{{route('messages.edit',$message->id)}}" class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-pencil-alt"></i> <span class="sr-only">Remove</span></a>
+                                @endif
                             </td>
                         </tr><!-- /tr -->
                         @endforeach
