@@ -210,7 +210,7 @@ class ProductController extends Controller
      * @param  \App\Http\Requests\StoreProductRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreProductRequest $request)
     {
         $product = new Product();
         $old_product = $product;
@@ -239,6 +239,7 @@ class ProductController extends Controller
         $product->product_open = $request->product_open;
         $product->product_open_date = $request->product_open_date;
         $product->user_contact_id = $request->user_contact_id;
+        $product->sku = $request->sku;
 
         $product->product_end_date = Carbon::now('Asia/Ho_Chi_Minh');
 
@@ -339,7 +340,7 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateProductRequest $request, $id)
     {
         $product = Product::find($id);
         $old_status =  $product->status;
@@ -368,6 +369,7 @@ class ProductController extends Controller
         $product->product_open = $request->product_open;
         $product->product_open_date = $request->product_open_date;
         $product->user_contact_id = $request->user_contact_id;
+        $product->sku = $request->sku;
 
         $product->product_end_date = Carbon::now('Asia/Ho_Chi_Minh');
 
@@ -476,8 +478,7 @@ class ProductController extends Controller
     {
 
         $product = Product::withTrashed()->find($id);
-        // dd($product);
-        // $this->authorize('forceDelete', $product);
+        $this->authorize('forceDelete', $product);
         try {
             $product->forceDelete();
             return redirect()->route('products.trash')->with('success', 'Xóa' . ' ' . $product->name . ' ' .  'thành công');
