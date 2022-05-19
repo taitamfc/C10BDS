@@ -173,7 +173,6 @@ class DatabaseSeeder extends Seeder
         $user->ward_id  = '6083';
         $user->gender = 'Nam';
         $user->avatar = 'https://e7.pngegg.com/pngimages/348/800/png-clipart-man-wearing-blue-shirt-illustration-computer-icons-avatar-user-login-avatar-blue-child.png';
-
         $user->save();
 
         $user = new User();
@@ -192,7 +191,6 @@ class DatabaseSeeder extends Seeder
         $user->ward_id  = '6199';
         $user->gender = 'Nữ';
         $user->avatar = 'https://e7.pngegg.com/pngimages/348/800/png-clipart-man-wearing-blue-shirt-illustration-computer-icons-avatar-user-login-avatar-blue-child.png';
-
         $user->save();
 
         $user = new User();
@@ -211,7 +209,42 @@ class DatabaseSeeder extends Seeder
         $user->ward_id  = '6183';
         $user->gender = 'Nam';
         $user->avatar = 'https://e7.pngegg.com/pngimages/348/800/png-clipart-man-wearing-blue-shirt-illustration-computer-icons-avatar-user-login-avatar-blue-child.png';
+        $user->save();
 
+        $user = new User();
+        $user->name = 'Lê Đức Trí';
+        $user->email = 'tri@gmail.com';
+        $user->password = Hash::make('123456');
+        $user->day_of_birth = '2002/06/24';
+        $user->phone = '0123456788';
+        $user->address = 'Quảng Bình';
+        $user->start_day = '2021/10/29';
+        $user->user_group_id  = '3';
+        $user->branch_id  = '3';
+        $user->note = '123';
+        $user->province_id  = '30';
+        $user->district_id  = '342';
+        $user->ward_id  = '6183';
+        $user->gender = 'Nam';
+        $user->avatar = 'https://e7.pngegg.com/pngimages/348/800/png-clipart-man-wearing-blue-shirt-illustration-computer-icons-avatar-user-login-avatar-blue-child.png';
+        $user->save();
+
+        $user = new User();
+        $user->name = 'Trần Xuân Vinh';
+        $user->email = 'vinh@gmail.com';
+        $user->password = Hash::make('123456');
+        $user->day_of_birth = '2002/06/28';
+        $user->phone = '0123456787';
+        $user->address = 'Thùa Thiên Huế';
+        $user->start_day = '2021/10/29';
+        $user->user_group_id  = '3';
+        $user->branch_id  = '3';
+        $user->note = '123';
+        $user->province_id  = '30';
+        $user->district_id  = '342';
+        $user->ward_id  = '6183';
+        $user->gender = 'Nam';
+        $user->avatar = 'https://e7.pngegg.com/pngimages/348/800/png-clipart-man-wearing-blue-shirt-illustration-computer-icons-avatar-user-login-avatar-blue-child.png';
         $user->save();
     }
     public function importProducts()
@@ -293,6 +326,20 @@ class DatabaseSeeder extends Seeder
         $Customer->name = 'NGUYEN THI HUYEN TRANG';
         $Customer->address = 'Thanh Hóa';
         $Customer->phone = '0977983360';
+        $Customer->user_id = 1;
+        $Customer->save();
+
+        $Customer = new Customer();
+        $Customer->name = 'Nguyễn Phương Hằng';
+        $Customer->address = 'Thành Phố Hồ Chí Minh';
+        $Customer->phone = '0977985467';
+        $Customer->user_id = 1;
+        $Customer->save();
+
+        $Customer = new Customer();
+        $Customer->name = 'Đàm Vĩnh Hưng';
+        $Customer->address = 'Quãng Nam';
+        $Customer->phone = '0944874471';
         $Customer->user_id = 1;
         $Customer->save();
     }
