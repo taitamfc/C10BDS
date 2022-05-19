@@ -188,7 +188,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        // $this->authorize('create', Product::class);
+        $this->authorize('create', Product::class);
         $productCategories = ProductCategory::all();
         $provinces = Province::all();
         $branches = Branch::all();
@@ -311,7 +311,7 @@ class ProductController extends Controller
     public function edit($id)
     {
         $product = Product::find($id);
-        // $this->authorize('update', $product);
+        $this->authorize('update', $product);
         $productCategories = ProductCategory::all();
         $provinces = Province::all();
         $branches = Branch::all();
@@ -440,17 +440,17 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        // $this->authorize('delete', Product::class);
         $product = Product::find($id);
+        $this->authorize('delete', $product);
         try {
             $product->delete();
             $product->active = 'destroy';
             event(new ProductSubmitEvent($product));
+            return redirect()->route('products.index')->with('success', 'Xóa thành công');
         } catch (\Exception $e) {
             Log::error($e->getMessage());
-            return redirect()->route('products.index')->with('success', 'Xóa  thành công');
+            return redirect()->route('products.index')->with('error', 'Xóa không thành công');
         }
-        return redirect()->route('products.index')->with('success', 'Xóa không  thành công');
     }
 
 

@@ -13,7 +13,7 @@ trait HasPermissions
     public function hasPermission($permission = null)
     {
         if (is_null($permission)) {
-            return $this->getPermissions()->count();
+            return $this->getPermissions()->count() > 0;
         }
 
         if (is_string($permission)) {
