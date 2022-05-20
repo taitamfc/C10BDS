@@ -203,6 +203,7 @@ class BranchController extends Controller
         ];
         return view('admin.branches.trash', $params);
     }
+
     public function force_destroy($id)
     {
         

@@ -104,12 +104,8 @@
                                 @endif
                                 @endif
 
-                                @if(Auth::user()->hasPermission('User_upate'))
-                                <span class="sr-only">Edit</span></a>
-                                <a href="{{route('users.edit',$user->id)}}" class="btn btn-sm btn-icon btn-secondary">
-                                    <i class="fa fa-pencil-alt"></i>
-                                    <span class="sr-only">Remove</span>
-                                </a>
+                                @if(Auth::user()->hasPermission('User_update'))
+                                <span class="sr-only">Edit</span></a> <a href="{{route('users.edit',$user->id)}}" class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-pencil-alt"></i> <span class="sr-only">Remove</span></a>
                                 @endif
                             </td>
                         </tr>
