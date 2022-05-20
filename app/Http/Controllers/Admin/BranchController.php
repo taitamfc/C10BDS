@@ -203,12 +203,13 @@ class BranchController extends Controller
         ];
         return view('admin.branches.trash', $params);
     }
+
     public function force_destroy($id)
     {
         
         $branch = Branch::withTrashed()->find($id);
         // dd($branch);
-        // $this->authorize('forceDelete', $branch);
+        $this->authorize('forceDelete', $branch);
         try {
             $branch->forceDelete();
             return redirect()->route('branches.trash')->with('success', 'Xóa' . ' ' . $branch->name . ' ' .  'thành công');

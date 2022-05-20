@@ -84,12 +84,17 @@
                             <td class="align-middle"> {{ $productCategory->id }} </td>
                             <td class="align-middle"> {{ $productCategory->name }} </td>
                             <td>
+                            @if(Auth::user()->hasPermission('User_delete'))
                             <form action="{{ route('productCategories.force_destroy',$productCategory->id )}}" style="display:inline" method="post">
                                     <button onclick="return confirm('Xóa vĩnh viễn {{$productCategory->name}} ?')" class="btn btn-sm btn-icon btn-secondary"><i class="far fa-trash-alt"></i></button>
                                     @csrf
                                     @method('delete')
                                 </form>
+                            @endif
+
+                            @if(Auth::user()->hasPermission('User_restore'))
                                 <span class="sr-only">Edit</span></a> <a href="{{route('productCategories.restore',$productCategory->id)}}" class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-trash-restore"></i> <span class="sr-only">Remove</span></a>
+                            @endif
                                 </form>
                             </td>
                         </tr>

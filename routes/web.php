@@ -29,12 +29,18 @@ Route::group([
     'prefix' => 'administrator',
     'middleware' => ['auth']
 ], function () {
-    Route::get('/',[IndexController::class,'index'])->name('admin.index');
+    Route::get('/', [IndexController::class, 'index'])->name('admin.index');
 
     Route::prefix('products')->group(function () {
         route::get('/product_type/{product_type}', [ProductController::class, 'product_type'])->name('products.product_type');
     });
-    
+
+    Route::prefix('messages')->group(function () {
+        Route::get('/trash', [MessageController::class, 'trashedItems'])->name('messages.trash');
+        Route::delete('/force_destroy/{id}', [MessageController::class, 'force_destroy'])->name('messages.force_destroy');
+        Route::get('/restore/{id}', [MessageController::class, 'restore'])->name('messages.restore');
+    });
+
     Route::prefix('customers')->group(function () {
         Route::get('/trash', [CustomerController::class, 'trashedItems'])->name('customers.trash');
         Route::delete('/force_destroy/{id}', [CustomerController::class, 'force_destroy'])->name('customers.force_destroy');
@@ -86,8 +92,8 @@ Route::group([
     Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
 });
 
-Route::get('administrator/login',[AuthController::class,'login'])->name('login');
-Route::get('administrator/logout',[AuthController::class,'logout'])->name('logout');
+Route::get('administrator/login', [AuthController::class, 'login'])->name('login');
+Route::get('administrator/logout', [AuthController::class, 'logout'])->name('logout');
 Route::post('administrator/postLogin', [AuthController::class, 'postLogin'])->name('postLogin');
 
 Route::view('/{any}', 'layouts.mobile')

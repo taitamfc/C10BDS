@@ -20,12 +20,12 @@
 <div class="page-section">
     <div class="card card-fluid">
         <div class="card-header">
-        <ul class="nav nav-tabs card-header-tabs">
+            <ul class="nav nav-tabs card-header-tabs">
                 <li class="nav-item">
-                    <a class="nav-link "href="{{route('customers.index')}}">Tất Cả</a>
+                    <a class="nav-link " href="{{route('customers.index')}}">Tất Cả</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active "href="{{route('customers.trash')}}">Thùng Rác</a>
+                    <a class="nav-link active " href="{{route('customers.trash')}}">Thùng Rác</a>
                 </li>
             </ul>
         </div>
@@ -82,12 +82,17 @@
                             <td class="align-middle"> {{ $customer->address }} </td>
                             <td class="align-middle"> {{ $customer->phone }} </td>
                             <td>
-                            <form action="{{ route('customers.force_destroy',$customer->id )}}" style="display:inline" method="post">
+                                @if(Auth::user()->hasPermission('User_forceDelete'))
+                                <form action="{{ route('customers.force_destroy',$customer->id )}}" style="display:inline" method="post">
                                     <button onclick="return confirm('Xóa vĩnh viễn {{$customer->name}} ?')" class="btn btn-sm btn-icon btn-secondary"><i class="far fa-trash-alt"></i></button>
                                     @csrf
                                     @method('delete')
                                 </form>
+                                @endif
+
+                                @if(Auth::user()->hasPermission('User_restore'))
                                 <span class="sr-only">Edit</span></a> <a href="{{route('customers.restore',$customer->id)}}" class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-trash-restore"></i> <span class="sr-only">Remove</span></a>
+                                @endif
                             </td>
                         </tr><!-- /tr -->
                         @endforeach

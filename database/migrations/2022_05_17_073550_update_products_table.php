@@ -13,15 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('messages', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->text('content');
-            $table->string('type');
-            $table->string('status');
-            $table->date('date_send')->nullable();
-            $table->timestamps();
-            $table->softDeletes();
+        Schema::table('products', function (Blueprint $table) {
+            $table->tinyInteger('notifyExpired')->default(0);
+            $table->string('sku')->unique()->nullable();
         });
     }
 
@@ -32,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('messages');
+        //
     }
 };

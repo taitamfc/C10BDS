@@ -8,6 +8,7 @@ use App\Http\Requests\StoreMessageRequest;
 use App\Http\Requests\UpdateMessageRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use App\Jobs\ProcessMessage;
 
 class MessageController extends Controller
 {
@@ -59,9 +60,9 @@ class MessageController extends Controller
         $message->type = $request->type;
         $message->status = $request->status;
         $message->date_send = $request->date_send;
-
         try {
             $message->save();
+            dispatch(new ProcessMessage($message));
             return redirect()->route('messages.index')->with('success', 'Thêm' . ' ' . $message->title . ' ' .  'thành công');
         } catch (\Exception $e) {
             Log::error($e->getMessage());
@@ -113,6 +114,7 @@ class MessageController extends Controller
 
         try {
             $message->save();
+            dispatch(new ProcessMessage($message));
             return redirect()->route('messages.index')->with('success', 'Cập nhật' . ' ' . $message->title . ' ' .  'thành công');
         } catch (\Exception $e) {
             Log::error($e->getMessage());
@@ -135,6 +137,48 @@ class MessageController extends Controller
         } catch (\Exception $e) {
             Log::error($e->getMessage());
             return redirect()->route('messages.index')->with('error', 'Xóa' . ' ' . $message->title . ' ' .  'không thành công');
+        }
+    }
+
+    public function trashedItems(Request $request)
+    {
+        $query = Message::onlyTrashed();
+        //sắp xếp thứ tự lên trước khi update
+        $query->orderBy('id', 'DESC');
+        $messages = $query->paginate(5);
+        $params = [
+            'messages' => $messages,
+            'filter' => $request->filter
+
+        ];
+
+        return view('admin.messages.trash', $params);
+    }
+
+    public function force_destroy($id)
+    {
+
+        $message = Message::withTrashed()->find($id);
+        // dd($message);
+        $this->authorize('forceDelete', $message);
+        try {
+            $message->forceDelete();
+            return redirect()->route('messages.trash')->with('success', 'Xóa' . ' ' . $message->name . ' ' .  'thành công');
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return redirect()->route('messages.trash')->with('error', 'Xóa' . ' ' . $message->name . ' ' .  'không thành công');
+        }
+    }
+
+    public function restore($id)
+    {
+        $message = Message::withTrashed()->find($id);
+        try {
+            $message->restore();
+            return redirect()->route('messages.trash')->with('success', 'Khôi phục' . ' ' . $message->name . ' ' .  'thành công');
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return redirect()->route('messages.trash')->with('error', 'Khôi phục' . ' ' . $message->name . ' ' .  'không thành công');
         }
     }
 }

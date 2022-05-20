@@ -65,7 +65,7 @@ class ProductPolicy
      */
     public function delete(User $user, Product $product)
     {
-        return $user->hasPermission('Product_delete');
+        return ($user->id == $product->product_id || $user->hasPermission('Product_delete'));
     }
 
     /**

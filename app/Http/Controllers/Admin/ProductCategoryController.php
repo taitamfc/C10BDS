@@ -18,7 +18,7 @@ class ProductCategoryController extends Controller
      */
     public function index(Request $request)
     {
-        // $this->authorize('viewAny',ProductCategory::class);
+        $this->authorize('viewAny',ProductCategory::class);
         $productCategories = ProductCategory::select('*');
 
         if (isset($request->filter['name']) && $request->filter['name']) {
@@ -47,7 +47,7 @@ class ProductCategoryController extends Controller
      */
     public function create()
     {
-        // $this->authorize('create', ProductCategory::class);
+        $this->authorize('create', ProductCategory::class);
         return view('admin.productCategories.create');
     }
 
@@ -90,7 +90,7 @@ class ProductCategoryController extends Controller
     public function edit($id)
     {
         $productCategory = ProductCategory::find($id);
-        // $this->authorize('update', $productCategory);
+        $this->authorize('update', $productCategory);
         $params = [
             'productCategory' => $productCategory
         ];
@@ -125,7 +125,7 @@ class ProductCategoryController extends Controller
      */
     public function destroy($id)
     {
-        // $this->authorize('delete', ProductCategory::class);
+        $this->authorize('delete', ProductCategory::class);
         $productCategory = ProductCategory::find($id);
         try {
             $productCategory->delete();

@@ -18,7 +18,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="form-group">
-                    <label for="tf1">Tiêu Đề<abbr name="Trường bắt buộc">*</abbr></label> 
+                    <label for="tf1">Tiêu Đề<abbr name="Trường bắt buộc">*</abbr></label>
                     <input name="title" type="text" class="form-control" id="" value="{{ old('title')}}" placeholder="Nhập tiêu đề tin nhắn">
                     <small id="" class="form-text text-muted"></small>
                     @if ($errors->any())
@@ -26,28 +26,44 @@
                     @endif
                 </div>
                 <div class="form-group">
-                    <label for="tf1">Nội Dung<abbr name="Trường bắt buộc">*</abbr></label> 
-                    <textarea name="content"class="form-control" id=""  type="text" placeholder="Nhập nội dung tin nhắn"> {{ old('content') }}</textarea>
+                    <label for="tf1">Nội Dung<abbr name="Trường bắt buộc">*</abbr></label>
+                    <textarea name="content" class="form-control" id="" type="text" placeholder="Nhập nội dung tin nhắn"> {{ old('content') }}</textarea>
                     <small id="" class="form-text text-muted"></small>
                     @if ($errors->any())
                     <p style="color:red">{{ $errors->first('content') }}</p>
                     @endif
                 </div>
-                <div class="form-group">
-                    <label for="tf1">Kiểu Tin Nhắn<abbr name="Trường bắt buộc">*</abbr></label> <input name="type" type="text" class="form-control" id="" value="{{ old('type')}}" placeholder="Nhập kiểu tin nhắn">
-                    <small id="" class="form-text text-muted"></small>
-                    @if ($errors->any())
-                    <p style="color:red">{{ $errors->first('type') }}</p>
-                    @endif
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="tf1">Kiểu Tin Nhắn</label>
+                            <select class="form-select form-control" name="type" id="type">
+                                <option value="instant_send">Gửi tức thì</option>
+                                <option value="time_to_send">Hẹn thời gian gửi</option>
+                            </select>
+                            @if ($errors->any())
+                            <p style="color:red">{{ $errors->first('type') }}</p>
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="tf1">Trạng Thái</label>
+                            <select class="form-select form-control" name="status" value="{{ old('status') }}">
+                                <option value="draft" @selected(old('status')=='draft' )>Bản thảo</option>
+                                <option value="waiting" @selected(old('status')=='waiting' )>Chờ gửi</option>
+                                <option value="sent" @selected(old('status')=='sent' )>Đã gửi</option>
+                            </select>
+                            @if ($errors->any())
+                            <p style="color:red">{{ $errors->first('status') }}</p>
+                            @endif
+                        </div>
+                    </div>
+
                 </div>
-                <div class="form-group">
-                    <label for="tf1">Trạng Thái<abbr name="Trường bắt buộc">*</abbr></label> <input name="status" type="text" class="form-control" id="" value="{{ old('status')}}" placeholder="Nhập trạng thái">
-                    <small id="" class="form-text text-muted"></small>
-                    @if ($errors->any())
-                    <p style="color:red">{{ $errors->first('status') }}</p>
-                    @endif
-                </div>
-                <div class="form-group">
+
+                <div class="form-group showdateCommission" style="display:none">
                     <label for="tf1">Ngày Gửi<abbr name="Trường bắt buộc">*</abbr></label> <input name="date_send" type="date" value="{{ old('date_send')}}" class="form-control" id="">
                     <small id="" class="form-text text-muted"></small>
                     @if ($errors->any())
@@ -63,4 +79,27 @@
         </div>
     </form>
 </div>
+<script>
+    jQuery(document).ready(function() {
+        jQuery('#type').on('change', function() {
+            var type = jQuery(this).val();
+            console.log(type);
+            if (type == 'instant_send') {
+                $('.showIfMessageConsignment').show();
+            } else {
+                $('.showIfMessageConsignment').hide();
+            }
+        });
+        jQuery('#type').on('change', function() {
+            var type = jQuery(this).val();
+            console.log(type);
+            if (type == 'time_to_send') {
+                $('.showdateCommission').show();
+            } else {
+                $('.showdateCommission').hide();
+            }
+        });
+    });
+</script>
+
 @endsection
