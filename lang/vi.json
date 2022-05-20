@@ -1,5 +1,9 @@
 {
+    "waiting": "Chờ gửi",
+    "time_to_send":"Hẹn thời gian gửi",
+    "instant_send": "Gửi tức thì",
     "selling": "Đang bán",
+    "sent": "Đã gửi",
     "sold": "Đã bán",
     "draft": "Bản Thảo",
     "Regular": "Thường",

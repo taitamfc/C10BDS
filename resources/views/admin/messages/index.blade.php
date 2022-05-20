@@ -88,11 +88,11 @@
                         <tr>
                             <td class="align-middle"> {{ $message->id }} </td>
                             <td class="align-middle"> {{ $message->title }} </td>
-                            <td class="align-middle"> {{ $message->type }} </td>
-                            <td class="align-middle"> {{ $message->status }} </td>
+                            <td class="align-middle"> {{ __($message->type) }} </td>
+                            <td class="align-middle"> {{ __($message->status) }} </td>
                             <td class="align-middle"> {{ $message->date_send }} </td>
                             <td>
-                            @if(Auth::user()->hasPermission('Message_delete'))
+                                @if(Auth::user()->hasPermission('Message_delete'))
                                 <form action="{{ route('messages.destroy',$message->id )}}" style="display:inline" method="post">
                                     <button onclick="return confirm('Xóa {{$message->title}} ?')" class="btn btn-sm btn-icon btn-secondary"><i class="far fa-trash-alt"></i></button>
                                     @csrf
@@ -119,3 +119,4 @@
 </div>
 
 @endsection
+

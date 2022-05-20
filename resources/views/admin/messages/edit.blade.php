@@ -26,25 +26,40 @@
                     @endif
                 </div>
                 <div class="form-group">
-                    <label for="tf1">Nội Dung<abbr name="Trường bắt buộc">*</abbr></label> <textarea name="content" type="text" class="form-control"  id="" placeholder="Nhập nội dung tin nhắn"> {{ $message->content }}</textarea>
+                    <label for="tf1">Nội Dung<abbr name="Trường bắt buộc">*</abbr></label> <textarea name="content" type="text" class="form-control" id="" placeholder="Nhập nội dung tin nhắn"> {{ $message->content }}</textarea>
                     <small id="" class="form-text text-muted"></small>
                     @if ($errors->any())
                     <p style="color:red">{{ $errors->first('content') }}</p>
                     @endif
                 </div>
-                <div class="form-group">
-                    <label for="tf1">Kiểu Tin Nhắn<abbr name="Trường bắt buộc">*</abbr></label> <input name="type" type="text" class="form-control" value="{{ $message->type }}" id="" placeholder="Nhập kiểu tin nhắn">
-                    <small id="" class="form-text text-muted"></small>
-                    @if ($errors->any())
-                    <p style="color:red">{{ $errors->first('type') }}</p>
-                    @endif
-                </div>
-                <div class="form-group">
-                    <label for="tf1">Trạng Thái<abbr name="Trường bắt buộc">*</abbr></label> <input name="status" type="text" class="form-control" value="{{ $message->status }}" id="" placeholder="Nhập trạng thái">
-                    <small id="" class="form-text text-muted"></small>
-                    @if ($errors->any())
-                    <p style="color:red">{{ $errors->first('status') }}</p>
-                    @endif
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="tf1">Kiểu Tin Nhắn</label>
+                            <select class="form-select form-control" name="type">
+                                <option value="instant_send" @selected( $message->type == 'instant_send')>Gửi Tức Thì</option>
+                                <option value="time_to_send" @selected( $message->type == 'time_to_send')>Hẹn Thời Gian Gửi</option>
+                            </select>
+                            @if ($errors->any())
+                            <p style="color:red">{{ $errors->first('type') }}</p>
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="tf1">Trạng Thái</label>
+                            <select class="form-select form-control" name="status">
+                                <option value="draft" @selected( $message->status == 'draft')>Bản Thảo</option>
+                                <option value="waiting" @selected( $message->status == 'waiting')>Chờ Gửi</option>
+                                <option value="sent" @selected( $message->status == 'sent')>Đã Gửi</option>
+                            </select>
+                            @if ($errors->any())
+                            <p style="color:red">{{ $errors->first('status') }}</p>
+                            @endif
+                        </div>
+                    </div>
+
                 </div>
                 <div class="form-group">
                     <label for="tf1">Ngày Gửi<abbr name="Trường bắt buộc">*</abbr></label> <input name="date_send" type="date" class="form-control" value="{{ $message->date_send }}" id="">

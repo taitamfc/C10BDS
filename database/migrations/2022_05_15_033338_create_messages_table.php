@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('content');
-            $table->string('type')->nullable();
-            $table->string('status')->nullable();
+            $table->string('type');
+            $table->string('status');
             $table->date('date_send')->nullable();
             $table->timestamps();
             $table->softDeletes();
