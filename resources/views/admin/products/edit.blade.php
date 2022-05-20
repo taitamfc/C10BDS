@@ -31,7 +31,7 @@
                 </div>
                 <div class="form-group">
                     <label for="tf1">Mã sản phẩm <abbr title="Trường bắt buộc">*</abbr></label>
-                    <textarea name="sku" type="text" class="form-control" placeholder="Mã sản phẩm">{{ $product->sku }}</textarea>
+                    <input name="sku" type="text" class="form-control" placeholder="Mã sản phẩm" value="{{$product->sku}}">
                     @if ($errors->any())
                     <p style="color:red">{{ $errors->first('sku') }}</p>
                     @endif
@@ -150,7 +150,7 @@
                         <div class="form-group">
                             <label class="switcher-control">
                                 <input type="hidden" name="product_open" value="0">
-                                <input type="checkbox" class="switcher-input" name="product_open" value="1" @checked( $product->product_open == 1 )>
+                                <input type="checkbox" id="product_openedit" class="switcher-input" name="product_open" value="1" @checked( $product->product_open == 1 )>
                                 <span class="switcher-indicator"></span>
                             </label>
                             @if ($errors->any())
@@ -159,7 +159,7 @@
                         </div>
                     </div>
                     <div class="col-lg-4">
-                        <div class="form-group">
+                        <div class="form-group showIfProductOpen">
                             <label for="tf1">Ngày mở bán</label> <input name="product_open_date" type="date" class="form-control" placeholder="" value="{{ $product->product_open_date }}">
                             @if ($errors->any())
                             <p style="color:red">{{ $errors->first('product_open_date') }}</p>
@@ -196,39 +196,6 @@
                             <input name="price_commission" type="text" class="form-control" placeholder="Nhập mức hoa hồng, VD 12000000" value="{{ $product->price_commission }}" data-mask="currency">
                             @if ($errors->any())
                             <p style="color:red">{{ $errors->first('price_commission') }}</p>
-                            @endif
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card-body border-top">
-                <legend>Thông tin giá tiền</legend>
-                <div class="row">
-                    <div class="col-lg-4">
-                        <div class="form-group">
-                            <label>Giá ký gửi <abbr title="Trường bắt buộc">*</abbr></label>
-                            <input name="price_deposit" type="text" class="form-control" placeholder="Nhập giá ký gửi, VD 12000000" value="{{ $product->price_deposit }}" data-mask="currency">
-                            @if ($errors->any())
-                            <p style="color:red">{{ $errors->first('price_deposit') }}</p>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="form-group">
-                            <label>Giá chênh <abbr title="Trường bắt buộc">*</abbr></label>
-                            <input name="price_diff" type="text" class="form-control" placeholder="Nhập giá chênh, VD 12000000" value="{{ $product->price_diff }}" data-mask="currency">
-                            @if ($errors->any())
-                            <p style="color:red">{{ $errors->first('price') }}</p>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="form-group">
-                            <label>Mức hoa hồng <abbr title="Trường bắt buộc">*</abbr></label>
-                            <input name="price_commission" type="text" class="form-control" placeholder="Nhập mức hoa hồng, VD 12000000" value="{{ $product->price_commission }}" data-mask="currency">
-                            @if ($errors->any())
-                            <p style="color:red">{{ $errors->first('price') }}</p>
                             @endif
                         </div>
                     </div>
@@ -536,8 +503,10 @@
             }
 
         });
+
         //logic san pham
-        jQuery('.product_open').on('click', function() {
+        jQuery('#product_openedit').on('click', function() {
+            console.log(product_type);
             if ($(this).is(':checked')) {
                 $('.showIfProductOpen').show();
             } else {
@@ -548,7 +517,6 @@
         jQuery('#product_type').on('change', function() {
             var product_type = jQuery(this).val();
             //showIfProductConsignment
-            console.log(product_type);
             if (product_type == 'Consignment') {
                 $('.showIfProductConsignment').show();
             } else {
