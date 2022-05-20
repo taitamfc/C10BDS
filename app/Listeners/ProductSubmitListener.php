@@ -33,6 +33,7 @@ class ProductSubmitListener
         $data = '';
         $username = $user->id . '-' . $user->name;
         $productname = $event->product->id . '-' .  $event->product->name;
+        $productname = '<a href="'. url('') .'/products/'.$event->product->id.'">'. $productname .'</a>';
 
         switch ($event->product->active) {
             case 'update':

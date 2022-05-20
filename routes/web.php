@@ -89,7 +89,7 @@ Route::group([
     Route::resource('options', OptionController::class);
     Route::resource('configs', ConfigController::class);
     Route::resource('systemlogs', SystemLogController::class);
-    Route::get('administrator/logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
+    Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
 });
 
 Route::get('administrator/login', [AuthController::class, 'login'])->name('login');
