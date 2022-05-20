@@ -17,7 +17,7 @@
         @csrf
         {{ csrf_field() }}
         <div class="card">
-           
+
             <div class="card-body">
                 <legend>Thông tin cơ bản</legend>
                 <div class="form-group">
@@ -32,12 +32,12 @@
                     @endif
                 </div>
                 <div class="form-group">
-                <label for="tf1">Mã sản phẩm <abbr title="Trường bắt buộc">*</abbr></label>
-                <input name="sku" type="text" class="form-control" placeholder="Mã sản phẩm">{{ old('sku') }}</input>
-                @if ($errors->any())
-                <p style="color:red">{{ $errors->first('sku') }}</p>
-                @endif
-            </div>
+                    <label for="tf1">Mã sản phẩm <abbr title="Trường bắt buộc">*</abbr></label>
+                    <input name="sku" type="text" class="form-control" placeholder="Mã sản phẩm">{{ old('sku') }}</input>
+                    @if ($errors->any())
+                    <p style="color:red">{{ $errors->first('sku') }}</p>
+                    @endif
+                </div>
                 <div class="row">
                     <div class="col-lg-4">
                         <div class="form-group">

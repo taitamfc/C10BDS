@@ -173,7 +173,8 @@
                 <legend>Thông tin giá tiền</legend>
                 <div class="row">
                     <div class="col-lg-4">
-                        <div class="form-group showIfProductConsignment" style="display:none">
+                        <div class="form-group showIfProductConsignment" 
+                        style="display:<?=  $product->product_type == 'Consignment' ? 'block' : 'none' ?>">
                             <label>Giá ký gửi <abbr title="Trường bắt buộc">*</abbr></label>
                             <input name="price_deposit" type="text" class="form-control" placeholder="Nhập giá ký gửi, VD 12000000" value="{{ $product->price_deposit }}" data-mask="currency">
                             @if ($errors->any())
@@ -182,7 +183,7 @@
                         </div>
                     </div>
                     <div class="col-lg-4">
-                        <div class="form-group showIfProductConsignment" style="display:none">
+                        <div class="form-group showIfProductConsignment" style="display:<?=  $product->product_type == 'Consignment' ? 'block' : 'none' ?>">
                             <label>Giá chênh <abbr title="Trường bắt buộc">*</abbr></label>
                             <input name="price_diff" type="text" class="form-control" placeholder="Nhập giá chênh, VD 12000000" value="{{ $product->price_diff }}" data-mask="currency">
                             @if ($errors->any())
@@ -191,7 +192,7 @@
                         </div>
                     </div>
                     <div class="col-lg-4">
-                        <div class="form-group showpriceCommission" style="display:none">
+                        <div class="form-group showpriceCommission" style="display:<?=  $product->product_type == 'Block' ? 'block' : 'none' ?>">
                             <label>Mức hoa hồng <abbr title="Trường bắt buộc">*</abbr></label>
                             <input name="price_commission" type="text" class="form-control" placeholder="Nhập mức hoa hồng, VD 12000000" value="{{ $product->price_commission }}" data-mask="currency">
                             @if ($errors->any())
@@ -527,7 +528,6 @@
         jQuery('#product_type').on('change', function() {
             var product_type = jQuery(this).val();
             //showIfProductpricecommission
-            console.log(product_type);
             if (product_type == 'Regular') {
                 $('.showpriceCommission').show();
             } else {

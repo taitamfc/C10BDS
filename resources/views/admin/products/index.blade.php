@@ -53,7 +53,7 @@
                     <a href="{{route('products.product_type','sold_products')}}" class="nav-link <?= ($product_type == 'sold_products') ? 'active' : '' ?>"> Đã Bán </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link <?= ($product_type == 'trash') ? 'active' : '' ?>"" href="{{route('products.trash')}}">Thùng Rác</a>
+                    <a class="nav-link <?= ($product_type == 'trash') ? 'active' : '' ?>"" href=" {{route('products.trash')}}">Thùng Rác</a>
                 </li>
             </ul>
         </div>
@@ -133,7 +133,7 @@
                                 @if(Auth::user()->hasPermission('Product_update'))
                                 <a href="{{route('products.edit',$product->id)}}" title="Edit Student">
                                     <button class="btn btn-sm btn-icon btn-secondary">
-                                        <i class="fa fa-pencil-alt"></i> 
+                                        <i class="fa fa-pencil-alt"></i>
                                     </button>
                                 </a>
                                 @endif
