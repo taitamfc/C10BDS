@@ -17,6 +17,7 @@
         @csrf
         {{ csrf_field() }}
         <div class="card">
+
             <div class="card-body">
                 <legend>Thông tin cơ bản</legend>
                 <div class="form-group">
@@ -28,6 +29,13 @@
                     </select>
                     @if ($errors->any())
                     <p style="color:red">{{ $errors->first('product_category_id') }}</p>
+                    @endif
+                </div>
+                <div class="form-group">
+                    <label for="tf1">Mã sản phẩm <abbr title="Trường bắt buộc">*</abbr></label>
+                    <input name="sku" type="text" class="form-control" placeholder="Mã sản phẩm">{{ old('sku') }}</input>
+                    @if ($errors->any())
+                    <p style="color:red">{{ $errors->first('sku') }}</p>
                     @endif
                 </div>
                 <div class="row">
@@ -467,6 +475,12 @@
             }
         });
 
+        // <label>Loại sản phẩm</label>
+        //  <select name="product_type" class="form-control" id="product_type">
+        // <option value="Regular" @selected(old('product_type')=='Regular' )>Sản phẩm thường</option>
+        // <option value="Block" @selected(old('product_type')=='Block' )>Sản phẩm block</option>
+        // <option value="Consignment" @selected(old('product_type')=='Consignment' )>Sản phẩm ký gửi</option>
+        //                     </select>
         jQuery('#product_type').on('change', function() {
             var product_type = jQuery(this).val();
             //showIfProductpricecommission

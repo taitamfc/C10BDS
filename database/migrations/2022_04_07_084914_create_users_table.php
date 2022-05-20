@@ -19,12 +19,12 @@ return new class extends Migration
             $table->date('day_of_birth');
             $table->string('address');
             $table->string('password');
-            $table->date('start_day');
+            $table->date('start_day')->nullable();
             $table->unsignedBigInteger('user_group_id');
             $table->foreign('user_group_id')->references('id')->on('user_groups');
             $table->unsignedBigInteger('branch_id');
             $table->foreign('branch_id')->references('id')->on('branches');
-            $table->string('note');
+            $table->string('note')->nullable();
             $table->timestamps();
         });
     }

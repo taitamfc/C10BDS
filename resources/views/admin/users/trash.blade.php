@@ -82,12 +82,16 @@
                             <td class="align-middle">{{ $user->branch->name }} </td>
                             <td class="align-middle">{{ $user->province->name }} </td>
                             <td>
+                                @if(Auth::user()->hasPermission('User_restore'))
                                 <form action="{{ route('users.force_destroy',$user->id )}}" style="display:inline" method="post">
                                     <button onclick="return confirm('Xóa vĩnh viễn {{$user->name}} ?')" class="btn btn-sm btn-icon btn-secondary"><i class="far fa-trash-alt"></i></button>
                                     @csrf
                                     @method('delete')
                                 </form>
+                                @endif
+                                @if(Auth::user()->hasPermission('User_forceDelete'))
                                 <span class="sr-only">Edit</span></a> <a href="{{route('users.restore',$user->id)}}" class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-trash-restore"></i> <span class="sr-only">Remove</span></a>
+                                @endif
                             </td>
                         </tr>
                         @endforeach

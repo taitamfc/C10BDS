@@ -40,6 +40,7 @@ class StoreProductRequest extends FormRequest
             'district_id' => 'required',
             'ward_id' => 'required',
             'product_type' => 'required',
+            'sku' => 'required',
         ];
     }
     public function messages()

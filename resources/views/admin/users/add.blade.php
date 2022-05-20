@@ -81,7 +81,7 @@
                 <legend>Thông tin cá nhân</legend>
                 <div class="row">
                     <div class="col-lg-9">
-                        
+
                         <div class="form-group">
                             <label>Tên nhân viên<noscript></noscript></label>
                             <input name="name" type="text" class="form-control" id="" placeholder="Nhập tên nhân viên" value="{{ old('name') }}">
@@ -118,6 +118,9 @@
                         <div class="form-group">
                             <label>Hình ảnh nhân viên</label>
                             <input type="file" name="avatar" class="form-control">
+                            @if ($errors->any())
+                            <p style="color:red">{{ $errors->first('avatar') }}</p>
+                            @endif
                         </div>
                     </div>
 

@@ -179,7 +179,7 @@ class UserGroupController extends Controller
 
         $userGroup = UserGroup::withTrashed()->find($id);
         // dd($userGroup);
-        // $this->authorize('forceDelete', $userGroup);
+        $this->authorize('forceDelete', $userGroup);
         try {
             $userGroup->forceDelete();
             return redirect()->route('userGroups.trash')->with('success', 'Xóa' . ' ' . $userGroup->name . ' ' .  'thành công');
