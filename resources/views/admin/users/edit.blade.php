@@ -45,7 +45,7 @@
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Tỉnh/Thành phố</label>
-                            <select name="province_id" class="form-control province_id">
+                            <select name="province_id" class="form-control province_id" data-toggle="select2">
                                 @foreach($provinces as $province)
                                 <option value="{{ $province->id }}" @selected($province->id == $user->province_id)>{{$province->name}}</option>
                                 @endforeach
@@ -90,7 +90,7 @@
 
 
                     <div class="col-lg-9">
-                        
+
                         <div class="form-group">
                             <label>Tên nhân viên<noscript></noscript></label>
                             <input name="name" type="text" class="form-control" id="" placeholder="Nhập tên nhân viên" value="{{ $user->name }}">
@@ -105,9 +105,9 @@
                                 <input type="radio" class="custom-control-input" name="gender" id="rd1" checked="" value="male">
                                 <label class="custom-control-label" for="rd1">Nam</label>
                             </div>
-                            
-                            
-                            
+
+
+
                             <div class="custom-control custom-control-inline custom-radio">
                                 <input type="radio" class="custom-control-input" name="gender" id="rd2" value="female">
                                 <label class="custom-control-label" for="rd2">Nữ</label>
@@ -144,7 +144,7 @@
                                 </div>
                             </figure>
                         </div>
-                    </div>            
+                    </div>
 
                 </div>
 

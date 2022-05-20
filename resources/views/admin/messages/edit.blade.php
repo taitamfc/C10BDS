@@ -36,7 +36,7 @@
                     <div class="col-lg-6">
                         <div class="form-group">
                             <label for="tf1">Kiểu Tin Nhắn</label>
-                            <select class="form-select form-control" name="type">
+                            <select class="form-select form-control" name="type" id="type">
                                 <option value="instant_send" @selected( $message->type == 'instant_send')>Gửi Tức Thì</option>
                                 <option value="time_to_send" @selected( $message->type == 'time_to_send')>Hẹn Thời Gian Gửi</option>
                             </select>
@@ -50,9 +50,9 @@
                         <div class="form-group">
                             <label for="tf1">Trạng Thái</label>
                             <select class="form-select form-control" name="status">
-                                <option value="draft" @selected( $message->status == 'draft')>Bản Thảo</option>
-                                <option value="waiting" @selected( $message->status == 'waiting')>Chờ Gửi</option>
-                                <option value="sent" @selected( $message->status == 'sent')>Đã Gửi</option>
+                                <option value="draft" @selected( $message->status == 'draft')>Bản thảo</option>
+                                <option value="waiting" @selected( $message->status == 'waiting')>Chờ gửi</option>
+                                <option value="sent" @selected( $message->status == 'sent')>Đã gửi</option>
                             </select>
                             @if ($errors->any())
                             <p style="color:red">{{ $errors->first('status') }}</p>
@@ -61,7 +61,7 @@
                     </div>
 
                 </div>
-                <div class="form-group">
+                <div class="form-group showdateCommission" style="display:none">
                     <label for="tf1">Ngày Gửi<abbr name="Trường bắt buộc">*</abbr></label> <input name="date_send" type="date" class="form-control" value="{{ $message->date_send }}" id="">
                     <small id="" class="form-text text-muted"></small>
                     @if ($errors->any())
@@ -77,4 +77,29 @@
         </div>
     </form>
 </div>
+
+
+<script>
+    jQuery(document).ready(function() {
+        jQuery('#type').on('change', function() {
+            var type = jQuery(this).val();
+            console.log(type);
+            if (type == 'instant_send') {
+                $('.showIfMessageConsignment').show();
+            } else {
+                $('.showIfMessageConsignment').hide();
+            }
+        });
+        jQuery('#type').on('change', function() {
+            var type = jQuery(this).val();
+            console.log(type);
+            if (type == 'time_to_send') {
+                $('.showdateCommission').show();
+            } else {
+                $('.showdateCommission').hide();
+            }
+        });
+    });
+</script>
+
 @endsection
