@@ -62,16 +62,16 @@ class DatabaseSeeder extends Seeder
         $message = new Message();
         $message->title = 'Vào học Angular';
         $message->content = 'Thư mời Vào học Angular'; 
-        $message->type = 'Angular'; 
-        $message->status = 'Mệt'; 
+        $message->type = 'Gửi Tức Thì'; 
+        $message->status = 'Bản Thảo'; 
         $message->date_send ='2022/05/16'; 
         $message->save();
 
         $message = new Message();
         $message->title = 'Chơi Lễ';
         $message->content = 'Thử thách 6 ngày 6 đêm đi chơi lên không dụng vào máy tính. Let Go!'; 
-        $message->type = 'Lễ'; 
-        $message->status = 'Vui'; 
+        $message->type = 'Hẹn Thời Gian Gửi'; 
+        $message->status = 'Chờ Gửi'; 
         $message->date_send ='2022/05/22'; 
         $message->save();
 

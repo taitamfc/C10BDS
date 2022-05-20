@@ -28,7 +28,6 @@ class StoreMessageRequest extends FormRequest
             'content' => 'required',
             'type' => 'required',
             'status' => 'required',
-            'date_send' => 'required',
         ];
     }
 
@@ -39,7 +38,6 @@ class StoreMessageRequest extends FormRequest
             'content.required' => ' Vui lòng nhập nội dung tin nhắn',
             'type.required' => ' Vui lòng nhập kiểu tin nhắn',
             'status.required' => ' Vui lòng nhập tiêu trạng thái',
-            'date_send.required' => ' Vui lòng nhập ngày gửi tin nhắn',
 
         ];
     }
