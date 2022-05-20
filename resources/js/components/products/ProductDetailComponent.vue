@@ -18,12 +18,62 @@
       <div class="wide-block pt-2 pb-2 product-detail-header">
         <h1 class="title">[#{{ item.id }}] - {{ item.name }}</h1>
         <div class="text">{{ item.address }} {{ item.tinh_thanh_pho }}</div>
-        <div class="text-center">
-          <!-- price -->
-          <div class="price">
-            <div class="current-price form-control mt-2">Giá: {{ item.price }}</div>
+
+        <div class="row mt-2">
+          
+          <div class="col-6">
+            <div class="form-group">
+              <div class="input-wrapper">
+                <label class="form-label">Giá Bán</label>
+                  <p class="form-control-static">{{ item.price }}</p>
+              </div>
+            </div>
+          </div>  
+          <div class="col-6">
+            <div class="form-group">
+              <div class="input-wrapper">
+                <label class="form-label">Hoa Hồng</label>
+                  <p class="form-control-static">{{ item.price_commission }}</p>
+              </div>
+            </div>
           </div>
-          <!-- * price -->
+        </div>
+        <div class="row" v-if="item.product_type == 'Consignment'">
+          <div class="col-6">
+            <div class="form-group">
+              <div class="input-wrapper">
+                <label class="form-label">Giá Ký Gửi</label>
+                <p class="form-control-static"> {{ item.price_deposit }} </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group">
+              <div class="input-wrapper">
+                <label class="form-label">Giá Chênh</label>
+                <p class="form-control-static"> {{ item.price_diff }} </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row" v-if="item.product_type == 'Consignment'">
+          <div class="col-6">
+            <div class="form-group">
+              <div class="input-wrapper">
+                <label class="form-label">Hạn Ký Gửi</label>
+                <p class="form-control-static"> {{ item.product_end_date }} </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group">
+              <div class="input-wrapper">
+                <label class="form-label">Người Nhận Ký Gửi</label>
+                <p class="form-control-static"> {{ item.user_contact }} </p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -98,7 +148,6 @@
               <div class="input-wrapper">
                 <label class="form-label" for="name5">Vị trí</label>
                 <div class="embed-responsive embed-responsive-16by9 overflow-hidden frame-100" v-html="item.google_map"></div>
-                
               </div>
             </div>
            
