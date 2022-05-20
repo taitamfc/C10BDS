@@ -38,6 +38,7 @@ class SendNewProductNotification
 
         //gửi cho các thành viên ở chi nhánh qua telegram
         $productname = '[' . $event->product->id . '] - ' .  $event->product->name;
+        $productname = '<a href="'. url('') .'/products/'.$event->product->id.'">'. $productname .'</a>';
         $telegram_channel_id = env('TELEGRAM_CHANNEL_ID', '');
         if ($telegram_channel_id) {
             Telegram::sendMessage([
