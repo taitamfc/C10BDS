@@ -51,16 +51,16 @@ class ProductController extends Controller
                     $items->where('product_type', 'Consignment');
                     break;
                 case 'quang_tri':
-                    $items->where('branch_id', 30);
+                    $items->where('province_id', 30);
                     break;
                 case 'quang_binh':
-                    $items->where('branch_id', 29);
+                    $items->where('province_id', 29);
                     break;
                 case 'hue':
-                    $items->where('branch_id', 31);
+                    $items->where('province_id', 31);
                     break;
                 case 'da_nang':
-                    $items->where('branch_id', 32);
+                    $items->where('province_id', 32);
                     break;
                 default:
                     # code...
