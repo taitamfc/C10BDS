@@ -7,7 +7,9 @@
     <div class="carousel-full" v-if="item.product_images">
       <Splide :options="{perPage: 1,arrows:true,pagination:false,height:200,autoHeight:true}" >
         <SplideSlide v-for="image of item.product_images" :key="image.id">
+          <a href="javascript:;" @click.prevent="downloadItem(image.image_url)">
           <img :src="image.image_url" style="height:200px;width:100%;"/>
+          </a>
         </SplideSlide>
       </Splide>
 
@@ -276,6 +278,15 @@ export default {
     handleCustomerModalFormSubmit(){
       this.get_item(this.$route.params.id);
       this.changeTab('customer');
+    },
+    async downloadItem(url) {
+      const response = await axios.get(url, { responseType: "blob" });
+      const blob = new Blob([response.data], { type: "image/jpeg" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = url;
+      link.click();
+      URL.revokeObjectURL(link.href);
     }
   },
   mounted()  {
