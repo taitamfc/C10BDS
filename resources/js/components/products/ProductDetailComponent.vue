@@ -7,7 +7,9 @@
     <div class="carousel-full" v-if="item.product_images">
       <Splide :options="{perPage: 1,arrows:true,pagination:false,height:200,autoHeight:true}" >
         <SplideSlide v-for="image of item.product_images" :key="image.id">
+          <a href="javascript:;" @click.prevent="downloadItem(image.image_url)">
           <img :src="image.image_url" style="height:200px;width:100%;"/>
+          </a>
         </SplideSlide>
       </Splide>
 
@@ -18,6 +20,12 @@
       <div class="wide-block pt-2 pb-2 product-detail-header">
         <h1 class="title">[#{{ item.id }}] - {{ item.name }}</h1>
         <div class="text">{{ item.address }} {{ item.tinh_thanh_pho }}</div>
+        <div class="text text-badge">
+          <span class="badge badge-primary mr-1">Mã: {{ item.sku }} </span> 
+          <span class="badge badge-warning">Loại: {{  item.product_type_label }} </span> 
+          <span class="badge badge-danger" v-if="item.product_hot">Sản phẩm HOT </span> 
+          <span class="badge badge-info" v-if="item.product_open">Sắp mở bán </span>
+        </div>
 
         <div class="row mt-2">
           
@@ -270,6 +278,15 @@ export default {
     handleCustomerModalFormSubmit(){
       this.get_item(this.$route.params.id);
       this.changeTab('customer');
+    },
+    async downloadItem(url) {
+      const response = await axios.get(url, { responseType: "blob" });
+      const blob = new Blob([response.data], { type: "image/jpeg" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = url;
+      link.click();
+      URL.revokeObjectURL(link.href);
     }
   },
   mounted()  {

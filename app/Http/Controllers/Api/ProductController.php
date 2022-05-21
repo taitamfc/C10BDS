@@ -154,8 +154,13 @@ class ProductController extends Controller
         $item->juridical = __($item->juridical);
         $item->juridical = __($item->juridical);
         $item->houseDirection = __($item->houseDirection);
-        $item->user_contact = User::find($item->user_contact_id);
-        $item->user_contact = $item->user_contact->name .'( '.$item->user_contact->phone .' )';
+        if($item->user_contact_id){
+            $item->user_contact = User::find($item->user_contact_id);
+            $item->user_contact = $item->user_contact->name .'( '.$item->user_contact->phone .' )';
+        }else{
+            $item->user_contact = '-';
+        }
+        
 
         return response()->json($item, 200);
     }
