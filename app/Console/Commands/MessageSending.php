@@ -2,8 +2,10 @@
 
 namespace App\Console\Commands;
 
+use App\Jobs\ProcessMessage;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
+use App\Models\Message;
 
 class MessageSending extends Command
 {
@@ -12,14 +14,14 @@ class MessageSending extends Command
      *
      * @var string
      */
-    protected $signature = 'command:name';
+    protected $signature = 'MessageSending';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Gửi những tin nhắn đang chờ';
 
     /**
      * Execute the console command.
@@ -28,12 +30,12 @@ class MessageSending extends Command
      */
     public function handle()
     {
-        DB::table('messages')->insert([
-            'title' => 'tieu de',
-            'content' => 'Day la noi dung bai viet',
-            'type' =>'kieu',
-            'status' =>'trang thai',
-            'date_send' => '2022-05-22'
-        ]);
+        $messages = Message::where('status','=','waiting')->get();
+        if(count($messages) > 0){
+            foreach($messages as $message){
+                dispatch( new ProcessMessage($message) ); 
+            }
+        }
+
     }
 }
