@@ -24,6 +24,7 @@ class Kernel extends ConsoleKernel
         $schedule->command(ProductNotifyCommand::class)->everyMinute();
         $schedule->command('MessageCommand')->everyMinute();
         $schedule->command(ProductExpriedCommand::class)->everyMinute();
+        $schedule->command('MessageSending')->everyMinute();
     }
 
     /**
