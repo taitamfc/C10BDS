@@ -168,6 +168,13 @@ class ProductController extends Controller
         $provinces = Province::all();
         $branches = Branch::all();
         $products = $product->paginate(20);
+        foreach ($products as $product){
+            if($product->product_type == 'Consignment'){
+                $now = Carbon::now();
+                $dt = Carbon::create($product->product_end_date);
+                $product->remaining_day = $now->diffInDays($dt);
+            }
+        }
         $params = [
             'provinces' => $provinces,
             'products' => $products,
@@ -240,9 +247,8 @@ class ProductController extends Controller
         $product->product_open_date = $request->product_open_date;
         $product->user_contact_id = $request->user_contact_id;
         $product->sku = $request->sku;
-
-        $product->product_end_date = Carbon::now('Asia/Ho_Chi_Minh');
-
+        
+        
         if ($request->price_deposit) {
             $product->price_deposit = Str::replace(',', '', $request->price_deposit);
         }
@@ -340,7 +346,7 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateProductRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $product = Product::find($id);
         $old_status =  $product->status;
@@ -370,8 +376,6 @@ class ProductController extends Controller
         $product->product_open_date = $request->product_open_date;
         $product->user_contact_id = $request->user_contact_id;
         $product->sku = $request->sku;
-
-        $product->product_end_date = Carbon::now('Asia/Ho_Chi_Minh');
 
         if ($request->price_deposit) {
             $product->price_deposit = Str::replace(',', '', $request->price_deposit);
@@ -500,4 +504,6 @@ class ProductController extends Controller
             return redirect()->route('products.trash')->with('error', 'Khôi phục' . ' ' . $product->name . ' ' .  'không thành công');
         }
     }
+
+
 }
