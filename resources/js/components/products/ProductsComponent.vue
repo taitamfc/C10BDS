@@ -43,6 +43,8 @@ import LoadingElement from "../elements/LoadingElement.vue";
 export default {
   data() {
     return {
+      product_type : '',
+      s : '',
       page_title : 'Sản phẩm đang bán',
       isRunning : false,
       items : null,
@@ -68,12 +70,16 @@ export default {
       this.show.searchForm = false;
       this.form_data = form_data;
       this.form_data.page = 1;
+      
       this.get_items()
     },
-    get_items(product_type = null) {
+    get_items() {
       this.isRunning = true;
-      if(this.$route.params.product_type){
-        this.form_data.product_type = product_type;
+      if(this.product_type){
+        this.form_data.product_type = this.product_type;
+      }
+      if(this.s){
+        this.form_data.s = this.s;
       }
       axios.get('/api/products',{ params: this.form_data })
       .then(result => {
@@ -126,6 +132,7 @@ export default {
       () => this.$route.params,
       (toParams, previousParams) => {
         if( typeof toParams.product_type != 'undefined' ){
+          this.product_type = toParams.product_type;
           this.get_items(toParams.product_type);
           this.change_title(toParams.product_type);
         }else{
@@ -136,7 +143,13 @@ export default {
     )
   },
   mounted()  {
-    this.get_items(this.$route.params.product_type);
+    if( typeof this.$route.params.product_type != 'undefined' ){
+      this.product_type = this.$route.params.product_type;
+    }
+    if( typeof this.$route.params.s != 'undefined' ){
+      this.s = this.$route.params.s;
+    }
+    this.get_items();
     this.change_title(this.$route.params.product_type);
     
   }

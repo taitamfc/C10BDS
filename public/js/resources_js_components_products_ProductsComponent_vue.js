@@ -2841,6 +2841,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
+      product_type: '',
+      s: '',
       page_title: 'Sản phẩm đang bán',
       isRunning: false,
       items: null,
@@ -2871,11 +2873,14 @@ __webpack_require__.r(__webpack_exports__);
     get_items: function get_items() {
       var _this = this;
 
-      var product_type = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
       this.isRunning = true;
 
-      if (this.$route.params.product_type) {
-        this.form_data.product_type = product_type;
+      if (this.product_type) {
+        this.form_data.product_type = this.product_type;
+      }
+
+      if (this.s) {
+        this.form_data.s = this.s;
       }
 
       axios.get('/api/products', {
@@ -2941,6 +2946,8 @@ __webpack_require__.r(__webpack_exports__);
       return _this3.$route.params;
     }, function (toParams, previousParams) {
       if (typeof toParams.product_type != 'undefined') {
+        _this3.product_type = toParams.product_type;
+
         _this3.get_items(toParams.product_type);
 
         _this3.change_title(toParams.product_type);
@@ -2952,7 +2959,15 @@ __webpack_require__.r(__webpack_exports__);
     });
   },
   mounted: function mounted() {
-    this.get_items(this.$route.params.product_type);
+    if (typeof this.$route.params.product_type != 'undefined') {
+      this.product_type = this.$route.params.product_type;
+    }
+
+    if (typeof this.$route.params.s != 'undefined') {
+      this.s = this.$route.params.s;
+    }
+
+    this.get_items();
     this.change_title(this.$route.params.product_type);
   }
 });
@@ -3015,6 +3030,7 @@ __webpack_require__.r(__webpack_exports__);
     handleResetSearch: function handleResetSearch() {
       this.formData = {
         id: '',
+        s: '',
         name: '',
         province_id: '',
         district_id: '',
@@ -4152,12 +4168,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     type: "text",
     "class": "form-control",
     "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
-      return $data.formData.id = $event;
+      return $data.formData.s = $event;
     }),
     placeholder: "Nhập mã sản phẩm"
   }, null, 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.formData.id]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.formData.s]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "text",
     "class": "form-control",
     "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {

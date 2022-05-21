@@ -71,6 +71,9 @@ class ProductController extends Controller
         if ($request->id) {
             $items->where('id', 'LIKE', '%' . $request->id . '%');
         }
+        if ($request->s) {
+            $items->where('sku', 'LIKE', '%' . $request->s . '%');
+        }
         if ($request->name) {
             $items->where('id', 'LIKE', '%' . $request->name . '%');
         }

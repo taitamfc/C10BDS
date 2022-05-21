@@ -2782,10 +2782,20 @@ __webpack_require__.r(__webpack_exports__);
       block_products: null,
       delivery_products: null,
       regular_products: null,
-      isRunning: true
+      isRunning: true,
+      searchTxt: ''
     };
   },
   methods: {
+    handleSearchHome: function handleSearchHome() {
+      this.$router.push({
+        name: 'products.search',
+        params: {
+          s: this.searchTxt
+        }
+      });
+      return false;
+    },
     get_hot_products: function get_hot_products() {
       var _this = this;
 
@@ -2961,27 +2971,22 @@ var _hoisted_1 = {
   id: "appCapsule"
 };
 var _hoisted_2 = {
-  key: 0,
-  "class": "section full"
+  "class": "wide-block pt-2 pb-2"
 };
-
-var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "section-title pb-0"
-}, "SẢN PHẨM HOT", -1
-/* HOISTED */
-);
-
+var _hoisted_3 = {
+  "class": "form-group searchbox"
+};
 var _hoisted_4 = {
-  "class": "splice-wrapp"
+  "class": "input-icon"
 };
 var _hoisted_5 = {
-  key: 1,
+  key: 0,
   "class": "section full"
 };
 
 var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "section-title pb-0"
-}, "SẢN PHẨM SẮP MỞ BÁN", -1
+}, "SẢN PHẨM HOT", -1
 /* HOISTED */
 );
 
@@ -2989,13 +2994,13 @@ var _hoisted_7 = {
   "class": "splice-wrapp"
 };
 var _hoisted_8 = {
-  key: 2,
+  key: 1,
   "class": "section full"
 };
 
 var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "section-title pb-0"
-}, "SẢN PHẨM BLOCK", -1
+}, "SẢN PHẨM SẮP MỞ BÁN", -1
 /* HOISTED */
 );
 
@@ -3003,13 +3008,13 @@ var _hoisted_10 = {
   "class": "splice-wrapp"
 };
 var _hoisted_11 = {
-  key: 3,
+  key: 2,
   "class": "section full"
 };
 
 var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "section-title pb-0"
-}, "SẢN PHẨM THƯỜNG", -1
+}, "SẢN PHẨM BLOCK", -1
 /* HOISTED */
 );
 
@@ -3017,21 +3022,37 @@ var _hoisted_13 = {
   "class": "splice-wrapp"
 };
 var _hoisted_14 = {
-  key: 4,
+  key: 3,
   "class": "section full"
 };
 
 var _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "section-title pb-0"
-}, "SẢN PHẨM KÝ GỬI", -1
+}, "SẢN PHẨM THƯỜNG", -1
 /* HOISTED */
 );
 
 var _hoisted_16 = {
   "class": "splice-wrapp"
 };
+var _hoisted_17 = {
+  key: 4,
+  "class": "section full"
+};
+
+var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "section-title pb-0"
+}, "SẢN PHẨM KÝ GỬI", -1
+/* HOISTED */
+);
+
+var _hoisted_19 = {
+  "class": "splice-wrapp"
+};
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_HeaderComponent = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("HeaderComponent");
+
+  var _component_ion_icon = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("ion-icon");
 
   var _component_ProductItemElement = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("ProductItemElement");
 
@@ -3047,7 +3068,28 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     layout: "main",
     title: 'Trang Chủ',
     notification: 1
-  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [$data.hot_products && $data.hot_products.length ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_2, [_hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Splide, {
+  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
+    "class": "search-form",
+    onSubmit: _cache[1] || (_cache[1] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function ($event) {
+      return $options.handleSearchHome();
+    }, ["prevent"]))
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    type: "text",
+    "class": "form-control",
+    "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
+      return $data.searchTxt = $event;
+    }),
+    placeholder: "Nhập mã sản phẩm để tìm"
+  }, null, 512
+  /* NEED_PATCH */
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.searchTxt]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ion_icon, {
+    name: "search-outline",
+    role: "img",
+    "class": "md hydrated",
+    "aria-label": "search outline"
+  })])])], 32
+  /* HYDRATE_EVENTS */
+  )]), $data.hot_products && $data.hot_products.length ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_5, [_hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Splide, {
     options: {
       perPage: 2,
       padding: 5,
@@ -3083,7 +3125,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
     /* STABLE */
 
-  })])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.future_products && $data.future_products.length ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_5, [_hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Splide, {
+  })])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.future_products && $data.future_products.length ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_8, [_hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Splide, {
     options: {
       perPage: 2,
       padding: 5,
@@ -3117,7 +3159,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
     /* STABLE */
 
-  })])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.block_products && $data.block_products.length ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_8, [_hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Splide, {
+  })])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.block_products && $data.block_products.length ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_11, [_hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Splide, {
     options: {
       perPage: 2,
       padding: 5,
@@ -3151,7 +3193,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
     /* STABLE */
 
-  })])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.regular_products && $data.regular_products.length ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_11, [_hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Splide, {
+  })])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.regular_products && $data.regular_products.length ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_14, [_hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Splide, {
     options: {
       perPage: 2,
       padding: 5,
@@ -3185,7 +3227,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
     /* STABLE */
 
-  })])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.delivery_products && $data.delivery_products.length ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_14, [_hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Splide, {
+  })])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.delivery_products && $data.delivery_products.length ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_17, [_hoisted_18, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Splide, {
     options: {
       perPage: 2,
       padding: 5,
