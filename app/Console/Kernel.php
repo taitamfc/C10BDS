@@ -7,6 +7,7 @@ use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Illuminate\Support\Facades\DB;
 use App\Console\Commands\ProductExpriedCommand;
 use App\Console\Commands\ProductNotifyCommand;
+use App\Console\Commands\MessageSending;
 
 class Kernel extends ConsoleKernel
 {
@@ -22,8 +23,9 @@ class Kernel extends ConsoleKernel
         //     DB::table('products')->delete();
         // })->daily();
         $schedule->command(ProductNotifyCommand::class)->everyMinute();
-        $schedule->command('MessageCommand')->everyMinute();
+        // $schedule->command('MessageCommand')->everyMinute();
         $schedule->command(ProductExpriedCommand::class)->everyMinute();
+        $schedule->command(MessageSending::class)->everyMinute();
     }
 
     /**
