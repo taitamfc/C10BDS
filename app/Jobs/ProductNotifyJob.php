@@ -34,6 +34,7 @@ class ProductNotifyJob implements ShouldQueue
     {
         //gửi cho các thành viên ở chi nhánh qua telegram
         $productname = '[' . $this->product->id . '] - ' .  $this->product->name;
+        $productname = '<a href="'. url('') .'/products/'.$this->product->id.'">'. $productname .'</a>';
         $telegram_channel_id = env('TELEGRAM_CHANNEL_ID', '');
         if ($telegram_channel_id) {
             Telegram::sendMessage([

@@ -32,7 +32,10 @@ Route::group([
     Route::get('/', [IndexController::class, 'index'])->name('admin.index');
 
     Route::prefix('products')->group(function () {
-        route::get('/product_type/{product_type}', [ProductController::class, 'product_type'])->name('products.product_type');
+        Route::get('/product_type/{product_type}', [ProductController::class, 'product_type'])->name('products.product_type');
+    });
+    Route::prefix('users')->group(function () {
+        Route::get('/user_role/{user_role}', [UserController::class, 'user_role'])->name('users.user_role');
     });
 
     Route::prefix('messages')->group(function () {

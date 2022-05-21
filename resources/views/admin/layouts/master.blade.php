@@ -42,6 +42,7 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <link rel="stylesheet" href="{{asset('admin/stylesheets/theme.min.css')}}" data-skin="default">
     <link rel="stylesheet" href="{{asset('admin/stylesheets/theme-dark.min.css')}}" data-skin="dark">
+    <link rel="stylesheet" href="{{asset('admin/vendor/select2/select2.min.css')}}" >
     <link rel="stylesheet" href="{{asset('admin/stylesheets/custom.css')}}">
     <script>
       var skin = localStorage.getItem('skin') || 'default';
@@ -90,6 +91,7 @@
 
     <!-- BEGIN BASE JS -->
     <script src="{{asset('admin/vendor/jquery/jquery.min.js')}}"></script>
+    <script src="{{asset('admin/vendor/select2/select2.min.js')}}"></script>
 
     <script src="{{asset('admin/vendor/bootstrap/js/bootstrap.min.js')}}"></script> <!-- END BASE JS -->
     <!-- BEGIN PLUGINS JS -->

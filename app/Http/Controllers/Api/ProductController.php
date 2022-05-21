@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\User;
 use App\Models\ProductLog;
 use App\Models\ProductCustomer;
 use Illuminate\Support\Str;
@@ -73,7 +74,7 @@ class ProductController extends Controller
         if ($request->ward_id) {
             $items->where('ward_id', $request->ward_id);
         }
-
+        $items->orderBy('id', 'desc');
         $items = $items->paginate(6);
         if (count($items)) {
             foreach ($items as $item) {
@@ -144,12 +145,22 @@ class ProductController extends Controller
                 'image_url' => '/upload/no-image.jpg'
             ];
         }
-
+        $item->product_end_date = date('d/m/Y', strtotime($item->product_end_date));
         $item->price = $this->formatPrice($item->unit,$item->price);
-        $item->product_type = __($item->product_type);
+        $item->price_diff = $this->formatPrice('VND',$item->price_diff);
+        $item->price_commission = $this->formatPrice('VND',$item->price_commission);
+        $item->price_deposit = $this->formatPrice('VND',$item->price_deposit);
+        $item->product_type_label = __($item->product_type);
         $item->juridical = __($item->juridical);
         $item->juridical = __($item->juridical);
         $item->houseDirection = __($item->houseDirection);
+        if($item->user_contact_id){
+            $item->user_contact = User::find($item->user_contact_id);
+            $item->user_contact = $item->user_contact->name .'( '.$item->user_contact->phone .' )';
+        }else{
+            $item->user_contact = '-';
+        }
+        
 
         return response()->json($item, 200);
     }
