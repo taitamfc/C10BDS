@@ -2,6 +2,17 @@
   <HeaderComponent layout="main" :title="'Trang Chủ'" :notification="1" />
   <div id="appCapsule">
 
+    <div class="wide-block pt-2 pb-2">
+        <form class="search-form" v-on:submit.prevent="handleSearchHome()">
+            <div class="form-group searchbox">
+                <input type="text"  class="form-control" v-model="searchTxt" placeholder="Nhập mã sản phẩm để tìm">
+                <i class="input-icon">
+                    <ion-icon name="search-outline" role="img" class="md hydrated" aria-label="search outline"></ion-icon>
+                </i>
+            </div>
+        </form>
+    </div>
+
     <div class="section full" v-if="hot_products && hot_products.length">
       <div class="section-title pb-0">SẢN PHẨM HOT</div>
       <div class="splice-wrapp ">
@@ -87,10 +98,15 @@ export default {
       block_products:null,
       delivery_products:null,
       regular_products:null,
-      isRunning:true
+      isRunning:true,
+      searchTxt:''
     }
   },
   methods:{
+    handleSearchHome(){
+      this.$router.push({ name: 'products.search' ,params: { s: this.searchTxt }})
+      return false;
+    },
     get_hot_products(){
       axios.get('/api/products?product_type=hot_products')
       .then(result => {

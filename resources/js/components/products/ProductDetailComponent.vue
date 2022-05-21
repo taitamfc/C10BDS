@@ -18,7 +18,7 @@
 
     <div class="section full">
       <div class="wide-block pt-2 pb-2 product-detail-header">
-        <h1 class="title">[#{{ item.id }}] - {{ item.name }}</h1>
+        <h1 class="title">[#{{ item.sku }}] - {{ item.name }}</h1>
         <div class="text">{{ item.address }} {{ item.tinh_thanh_pho }}</div>
         <div class="text text-badge">
           <span class="badge badge-primary mr-1">Mã: {{ item.sku }} </span> 

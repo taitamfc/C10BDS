@@ -2,7 +2,7 @@
   <div id="search" class="appHeader show" >
     <form class="search-form" style="padding:10px">
       <div class="form-group mb-1">
-        <input type="text" class="form-control" v-model="formData.id" placeholder="Nhập mã sản phẩm" />
+        <input type="text" class="form-control" v-model="formData.s" placeholder="Nhập mã sản phẩm" />
       </div>
       <div class="form-group mb-1">
         <input type="text" class="form-control" v-model="formData.name" placeholder="Nhập tên sản phẩm" />
@@ -99,6 +99,7 @@ export default {
     handleResetSearch(){
       this.formData = {
           id             : '',
+          s             : '',
           name           : '',
           province_id    : '',
           district_id    : '',

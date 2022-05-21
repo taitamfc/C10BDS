@@ -50,6 +50,18 @@ class ProductController extends Controller
                 case 'delivery_products':
                     $items->where('product_type', 'Consignment');
                     break;
+                case 'quang_tri':
+                    $items->where('province_id', 30);
+                    break;
+                case 'quang_binh':
+                    $items->where('province_id', 29);
+                    break;
+                case 'hue':
+                    $items->where('province_id', 31);
+                    break;
+                case 'da_nang':
+                    $items->where('province_id', 32);
+                    break;
                 default:
                     # code...
                     break;
@@ -58,6 +70,9 @@ class ProductController extends Controller
 
         if ($request->id) {
             $items->where('id', 'LIKE', '%' . $request->id . '%');
+        }
+        if ($request->s) {
+            $items->where('sku', 'LIKE', '%' . $request->s . '%');
         }
         if ($request->name) {
             $items->where('id', 'LIKE', '%' . $request->name . '%');

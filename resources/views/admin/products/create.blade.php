@@ -42,7 +42,7 @@
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Tỉnh/Thành phố <abbr title="Trường bắt buộc">*</abbr></label>
-                            <select name="province_id" class="form-control province_id" value="{{ old('province_id') }}">
+                            <select name="province_id" class="form-control province_id" value="{{ old('province_id') }}" data-toggle="select2">
                                 <option value="">Vui lòng chọn</option>
                                 @foreach($provinces as $province)
                                 <option value="{{ $province->id }}" @selected(old('province_id')==$province->id )>{{$province->name}}</option>
