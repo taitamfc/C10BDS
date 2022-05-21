@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\ProductLogController;
 use App\Http\Controllers\Api\ProductCustomerController;
 use App\Http\Controllers\Api\ProvinceController;
 use App\Http\Controllers\Api\CustomerController;
+use App\Http\Controllers\Api\ProductImageDelete;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,3 +62,5 @@ Route::get('/get_provinces',[ProvinceController::class,'get_provinces']);
 Route::get('/get_users_by_branch_id/{branch_id}',[UserController::class,'get_users_by_branch_id']);
 
 Route::get('/get_product_type_by_product_user_id/{product_user_id}',[ProductUserController::class,'get_product_type_by_product_user_id']);
+
+Route::delete('/product_images/{product_image_id}',[ProductImageDelete::class,'product_images_delete']);
