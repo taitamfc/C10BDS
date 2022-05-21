@@ -41,5 +41,8 @@ class ProcessMessage implements ShouldQueue
                 'text' => '[THÔNG BÁO] '.$this->message->content
             ]);
         }
+        //cập nhật trạng thái đã gửi
+        $this->message->status = 'sent';
+        $this->message->save();
     }
 }
