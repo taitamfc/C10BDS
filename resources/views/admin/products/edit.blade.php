@@ -169,6 +169,45 @@
                 </div>
             </div>
 
+            <div class="card-body border-top showIfProductConsignment" style="display:<?= $product->product_type == 'Consignment' ? 'block' : 'none' ?>">
+                <legend>Thông tin ký gửi</legend>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label>Nhân viên phụ trách</label>
+                            <select name="user_contact_id" class="form-control">
+                                <ontion value=""> Vui lòng chọn </option>
+                                    @foreach($users as $user)
+                                    <option value="{{ $user->id }}" @selected( $product->user_contact_id == $user->id)>
+                                        {{ $user->name }}
+                                    </option>
+                                    @endforeach
+                            </select>
+                            @if ($errors->any())
+                            <p style="color:red">{{ $errors->first('user_contact_id') }}</p>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label for="tf1">Bắt đầu</label> <input name="product_start_date" type="date" class="form-control" placeholder="" value="{{$product->product_start_date}}">
+                            @if ($errors->any())
+                            <p style="color:red">{{ $errors->first('product_start_date') }}</p>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label for="tf1">Kết thúc</label> <input name="product_end_date" type="date" class="form-control" placeholder="" value="{{$product->product_end_date}}">
+                            @if ($errors->any())
+                            <p style="color:red">{{ $errors->first('product_end_date') }}</p>
+                            @endif
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
             <div class="card-body border-top">
                 <legend>Thông tin giá tiền</legend>
                 <div class="row">
@@ -350,44 +389,6 @@
                 </div>
             </div>
 
-            <div class="card-body border-top">
-                <legend>Thông tin ký gửi</legend>
-                <div class="row">
-                    <div class="col-lg-4">
-                        <div class="form-group">
-                            <label>Nhân viên phụ trách</label>
-                            <select name="user_contact_id" class="form-control">
-                                <ontion value=""> Vui lòng chọn </option>
-                                    @foreach($users as $user)
-                                    <option value="{{ $user->id }}" @selected( $product->user_contact_id == $user->id)>
-                                        {{ $user->name }}
-                                    </option>
-                                    @endforeach
-                            </select>
-                            @if ($errors->any())
-                            <p style="color:red">{{ $errors->first('user_contact_id') }}</p>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="form-group">
-                            <label for="tf1">Bắt đầu</label> <input name="product_start_date" type="date" class="form-control" placeholder="" value="{{$product->product_start_date}}">
-                            @if ($errors->any())
-                            <p style="color:red">{{ $errors->first('product_start_date') }}</p>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="form-group">
-                            <label for="tf1">Kết thúc</label> <input name="product_end_date" type="date" class="form-control" placeholder="" value="{{$product->product_end_date}}">
-                            @if ($errors->any())
-                            <p style="color:red">{{ $errors->first('product_end_date') }}</p>
-                            @endif
-                        </div>
-                    </div>
-
-                </div>
-            </div>
             <div class="card-body border-top">
 
                 <legend>Thông tin liên hệ</legend>

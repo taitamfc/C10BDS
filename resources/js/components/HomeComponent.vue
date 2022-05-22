@@ -4,11 +4,11 @@
 
     <div class="wide-block pt-2 pb-2">
         <form class="search-form" v-on:submit.prevent="handleSearchHome()">
-            <div class="form-group searchbox">
-                <input type="text"  class="form-control" v-model="searchTxt" placeholder="Nhập mã sản phẩm để tìm">
-                <i class="input-icon">
-                    <ion-icon name="search-outline" role="img" class="md hydrated" aria-label="search outline"></ion-icon>
-                </i>
+            <div class="input-group">
+              <input type="text"  class="form-control" v-model="searchTxt" placeholder="Nhập mã sản phẩm để tìm">
+              <button class="btn btn-outline-secondary" type="submit" id="button-addon2">
+                Tìm
+              </button>
             </div>
         </form>
     </div>
