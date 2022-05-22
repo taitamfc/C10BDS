@@ -292,9 +292,9 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="form-group">
-                            <label for="tf1">Diện tích</label>
+                            <label for="tf1">Chiều dài</label>
                             <div class="input-group input-group-alt">
-                                <input type="text" value="{{ $product->area }}" name="area" type="number" class="form-control" placeholder="Nhập diện tích, VD 80">
+                                <input type="text" value="{{ $product->area }}" name="area" type="text" class="form-control" placeholder="Nhập chiều dài, VD 80">
                                 <div class="input-group-append">
                                     <span class="input-group-text">m²</span>
                                 </div>
@@ -338,7 +338,7 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="form-group">
-                            <label for="tf1">Mặt tiền</label>
+                            <label for="tf1">Chiều rộng</label>
                             <div class="input-group input-group-alt">
                                 <input type="text" value="{{ $product->facade }}" name="facade" type="number" class="form-control" placeholder="Nhập số">
                                 <div class="input-group-append">
