@@ -38,14 +38,18 @@ class SendSoldProductNotification
 
         //gửi cho các thành viên ở chi nhánh qua telegram
         $productname = '['.$event->product->id . '] - ' .  $event->product->name;
-        $productname = '<a href="https://crm.quanggroup.vn/products/'.$event->product->id.'">'. $productname .'</a>';
+        $productname = '<a href="'.env('APP_URL').'/products/'.$event->product->id.'">'. $productname .'</a>';
         $telegram_channel_id = env('TELEGRAM_CHANNEL_ID', '');
         if($telegram_channel_id){
-            Telegram::sendMessage([
+            $arg = [
                 'chat_id' => $telegram_channel_id,
                 'parse_mode' => 'HTML',
-                'text' => '[ĐÃ BÁN] Sản phẩm <strong>'.$productname.'</strong> đã được bán thành công !'
-            ]);
+                'text' => 'Sản phẩm <strong>' . $productname . '</strong> đã được bán thành công !'
+            ];
+            if( isset($event->product->product_images[0]) ){
+                $arg['photo'] = env('APP_URL').$event->product->product_images[0]->image_url;
+            }
+            Telegram::sendMessage($arg);
         }
     }
 }

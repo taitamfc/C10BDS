@@ -34,14 +34,18 @@ class ProductNotifyJob implements ShouldQueue
     {
         //gửi cho các thành viên ở chi nhánh qua telegram
         $productname = '[' . $this->product->id . '] - ' .  $this->product->name;
-        $productname = '<a href="https://crm.quanggroup.vn/products/'.$this->product->id.'">'. $productname .'</a>';
+        $productname = '<a href="'.env('APP_URL').'/products/'.$this->product->id.'">'. $productname .'</a>';
         $telegram_channel_id = env('TELEGRAM_CHANNEL_ID', '');
         if ($telegram_channel_id) {
-            Telegram::sendMessage([
+            $arg = [
                 'chat_id' => $telegram_channel_id,
                 'parse_mode' => 'HTML',
                 'text' => 'Sản phẩm <strong>' . $productname . '</strong> sắp hết hạn !'
-            ]);
+            ];
+            if( isset($this->product->product_images[0]) ){
+                $arg['photo'] = env('APP_URL').$this->product->product_images[0]->image_url;
+            }
+            Telegram::sendMessage($arg);
         }
         //cập nhật trạng thái đã thông Báo
         $this->product->notifyExpired = 1;
