@@ -116,6 +116,9 @@
                                 @if( $product->product_open)
                                 <span class="badge badge-info">Sắp mở bán</span>
                                 @endif
+                                @if( $product->product_type == 'Consignment')
+                                <span class="badge badge-danger">Hết hạn: {{ $product->remaining_day }} ngày</span>
+                                @endif
                             </td>
                             <td class="align-middle">
                                 @if( $product->unit == 'agree' )

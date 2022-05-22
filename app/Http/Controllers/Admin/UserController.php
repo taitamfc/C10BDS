@@ -24,6 +24,29 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+    public function user_role(Request $request, $user_role)
+    {
+        $user = User::select('*');
+        if($user_role){
+            $user->where('user_group_id', $user_role);
+        }
+        $user->orderBy('id', 'desc');
+        $users = $user->paginate(20);
+        // dd($users);
+        $userGroups = UserGroup::all();
+        $branches = Branch::all();
+        $provinces = Province::all();
+
+        $params = [
+            'provinces' => $provinces,
+            'users' => $users,
+            'userGroups' =>  $userGroups,
+            'branches' => $branches,
+            'filter' => $request->filter,
+            'user_role' => $user_role
+        ];
+        return view('admin.users.index', $params);
+    }
     public function index(Request $request)
     {
 
@@ -61,7 +84,7 @@ class UserController extends Controller
 
 
         $query->orderBy('id', 'desc');
-        $users = $query->paginate(4);
+        $users = $query->paginate(20);
         // dd($users);
         $userGroups = UserGroup::all();
         $branches = Branch::all();
@@ -72,7 +95,8 @@ class UserController extends Controller
             'users' => $users,
             'userGroups' =>  $userGroups,
             'branches' => $branches,
-            'filter' => $request->filter
+            'filter' => $request->filter,
+            'user_role' => 'all'
         ];
         return view('admin.users.index', $params);
     }
@@ -132,9 +156,9 @@ class UserController extends Controller
 
         try {
             $user->save();
-            $user->active='store';
+            $user->active = 'store';
             event(new UserSubmitEvent($user));
-            
+
             return redirect()->route('users.index')->with('success', 'Thêm' . ' ' . $request->name . ' ' .  'thành công');
         } catch (\Exception $e) {
             Log::error($e->getMessage());
@@ -211,7 +235,7 @@ class UserController extends Controller
 
         try {
             $user->save();
-            $user->active='update';
+            $user->active = 'update';
             event(new UserSubmitEvent($user));
 
             return redirect()->route('users.index')->with('success', 'Sửa' . ' ' . $request->name . ' ' .  'thành công');
@@ -232,7 +256,7 @@ class UserController extends Controller
 
         try {
             $user->delete();
-            $user->active='destroy';
+            $user->active = 'destroy';
             event(new UserSubmitEvent($user));
             return redirect()->route('users.index')->with('success', 'Xóa  thành công');
         } catch (\Exception $e) {
@@ -246,7 +270,7 @@ class UserController extends Controller
         $query = User::onlyTrashed();
         //sắp xếp thứ tự lên trước khi update
         $query->orderBy('id', 'desc');
-        $users = $query->paginate(4);
+        $users = $query->paginate(20);
         // dd($users);
         $userGroups = UserGroup::all();
         $branches = Branch::all();
@@ -257,14 +281,15 @@ class UserController extends Controller
             'users' => $users,
             'userGroups' =>  $userGroups,
             'branches' => $branches,
-            'filter' => $request->filter
+            'filter' => $request->filter,
+            'user_role' => 'trash'
         ];
         return view('admin.users.trash', $params);
     }
 
     public function force_destroy($id)
     {
-        
+
         $user = User::withTrashed()->find($id);
         // dd($user);
         $this->authorize('forceDelete', $user);
@@ -288,5 +313,4 @@ class UserController extends Controller
             return redirect()->route('users.trash')->with('error', 'Khôi phục' . ' ' . $user->name . ' ' .  'không thành công');
         }
     }
-    
 }

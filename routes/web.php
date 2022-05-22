@@ -32,7 +32,10 @@ Route::group([
     Route::get('/', [IndexController::class, 'index'])->name('admin.index');
 
     Route::prefix('products')->group(function () {
-        route::get('/product_type/{product_type}', [ProductController::class, 'product_type'])->name('products.product_type');
+        Route::get('/product_type/{product_type}', [ProductController::class, 'product_type'])->name('products.product_type');
+    });
+    Route::prefix('users')->group(function () {
+        Route::get('/user_role/{user_role}', [UserController::class, 'user_role'])->name('users.user_role');
     });
 
     Route::prefix('messages')->group(function () {
@@ -89,7 +92,7 @@ Route::group([
     Route::resource('options', OptionController::class);
     Route::resource('configs', ConfigController::class);
     Route::resource('systemlogs', SystemLogController::class);
-    Route::get('administrator/logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
+    Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
 });
 
 Route::get('administrator/login', [AuthController::class, 'login'])->name('login');

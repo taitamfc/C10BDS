@@ -23,6 +23,13 @@
                 <li class="nav-item">
                     <a class="nav-link  " href="{{route('users.index')}}">Tất Cả</a>
                 </li>
+                @foreach($userGroups as $userGroup)
+                <li class="nav-item">
+                    <a href="{{route('users.user_role',$userGroup->id)}}" class="nav-link <?= ($user_role == $userGroup->id) ? 'active' : '' ?>">
+                        {{$userGroup->name}}
+                    </a>
+                </li>
+                @endforeach
                 <li class="nav-item">
                     <a class="nav-link active" href="{{route('users.trash')}}">Thùng Rác</a>
                 </li>

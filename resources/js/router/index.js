@@ -68,8 +68,8 @@ const routes = [
         component: ProductsComponent
     },
     {
-        path: '/sold_products',
-        name: 'products.sold',
+        path: '/search_products/:s?',
+        name: 'products.search',
         meta: { requiresAuth: true },
         component: ProductsComponent
     },

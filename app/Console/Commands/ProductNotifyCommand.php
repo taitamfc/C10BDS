@@ -36,7 +36,7 @@ class ProductNotifyCommand extends Command
         $products = Product::where('product_type', '=', 'Consignment')
         ->where('product_end_date', $nextDate)
         ->where('status', '=', 'selling')
-        ->where('notifyExpired ',0)
+        ->where('notifyExpired',0)
         ->get();
 
         if (count($products) > 0){

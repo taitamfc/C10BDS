@@ -24,3 +24,9 @@
 .frame-100 iframe {
 	width: 100% !important;
 }
+.text-badge .badge {
+	margin-right: 4px;
+}
+.card.product-card img {
+	height: 129px;
+}
