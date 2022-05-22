@@ -548,17 +548,18 @@
 
         //xóa ảnh phần sản phẩm chỉnh sửa
         $(".btn-delete").click(function() {
-            var product_image_id = $(this).attr('data-id');
-            // console.log(product_image_id);
-            // return false;
-            $.ajax({
-                type: 'DELETE',
-                url: '/api/product_images/' + product_image_id,
-                dataType: 'json',
-                success: function(data) {
-                    $(".product_image_"+ product_image_id).remove();
-                }
-            });
+            var confirm_delete = confirm("Xác nhận xóa hình ?");
+            if( confirm_delete === true ){
+                var product_image_id = $(this).attr('data-id');
+                $.ajax({
+                    type: 'DELETE',
+                    url: '/api/product_images/' + product_image_id,
+                    dataType: 'json',
+                    success: function(data) {
+                        $(".product_image_"+ product_image_id).remove();
+                    }
+                });
+            }
         });
 
     });
