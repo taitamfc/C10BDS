@@ -494,7 +494,7 @@
 
         jQuery('#product_type').on('change', function() {
             var product_type = jQuery(this).val();
-            //showIBlock 
+            //showIBlock
             console.log(product_type);
             if (product_type == 'Block') {
                 $('.showpriceCommission').show();

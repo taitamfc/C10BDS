@@ -176,7 +176,7 @@ class BranchController extends Controller
      */
     public function destroy($id)
     {
-        
+
         $branch = Branch::find($id);
         $this->authorize('delete', $branch);
         try {
@@ -206,7 +206,7 @@ class BranchController extends Controller
 
     public function force_destroy($id)
     {
-        
+
         $branch = Branch::withTrashed()->find($id);
         // dd($branch);
         $this->authorize('forceDelete', $branch);
