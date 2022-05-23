@@ -279,6 +279,10 @@ class ProductController extends Controller
         }
         try {
             $product->save();
+            if ($product->status == 'selling') {
+                //thông báo khi sản phẩm mới được đăng bán
+                event(new ProductCreated($product));
+            }
             //luu vao bang product_images
             if (count($product_images)) {
                 foreach ($product_images as $product_image) {
