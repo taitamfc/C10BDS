@@ -1,4 +1,3 @@
-
 <footer class="app-footer">
   <ul class="list-inline">
     <li class="list-inline-item">
@@ -15,4 +14,5 @@
     </li>
   </ul>
   <div class="copyright"> Copyright © 2022. All right reserved. </div>
+ 
 </footer>

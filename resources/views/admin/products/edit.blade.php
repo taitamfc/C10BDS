@@ -273,7 +273,7 @@
                         <label class="custom-control-label" for="rd1">Sổ đỏ/ Sổ hồng</label>
                     </div>
                     <div class="custom-control custom-control-inline custom-radio">
-                        <input type="radio" class="custom-control-input" name="juridical" id="rd2" @checked( $product->juridical == 'sale_contract') value="Sale contract">
+                        <input type="radio" class="custom-control-input" name="juridical" id="rd2" @checked( $product->juridical == 'sale_contract') value="sale_contract">
                         <label class="custom-control-label" for="rd2">Hợp đồng mua bán</label>
                     </div>
                     <div class="custom-control custom-control-inline custom-radio">
@@ -359,19 +359,19 @@
                     <input type="file" href="javascript:void(0);" name="image_urls[]" class="form-control" value="{{ old('image_urls[]') }}" multiple>
                 </div>
                 @if( $product->product_images )
-                <div class="form-group row">
+                <div class="form-group row gallery">
                     @foreach( $product->product_images as $product_image )
                     <div class="col-lg-2 product_image_{{ $product_image->id }}">
                         <div class="card card-figure">
                             <figure class="figure">
-                                <div class="figure-img frmDeleteProduct">
+                                <div class="figure-img">
                                     <img class="img-fluid" src="{{ $product_image->image_url }}">
-                                    <a target="_blank" href="{{ $product_image->image_url }}" class="img-link" data-size="600x450">
+                                    <a href="{{ $product_image->image_url }}" class="img-link img-fluid-a" data-size="600x450">
                                         <span class="tile tile-circle bg-danger"><span class="oi oi-eye"></span></span>
                                         <span class="img-caption d-none">Image caption goes here</span>
                                     </a>
                                     <div class="figure-action frmDeleteProduct">
-                                        <a href="javascript:void(0);" data-id="{{ $product_image->id }}" class="btn btn-block btn-sm btn-primary btn-delete">Xóa</a>
+                                        <a href="javascript:;" data-id="{{ $product_image->id }}" class="btn btn-block btn-sm btn-primary btn-delete">Xóa</a>
                                     </div>
                                 </div>
                             </figure>
@@ -450,6 +450,16 @@
 </div>
 <script>
     jQuery(document).ready(function() {
+
+        $('.gallery').each(function() { // các vùng chứa cho tất cả các phòng trưng bày của bạn
+            $(this).magnificPopup({
+                delegate: 'a.img-fluid-a', // bộ chọn cho mục thư viện
+                type: 'image',
+                gallery: {
+                    enabled: true
+                }
+            });
+        });
 
         jQuery('.province_id').on('change', function() {
             var province_id = jQuery(this).val();

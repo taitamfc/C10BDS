@@ -30,3 +30,6 @@
 .card.product-card img {
 	height: 129px;
 }
+.is-active {
+	visibility: visible !important;
+}

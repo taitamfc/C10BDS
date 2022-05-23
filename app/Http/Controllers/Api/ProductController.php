@@ -114,13 +114,13 @@ class ProductController extends Controller
     {
         $item = Product::with(['product_images', 'district', 'province'])
             ->where('id', $id)
-            ->where('branch_id', $this->user->branch_id)
+            //->where('branch_id', $this->user->branch_id)
             ->first();
 
-        $item->tinh_thanh_pho = $item->district->name . ', ' . $item->province->name;
+        $item->tinh_thanh_pho = ($item->district) ? $item->district->name : '' . ', ' . $item->province->name;
 
         //chỉ xem được log của bản thân và hệ thống
-        if (true) {
+        if (false) {
             $item->product_logs = ProductLog::whereIn('user_id', [1, $this->user->id])
                 ->where('product_id', $id)->orderBy('created_at', 'DESC')
                 ->get();
@@ -170,7 +170,7 @@ class ProductController extends Controller
         $item->juridical = __($item->juridical);
         $item->houseDirection = __($item->houseDirection);
         if($item->user_contact_id){
-            $item->user_contact = User::find($item->user_contact_id);
+            $item->user_contact = User::withTrashed()->find($item->user_contact_id);
             $item->user_contact = $item->user_contact->name .'( '.$item->user_contact->phone .' )';
         }else{
             $item->user_contact = '-';
