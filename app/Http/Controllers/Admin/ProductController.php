@@ -161,6 +161,7 @@ class ProductController extends Controller
         }
         if ($request->s) {
             $product->where('name', 'LIKE', '%' . $request->s . '%');
+            $product->orwhere('sku', 'LIKE', '%' . $request->s . '%');
             $product->orwhere('id', $request->s);
         }
 
