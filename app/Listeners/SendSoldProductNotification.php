@@ -9,6 +9,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\SoldProductNotification;
 use Telegram\Bot\Laravel\Facades\Telegram;
+use Telegram\Bot\FileUpload\InputFile;
 use App\Models\User;
 
 
@@ -37,7 +38,7 @@ class SendSoldProductNotification
         Notification::send($users, new SoldProductNotification($event->product));
 
         //gửi cho các thành viên ở chi nhánh qua telegram
-        $productname = '['.$event->product->id . '] - ' .  $event->product->name;
+        $productname = '['.$event->product->sku . '] - ' .  $event->product->name;
         $productname = '<a href="'.env('APP_URL').'/products/'.$event->product->id.'">'. $productname .'</a>';
         $telegram_channel_id = env('TELEGRAM_CHANNEL_ID', '');
         if($telegram_channel_id){
@@ -47,9 +48,14 @@ class SendSoldProductNotification
                 'text' => 'Sản phẩm <strong>' . $productname . '</strong> đã được bán thành công !'
             ];
             if( isset($event->product->product_images[0]) ){
-                $arg['photo'] = env('APP_URL').$event->product->product_images[0]->image_url;
+                $image_url = env('APP_URL').$event->product->product_images[0]->image_url;
+                $inputMediaPhoto = new InputFile($image_url,$event->product->name);
+                $arg['photo'] = $inputMediaPhoto;
+                $arg['caption'] = $arg['text'];
+                Telegram::sendPhoto($arg);
+            }else{
+                Telegram::sendMessage($arg);
             }
-            Telegram::sendMessage($arg);
         }
     }
 }
