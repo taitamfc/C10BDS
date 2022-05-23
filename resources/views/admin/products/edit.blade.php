@@ -325,14 +325,14 @@
                     <div class="col-lg-2 product_image_{{ $product_image->id }}">
                         <div class="card card-figure">
                             <figure class="figure">
-                                <div class="figure-img frmDeleteProduct">
+                                <div class="figure-img">
                                     <img class="img-fluid" src="{{ $product_image->image_url }}">
                                     <a target="_blank" href="{{ $product_image->image_url }}" class="img-link" data-size="600x450">
                                         <span class="tile tile-circle bg-danger"><span class="oi oi-eye"></span></span>
                                         <span class="img-caption d-none">Image caption goes here</span>
                                     </a>
                                     <div class="figure-action frmDeleteProduct">
-                                        <a href="javascript:void(0);" data-id="{{ $product_image->id }}" class="btn btn-block btn-sm btn-primary btn-delete">Xóa</a>
+                                        <a href="javascript:;" data-id="{{ $product_image->id }}" class="btn btn-block btn-sm btn-primary btn-delete">Xóa</a>
                                     </div>
                                 </div>
                             </figure>
@@ -449,6 +449,14 @@
 </div>
 <script>
     jQuery(document).ready(function() {
+        
+        $('.img-fluid').magnificPopup({
+            delegate: 'a',
+            type: 'image',
+            gallery: {
+                enabled: true
+            }
+        });
 
         jQuery('.province_id').on('change', function() {
             var province_id = jQuery(this).val();
@@ -548,14 +556,14 @@
         //xóa ảnh phần sản phẩm chỉnh sửa
         $(".btn-delete").click(function() {
             var product_image_id = $(this).attr('data-id');
-            // console.log(product_image_id);
+            console.log(product_image_id);
             // return false;
             $.ajax({
                 type: 'DELETE',
                 url: '/api/product_images/' + product_image_id,
                 dataType: 'json',
                 success: function(data) {
-                    $(".product_image_"+ product_image_id).remove();
+                    $(".product_image_" + product_image_id).remove();
                 }
             });
         });
