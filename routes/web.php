@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\MessageController;
 use App\Http\Controllers\Admin\OptionController;
 use App\Http\Controllers\Admin\SystemLogController;
+use App\Http\Controllers\Admin\PaperController;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -93,6 +94,7 @@ Route::group([
     Route::resource('options', OptionController::class);
     Route::resource('configs', ConfigController::class);
     Route::resource('systemlogs', SystemLogController::class);
+    Route::resource('papers', PaperController::class);
     Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
 });
 
