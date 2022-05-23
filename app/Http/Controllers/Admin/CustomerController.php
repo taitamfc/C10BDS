@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Events\CustomerSubmitEvent;
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
+use App\Exports\CustomerExport;
+use Excel;
 use App\Http\Requests\StoreCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
 use Illuminate\Http\Request;
@@ -38,7 +40,7 @@ class CustomerController extends Controller
         $query->orderBy('id', 'DESC');
         //phân trang
         $customers = $query->paginate(10);
-        $params = [ 
+        $params = [
             'customers' => $customers,
             'filter' => $request->filter
         ];
@@ -169,7 +171,7 @@ class CustomerController extends Controller
         $query->orderBy('id', 'DESC');
         //phân trang
         $customers = $query->paginate(10);
-        $params = [ 
+        $params = [
             'customers' => $customers,
             'filter' => $request->filter
         ];
@@ -191,7 +193,7 @@ class CustomerController extends Controller
         }
     }
 
-    
+
     public function restore($id)
     {
         $customer = Customer::withTrashed()->find($id);
@@ -202,5 +204,8 @@ class CustomerController extends Controller
             Log::error($e->getMessage());
             return redirect()->route('customers.trash')->with('error', 'Khôi phục' . ' ' . $customer->name . ' ' .  'không thành công');
         }
+    }
+    public function export(){
+        return Excel::download(new CustomerExport, 'customer.xlsx');
     }
 }

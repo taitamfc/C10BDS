@@ -15,9 +15,13 @@
         <h1 class="page-title mr-sm-auto">Quản Lý Khách Hàng</h1>
         <div class="btn-toolbar">
             @if(Auth::user()->hasPermission('Customer_create'))
-            <a href="{{route('customers.create')}}" class="btn btn-primary">
+            <a href="{{route('customers.create')}}" class="btn btn-primary mr-2">
                 <i class="fa-solid fa fa-plus"></i>
                 <span class="ml-1">Thêm Mới</span>
+            </a>
+            <a href="{{route('customers.export')}}" class="btn btn-primary">
+                <i class="fas fa-file"></i>
+                <span class="ml-1">Xuất file excel</span>
             </a>
             @endif
         </div>
@@ -104,6 +108,7 @@
                         @endforeach
                     </tbody><!-- /tbody -->
                 </table><!-- /.table -->
+
                 <div style="float:right">
                     {{ $customers->links() }}
                 </div>
