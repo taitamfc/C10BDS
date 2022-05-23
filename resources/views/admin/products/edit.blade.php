@@ -359,14 +359,14 @@
                     <input type="file" href="javascript:void(0);" name="image_urls[]" class="form-control" value="{{ old('image_urls[]') }}" multiple>
                 </div>
                 @if( $product->product_images )
-                <div class="form-group row">
+                <div class="form-group row gallery">
                     @foreach( $product->product_images as $product_image )
                     <div class="col-lg-2 product_image_{{ $product_image->id }}">
                         <div class="card card-figure">
                             <figure class="figure">
                                 <div class="figure-img">
                                     <img class="img-fluid" src="{{ $product_image->image_url }}">
-                                    <a target="_blank" href="{{ $product_image->image_url }}" class="img-link" data-size="600x450">
+                                    <a href="{{ $product_image->image_url }}" class="img-link img-fluid-a" data-size="600x450">
                                         <span class="tile tile-circle bg-danger"><span class="oi oi-eye"></span></span>
                                         <span class="img-caption d-none">Image caption goes here</span>
                                     </a>
@@ -450,13 +450,15 @@
 </div>
 <script>
     jQuery(document).ready(function() {
-        
-        $('.img-fluid').magnificPopup({
-            delegate: 'a',
-            type: 'image',
-            gallery: {
-                enabled: true
-            }
+
+        $('.gallery').each(function() { // các vùng chứa cho tất cả các phòng trưng bày của bạn
+            $(this).magnificPopup({
+                delegate: 'a.img-fluid-a', // bộ chọn cho mục thư viện
+                type: 'image',
+                gallery: {
+                    enabled: true
+                }
+            });
         });
 
         jQuery('.province_id').on('change', function() {
