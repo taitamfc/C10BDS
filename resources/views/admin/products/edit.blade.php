@@ -9,6 +9,18 @@
         </ol>
     </nav>
     <h1 class="page-title"> Chỉnh sửa sản phẩm</h1>
+    [{{ $product->id }}] - {{ $product->name }}
+    <br>
+    <span class="badge badge-success">CN: {{ $product->branch->name }}</span>
+    <span class="badge badge-primary">Mã: {{ $product->sku }}</span>
+    <span class="badge badge-warning">Loại: {{ __($product->product_type) }}</span>
+    @if( $product->product_hot)
+    <span class="badge badge-danger">Sản phẩm HOT</span>
+    @endif
+    @if( $product->product_open)
+    <span class="badge badge-info">Sắp mở bán</span>
+    @endif
+    <span class="badge badge-dark">{{ __($product->status) }}</span>
 </header>
 
 <div class="page-section">
