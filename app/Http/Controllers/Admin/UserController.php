@@ -50,7 +50,7 @@ class UserController extends Controller
     public function index(Request $request)
     {
 
-        // dd($request->filter);
+        $this->authorize('viewAny', User::class);
         $query = User::select('*');
         if (isset($request->filter['name']) && $request->filter['name']) {
             $name = $request->filter['name'];
@@ -107,6 +107,7 @@ class UserController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', User::class);
         $userGroups = UserGroup::all();
         $branches = Branch::all();
         $provinces = Province::all();
@@ -183,9 +184,10 @@ class UserController extends Controller
      */
     public function edit($id)
     {
+        $user =  User::find($id);
+        $this->authorize('update', $user);
         $userGroups = UserGroup::all();
         $branches = Branch::all();
-        $user =  User::find($id);
         $provinces = Province::all();
         $districts = District::where('province_id', $user->province_id)->get();
         $wards = Ward::where('district_id', $user->district_id)->get();
@@ -253,6 +255,8 @@ class UserController extends Controller
     public function destroy($id)
     {
         $user = User::find($id);
+        $this->authorize('delete', $user);
+
 
         try {
             $user->delete();
