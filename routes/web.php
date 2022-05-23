@@ -46,6 +46,7 @@ Route::group([
 
     Route::prefix('customers')->group(function () {
         Route::get('/trash', [CustomerController::class, 'trashedItems'])->name('customers.trash');
+        Route::get('/export', [CustomerController::class, 'export'])->name('customers.export');
         Route::delete('/force_destroy/{id}', [CustomerController::class, 'force_destroy'])->name('customers.force_destroy');
         Route::get('/restore/{id}', [CustomerController::class, 'restore'])->name('customers.restore');
     });

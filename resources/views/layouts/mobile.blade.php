@@ -32,6 +32,9 @@
         .no-padding {
             padding: 0 !important;
         }
+        .is-active {
+            visibility: visible !important;
+        }
     </style>
 </head>
 
