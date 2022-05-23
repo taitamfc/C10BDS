@@ -26,18 +26,18 @@ class UpdateUserRequest extends FormRequest
         return [
             'name' => 'required',
             'gender' => 'required',
-            'day_of_birth' => 'required',
+            // 'day_of_birth' => 'required',
             'address' => 'required',
             'phone' => 'required',
-            'avatar' => 'required',
+            // 'avatar' => 'required',
             // 'password' => 'required',
-            'start_day' => 'required',
+            // 'start_day' => 'required',
             'user_group_id' => 'required',
             'branch_id' => 'required',
             'province_id' => 'required',
             'district_id' => 'required',
             'ward_id' => 'required',
-            'note' => 'required',
+            // 'note' => 'required',
 
         ];
     }
@@ -47,18 +47,18 @@ class UpdateUserRequest extends FormRequest
         return [
             'name.required' => 'Vui lòng nhập tên nhân viên',
             'gender.required' => 'Vui lòng nhập giới tính',
-            'day_of_birth.required' => 'Vui lòng nhập ngày sinh',
+            // 'day_of_birth.required' => 'Vui lòng nhập ngày sinh',
             'address.required' => 'Vui lòng nhập địa chỉ',
             'phone.required' => 'Vui lòng nhập số điện thoại',
-            'avatar.required' => 'Vui lòng chọn ảnh',
+            // 'avatar.required' => 'Vui lòng chọn ảnh',
             'password.required' => 'Vui lòng nhập mật khẩu',
-            'start_day.required' => 'Vui lòng nhập ngày làm việc',
+            // 'start_day.required' => 'Vui lòng nhập ngày làm việc',
             'user_group_id.required' => 'Vui lòng nhập nhóm nhân viên',
             'branch_id.required' => 'Vui lòng nhập chi nhánh',
             'province_id.required' => 'Vui lòng nhập Tỉnh/Thành phố',
             'district_id.required' => 'Vui lòng nhập Quận/Huyện',
             'ward_id.required' => 'Vui lòng nhập Xã/Phường',
-            'note.required' => 'Vui lòng nhập ghi chú'
+            // 'note.required' => 'Vui lòng nhập ghi chú'
         ];
     }
 }

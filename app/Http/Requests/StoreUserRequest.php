@@ -25,17 +25,14 @@ class StoreUserRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'day_of_birth' => 'required',
             'address' => 'required',
             'phone' => 'required|unique:users',
             'password' => 'required',
-            'avatar' => 'required',
             'province_id' => 'required',
             'district_id' => 'required',
             'ward_id' => 'required',
             'user_group_id' => 'required',
             'branch_id' => 'required',
-            'note' => 'required',
 
         ];
     }
@@ -43,18 +40,15 @@ class StoreUserRequest extends FormRequest
     {
         return [
             'name.required' => 'Vui lòng nhập tên nhân viên',
-            'day_of_birth.required' => 'Vui lòng nhập ngày sinh',
             'address.required' => 'Vui lòng nhập địa chỉ',
             'phone.required' => 'Vui lòng nhập số điện thoại',
             'phone.unique' => 'Số điện thoại đã được đăng kí',
             'password.required' => 'Vui lòng nhập mật khẩu',
-            'avatar.required' => 'Vui lòng chọn ảnh',
             'province_id.required' => 'Vui lòng nhập Tỉnh/Thành phố',
             'district_id.required' => 'Vui lòng nhập Quận/Huyện',
             'ward_id.required' => 'Vui lòng nhập Xã/Phường',
             'user_group_id.required' => 'Vui lòng nhập nhóm nhân viên',
             'branch_id.required' => 'Vui lòng nhập chi nhánh',
-            'note.required' => 'Vui lòng nhập ghi chú'
         ];
     }
 }
