@@ -111,7 +111,7 @@
         </li>
         <li>
           <router-link :to="{ name: 'collaborators.index', params: {} }" class="item" active-class="active" @click="this.$emit('closeSidebarCallBack')">
-            <div class="icon-box bg-warning">
+            <div class="icon-box bg-danger">
               <ion-icon
                 name="accessibility-outline"
                 role="img"
@@ -121,8 +121,54 @@
             <div class="in">Khách Hàng</div>
           </router-link>
         </li>
-
-        
+        <li>
+          <router-link :to="{ name: 'products.type', params: {'product_type':'quang_tri'} }" class="item" active-class="active" @click="this.$emit('closeSidebarCallBack')">
+            <div class="icon-box bg-primary">
+              <ion-icon
+                name="pin"
+                role="img"
+                class="md hydrated"
+              ></ion-icon>
+            </div>
+            <div class="in">Đất Quảng Trị</div>
+          </router-link>
+        </li>
+        <li>
+          <router-link :to="{ name: 'products.type', params: {'product_type':'quang_binh'} }" class="item" active-class="active" @click="this.$emit('closeSidebarCallBack')">
+            <div class="icon-box bg-primary">
+              <ion-icon
+                name="pin"
+                role="img"
+                class="md hydrated"
+              ></ion-icon>
+            </div>
+            <div class="in">Đất Quảng Bình</div>
+          </router-link>
+        </li>
+        <li>
+          <router-link :to="{ name: 'products.type', params: {'product_type':'hue'} }" class="item" active-class="active" @click="this.$emit('closeSidebarCallBack')">
+            <div class="icon-box bg-primary">
+              <ion-icon
+                name="pin"
+                role="img"
+                class="md hydrated"
+              ></ion-icon>
+            </div>
+            <div class="in">Đất Huế</div>
+          </router-link>
+        </li>
+        <li>
+          <router-link :to="{ name: 'products.type', params: {'product_type':'da_nang'} }" class="item" active-class="active" @click="this.$emit('closeSidebarCallBack')">
+            <div class="icon-box bg-primary">
+              <ion-icon
+                name="pin"
+                role="img"
+                class="md hydrated"
+              ></ion-icon>
+            </div>
+            <div class="in">Đất Đà Nẵng</div>
+          </router-link>
+        </li>
       </ul>
     </div>
 

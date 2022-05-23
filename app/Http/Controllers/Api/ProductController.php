@@ -50,6 +50,18 @@ class ProductController extends Controller
                 case 'delivery_products':
                     $items->where('product_type', 'Consignment');
                     break;
+                case 'quang_tri':
+                    $items->where('province_id', 30);
+                    break;
+                case 'quang_binh':
+                    $items->where('province_id', 29);
+                    break;
+                case 'hue':
+                    $items->where('province_id', 31);
+                    break;
+                case 'da_nang':
+                    $items->where('province_id', 32);
+                    break;
                 default:
                     # code...
                     break;
@@ -58,6 +70,9 @@ class ProductController extends Controller
 
         if ($request->id) {
             $items->where('id', 'LIKE', '%' . $request->id . '%');
+        }
+        if ($request->s) {
+            $items->where('sku', 'LIKE', '%' . $request->s . '%');
         }
         if ($request->name) {
             $items->where('id', 'LIKE', '%' . $request->name . '%');
@@ -99,13 +114,13 @@ class ProductController extends Controller
     {
         $item = Product::with(['product_images', 'district', 'province'])
             ->where('id', $id)
-            ->where('branch_id', $this->user->branch_id)
+            //->where('branch_id', $this->user->branch_id)
             ->first();
 
-        $item->tinh_thanh_pho = $item->district->name . ', ' . $item->province->name;
+        $item->tinh_thanh_pho = ($item->district) ? $item->district->name : '' . ', ' . $item->province->name;
 
         //chỉ xem được log của bản thân và hệ thống
-        if (true) {
+        if (false) {
             $item->product_logs = ProductLog::whereIn('user_id', [1, $this->user->id])
                 ->where('product_id', $id)->orderBy('created_at', 'DESC')
                 ->get();
@@ -155,7 +170,7 @@ class ProductController extends Controller
         $item->juridical = __($item->juridical);
         $item->houseDirection = __($item->houseDirection);
         if($item->user_contact_id){
-            $item->user_contact = User::find($item->user_contact_id);
+            $item->user_contact = User::withTrashed()->find($item->user_contact_id);
             $item->user_contact = $item->user_contact->name .'( '.$item->user_contact->phone .' )';
         }else{
             $item->user_contact = '-';

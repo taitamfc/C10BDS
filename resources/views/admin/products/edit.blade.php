@@ -40,7 +40,7 @@
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Tỉnh/Thành phố<abbr title="Trường bắt buộc">*</abbr></label>
-                            <select name="province_id" class="form-control province_id">
+                            <select name="province_id" class="form-control province_id" data-toggle="select2">
                                 <option value="">Vui lòng chọn</option>
                                 @foreach($provinces as $province)
                                 <option value="{{ $province->id }}" @selected( $product->province_id == $province->id )>
@@ -169,6 +169,45 @@
                 </div>
             </div>
 
+            <div class="card-body border-top showIfProductConsignment" style="display:<?= $product->product_type == 'Consignment' ? 'block' : 'none' ?>">
+                <legend>Thông tin ký gửi</legend>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label>Nhân viên phụ trách</label>
+                            <select name="user_contact_id" class="form-control">
+                                <ontion value=""> Vui lòng chọn </option>
+                                    @foreach($users as $user)
+                                    <option value="{{ $user->id }}" @selected( $product->user_contact_id == $user->id)>
+                                        {{ $user->name }}
+                                    </option>
+                                    @endforeach
+                            </select>
+                            @if ($errors->any())
+                            <p style="color:red">{{ $errors->first('user_contact_id') }}</p>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label for="tf1">Bắt đầu</label> <input name="product_start_date" type="date" class="form-control" placeholder="" value="{{$product->product_start_date}}">
+                            @if ($errors->any())
+                            <p style="color:red">{{ $errors->first('product_start_date') }}</p>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label for="tf1">Kết thúc</label> <input name="product_end_date" type="date" class="form-control" placeholder="" value="{{$product->product_end_date}}">
+                            @if ($errors->any())
+                            <p style="color:red">{{ $errors->first('product_end_date') }}</p>
+                            @endif
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
             <div class="card-body border-top">
                 <legend>Thông tin giá tiền</legend>
                 <div class="row">
@@ -234,7 +273,7 @@
                         <label class="custom-control-label" for="rd1">Sổ đỏ/ Sổ hồng</label>
                     </div>
                     <div class="custom-control custom-control-inline custom-radio">
-                        <input type="radio" class="custom-control-input" name="juridical" id="rd2" @checked( $product->juridical == 'sale_contract') value="Sale contract">
+                        <input type="radio" class="custom-control-input" name="juridical" id="rd2" @checked( $product->juridical == 'sale_contract') value="sale_contract">
                         <label class="custom-control-label" for="rd2">Hợp đồng mua bán</label>
                     </div>
                     <div class="custom-control custom-control-inline custom-radio">
@@ -253,9 +292,9 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="form-group">
-                            <label for="tf1">Diện tích</label>
+                            <label for="tf1">Chiều dài</label>
                             <div class="input-group input-group-alt">
-                                <input type="text" value="{{ $product->area }}" name="area" type="number" class="form-control" placeholder="Nhập diện tích, VD 80">
+                                <input type="text" value="{{ $product->area }}" name="area" type="text" class="form-control" placeholder="Nhập chiều dài, VD 80">
                                 <div class="input-group-append">
                                     <span class="input-group-text">m²</span>
                                 </div>
@@ -299,7 +338,7 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="form-group">
-                            <label for="tf1">Mặt tiền</label>
+                            <label for="tf1">Chiều rộng</label>
                             <div class="input-group input-group-alt">
                                 <input type="text" value="{{ $product->facade }}" name="facade" type="number" class="form-control" placeholder="Nhập số">
                                 <div class="input-group-append">
@@ -320,19 +359,19 @@
                     <input type="file" href="javascript:void(0);" name="image_urls[]" class="form-control" value="{{ old('image_urls[]') }}" multiple>
                 </div>
                 @if( $product->product_images )
-                <div class="form-group row">
+                <div class="form-group row gallery">
                     @foreach( $product->product_images as $product_image )
                     <div class="col-lg-2 product_image_{{ $product_image->id }}">
                         <div class="card card-figure">
                             <figure class="figure">
-                                <div class="figure-img frmDeleteProduct">
+                                <div class="figure-img">
                                     <img class="img-fluid" src="{{ $product_image->image_url }}">
-                                    <a target="_blank" href="{{ $product_image->image_url }}" class="img-link" data-size="600x450">
+                                    <a href="{{ $product_image->image_url }}" class="img-link img-fluid-a" data-size="600x450">
                                         <span class="tile tile-circle bg-danger"><span class="oi oi-eye"></span></span>
                                         <span class="img-caption d-none">Image caption goes here</span>
                                     </a>
                                     <div class="figure-action frmDeleteProduct">
-                                        <a href="javascript:void(0);" data-id="{{ $product_image->id }}" class="btn btn-block btn-sm btn-primary btn-delete">Xóa</a>
+                                        <a href="javascript:;" data-id="{{ $product_image->id }}" class="btn btn-block btn-sm btn-primary btn-delete">Xóa</a>
                                     </div>
                                 </div>
                             </figure>
@@ -350,44 +389,6 @@
                 </div>
             </div>
 
-            <div class="card-body border-top">
-                <legend>Thông tin ký gửi</legend>
-                <div class="row">
-                    <div class="col-lg-4">
-                        <div class="form-group">
-                            <label>Nhân viên phụ trách</label>
-                            <select name="user_contact_id" class="form-control">
-                                <ontion value=""> Vui lòng chọn </option>
-                                    @foreach($users as $user)
-                                    <option value="{{ $user->id }}" @selected( $product->user_contact_id == $user->id)>
-                                        {{ $user->name }}
-                                    </option>
-                                    @endforeach
-                            </select>
-                            @if ($errors->any())
-                            <p style="color:red">{{ $errors->first('user_contact_id') }}</p>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="form-group">
-                            <label for="tf1">Bắt đầu</label> <input name="product_start_date" type="date" class="form-control" placeholder="" value="{{$product->product_start_date}}">
-                            @if ($errors->any())
-                            <p style="color:red">{{ $errors->first('product_start_date') }}</p>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="form-group">
-                            <label for="tf1">Kết thúc</label> <input name="product_end_date" type="date" class="form-control" placeholder="" value="{{$product->product_end_date}}">
-                            @if ($errors->any())
-                            <p style="color:red">{{ $errors->first('product_end_date') }}</p>
-                            @endif
-                        </div>
-                    </div>
-
-                </div>
-            </div>
             <div class="card-body border-top">
 
                 <legend>Thông tin liên hệ</legend>
@@ -449,6 +450,16 @@
 </div>
 <script>
     jQuery(document).ready(function() {
+
+        $('.gallery').each(function() { // các vùng chứa cho tất cả các phòng trưng bày của bạn
+            $(this).magnificPopup({
+                delegate: 'a.img-fluid-a', // bộ chọn cho mục thư viện
+                type: 'image',
+                gallery: {
+                    enabled: true
+                }
+            });
+        });
 
         jQuery('.province_id').on('change', function() {
             var province_id = jQuery(this).val();
@@ -547,17 +558,18 @@
 
         //xóa ảnh phần sản phẩm chỉnh sửa
         $(".btn-delete").click(function() {
-            var product_image_id = $(this).attr('data-id');
-            // console.log(product_image_id);
-            // return false;
-            $.ajax({
-                type: 'DELETE',
-                url: '/api/product_images/' + product_image_id,
-                dataType: 'json',
-                success: function(data) {
-                    $(".product_image_"+ product_image_id).remove();
-                }
-            });
+            var confirm_delete = confirm("Xác nhận xóa hình ?");
+            if( confirm_delete === true ){
+                var product_image_id = $(this).attr('data-id');
+                $.ajax({
+                    type: 'DELETE',
+                    url: '/api/product_images/' + product_image_id,
+                    dataType: 'json',
+                    success: function(data) {
+                        $(".product_image_"+ product_image_id).remove();
+                    }
+                });
+            }
         });
 
     });

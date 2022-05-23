@@ -10,6 +10,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Telegram\Bot\Laravel\Facades\Telegram;
+use Telegram\Bot\FileUpload\InputFile;
 
 class ProductExpriedJob implements ShouldQueue
 {
@@ -33,15 +34,24 @@ class ProductExpriedJob implements ShouldQueue
      */
     public function handle()
     {
-        $productname = '[' . $this->product->id . '] - ' .  $this->product->name;
-        $productname = '<a href="'. url('') .'/products/'.$this->product->id.'">'. $productname .'</a>';
+        $productname = '[' . $this->product->sku . '] - ' .  $this->product->name;
+        $productname = '<a href="'.env('APP_URL').'/products/'.$this->product->id.'">'. $productname .'</a>';
         $telegram_channel_id = env('TELEGRAM_CHANNEL_ID', '');
         if ($telegram_channel_id) {
-            Telegram::sendMessage([
+            $arg = [
                 'chat_id' => $telegram_channel_id,
                 'parse_mode' => 'HTML',
                 'text' => 'Sản phẩm <strong>' . $productname . '</strong> đã hết hạn !'
-            ]);
+            ];
+            if( isset($this->product->product_images[0]) ){
+                $image_url = env('APP_URL').$this->product->product_images[0]->image_url;
+                $inputMediaPhoto = new InputFile($image_url,$this->product->name);
+                $arg['photo'] = $inputMediaPhoto;
+                $arg['caption'] = $arg['text'];
+                Telegram::sendPhoto($arg);
+            }else{
+                Telegram::sendMessage($arg);
+            }
         }
         //cập nhật lại trạng thái sản phẩm
         $this->product->status = 'expired';

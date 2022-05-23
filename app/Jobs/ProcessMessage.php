@@ -35,11 +35,15 @@ class ProcessMessage implements ShouldQueue
         //gửi cho các thành viên ở chi nhánh qua telegram
         $telegram_channel_id = env('TELEGRAM_CHANNEL_ID', '');
         if($telegram_channel_id){
-            Telegram::sendMessage([
+            $arg = [
                 'chat_id' => $telegram_channel_id,
                 'parse_mode' => 'HTML',
                 'text' => '[THÔNG BÁO] '.$this->message->content
-            ]);
+            ];
+            if( isset($this->message->photo) ){
+                $arg['photo'] = env('APP_URL').$this->message->photo;
+            }
+            Telegram::sendMessage($arg);
         }
         //cập nhật trạng thái đã gửi
         $this->message->status = 'sent';
