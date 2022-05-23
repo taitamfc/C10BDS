@@ -157,6 +157,43 @@
                     </div>
                 </div>
             </div>
+            <div class="card-body border-top showIfProductConsignment" style="display:none">
+                <legend>Thông tin ký gửi</legend>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label>Nhân viên phụ trách</label>
+                            <select name="user_contact_id" class="form-control">
+                                <option value="">Vui lòng chọn</option>
+                                @foreach($users as $user)
+                                <option value="{{ $user->id }}" @selected(old('user_contact_id')==$user->id)>{{$user->name}}</option>
+                                @endforeach
+                            </select>
+                            @if ($errors->any())
+                            <p style="color:red">{{ $errors->first('user_contact_id') }}</p>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label for="tf1">Bắt đầu</label> <input name="product_start_date" type="date" class="form-control" placeholder="" value="{{ old('product_start_date') }}">
+                            @if ($errors->any())
+                            <p style="color:red">{{ $errors->first('product_start_date') }}</p>
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label for="tf1">Kết thúc</label> <input name="product_end_date" type="date" class="form-control" placeholder="" value="{{ old('product_end_date') }}">
+                            @if ($errors->any())
+                            <p style="color:red">{{ $errors->first('product_end_date') }}</p>
+                            @endif
+                        </div>
+                    </div>
+
+                </div>
+            </div>
             <div class="card-body border-top">
                 <legend>Thông tin giá tiền</legend>
                 <div class="row">
@@ -222,7 +259,7 @@
                         <label class="custom-control-label" for="rd1">Sổ đỏ/ Sổ hồng</label>
                     </div>
                     <div class="custom-control custom-control-inline custom-radio">
-                        <input type="radio" class="custom-control-input" name="juridical" id="rd2" @checked( old('juridical')=='sale_contract' ) value="Sale contract">
+                        <input type="radio" class="custom-control-input" name="juridical" id="rd2" @checked( old('juridical')=='sale_contract' ) value="sale_contract">
                         <label class="custom-control-label" for="rd2">Hợp đồng mua bán</label>
                     </div>
                     <div class="custom-control custom-control-inline custom-radio">
@@ -256,7 +293,7 @@
                         <div class="form-group">
                             <label for="tf1">Chiều rộng <abbr title="Trường bắt buộc">*</abbr></label>
                             <div class="input-group input-group-alt">
-                                <input name="facade" type="number" class="form-control" placeholder="Nhập chiều rộng, VD 80" value="{{ old('facade') }}">
+                                <input name="facade" type="text" class="form-control" placeholder="Nhập chiều rộng, VD 80" value="{{ old('facade') }}">
                                 <div class="input-group-append">
                                     <span class="input-group-text">m²</span>
                                 </div>
@@ -314,44 +351,6 @@
                     @if ($errors->any())
                     <p style="color:red">{{ $errors->first('linkYoutube') }}</p>
                     @endif
-                </div>
-            </div>
-
-            <div class="card-body border-top showIfProductConsignment" style="display:none">
-                <legend>Thông tin ký gửi</legend>
-                <div class="row">
-                    <div class="col-lg-4">
-                        <div class="form-group">
-                            <label>Nhân viên phụ trách</label>
-                            <select name="user_contact_id" class="form-control">
-                                <option value="">Vui lòng chọn</option>
-                                @foreach($users as $user)
-                                <option value="{{ $user->id }}" @selected(old('user_contact_id')==$user->id)>{{$user->name}}</option>
-                                @endforeach
-                            </select>
-                            @if ($errors->any())
-                            <p style="color:red">{{ $errors->first('user_contact_id') }}</p>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="form-group">
-                            <label for="tf1">Bắt đầu</label> <input name="product_start_date" type="date" class="form-control" placeholder="" value="{{ old('product_start_date') }}">
-                            @if ($errors->any())
-                            <p style="color:red">{{ $errors->first('product_start_date') }}</p>
-                            @endif
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4">
-                        <div class="form-group">
-                            <label for="tf1">Kết thúc</label> <input name="product_end_date" type="date" class="form-control" placeholder="" value="{{ old('product_end_date') }}">
-                            @if ($errors->any())
-                            <p style="color:red">{{ $errors->first('product_end_date') }}</p>
-                            @endif
-                        </div>
-                    </div>
-
                 </div>
             </div>
 
