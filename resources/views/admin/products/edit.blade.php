@@ -273,7 +273,7 @@
                         <label class="custom-control-label" for="rd1">Sổ đỏ/ Sổ hồng</label>
                     </div>
                     <div class="custom-control custom-control-inline custom-radio">
-                        <input type="radio" class="custom-control-input" name="juridical" id="rd2" @checked( $product->juridical == 'sale_contract') value="Sale contract">
+                        <input type="radio" class="custom-control-input" name="juridical" id="rd2" @checked( $product->juridical == 'sale_contract') value="sale_contract">
                         <label class="custom-control-label" for="rd2">Hợp đồng mua bán</label>
                     </div>
                     <div class="custom-control custom-control-inline custom-radio">
