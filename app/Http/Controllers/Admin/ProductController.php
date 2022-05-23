@@ -227,15 +227,15 @@ class ProductController extends Controller
         $product->price = Str::replace(',', '', $product->price);
         $product->description = $request->description;
         $product->product_category_id = $request->product_category_id;
-        $product->area = $request->area;
+        $product->area = Str::replace(',', '.', $request->area);
         $product->unit = $request->unit;
         $product->houseDirection = $request->houseDirection;
-        $product->facade = $request->facade;
+        $product->facade = Str::replace(',', '.', $request->facade);
         $product->status = $request->status;
         $product->juridical = $request->juridical;
         $product->google_map = $request->google_map;
         $product->linkYoutube = $request->linkYoutube;
-        $product->stress_width = $request->stress_width;
+        $product->stress_width = Str::replace(',', '.', $request->stress_width);
         $product->province_id = $request->province_id;
         $product->ward_id = $request->ward_id;
         $product->district_id = $request->district_id;
@@ -324,7 +324,7 @@ class ProductController extends Controller
         $branches = Branch::all();
         $districts = District::where('province_id', $product->province_id)->get();
         $wards = Ward::where('district_id', $product->district_id)->get();
-        $users = User::where('branch_id', $product->branch_id)->get();
+        $users = User::all();
 
 
         $params = [
@@ -356,15 +356,15 @@ class ProductController extends Controller
         $product->price = Str::replace(',', '', $product->price);
         $product->description = $request->description;
         $product->product_category_id = $request->product_category_id;
-        $product->area = $request->area;
+        $product->area = Str::replace(',', '.', $request->area);
         $product->unit = $request->unit;
         $product->houseDirection = $request->houseDirection;
-        $product->facade = $request->facade;
+        $product->facade = Str::replace(',', '.', $request->facade);
         $product->status = $request->status;
         $product->juridical = $request->juridical;
         $product->google_map = $request->google_map;
         $product->linkYoutube = $request->linkYoutube;
-        $product->stress_width = $request->stress_width;
+        $product->stress_width = Str::replace(',', '.', $request->stress_width);
         $product->province_id = $request->province_id;
         $product->ward_id = $request->ward_id;
         $product->district_id = $request->district_id;
