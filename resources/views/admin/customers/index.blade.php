@@ -92,7 +92,7 @@
                             <td class="align-middle"> {{ $customer->address }} </td>
                             <td class="align-middle"> {{ $customer->phone }} </td>
                             <td>
-                                @if(Auth::user()->hasPermission('User_delete'))
+                                @if(Auth::user()->hasPermission('Customer_delete'))
                                 <form action="{{ route('customers.destroy',$customer->id )}}" style="display:inline" method="post">
                                     <button onclick="return confirm('Xóa {{$customer->name}} ?')" class="btn btn-sm btn-icon btn-secondary"><i class="far fa-trash-alt"></i></button>
                                     @csrf
@@ -100,7 +100,7 @@
                                 </form>
                                 @endif
 
-                                @if(Auth::user()->hasPermission('User_update'))
+                                @if(Auth::user()->hasPermission('Customer_update'))
                                 <span class="sr-only">Edit</span></a> <a href="{{route('customers.edit',$customer->id)}}" class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-pencil-alt"></i> <span class="sr-only">Remove</span></a>
                                 @endif
                             </td>

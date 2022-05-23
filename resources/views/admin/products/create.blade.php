@@ -279,7 +279,7 @@
                         <div class="form-group">
                             <label for="tf1">Chiều dài <abbr title="Trường bắt buộc">*</abbr></label>
                             <div class="input-group input-group-alt">
-                                <input name="area" type="number" class="form-control" placeholder="Nhập chiều dài, VD 80" value="{{ old('area') }}">
+                                <input name="area" type="text" class="form-control" placeholder="Nhập chiều dài, VD 80" value="{{ old('area') }}">
                                 <div class="input-group-append">
                                     <span class="input-group-text">m²</span>
                                 </div>
@@ -325,7 +325,7 @@
                         <div class="form-group">
                             <label for="tf1">Đường vào <abbr title="Trường bắt buộc">*</abbr></label>
                             <div class="input-group input-group-alt">
-                                <input name="stress_width" type="number" class="form-control" placeholder="Nhập số" value="{{ old('stress_width') }}">
+                                <input name="stress_width" type="text" class="form-control" placeholder="Nhập số" value="{{ old('stress_width') }}">
                                 <div class="input-group-append">
                                     <span class="input-group-text">m²</span>
                                 </div>

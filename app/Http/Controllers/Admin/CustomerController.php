@@ -11,6 +11,7 @@ use App\Http\Requests\StoreCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Maatwebsite\Excel\Facades\Excel as FacadesExcel;
 
 class CustomerController extends Controller
 {
@@ -21,7 +22,7 @@ class CustomerController extends Controller
      */
     public function index(Request $request)
     {
-        $this->authorize('viewAny',Customer::class);
+        $this->authorize('viewAny', Customer::class);
         //$query = customer::query(true);
         $query = Customer::select('*');
         if (isset($request->filter['name']) && $request->filter['name']) {
@@ -94,7 +95,7 @@ class CustomerController extends Controller
      */
     public function show(Customer $customer)
     {
-      $this->authorize('view', Customer::class);
+        $this->authorize('view', Customer::class);
     }
 
     /**
@@ -106,7 +107,7 @@ class CustomerController extends Controller
     public function edit($id)
     {
         $customer = Customer::find($id);
-        $this->authorize('update', Customer::class);
+        $this->authorize('update', $customer);
         $params = [
             'customer' => $customer
         ];
@@ -149,8 +150,9 @@ class CustomerController extends Controller
      */
     public function destroy($id)
     {
-        $this->authorize('delete', Customer::class);
         $customer = Customer::find($id);
+        $this->authorize('delete', $customer);
+
         try {
             $customer->delete();
 
@@ -197,6 +199,8 @@ class CustomerController extends Controller
     public function restore($id)
     {
         $customer = Customer::withTrashed()->find($id);
+        $this->authorize('restore', $customer);
+
         try {
             $customer->restore();
             return redirect()->route('customers.trash')->with('success', 'Khôi phục' . ' ' . $customer->name . ' ' .  'thành công');
@@ -206,6 +210,6 @@ class CustomerController extends Controller
         }
     }
     public function export(){
-        return Excel::download(new CustomerExport, 'customer.xlsx');
+        return FacadesExcel::download(new CustomerExport, 'customer.xlsx');
     }
 }

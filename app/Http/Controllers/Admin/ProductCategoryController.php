@@ -18,7 +18,7 @@ class ProductCategoryController extends Controller
      */
     public function index(Request $request)
     {
-        $this->authorize('viewAny',ProductCategory::class);
+        $this->authorize('viewAny', ProductCategory::class);
         $productCategories = ProductCategory::select('*');
 
         if (isset($request->filter['name']) && $request->filter['name']) {
@@ -125,8 +125,9 @@ class ProductCategoryController extends Controller
      */
     public function destroy($id)
     {
-        $this->authorize('delete', ProductCategory::class);
+
         $productCategory = ProductCategory::find($id);
+        $this->authorize('delete', $productCategory);
         try {
             $productCategory->delete();
             return redirect()->route('productCategories.index')->with('success', 'Xóa  thành công');
@@ -157,7 +158,7 @@ class ProductCategoryController extends Controller
 
         $productCategory = ProductCategory::withTrashed()->find($id);
         // dd($ProductCategory);
-        // $this->authorize('forceDelete', $ProductCategory);
+        $this->authorize('forceDelete', $productCategory);
         try {
             $productCategory->forceDelete();
             return redirect()->route('productCategories.trash')->with('success', 'Xóa' . ' ' . $productCategory->name . ' ' .  'thành công');
@@ -171,6 +172,8 @@ class ProductCategoryController extends Controller
     public function restore($id)
     {
         $productCategory = ProductCategory::withTrashed()->find($id);
+        $this->authorize('restore', $productCategory);
+
         try {
             $productCategory->restore();
             return redirect()->route('productCategories.trash')->with('success', 'Khôi phục' . ' ' . $productCategory->name . ' ' .  'thành công');
