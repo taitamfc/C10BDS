@@ -1,4 +1,11 @@
 <header class="app-header app-header-dark">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" integrity="sha512-+EoPw+Fiwh6eSeRK7zwIKG2MA8i3rV/DGa3tdttQGgWyatG/SkncT53KHQaS5Jh9MNOT3dmFL0FjTY08And/Cw==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <!-- Magnific Popup core CSS file -->
+    <link rel="stylesheet" href="magnific-popup/magnific-popup.css">
+
+    <!-- jQuery 1.7.2+ or Zepto.js 1.0+ -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
     <!-- .top-bar -->
     <div class="top-bar">
         <!-- .top-bar-brand -->
@@ -11,7 +18,6 @@
         </div><!-- /.top-bar-brand -->
         <!-- .top-bar-list -->
         <div class="top-bar-list">
-
             <!-- .top-bar-item -->
             <div class="top-bar-item px-2 d-md-none d-lg-none d-xl-none">
                 <!-- toggle menu -->
