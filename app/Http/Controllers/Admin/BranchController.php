@@ -161,10 +161,10 @@ class BranchController extends Controller
 
         try {
             $branch->save();
-            return redirect()->route('branches.index')->with('success', 'Thêm' . ' ' . $request->name . ' ' .  'thành công');
+            return redirect()->route('branches.index')->with('success', 'Sửa' . ' ' . $request->name . ' ' .  'thành công');
         } catch (\Exception $e) {
             Log::error($e->getMessage());
-            return redirect()->route('branches.index')->with('error', 'Thêm' . ' ' . $request->name . ' ' .  'không thành công');
+            return redirect()->route('branches.index')->with('error', 'Sửa' . ' ' . $request->name . ' ' .  'không thành công');
         }
     }
 
@@ -222,6 +222,7 @@ class BranchController extends Controller
     public function restore($id)
     {
         $branch = Branch::withTrashed()->find($id);
+        $this->authorize('restore', $branch);
         try {
             $branch->restore();
             return redirect()->route('branches.trash')->with('success', 'Khôi phục' . ' ' . $branch->name . ' ' .  'thành công');

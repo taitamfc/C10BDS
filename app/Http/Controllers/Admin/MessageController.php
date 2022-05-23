@@ -20,6 +20,7 @@ class MessageController extends Controller
     public function index(Request $request)
     {
 
+        $this->authorize('viewAny',Message::class);
         $query = Message::select('*');
         if (isset($request->filter['title']) && $request->filter['title']) {
             $title = $request->filter['title'];
@@ -43,7 +44,9 @@ class MessageController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Message::class);
         return view('admin.messages.create');
+
     }
 
     /**
@@ -90,6 +93,8 @@ class MessageController extends Controller
     public function edit($id)
     {
         $message = Message::find($id);
+        $this->authorize('update', $message);
+
         $params = [
             'message' => $message
         ];
@@ -131,6 +136,7 @@ class MessageController extends Controller
     public function destroy($id)
     {
         $message = Message::find($id);
+        $this->authorize('delete', $message);
         try {
             $message->delete();
             return redirect()->route('messages.index')->with('success', 'Xóa' . ' ' . $message->title . ' ' .  'thành công');
@@ -159,8 +165,9 @@ class MessageController extends Controller
     {
 
         $message = Message::withTrashed()->find($id);
-        // dd($message);
         $this->authorize('forceDelete', $message);
+
+        // dd($message);
         try {
             $message->forceDelete();
             return redirect()->route('messages.trash')->with('success', 'Xóa' . ' ' . $message->name . ' ' .  'thành công');
@@ -173,6 +180,7 @@ class MessageController extends Controller
     public function restore($id)
     {
         $message = Message::withTrashed()->find($id);
+        $this->authorize('restore', $message);
         try {
             $message->restore();
             return redirect()->route('messages.trash')->with('success', 'Khôi phục' . ' ' . $message->name . ' ' .  'thành công');
