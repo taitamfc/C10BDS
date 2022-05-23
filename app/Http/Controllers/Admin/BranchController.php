@@ -90,7 +90,7 @@ class BranchController extends Controller
      * @param  \App\Http\Requests\StoreBranchRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreBranchRequest $request)
     {
         $branch = new Branch();
         $branch->name = $request->name;
