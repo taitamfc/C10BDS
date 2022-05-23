@@ -18,7 +18,7 @@ class MessagePolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return $user->hasPermission('Message_view');
     }
 
     /**
@@ -30,7 +30,7 @@ class MessagePolicy
      */
     public function view(User $user, Message $message)
     {
-        //
+        return $user->hasPermission('Message_view');
     }
 
     /**
@@ -41,7 +41,8 @@ class MessagePolicy
      */
     public function create(User $user)
     {
-        //
+        return $user->hasPermission('Customer_create');
+
     }
 
     /**
@@ -53,7 +54,8 @@ class MessagePolicy
      */
     public function update(User $user, Message $message)
     {
-        //
+        return $user->hasPermission('Customer_update');
+
     }
 
     /**
@@ -65,7 +67,7 @@ class MessagePolicy
      */
     public function delete(User $user, Message $message)
     {
-        //
+        return $user->hasPermission('Customer_delete');
     }
 
     /**
@@ -77,7 +79,8 @@ class MessagePolicy
      */
     public function restore(User $user, Message $message)
     {
-        //
+        return $user->hasPermission('Customer_restore');
+
     }
 
     /**
@@ -89,6 +92,6 @@ class MessagePolicy
      */
     public function forceDelete(User $user, Message $message)
     {
-        //
+        return $user->hasPermission('Customer_forceDelete');
     }
 }

@@ -305,6 +305,7 @@ class UserController extends Controller
     public function restore($id)
     {
         $user = User::withTrashed()->find($id);
+        $this->authorize('restore', $user);
         try {
             $user->restore();
             return redirect()->route('users.trash')->with('success', 'Khôi phục' . ' ' . $user->name . ' ' .  'thành công');
