@@ -5,6 +5,9 @@ namespace App\Listeners;
 use App\Events\ProductRenewed;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
+use Telegram\Bot\Laravel\Facades\Telegram;
+use Telegram\Bot\FileUpload\InputFile;
+use App\Models\User;
 
 class SendRenewedProductNotification
 {
