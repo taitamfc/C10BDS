@@ -338,7 +338,7 @@
                         <div class="form-group">
                             <label for="tf1">Đường vào</label>
                             <div class="input-group input-group-alt">
-                                <input type="text" value="{{ $product->stress_width }}" name="stress_width" type="number" class="form-control" placeholder="Nhập số">
+                                <input type="text" value="{{ $product->stress_width }}" name="stress_width" type="text" class="form-control" placeholder="Nhập số">
                                 <div class="input-group-append">
                                     <span class="input-group-text">m²</span>
                                 </div>
@@ -352,7 +352,7 @@
                         <div class="form-group">
                             <label for="tf1">Chiều rộng</label>
                             <div class="input-group input-group-alt">
-                                <input type="text" value="{{ $product->facade }}" name="facade" type="number" class="form-control" placeholder="Nhập số">
+                                <input type="text" value="{{ $product->facade }}" name="facade" type="text" class="form-control" placeholder="Nhập số">
                                 <div class="input-group-append">
                                     <span class="input-group-text">m²</span>
                                 </div>
