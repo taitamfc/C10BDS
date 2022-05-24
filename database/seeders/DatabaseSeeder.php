@@ -363,7 +363,7 @@ class DatabaseSeeder extends Seeder
     }
     public function importUserGroupRoles()
     {
-        for ($i = 1; $i <= 77; $i++) {
+        for ($i = 1; $i <= 84; $i++) {
             DB::table('user_group_role')->insert([
                 'user_group_id' => 1,
                 'role_id' => $i,
