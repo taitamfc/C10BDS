@@ -15,11 +15,13 @@ use App\Listeners\SendNewProductNotification;
 use App\Events\ProductSold;
 use App\Events\ProductSubmitEvent;
 use App\Events\UserSubmitEvent;
+use App\Events\ProductRenewed;
 use App\Listeners\CustomerSubmitListener;
 use App\Listeners\ProductLogListener;
 use App\Listeners\ProductSubmitListener;
 use App\Listeners\SendSoldProductNotification;
 use App\Listeners\UserSubmitListener;
+use App\Listeners\SendRenewedProductNotification;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -47,6 +49,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         ProductSubmitEvent::class => [
             ProductSubmitListener::class,
+        ],
+        ProductRenewed::class => [
+            SendRenewedProductNotification::class,
         ]
     ];
 

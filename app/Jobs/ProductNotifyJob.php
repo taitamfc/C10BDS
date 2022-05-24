@@ -36,12 +36,14 @@ class ProductNotifyJob implements ShouldQueue
         //gửi cho các thành viên ở chi nhánh qua telegram
         $productname = '[' . $this->product->sku . '] - ' .  $this->product->name;
         $productname = '<a href="'.env('APP_URL').'/products/'.$this->product->id.'">'. $productname .'</a>';
+        $dateExpried = $this->product->product_end_date;
+        $dateExpried = date('d-m-Y',strtotime($dateExpried));
         $telegram_channel_id = env('TELEGRAM_CHANNEL_ID', '');
         if ($telegram_channel_id) {
             $arg = [
                 'chat_id' => $telegram_channel_id,
                 'parse_mode' => 'HTML',
-                'text' => 'Sản phẩm <strong>' . $productname . '</strong> sắp hết hạn !'
+                'text' => 'Sản phẩm <strong>' . $productname . '</strong> sắp hết hạn. Ngày hết hạn '.$dateExpried.' !'
             ];
             if( isset($this->product->product_images[0]) ){
                 $image_url = env('APP_URL').$this->product->product_images[0]->image_url;
