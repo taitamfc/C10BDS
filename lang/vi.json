@@ -4,6 +4,7 @@
     "instant_send": "Gửi tức thì",
     "selling": "Đang bán",
     "sent": "Đã gửi",
+    "active": "Hoạt Động",
     "sold": "Đã bán",
     "draft": "Bản Thảo",
     "Regular": "Thường",
@@ -97,9 +98,15 @@
     "SystemLog_update": "[Nhật Ký Hệ Thống] Sửa",
     "SystemLog_delete": "[Nhật Ký Hệ Thống] Xóa",
     "SystemLog_restore": "[Nhật Ký Hệ Thống] Khôi phục",
-    "SystemLog_forceDelete": "[Nhật Ký Hệ Thống] Xóa Vĩnh Viễn"
+    "SystemLog_forceDelete": "[Nhật Ký Hệ Thống] Xóa Vĩnh Viễn",
+    "Paper_viewAny": "[Giấy Tờ Pháp Lý]  Xem Danh Sách",
+    "Paper_view": "[Giấy Tờ Pháp Lý] Xem Chi Tiết",
+    "Paper_create": "[Giấy Tờ Pháp Lý] Thêm",
+    "Paper_update": "[Giấy Tờ Pháp Lý] Sửa",
+    "Paper_delete": "[Giấy Tờ Pháp Lý] Xóa",
+    "Paper_restore": "[Giấy Tờ Pháp Lý] Khôi phục",
+    "Paper_forceDelete": "[Giấy Tờ Pháp Lý] Xóa Vĩnh Viễn"
 }
-
 
 
 

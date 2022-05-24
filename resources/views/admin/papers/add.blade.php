@@ -30,7 +30,7 @@
                         <label for="tf1">Trạng Thái</label>
                         <select class="form-select form-control" name="status" value="{{ old('status') }}">
                             <option value="draft" @selected(old('status')=='draft' )>Bản thảo</option>
-                            <option value="sent" @selected(old('status')=='sent' )>Hoạt Động</option>
+                            <option value="active" @selected(old('status')=='active' )>Hoạt Động</option>
                         </select>
                         @if ($errors->any())
                         <p style="color:red">{{ $errors->first('status') }}</p>

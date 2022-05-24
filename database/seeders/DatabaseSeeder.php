@@ -35,7 +35,7 @@ class DatabaseSeeder extends Seeder
         $this->importCustomers();
         $this->importMessages();
         $this->importConfigs();
-        // $this->importPapers();
+        $this->importPapers();
     }
     public function importProductCategories()
     {
@@ -96,7 +96,7 @@ class DatabaseSeeder extends Seeder
 
     public function importRoles()
     {
-        $groups     = ['Branch', 'Product', 'Customer', 'ProductCategory', 'User', 'UserGroup','Config','SystemLog','Option', 'Role','Message'];
+        $groups     = ['Branch', 'Product', 'Customer', 'ProductCategory', 'User', 'UserGroup','Config','SystemLog','Option', 'Role','Message','Paper'];
         $actions    = ['viewAny', 'view', 'create', 'update', 'delete', 'restore', 'forceDelete'];
         foreach ($groups as $group) {
             foreach ($actions as $action) {
@@ -153,6 +153,20 @@ class DatabaseSeeder extends Seeder
         $userGroup->name = 'Giám Đốc';
         $userGroup->description = '';
         $userGroup->save();
+    }
+
+    public function importPapers()
+    {
+        $paper = new Paper();
+        $paper->name = 'CMND';
+        $paper->status = 'Bản Thảo';
+        $paper->save();
+
+        $paper = new Paper();
+        $paper->name = 'Sổ Hộ Khẩu';
+        $paper->status = 'Hoạt Động';
+        $paper->save();
+
     }
     public function importUsers()
     {
@@ -232,16 +246,16 @@ class DatabaseSeeder extends Seeder
         $user->name = 'Huỳnh Văn Toàn';
         $user->email = 'toan@gmail.com';
         $user->password = Hash::make('123456');
-        $user->day_of_birth = '2002/06/28';
-        $user->phone = '0123456787';
+        $user->day_of_birth = '2002/09/24';
+        $user->phone = '0935779035';
         $user->address = 'Quảng Trị';
-        $user->start_day = '2021/10/29';
-        $user->user_group_id  = '3';
-        $user->branch_id  = '3';
+        $user->start_day = '2022/01/10';
+        $user->user_group_id  = '1';
+        $user->branch_id  = '1';
         $user->note = '123';
         $user->province_id  = '30';
-        $user->district_id  = '342';
-        $user->ward_id  = '6183';
+        $user->district_id  = '335';
+        $user->ward_id  = '6083';
         $user->gender = 'Nam';
         $user->avatar = 'https://e7.pngegg.com/pngimages/348/800/png-clipart-man-wearing-blue-shirt-illustration-computer-icons-avatar-user-login-avatar-blue-child.png';
         $user->save();

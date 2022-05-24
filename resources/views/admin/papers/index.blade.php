@@ -88,7 +88,7 @@
                         <tr>
                             <td class="align-middle"> {{ $paper->id }} </td>
                             <td class="align-middle"> {{ $paper->name }} </td>
-                            <td class="align-middle"> {{ $paper->status }} </td>
+                            <td class="align-middle"> {{ __($paper->status) }} </td>
                             <td>
 
                             @if(Auth::user()->hasPermission('Paper_delete'))
