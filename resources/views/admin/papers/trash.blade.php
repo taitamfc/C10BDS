@@ -12,18 +12,8 @@
     </nav>
     <!-- <button type="button" class="btn btn-success btn-floated"><span class="fa fa-plus"></span></button> -->
     <div class="d-md-flex align-items-md-start">
-        <h1 class="page-title mr-sm-auto">Quản Lý Giấy Tờ Pháp Lý</h1>
+        <h1 class="page-title mr-sm-auto">Quản Lý Giấy Tờ Pháp Lý - Thùng Rác</h1>
         <div class="btn-toolbar">
-            @if(Auth::user()->hasPermission('Paper_create'))
-            <a href="{{route('papers.create')}}" class="btn btn-primary mr-2">
-                <i class="fa-solid fa fa-plus"></i>
-                <span class="ml-1">Thêm Mới</span>
-            </a>
-            {{-- <a href="{{route('customers.export')}}" class="btn btn-primary">
-                <i class="fas fa-file"></i>
-                <span class="ml-1">Xuất file excel</span>
-            </a> --}}
-            @endif
         </div>
     </div>
 </header>
@@ -32,11 +22,12 @@
         <div class="card-header">
             <ul class="nav nav-tabs card-header-tabs">
                 <li class="nav-item">
-                    <a class="nav-link active " href="{{route('papers.index')}}">Tất Cả</a>
+                    <a class="nav-link" href="{{route('papers.index')}}">Tất Cả</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('papers.trash')}}">Thùng Rác</a>
+                    <a class="nav-link active " href="{{route('papers.trash')}}">Thùng Rác</a>
                 </li>
+
             </ul>
         </div>
         <div class="card-body">
@@ -54,7 +45,7 @@
                                 <div class="input-group-prepend trigger-submit">
                                     <span class="input-group-text"><span class="fas fa-search"></span></span>
                                 </div>
-                                <input type="text" class="form-control" name="query" value="" placeholder="Tìm nhanh theo cú pháp (ma:Mã kết quả hoặc ten:Tên kết quả)">
+                                <input type="text" class="form-control" name="s" value="" placeholder="Tìm nhanh theo cú pháp (ma:Mã kết quả hoặc ten:Tên kết quả)">
                             </div>
                             <div class="input-group-append">
                                 <button class="btn btn-secondary" data-toggle="modal" data-target="#modalSaveSearch" type="button">Lưu bộ lọc</button>
@@ -67,6 +58,7 @@
                     @include('admin.papers.modals.modalSaveSearch')
                 </div>
             </div>
+
             @if (Session::has('success'))
             <div class="alert alert-success">{{session::get('success')}}</div>
             @endif
@@ -78,8 +70,8 @@
                     <thead>
                         <tr>
                             <th> # </th>
-                            <th> Tên giấy tờ </th>
-                            <th> Trạng thái </th>
+                            <th> Tiêu đề</th>
+                            <th> Trạng thái</th>
                             <th> Chức năng </th>
                         </tr>
                     </thead>
@@ -90,28 +82,26 @@
                             <td class="align-middle"> {{ $paper->name }} </td>
                             <td class="align-middle"> {{ $paper->status }} </td>
                             <td>
-
-                            @if(Auth::user()->hasPermission('Paper_delete'))
-                                <form action="{{ route('papers.destroy',$paper->id )}}" style="display:inline" method="post">
-                                    <button onclick="return confirm('Xóa {{$paper->name}} ?')" class="btn btn-sm btn-icon btn-secondary"><i class="far fa-trash-alt"></i></button>
+                                @if(Auth::user()->hasPermission('Paper_forceDelete'))
+                                <form action="{{ route('papers.force_destroy',$paper->id )}}" style="display:inline" method="post">
+                                    <button onclick="return confirm('Xóa vĩnh viễn {{$paper->name}} ?')" class="btn btn-sm btn-icon btn-secondary"><i class="far fa-trash-alt"></i></button>
                                     @csrf
                                     @method('delete')
                                 </form>
-                            @endif
+                                @endif
 
-                            @if(Auth::user()->hasPermission('Paper_update'))
-                                <span class="sr-only">Edit</span></a> <a href="{{route('papers.edit',$paper->id)}}" class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-pencil-alt"></i> <span class="sr-only">Remove</span></a>
-                            @endif
-
+                                @if(Auth::user()->hasPermission('Paper_restore'))
+                                <span class="sr-only">Edit</span></a> <a href="{{route('papers.restore',$paper->id)}}" class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-trash-restore"></i> <span class="sr-only">Remove</span></a>
+                                @endif
                             </td>
                         </tr><!-- /tr -->
                         @endforeach
                     </tbody><!-- /tbody -->
                 </table><!-- /.table -->
-
                 <div style="float:right">
                     {{ $papers->links() }}
                 </div>
+
             </div>
             <!-- /.table-responsive -->
             <!-- .pagination -->

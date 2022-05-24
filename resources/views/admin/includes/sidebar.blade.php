@@ -95,7 +95,7 @@
               </li>
               @endif
 
-              {{-- @if(Auth::user()->hasPermission('Systemlog_viewAny')) --}}
+              {{-- @if(Auth::user()->hasPermission('Paper_viewAny')) --}}
               <li class="menu-item">
                 <a href="{{ route('papers.index') }}" class="menu-link">
                   <span class="menu-icon fas fa-paste"></span>

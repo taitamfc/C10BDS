@@ -83,6 +83,12 @@ Route::group([
         Route::get('/restore/{id}', [ProductCategoryController::class, 'restore'])->name('productCategories.restore');
     });
 
+    Route::prefix('papers')->group(function () {
+        Route::get('/trash', [PaperController::class, 'trashedItems'])->name('papers.trash');
+        Route::delete('/force_destroy/{id}', [PaperController::class, 'force_destroy'])->name('papers.force_destroy');
+        Route::get('/restore/{id}', [PaperController::class, 'restore'])->name('papers.restore');
+    });
+
     Route::resource('userGroups', UserGroupController::class);
     Route::resource('users', UserController::class);
     Route::resource('roles', RoleController::class);

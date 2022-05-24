@@ -9,12 +9,13 @@
             </li>
         </ol>
     </nav>
-    <h1 class="page-title">Thêm Giấy Tờ</h1>
+    <h1 class="page-title">Chỉnh Sửa Giấy Tờ</h1>
 </header>
 
 <div class="page-section">
     <form method="post" action="{{route('papers.update',$paper->id)}}">
         @csrf
+        @method('PUT')
         <div class="card">
             <div class="card-body">
                 <legend>Thông tin cơ bản</legend>
@@ -28,9 +29,9 @@
                 <div class="form-group">
                     <div class="form-group">
                         <label for="tf1">Trạng Thái</label>
-                        <select class="form-select form-control" name="status" value="{{ old('status') }}">
-                            <option value="draft" @selected(old('status')=='draft' )>Bản thảo</option>
-                            <option value="sent" @selected(old('status')=='sent' )>Hoạt Động</option>
+                        <select class="form-select form-control" name="status">
+                            <option value="draft" @selected( $paper->status == 'draft')>Bản thảo</option>
+                            <option value="sent" @selected( $paper->status == 'sent')>Hoạt Động</option>
                         </select>
                         @if ($errors->any())
                         <p style="color:red">{{ $errors->first('status') }}</p>

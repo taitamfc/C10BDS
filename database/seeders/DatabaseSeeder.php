@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Models\Message;
 use App\Models\UserGroup;
 use App\Models\Option;
+use App\Models\Paper;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -34,6 +35,7 @@ class DatabaseSeeder extends Seeder
         $this->importCustomers();
         $this->importMessages();
         $this->importConfigs();
+        // $this->importPapers();
     }
     public function importProductCategories()
     {
@@ -57,22 +59,37 @@ class DatabaseSeeder extends Seeder
         $product_category->save();
     }
 
+
+    // public function importPapers()
+    // {
+    //     $paper = new Paper();
+    //     $paper->name = 'Sổ Hộ Khẩu';
+    //     $paper->status = 'Bản Thảo';
+    //     $paper->save();
+
+    //     $paper = new Paper();
+    //     $paper->name = 'CMND';
+    //     $paper->status = 'Hoạt Động';
+    //     $paper->save();
+
+    // }
+
     public function importMessages()
     {
         $message = new Message();
         $message->title = 'Vào học Angular';
-        $message->content = 'Thư mời Vào học Angular'; 
-        $message->type = 'Gửi Tức Thì'; 
-        $message->status = 'Bản Thảo'; 
-        $message->date_send ='2022/05/16'; 
+        $message->content = 'Thư mời Vào học Angular';
+        $message->type = 'Gửi Tức Thì';
+        $message->status = 'Bản Thảo';
+        $message->date_send ='2022/05/16';
         $message->save();
 
         $message = new Message();
         $message->title = 'Chơi Lễ';
-        $message->content = 'Thử thách 6 ngày 6 đêm đi chơi lên không dụng vào máy tính. Let Go!'; 
-        $message->type = 'Hẹn Thời Gian Gửi'; 
-        $message->status = 'Chờ Gửi'; 
-        $message->date_send ='2022/05/22'; 
+        $message->content = 'Thử thách 6 ngày 6 đêm đi chơi lên không dụng vào máy tính. Let Go!';
+        $message->type = 'Hẹn Thời Gian Gửi';
+        $message->status = 'Chờ Gửi';
+        $message->date_send ='2022/05/22';
         $message->save();
 
     }
@@ -367,6 +384,6 @@ class DatabaseSeeder extends Seeder
                 $objConfig->$field = $value;
             }
             $objConfig->save();
-        }   
+        }
     }
 }
