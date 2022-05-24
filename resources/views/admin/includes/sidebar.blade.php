@@ -95,14 +95,14 @@
               </li>
               @endif
 
-              {{-- @if(Auth::user()->hasPermission('Paper_viewAny')) --}}
+              @if(Auth::user()->hasPermission('Paper_viewAny'))
               <li class="menu-item">
                 <a href="{{ route('papers.index') }}" class="menu-link">
                   <span class="menu-icon fas fa-paste"></span>
                   <span class="menu-text">Giấy Tờ</span>
                 </a>
               </li>
-              {{-- @endif --}}
+              @endif
               <li class="menu-header">Hệ Thống</li>
 
               @if(Auth::user()->hasPermission('Config_viewAny'))

@@ -229,6 +229,24 @@ class DatabaseSeeder extends Seeder
         $user->save();
 
         $user = new User();
+        $user->name = 'Huỳnh Văn Toàn';
+        $user->email = 'toan@gmail.com';
+        $user->password = Hash::make('123456');
+        $user->day_of_birth = '2002/06/28';
+        $user->phone = '0123456787';
+        $user->address = 'Quảng Trị';
+        $user->start_day = '2021/10/29';
+        $user->user_group_id  = '3';
+        $user->branch_id  = '3';
+        $user->note = '123';
+        $user->province_id  = '30';
+        $user->district_id  = '342';
+        $user->ward_id  = '6183';
+        $user->gender = 'Nam';
+        $user->avatar = 'https://e7.pngegg.com/pngimages/348/800/png-clipart-man-wearing-blue-shirt-illustration-computer-icons-avatar-user-login-avatar-blue-child.png';
+        $user->save();
+
+        $user = new User();
         $user->name = 'Lê Đức Trí';
         $user->email = 'tri@gmail.com';
         $user->password = Hash::make('123456');
@@ -250,9 +268,9 @@ class DatabaseSeeder extends Seeder
         $user->name = 'Trần Xuân Vinh';
         $user->email = 'vinh@gmail.com';
         $user->password = Hash::make('123456');
-        $user->day_of_birth = '2002/06/28';
+        $user->day_of_birth = '2002/09/24';
         $user->phone = '0123456787';
-        $user->address = 'Thùa Thiên Huế';
+        $user->address = 'Thừa Thiên Huế';
         $user->start_day = '2021/10/29';
         $user->user_group_id  = '3';
         $user->branch_id  = '3';
@@ -263,6 +281,7 @@ class DatabaseSeeder extends Seeder
         $user->gender = 'Nam';
         $user->avatar = 'https://e7.pngegg.com/pngimages/348/800/png-clipart-man-wearing-blue-shirt-illustration-computer-icons-avatar-user-login-avatar-blue-child.png';
         $user->save();
+
     }
     public function importProducts()
     {
