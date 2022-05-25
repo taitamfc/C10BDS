@@ -23,12 +23,12 @@
 <div class="page-section">
     <div class="card card-fluid">
         <div class="card-header">
-        <ul class="nav nav-tabs card-header-tabs">
+            <ul class="nav nav-tabs card-header-tabs">
                 <li class="nav-item">
-                    <a class="nav-link "href="{{route('productCategories.index')}}">Tất Cả</a>
+                    <a class="nav-link " href="{{route('productCategories.index')}}">Tất Cả</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active "href="{{route('productCategories.trash')}}">Thùng Rác</a>
+                    <a class="nav-link active " href="{{route('productCategories.trash')}}">Thùng Rác</a>
                 </li>
             </ul>
         </div>
@@ -60,7 +60,6 @@
                     @include('admin.productCategories.modals.modalSaveSearchproductCategories')
                 </div>
             </div>
-
             <div class="table-responsive">
                 <table class="table">
                     <thead>
@@ -81,17 +80,17 @@
                             <td class="align-middle"> {{ $productCategory->id }} </td>
                             <td class="align-middle"> {{ $productCategory->name }} </td>
                             <td>
-                            @if(Auth::user()->hasPermission('ProductCategory_forceDelete'))
-                            <form action="{{ route('productCategories.force_destroy',$productCategory->id )}}" style="display:inline" method="post">
+                                @if(Auth::user()->hasPermission('ProductCategory_forceDelete'))
+                                <form action="{{ route('productCategories.force_destroy',$productCategory->id )}}" style="display:inline" method="post">
                                     <button onclick="return confirm('Xóa vĩnh viễn {{$productCategory->name}} ?')" class="btn btn-sm btn-icon btn-secondary"><i class="far fa-trash-alt"></i></button>
                                     @csrf
                                     @method('delete')
                                 </form>
-                            @endif
+                                @endif
 
-                            @if(Auth::user()->hasPermission('ProductCategory_restore'))
+                                @if(Auth::user()->hasPermission('ProductCategory_restore'))
                                 <span class="sr-only">Edit</span></a> <a href="{{route('productCategories.restore',$productCategory->id)}}" class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-trash-restore"></i> <span class="sr-only">Remove</span></a>
-                            @endif
+                                @endif
                                 </form>
                             </td>
                         </tr>
@@ -100,11 +99,13 @@
                 </table>
             </div>
         </div>
-        <nav aria-label="Page navigation example">
-            <div class='float:right'>
-                <ul class="pagination">
-                    <span aria-hidden="true"> {{ $productCategories->links() }}</span>
-                </ul>
-            </div>
-        </nav>
-        @endsection
+    </div>
+</div>
+<nav aria-label="Page navigation example">
+    <div class='float:right'>
+        <ul class="pagination">
+            <span aria-hidden="true"> {{ $productCategories->links() }}</span>
+        </ul>
+    </div>
+</nav>
+@endsection
