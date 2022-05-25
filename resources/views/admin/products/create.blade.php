@@ -53,7 +53,6 @@
                             @endif
                         </div>
                     </div>
-                    
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Quận/Huyện <abbr title="Trường bắt buộc">*</abbr></label>
