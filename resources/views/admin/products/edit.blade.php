@@ -28,6 +28,7 @@
         @method('PUT')
         <div class="card">
             <div class="card-body">
+                
                 <legend>Thông tin cơ bản</legend>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Loại bất động sản (Tên)</label>
