@@ -22,7 +22,6 @@
     </div>
 </header>
 
-
 <div class="page-section">
     <div class="card card-fluid">
         <div class="card-header">
