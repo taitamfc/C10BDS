@@ -15,6 +15,10 @@ use App\Models\Ward;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Excel;
+use App\Imports\UsersImport;
+
+
 
 class UserController extends Controller
 {
@@ -318,4 +322,21 @@ class UserController extends Controller
             return redirect()->route('users.trash')->with('error', 'Khôi phục' . ' ' . $user->name . ' ' .  'không thành công');
         }
     }
+    public function import(){
+        $userGroups = UserGroup::all();
+        $branches = Branch::all();
+        $params = [
+            'userGroups' => $userGroups,
+            'branches' => $branches
+        ];
+        return view('admin.users.import',$params);
+    }
+
+    public function postImport(Request $request){
+        $path = $request->file('file')->getRealPath();
+
+        Excel::import(new UsersImport($request), $path);
+        return back();
+    }
+
 }

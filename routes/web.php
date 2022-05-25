@@ -62,6 +62,8 @@ Route::group([
         Route::get('/trash', [UserController::class, 'trashedItems'])->name('users.trash');
         Route::delete('/force_destroy/{id}', [UserController::class, 'force_destroy'])->name('users.force_destroy');
         Route::get('/restore/{id}', [UserController::class, 'restore'])->name('users.restore');
+        Route::get('/import', [UserController::class, 'import'])->name('users.import');
+        Route::post('/postImport', [UserController::class, 'postImport'])->name('users.postImport');
     });
 
     Route::prefix('userGroups')->group(function () {
