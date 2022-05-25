@@ -101,11 +101,13 @@
                 </table>
             </div>
         </div>
-        <nav aria-label="Page navigation example">
-            <div class='float:right'>
-                <ul class="pagination">
-                    <span aria-hidden="true"> {{ $productCategories->links() }}</span>
-                </ul>
-            </div>
-        </nav>
-        @endsection
+    </div>
+</div>
+<nav aria-label="Page navigation example">
+    <div class='float:right'>
+        <ul class="pagination">
+            <span aria-hidden="true"> {{ $productCategories->links() }}</span>
+        </ul>
+    </div>
+</nav>
+@endsection
