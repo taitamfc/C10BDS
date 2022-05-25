@@ -1,6 +1,5 @@
 @extends('admin.layouts.master')
 @section('content')
-
 <header class="page-title-bar">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -13,7 +12,6 @@
 </header>
 
 <div class="page-section">
-
     <form method="post" action="{{route('productCategories.store')}}">
         @csrf
         <div class="card">
@@ -28,13 +26,11 @@
                 </fieldset>
                 <div class="form-actions">
                 <a class="btn btn-secondary float-right" href="{{route('productCategories.index')}}">Hủy</a>
-
                     <button class="btn btn-primary ml-auto" type="submit">Thêm danh mục </button>
                 </div>
             </div>
         </div>
     </form>
-
 </div>
 
 @endsection

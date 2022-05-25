@@ -1,7 +1,5 @@
 @extends('admin.layouts.master')
-
 @section('content')
-
 <header class="page-title-bar">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -23,7 +21,6 @@
         </div>
     </div>
 </header>
-
 
 <div class="page-section">
     <div class="card card-fluid">
@@ -65,7 +62,6 @@
                     @include('admin.productCategories.modals.modalSaveSearchproductCategories')
                 </div>
             </div>
-
             <div class="table-responsive">
                 <table class="table">
                     <thead>
@@ -105,11 +101,13 @@
                 </table>
             </div>
         </div>
-        <nav aria-label="Page navigation example">
-            <div class='float:right'>
-                <ul class="pagination">
-                    <span aria-hidden="true"> {{ $productCategories->links() }}</span>
-                </ul>
-            </div>
-        </nav>
-        @endsection
+    </div>
+</div>
+<nav aria-label="Page navigation example">
+    <div class='float:right'>
+        <ul class="pagination">
+            <span aria-hidden="true"> {{ $productCategories->links() }}</span>
+        </ul>
+    </div>
+</nav>
+@endsection

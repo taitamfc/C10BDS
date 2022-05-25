@@ -18,21 +18,20 @@
     </div>
     <div id="base-style" class="card">
         <div class="card-body">
-            <form method="post" action="{{route('productCategories.update',$productCategory->id)}}" >
+            <form method="post" action="{{route('productCategories.update',$productCategory->id)}}">
                 @csrf
                 @method('PUT')
                 <fieldset>
                     <legend>Base style</legend>
                     <div class="form-group">
-                        <label for="tf1">Chỉnh sủa tên</label> <input type="text" name="name" value="{{ $productCategory->name }}" class="form-control"  placeholder="Nhập tên nhóm nhân viên"> <small  class="form-text text-muted"></small>
+                        <label for="tf1">Chỉnh sủa tên</label> <input type="text" name="name" value="{{ $productCategory->name }}" class="form-control" placeholder="Nhập tên nhóm nhân viên"> <small class="form-text text-muted"></small>
                     </div>
                     @if ($errors->any())
                     <p style="color:red">{{ $errors->first('name') }}</p>
                     @endif
                 </fieldset>
                 <div class="form-actions">
-                <a class="btn btn-secondary float-right" href="{{route('productCategories.index')}}">Hủy</a>
-
+                    <a class="btn btn-secondary float-right" href="{{route('productCategories.index')}}">Hủy</a>
                     <button class="btn btn-primary ml-auto" type="submit">Cập nhật</button>
                 </div>
             </form>
