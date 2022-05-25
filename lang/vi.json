@@ -90,5 +90,19 @@
     "Role_update": "[Vai Trò] Sửa",
     "Role_delete": "[Vai Trò] Xóa",
     "Role_restore": "[Vai Trò] Khôi phục",
-    "Role_forceDelete": "[Vai Trò] Xóa Vĩnh Viễn"
+    "Role_forceDelete": "[Vai Trò] Xóa Vĩnh Viễn",
+    "SystemLog_viewAny": "[Nhật Ký Hệ Thống]  Xem Danh Sách",
+    "SystemLog_view": "[Nhật Ký Hệ Thống] Xem Chi Tiết",
+    "SystemLog_create": "[Nhật Ký Hệ Thống] Thêm",
+    "SystemLog_update": "[Nhật Ký Hệ Thống] Sửa",
+    "SystemLog_delete": "[Nhật Ký Hệ Thống] Xóa",
+    "SystemLog_restore": "[Nhật Ký Hệ Thống] Khôi phục",
+    "SystemLog_forceDelete": "[Nhật Ký Hệ Thống] Xóa Vĩnh Viễn"
 }
+
+
+
+
+
+
+

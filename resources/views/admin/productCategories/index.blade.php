@@ -14,7 +14,7 @@
     <div class="d-md-flex align-items-md-start">
         <h1 class="page-title mr-sm-auto"> Quản Lý Loại Sản Phẩm</h1>
         <div class="btn-toolbar">
-            @if(Auth::user()->hasPermission('User_create'))
+            @if(Auth::user()->hasPermission('ProductCategory_create'))
             <a href="{{route('productCategories.create')}}" class="btn btn-primary">
                 <i class="fa-solid fa fa-plus"></i>
                 <span class="ml-1">Thêm Mới</span>
@@ -86,11 +86,11 @@
                             <td class="align-middle"> {{ $productCategory->id }} </td>
                             <td class="align-middle"> {{ $productCategory->name }} </td>
                             <td>
-                                @if(Auth::user()->hasPermission('User_update'))
+                                @if(Auth::user()->hasPermission('ProductCategory_update'))
                                 <a href="{{route('productCategories.edit',$productCategory->id)}}" title="Edit Student"><button class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-pencil-alt"></i> </button></a>
                                 @endif
 
-                                @if(Auth::user()->hasPermission('User_delete'))
+                                @if(Auth::user()->hasPermission('ProductCategory_delete'))
 
                                 <form method="POST" action="{{ route('productCategories.destroy',$productCategory->id )}}" accept-charset="UTF-8" style="display:inline">
                                     @csrf

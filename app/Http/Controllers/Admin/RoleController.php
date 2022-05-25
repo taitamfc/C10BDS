@@ -86,7 +86,7 @@ class RoleController extends Controller
     public function edit($id)
     {
         $role = Role::find($id);
-        $this->authorize('update', Role::class);
+        $this->authorize('update',$role);
         $params = [
             'role' => $role
         ];

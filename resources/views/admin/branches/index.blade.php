@@ -104,7 +104,7 @@
                                 </form>
                                 @endif
 
-                                @if(Auth::user()->hasPermission('Branch_create'))
+                                @if(Auth::user()->hasPermission('Branch_update'))
                                 <span class="sr-only">Edit</span></a> <a href="{{route('branches.edit',$branch->id)}}" class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-pencil-alt"></i> <span class="sr-only">Remove</span></a>
                                 @endif
                             </td>
