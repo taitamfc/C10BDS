@@ -28,7 +28,7 @@ class AuthController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function login(Request $request){
-        
+
     	$validator = Validator::make($request->all(), [
             'phone' => 'required',
             'password' => 'required|string|min:6',
@@ -148,7 +148,7 @@ class AuthController extends Controller
             $user = User::where('id', $userId)->update(
                 ['password' => Hash::make($request->new_password)]
             );
-    
+
             return response()->json([
                 'message'   => 'Thay đổi mật khẩu thành công',
                 'status'    => 1,
