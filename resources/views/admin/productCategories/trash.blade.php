@@ -1,7 +1,5 @@
 @extends('admin.layouts.master')
-
 @section('content')
-
 <header class="page-title-bar">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -21,7 +19,6 @@
         </div>
     </div>
 </header>
-
 
 <div class="page-section">
     <div class="card card-fluid">
