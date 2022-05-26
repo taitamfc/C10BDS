@@ -2,11 +2,11 @@
 
 namespace App\Imports;
 
-use App\Models\User;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Concerns\ToCollection;
+use App\Jobs\ProcessImportUser;
+
 
 class UsersImport implements ToCollection
 {
@@ -18,6 +18,12 @@ class UsersImport implements ToCollection
     {
         foreach ($rows as $key => $row)
         {
+<<<<<<< HEAD
+            if($key == 0 ){
+                continue ;
+            }
+            dispatch( new ProcessImportUser($row,$this->request->user_group_id,$this->request->branch_id) );
+=======
             if($key == 0) continue;
 
             $user = new User();
@@ -34,6 +40,7 @@ class UsersImport implements ToCollection
             $user->ward_id          = 1;
             $user->note             = $row[3];
             $user->save();
+>>>>>>> ebc3360a1843971ce19dde2f5348a0a8f3852298
         }
     }
 }

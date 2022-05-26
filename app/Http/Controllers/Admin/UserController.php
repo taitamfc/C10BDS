@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Events\UserSubmitEvent;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PostImportRequest;
 use App\Models\User;
 use App\Models\UserGroup;
 use App\Http\Requests\StoreUserRequest;
@@ -17,8 +18,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Excel;
 use App\Imports\UsersImport;
-
-
+use Maatwebsite\Excel\Facades\Excel as FacadesExcel;
 
 class UserController extends Controller
 {
@@ -332,11 +332,11 @@ class UserController extends Controller
         return view('admin.users.import',$params);
     }
 
-    public function postImport(Request $request){
+    public function postImport(PostImportRequest $request){
         $path = $request->file('file')->getRealPath();
 
-        Excel::import(new UsersImport($request), $path);
-        return back();
+        FacadesExcel::import(new UsersImport($request), $path);
+        return redirect()->route('users.index')->with('success', 'Thêm nhân viên thành công');
     }
 
 }

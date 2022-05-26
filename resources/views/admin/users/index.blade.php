@@ -21,8 +21,8 @@
                 <span class="ml-1">Thêm Mới</span>
             </a>
             <a href="{{ route('users.import') }}" class="btn btn-primary ">
-                <i class="fa-solid fa fa-plus"></i>
-                <span class="ml-1">import</span>
+                <i class='fas fa-file-alt'></i>
+                <span class="ml-1">Nhập file excel</span>
             </a>
             @endif
         </div>

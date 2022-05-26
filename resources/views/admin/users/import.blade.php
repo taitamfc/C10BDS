@@ -23,7 +23,7 @@
                     <label for="tf1">Chọn File <abbr name="Trường bắt buộc">*</abbr></label> <input name="file" type="file" class="form-control" id="" placeholder="Nhập tên giấy tờ pháp lý">
                     <small id="" class="form-text text-muted"></small>
                     @if ($errors->any())
-                    <p style="color:red">{{ $errors->first('name') }}</p>
+                    <p style="color:red">{{ $errors->first('file') }}</p>
                     @endif
                 </div>
                 <div class="row">
