@@ -17,8 +17,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Excel;
 use App\Imports\UsersImport;
-
-
+use Maatwebsite\Excel\Facades\Excel as FacadesExcel;
 
 class UserController extends Controller
 {
@@ -335,8 +334,8 @@ class UserController extends Controller
     public function postImport(Request $request){
         $path = $request->file('file')->getRealPath();
 
-        Excel::import(new UsersImport($request), $path);
-        return back();
+        FacadesExcel::import(new UsersImport($request), $path);
+        return redirect()->route('users.index')->with('success', 'Thêm dữ liệu thành công');
     }
 
 }
