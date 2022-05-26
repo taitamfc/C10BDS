@@ -18,6 +18,8 @@ class UsersImport implements ToCollection
     {
         foreach ($rows as $key => $row)
         {
+            if($key == 0) continue;
+
             $user = new User();
             $user->name             = $row[1];
             $user->gender           = 'male';
