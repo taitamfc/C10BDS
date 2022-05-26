@@ -50,6 +50,12 @@ class ProductController extends Controller
                 case 'delivery_products':
                     $items->where('product_type', 'Consignment');
                     break;
+                case 'expired_products':
+                    $items->where('status', 'expired');
+                    break;
+                case 'sold_products':
+                    $items->where('status', 'sold');
+                    break;
                 case 'quang_tri':
                     $items->where('province_id', 30);
                     break;
