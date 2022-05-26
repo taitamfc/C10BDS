@@ -102,9 +102,9 @@ class ProductTest extends TestCase
         'area' => 'required',
         'juridical' => 'required',
         'unit' => 'required',
-        'status' => 'required',   
-        'houseDirection' => 'required',   
-        'facade' => 'required',   
+        'status' => 'required',
+        'houseDirection' => 'required',
+        'facade' => 'required',
         'stress_width' => 'required',
         'product_category_id' => 'required',
         'province_id' => 'required',
@@ -113,7 +113,7 @@ class ProductTest extends TestCase
         'product_type' => 'required',
     */
         $product = new Product();
-        $old_product = $product;
+        // $old_product = $product;
         $product->name = $this->faker->name;
         $product->address = $this->faker->address;
         $product->price = rand(50000000,50000000000);
@@ -139,7 +139,7 @@ class ProductTest extends TestCase
             Log::error($e->getMessage());
             $this->assertTrue(false);
         }
-     
+
         // $product->price = '';
         // $product->description = '';
         // $product->product_category_id = '';

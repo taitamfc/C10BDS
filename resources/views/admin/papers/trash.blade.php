@@ -1,5 +1,7 @@
 @extends('admin.layouts.master')
 @section('content')
+
+
 <header class="page-title-bar">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -8,28 +10,24 @@
             </li>
         </ol>
     </nav>
-    <a href="{{route('productCategories.index')}}" class="btn btn-success btn-floated"></a>
+    <!-- <button type="button" class="btn btn-success btn-floated"><span class="fa fa-plus"></span></button> -->
     <div class="d-md-flex align-items-md-start">
-        <h1 class="page-title mr-sm-auto"> Quản Lý Loại Sản Phẩm - Thùng Rác</h1>
+        <h1 class="page-title mr-sm-auto">Quản Lý Giấy Tờ Pháp Lý - Thùng Rác</h1>
         <div class="btn-toolbar">
-            <a href="{{route('productCategories.create')}}" class="btn btn-primary">
-                <i class="fa-solid fa fa-plus"></i>
-                <span class="ml-1">Thêm Mới</span>
-            </a>
         </div>
     </div>
 </header>
-
 <div class="page-section">
     <div class="card card-fluid">
         <div class="card-header">
             <ul class="nav nav-tabs card-header-tabs">
                 <li class="nav-item">
-                    <a class="nav-link " href="{{route('productCategories.index')}}">Tất Cả</a>
+                    <a class="nav-link" href="{{route('papers.index')}}">Tất Cả</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active " href="{{route('productCategories.trash')}}">Thùng Rác</a>
+                    <a class="nav-link active " href="{{route('papers.trash')}}">Thùng Rác</a>
                 </li>
+
             </ul>
         </div>
         <div class="card-body">
@@ -38,7 +36,7 @@
                     <form action="" method="GET" id="form-search">
                         <div class="input-group input-group-alt">
                             <div class="input-group-prepend">
-                                <button class="btn btn-secondary" type="button" data-toggle="modal" data-target="#modalFilterColumnsproductCategories">Tìm nâng cao</button>
+                                <button class="btn btn-secondary" type="button" data-toggle="modal" data-target="#modalFilterColumns">Tìm nâng cao</button>
                             </div>
                             <div class="input-group has-clearable">
                                 <button type="button" class="close trigger-submit trigger-submit-delay" aria-label="Close">
@@ -50,62 +48,65 @@
                                 <input type="text" class="form-control" name="s" value="" placeholder="Tìm nhanh theo cú pháp (ma:Mã kết quả hoặc ten:Tên kết quả)">
                             </div>
                             <div class="input-group-append">
-                                <button class="btn btn-secondary" data-toggle="modal" data-target="#modalSaveSearchproductCategories" type="button">Lưu bộ lọc</button>
+                                <button class="btn btn-secondary" data-toggle="modal" data-target="#modalSaveSearch" type="button">Lưu bộ lọc</button>
                             </div>
                         </div>
                         <!-- modalFilterColumns  -->
-                        @include('admin.productCategories.modals.modalFilterColumnsproductCategories')
+                        @include('admin.papers.modals.modalFilterColumns')
                     </form>
                     <!-- modalFilterColumns  -->
-                    @include('admin.productCategories.modals.modalSaveSearchproductCategories')
+                    @include('admin.papers.modals.modalSaveSearch')
                 </div>
             </div>
+
+            @if (Session::has('success'))
+            <div class="alert alert-success">{{session::get('success')}}</div>
+            @endif
+            @if (Session::has('error'))
+            <div class="alert alert-danger">{{session::get('error')}}</div>
+            @endif
             <div class="table-responsive">
                 <table class="table">
                     <thead>
-                        <br>
-                        @if (Session::has('success'))
-                        <div class="alert alert-success">{{session::get('success')}}</div>
-                        @endif
-                        <br>
                         <tr>
                             <th> # </th>
-                            <th> Tên</th>
+                            <th> Tiêu đề</th>
+                            <th> Trạng thái</th>
                             <th> Chức năng </th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($productCategories as $productCategory)
+                        @foreach ($papers as $paper)
                         <tr>
-                            <td class="align-middle"> {{ $productCategory->id }} </td>
-                            <td class="align-middle"> {{ $productCategory->name }} </td>
+                            <td class="align-middle"> {{ $paper->id }} </td>
+                            <td class="align-middle"> {{ $paper->name }} </td>
+                            <td class="align-middle"> {{ $paper->status }} </td>
                             <td>
-                                @if(Auth::user()->hasPermission('ProductCategory_forceDelete'))
-                                <form action="{{ route('productCategories.force_destroy',$productCategory->id )}}" style="display:inline" method="post">
-                                    <button onclick="return confirm('Xóa vĩnh viễn {{$productCategory->name}} ?')" class="btn btn-sm btn-icon btn-secondary"><i class="far fa-trash-alt"></i></button>
+                                @if(Auth::user()->hasPermission('Paper_forceDelete'))
+                                <form action="{{ route('papers.force_destroy',$paper->id )}}" style="display:inline" method="post">
+                                    <button onclick="return confirm('Xóa vĩnh viễn {{$paper->name}} ?')" class="btn btn-sm btn-icon btn-secondary"><i class="far fa-trash-alt"></i></button>
                                     @csrf
                                     @method('delete')
                                 </form>
                                 @endif
 
-                                @if(Auth::user()->hasPermission('ProductCategory_restore'))
-                                <span class="sr-only">Edit</span></a> <a href="{{route('productCategories.restore',$productCategory->id)}}" class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-trash-restore"></i> <span class="sr-only">Remove</span></a>
+                                @if(Auth::user()->hasPermission('Paper_restore'))
+                                <span class="sr-only">Edit</span></a> <a href="{{route('papers.restore',$paper->id)}}" class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-trash-restore"></i> <span class="sr-only">Remove</span></a>
                                 @endif
-                                </form>
                             </td>
-                        </tr>
+                        </tr><!-- /tr -->
                         @endforeach
-                    </tbody>
-                </table>
+                    </tbody><!-- /tbody -->
+                </table><!-- /.table -->
+                <div style="float:right">
+                    {{ $papers->links() }}
+                </div>
+
             </div>
-        </div>
+            <!-- /.table-responsive -->
+            <!-- .pagination -->
+        </div><!-- /.card-body -->
     </div>
 </div>
-<nav aria-label="Page navigation example">
-    <div class='float:right'>
-        <ul class="pagination">
-            <span aria-hidden="true"> {{ $productCategories->links() }}</span>
-        </ul>
-    </div>
-</nav>
+
 @endsection

@@ -279,7 +279,7 @@
                         <div class="form-group">
                             <label for="tf1">Chiều dài <abbr title="Trường bắt buộc">*</abbr></label>
                             <div class="input-group input-group-alt">
-                                <input name="area" type="number" class="form-control" placeholder="Nhập chiều dài, VD 80" value="{{ old('area') }}">
+                                <input name="area" type="text" class="form-control" placeholder="Nhập chiều dài, VD 80" value="{{ old('area') }}">
                                 <div class="input-group-append">
                                     <span class="input-group-text">m²</span>
                                 </div>
@@ -325,7 +325,7 @@
                         <div class="form-group">
                             <label for="tf1">Đường vào <abbr title="Trường bắt buộc">*</abbr></label>
                             <div class="input-group input-group-alt">
-                                <input name="stress_width" type="number" class="form-control" placeholder="Nhập số" value="{{ old('stress_width') }}">
+                                <input name="stress_width" type="text" class="form-control" placeholder="Nhập số" value="{{ old('stress_width') }}">
                                 <div class="input-group-append">
                                     <span class="input-group-text">m²</span>
                                 </div>
@@ -473,13 +473,6 @@
                 $('.showIfProductConsignment').hide();
             }
         });
-
-        // <label>Loại sản phẩm</label>
-        //  <select name="product_type" class="form-control" id="product_type">
-        // <option value="Regular" @selected(old('product_type')=='Regular' )>Sản phẩm thường</option>
-        // <option value="Block" @selected(old('product_type')=='Block' )>Sản phẩm block</option>
-        // <option value="Consignment" @selected(old('product_type')=='Consignment' )>Sản phẩm ký gửi</option>
-        //                     </select>
         jQuery('#product_type').on('change', function() {
             var product_type = jQuery(this).val();
             //showIfProductpricecommission

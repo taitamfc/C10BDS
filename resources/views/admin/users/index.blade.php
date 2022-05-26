@@ -16,9 +16,13 @@
         <h1 class="page-title mr-sm-auto"> Quản Lý Nhân Viên</h1><!-- .btn-toolbar -->
         <div class="btn-toolbar">
             @if(Auth::user()->hasPermission('User_create'))
-            <a href="{{ route('users.create') }}" class="btn btn-primary">
+            <a href="{{ route('users.create') }}" class="btn btn-primary mr-2">
                 <i class="fa-solid fa fa-plus"></i>
                 <span class="ml-1">Thêm Mới</span>
+            </a>
+            <a href="{{ route('users.import') }}" class="btn btn-primary ">
+                <i class='fas fa-file-alt'></i>
+                <span class="ml-1">Nhập file excel</span>
             </a>
             @endif
         </div>

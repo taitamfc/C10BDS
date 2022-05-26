@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\MessageController;
 use App\Http\Controllers\Admin\OptionController;
 use App\Http\Controllers\Admin\SystemLogController;
+use App\Http\Controllers\Admin\PaperController;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -61,6 +62,8 @@ Route::group([
         Route::get('/trash', [UserController::class, 'trashedItems'])->name('users.trash');
         Route::delete('/force_destroy/{id}', [UserController::class, 'force_destroy'])->name('users.force_destroy');
         Route::get('/restore/{id}', [UserController::class, 'restore'])->name('users.restore');
+        Route::get('/import', [UserController::class, 'import'])->name('users.import');
+        Route::post('/postImport', [UserController::class, 'postImport'])->name('users.postImport');
     });
 
     Route::prefix('userGroups')->group(function () {
@@ -82,6 +85,12 @@ Route::group([
         Route::get('/restore/{id}', [ProductCategoryController::class, 'restore'])->name('productCategories.restore');
     });
 
+    Route::prefix('papers')->group(function () {
+        Route::get('/trash', [PaperController::class, 'trashedItems'])->name('papers.trash');
+        Route::delete('/force_destroy/{id}', [PaperController::class, 'force_destroy'])->name('papers.force_destroy');
+        Route::get('/restore/{id}', [PaperController::class, 'restore'])->name('papers.restore');
+    });
+
     Route::resource('userGroups', UserGroupController::class);
     Route::resource('users', UserController::class);
     Route::resource('roles', RoleController::class);
@@ -93,6 +102,7 @@ Route::group([
     Route::resource('options', OptionController::class);
     Route::resource('configs', ConfigController::class);
     Route::resource('systemlogs', SystemLogController::class);
+    Route::resource('papers', PaperController::class);
     Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
 });
 

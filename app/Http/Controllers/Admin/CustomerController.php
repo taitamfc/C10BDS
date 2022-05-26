@@ -11,6 +11,7 @@ use App\Http\Requests\StoreCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Maatwebsite\Excel\Facades\Excel as FacadesExcel;
 
 class CustomerController extends Controller
 {
@@ -209,6 +210,6 @@ class CustomerController extends Controller
         }
     }
     public function export(){
-        return Excel::download(new CustomerExport, 'customer.xlsx');
+        return FacadesExcel::download(new CustomerExport, 'customer.xlsx');
     }
 }

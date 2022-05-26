@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Models\Message;
 use App\Models\UserGroup;
 use App\Models\Option;
+use App\Models\Paper;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -34,6 +35,7 @@ class DatabaseSeeder extends Seeder
         $this->importCustomers();
         $this->importMessages();
         $this->importConfigs();
+        $this->importPapers();
     }
     public function importProductCategories()
     {
@@ -57,29 +59,44 @@ class DatabaseSeeder extends Seeder
         $product_category->save();
     }
 
+
+    // public function importPapers()
+    // {
+    //     $paper = new Paper();
+    //     $paper->name = 'Sổ Hộ Khẩu';
+    //     $paper->status = 'Bản Thảo';
+    //     $paper->save();
+
+    //     $paper = new Paper();
+    //     $paper->name = 'CMND';
+    //     $paper->status = 'Hoạt Động';
+    //     $paper->save();
+
+    // }
+
     public function importMessages()
     {
         $message = new Message();
         $message->title = 'Vào học Angular';
-        $message->content = 'Thư mời Vào học Angular'; 
-        $message->type = 'Gửi Tức Thì'; 
-        $message->status = 'Bản Thảo'; 
-        $message->date_send ='2022/05/16'; 
+        $message->content = 'Thư mời Vào học Angular';
+        $message->type = 'Gửi Tức Thì';
+        $message->status = 'Bản Thảo';
+        $message->date_send ='2022/05/16';
         $message->save();
 
         $message = new Message();
         $message->title = 'Chơi Lễ';
-        $message->content = 'Thử thách 6 ngày 6 đêm đi chơi lên không dụng vào máy tính. Let Go!'; 
-        $message->type = 'Hẹn Thời Gian Gửi'; 
-        $message->status = 'Chờ Gửi'; 
-        $message->date_send ='2022/05/22'; 
+        $message->content = 'Thử thách 6 ngày 6 đêm đi chơi lên không dụng vào máy tính. Let Go!';
+        $message->type = 'Hẹn Thời Gian Gửi';
+        $message->status = 'Chờ Gửi';
+        $message->date_send ='2022/05/22';
         $message->save();
 
     }
 
     public function importRoles()
     {
-        $groups     = ['Branch', 'Product', 'Customer', 'ProductCategory', 'User', 'UserGroup','Config','SystemLog','Option', 'Role','Message'];
+        $groups     = ['Branch', 'Product', 'Customer', 'ProductCategory', 'User', 'UserGroup','Config','SystemLog','Option', 'Role','Message','Paper'];
         $actions    = ['viewAny', 'view', 'create', 'update', 'delete', 'restore', 'forceDelete'];
         foreach ($groups as $group) {
             foreach ($actions as $action) {
@@ -136,6 +153,20 @@ class DatabaseSeeder extends Seeder
         $userGroup->name = 'Giám Đốc';
         $userGroup->description = '';
         $userGroup->save();
+    }
+
+    public function importPapers()
+    {
+        $paper = new Paper();
+        $paper->name = 'CMND';
+        $paper->status = 'Bản Thảo';
+        $paper->save();
+
+        $paper = new Paper();
+        $paper->name = 'Sổ Hộ Khẩu';
+        $paper->status = 'Hoạt Động';
+        $paper->save();
+
     }
     public function importUsers()
     {
@@ -212,6 +243,24 @@ class DatabaseSeeder extends Seeder
         $user->save();
 
         $user = new User();
+        $user->name = 'Huỳnh Văn Toàn';
+        $user->email = 'toan@gmail.com';
+        $user->password = Hash::make('123456');
+        $user->day_of_birth = '2002/09/24';
+        $user->phone = '0935779035';
+        $user->address = 'Quảng Trị';
+        $user->start_day = '2022/01/10';
+        $user->user_group_id  = '1';
+        $user->branch_id  = '1';
+        $user->note = '123';
+        $user->province_id  = '30';
+        $user->district_id  = '335';
+        $user->ward_id  = '6083';
+        $user->gender = 'Nam';
+        $user->avatar = 'https://e7.pngegg.com/pngimages/348/800/png-clipart-man-wearing-blue-shirt-illustration-computer-icons-avatar-user-login-avatar-blue-child.png';
+        $user->save();
+
+        $user = new User();
         $user->name = 'Lê Đức Trí';
         $user->email = 'tri@gmail.com';
         $user->password = Hash::make('123456');
@@ -233,9 +282,9 @@ class DatabaseSeeder extends Seeder
         $user->name = 'Trần Xuân Vinh';
         $user->email = 'vinh@gmail.com';
         $user->password = Hash::make('123456');
-        $user->day_of_birth = '2002/06/28';
+        $user->day_of_birth = '2002/09/24';
         $user->phone = '0123456787';
-        $user->address = 'Thùa Thiên Huế';
+        $user->address = 'Thừa Thiên Huế';
         $user->start_day = '2021/10/29';
         $user->user_group_id  = '3';
         $user->branch_id  = '3';
@@ -246,6 +295,7 @@ class DatabaseSeeder extends Seeder
         $user->gender = 'Nam';
         $user->avatar = 'https://e7.pngegg.com/pngimages/348/800/png-clipart-man-wearing-blue-shirt-illustration-computer-icons-avatar-user-login-avatar-blue-child.png';
         $user->save();
+
     }
     public function importProducts()
     {
@@ -313,7 +363,7 @@ class DatabaseSeeder extends Seeder
     }
     public function importUserGroupRoles()
     {
-        for ($i = 1; $i <= 77; $i++) {
+        for ($i = 1; $i <= 84; $i++) {
             DB::table('user_group_role')->insert([
                 'user_group_id' => 1,
                 'role_id' => $i,
@@ -367,6 +417,6 @@ class DatabaseSeeder extends Seeder
                 $objConfig->$field = $value;
             }
             $objConfig->save();
-        }   
+        }
     }
 }

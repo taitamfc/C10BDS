@@ -18,6 +18,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Events\ProductCreated;
 use App\Events\ProductSold;
+use App\Events\ProductRenewed;
 use App\Events\ProductSubmitEvent;
 use App\Models\ProductImage;
 use Illuminate\Support\Facades\Auth;
@@ -78,7 +79,7 @@ class ProductController extends Controller
                 $product->where('product_type', 'Consignment');
                 break;
             case 'expried_products':
-                $product->where('status', 'expried');
+                $product->where('status', 'expired');
                 break;
             case 'sold_products':
                 $product->where('status', 'sold');
@@ -424,13 +425,17 @@ class ProductController extends Controller
             }
             //kiểm tra trạng thái cũ của sản phẩm
             if ($old_status != $product->status) {
-                if ($product->status == 'selling') {
+                if ( $old_status == 'draft' && $product->status == 'selling') {
                     //thông báo khi sản phẩm mới được đăng bán
                     event(new ProductCreated($product));
                 }
                 if ($product->status == 'sold') {
                     //thông báo khi sản phẩm được bán thành công
                     event(new ProductSold($product));
+                }
+                if ( $old_status == 'expired' && $product->status == 'selling') {
+                    //thông báo khi sản phẩm được gia hạn thành công
+                    event(new ProductRenewed($product));
                 }
             }
             $product->active = 'update';

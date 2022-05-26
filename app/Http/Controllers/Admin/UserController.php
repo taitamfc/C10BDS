@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Events\UserSubmitEvent;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PostImportRequest;
 use App\Models\User;
 use App\Models\UserGroup;
 use App\Http\Requests\StoreUserRequest;
@@ -15,6 +16,9 @@ use App\Models\Ward;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Excel;
+use App\Imports\UsersImport;
+use Maatwebsite\Excel\Facades\Excel as FacadesExcel;
 
 class UserController extends Controller
 {
@@ -50,7 +54,7 @@ class UserController extends Controller
     public function index(Request $request)
     {
 
-        // dd($request->filter);
+        $this->authorize('viewAny', User::class);
         $query = User::select('*');
         if (isset($request->filter['name']) && $request->filter['name']) {
             $name = $request->filter['name'];
@@ -107,6 +111,7 @@ class UserController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', User::class);
         $userGroups = UserGroup::all();
         $branches = Branch::all();
         $provinces = Province::all();
@@ -183,9 +188,10 @@ class UserController extends Controller
      */
     public function edit($id)
     {
+        $user =  User::find($id);
+        $this->authorize('update', $user);
         $userGroups = UserGroup::all();
         $branches = Branch::all();
-        $user =  User::find($id);
         $provinces = Province::all();
         $districts = District::where('province_id', $user->province_id)->get();
         $wards = Ward::where('district_id', $user->district_id)->get();
@@ -253,6 +259,8 @@ class UserController extends Controller
     public function destroy($id)
     {
         $user = User::find($id);
+        $this->authorize('delete', $user);
+
 
         try {
             $user->delete();
@@ -314,4 +322,21 @@ class UserController extends Controller
             return redirect()->route('users.trash')->with('error', 'Khôi phục' . ' ' . $user->name . ' ' .  'không thành công');
         }
     }
+    public function import(){
+        $userGroups = UserGroup::all();
+        $branches = Branch::all();
+        $params = [
+            'userGroups' => $userGroups,
+            'branches' => $branches
+        ];
+        return view('admin.users.import',$params);
+    }
+
+    public function postImport(PostImportRequest $request){
+        $path = $request->file('file')->getRealPath();
+
+        FacadesExcel::import(new UsersImport($request), $path);
+        return redirect()->route('users.index')->with('success', 'Thêm nhân viên thành công');
+    }
+
 }

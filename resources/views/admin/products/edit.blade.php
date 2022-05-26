@@ -338,7 +338,7 @@
                         <div class="form-group">
                             <label for="tf1">Đường vào</label>
                             <div class="input-group input-group-alt">
-                                <input type="text" value="{{ $product->stress_width }}" name="stress_width" type="number" class="form-control" placeholder="Nhập số">
+                                <input type="text" value="{{ $product->stress_width }}" name="stress_width" type="text" class="form-control" placeholder="Nhập số">
                                 <div class="input-group-append">
                                     <span class="input-group-text">m²</span>
                                 </div>
@@ -352,7 +352,7 @@
                         <div class="form-group">
                             <label for="tf1">Chiều rộng</label>
                             <div class="input-group input-group-alt">
-                                <input type="text" value="{{ $product->facade }}" name="facade" type="number" class="form-control" placeholder="Nhập số">
+                                <input type="text" value="{{ $product->facade }}" name="facade" type="text" class="form-control" placeholder="Nhập số">
                                 <div class="input-group-append">
                                     <span class="input-group-text">m²</span>
                                 </div>
@@ -444,7 +444,7 @@
                                 <option value="draft" @selected($product->status == 'draft') >Bản Thảo</option>
                                 <option value="selling" @selected($product->status == 'selling') >Đang Bán</option>
                                 <option value="sold" @selected($product->status == 'sold')>Đã Bán</option>
-                                <option value="expried" @selected($product->status == 'expried')>Hết Hạn</option>
+                                <option value="expired" @selected($product->status == 'expired')>Hết Hạn</option>
                             </select>
                             @if ($errors->any())
                             <p style="color:red">{{ $errors->first('status') }}</p>
