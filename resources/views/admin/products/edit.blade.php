@@ -444,7 +444,7 @@
                                 <option value="draft" @selected($product->status == 'draft') >Bản Thảo</option>
                                 <option value="selling" @selected($product->status == 'selling') >Đang Bán</option>
                                 <option value="sold" @selected($product->status == 'sold')>Đã Bán</option>
-                                <option value="expried" @selected($product->status == 'expried')>Hết Hạn</option>
+                                <option value="expired" @selected($product->status == 'expired')>Hết Hạn</option>
                             </select>
                             @if ($errors->any())
                             <p style="color:red">{{ $errors->first('status') }}</p>

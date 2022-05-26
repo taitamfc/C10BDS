@@ -79,7 +79,7 @@ class ProductController extends Controller
                 $product->where('product_type', 'Consignment');
                 break;
             case 'expried_products':
-                $product->where('status', 'expried');
+                $product->where('status', 'expired');
                 break;
             case 'sold_products':
                 $product->where('status', 'sold');
@@ -433,7 +433,7 @@ class ProductController extends Controller
                     //thông báo khi sản phẩm được bán thành công
                     event(new ProductSold($product));
                 }
-                if ( $old_status == 'expried' && $product->status == 'selling') {
+                if ( $old_status == 'expired' && $product->status == 'selling') {
                     //thông báo khi sản phẩm được gia hạn thành công
                     event(new ProductRenewed($product));
                 }
