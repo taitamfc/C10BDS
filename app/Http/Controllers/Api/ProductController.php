@@ -25,8 +25,8 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $can_view_other_branch = true;
-        $status = ($request->status) ? $request->status : 'selling';
-        $items = Product::with(['product_images', 'product_customers', 'product_logs', 'district', 'province'])->where('status', $status);
+        $status = ($request->status) ? [$request->status] : ['selling','expired','sold'];
+        $items = Product::with(['product_images', 'product_customers', 'product_logs', 'district', 'province'])->whereIn('status', $status);
 
         //chỉ xem sản phẩm thuộc chi nhánh hiện tại
         if (!$can_view_other_branch) {
