@@ -7,6 +7,7 @@
     "active": "Hoạt Động",
     "sold": "Đã bán",
     "draft": "Bản Thảo",
+    "expired": "Hết Hạn",
     "Regular": "Thường",
     "Consignment": "Ký gửi",
     "Block": "Block",
@@ -107,9 +108,3 @@
     "Paper_restore": "[Giấy Tờ Pháp Lý] Khôi phục",
     "Paper_forceDelete": "[Giấy Tờ Pháp Lý] Xóa Vĩnh Viễn"
 }
-
-
-
-
-
-

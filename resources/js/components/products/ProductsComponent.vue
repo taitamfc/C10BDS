@@ -23,7 +23,7 @@
     <div class="error-page" v-if="items && items.length ==0">
         <h1 class="title">Sản phẩm trống</h1>
         <div class="text mb-5">
-            Chưa có sản phẩm đang bán hiện tại !
+            Chưa có sản phẩm nào hiện tại !
         </div>
     </div>
     <div class="section mb-2" v-if="items && next_page_url">
@@ -118,6 +118,12 @@ export default {
           break;
         case 'delivery_products':
           this.page_title = 'Sản phẩm ký gửi';
+          break;
+        case 'sold_products':
+          this.page_title = 'Sản phẩm đã bán';
+          break;
+        case 'expired_products':
+          this.page_title = 'Sản phẩm hết hạn';
           break;
         default:
           this.page_title = 'Tất cả sản phẩm';
