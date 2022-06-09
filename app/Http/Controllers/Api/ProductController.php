@@ -84,6 +84,10 @@ class ProductController extends Controller
             $items->where('id', 'LIKE', '%' . $request->name . '%');
         }
 
+        if ($request->houseDirection) {
+            $items->where('houseDirection', $request->houseDirection);
+        }
+
         if ($request->province_id) {
             $items->where('province_id', $request->province_id);
         }
