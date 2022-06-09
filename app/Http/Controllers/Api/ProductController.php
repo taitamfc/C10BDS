@@ -25,8 +25,8 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $can_view_other_branch = true;
-        $status = ($request->status) ? $request->status : 'selling';
-        $items = Product::with(['product_images', 'product_customers', 'product_logs', 'district', 'province'])->where('status', $status);
+        $status = ($request->status) ? [$request->status] : ['selling','expired','sold'];
+        $items = Product::with(['product_images', 'product_customers', 'product_logs', 'district', 'province'])->whereIn('status', $status);
 
         //chỉ xem sản phẩm thuộc chi nhánh hiện tại
         if (!$can_view_other_branch) {
@@ -49,6 +49,12 @@ class ProductController extends Controller
                     break;
                 case 'delivery_products':
                     $items->where('product_type', 'Consignment');
+                    break;
+                case 'expired_products':
+                    $items->where('status', 'expired');
+                    break;
+                case 'sold_products':
+                    $items->where('status', 'sold');
                     break;
                 case 'quang_tri':
                     $items->where('province_id', 30);
@@ -76,6 +82,10 @@ class ProductController extends Controller
         }
         if ($request->name) {
             $items->where('id', 'LIKE', '%' . $request->name . '%');
+        }
+
+        if ($request->houseDirection) {
+            $items->where('houseDirection', $request->houseDirection);
         }
 
         if ($request->province_id) {

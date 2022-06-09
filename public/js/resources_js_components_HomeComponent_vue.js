@@ -3690,27 +3690,27 @@ var _hoisted_19 = {
 
 var _hoisted_20 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "in"
-}, "Khách Hàng", -1
+}, "Hết Hạn", -1
 /* HOISTED */
 );
 
 var _hoisted_21 = {
-  "class": "icon-box bg-primary"
+  "class": "icon-box bg-info"
 };
 
 var _hoisted_22 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "in"
-}, "Đất Quảng Trị", -1
+}, "Đã Bán", -1
 /* HOISTED */
 );
 
 var _hoisted_23 = {
-  "class": "icon-box bg-primary"
+  "class": "icon-box bg-danger"
 };
 
 var _hoisted_24 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "in"
-}, "Đất Quảng Bình", -1
+}, "Khách Hàng", -1
 /* HOISTED */
 );
 
@@ -3720,7 +3720,7 @@ var _hoisted_25 = {
 
 var _hoisted_26 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "in"
-}, "Đất Huế", -1
+}, "Đất Quảng Trị", -1
 /* HOISTED */
 );
 
@@ -3729,6 +3729,26 @@ var _hoisted_27 = {
 };
 
 var _hoisted_28 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "in"
+}, "Đất Quảng Bình", -1
+/* HOISTED */
+);
+
+var _hoisted_29 = {
+  "class": "icon-box bg-primary"
+};
+
+var _hoisted_30 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "in"
+}, "Đất Huế", -1
+/* HOISTED */
+);
+
+var _hoisted_31 = {
+  "class": "icon-box bg-primary"
+};
+
+var _hoisted_32 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "in"
 }, "Đất Đà Nẵng", -1
 /* HOISTED */
@@ -3895,8 +3915,10 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* PROPS */
   , ["to"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
     to: {
-      name: 'collaborators.index',
-      params: {}
+      name: 'products.type',
+      params: {
+        'product_type': 'expired_products'
+      }
     },
     "class": "item",
     "active-class": "active",
@@ -3906,9 +3928,10 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ion_icon, {
-        name: "accessibility-outline",
+        name: "alarm-outline",
         role: "img",
-        "class": "md hydrated"
+        "class": "md hydrated",
+        "aria-label": "home outline"
       })]), _hoisted_20];
     }),
     _: 1
@@ -3920,7 +3943,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     to: {
       name: 'products.type',
       params: {
-        'product_type': 'quang_tri'
+        'product_type': 'sold_products'
       }
     },
     "class": "item",
@@ -3931,9 +3954,10 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_21, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ion_icon, {
-        name: "pin",
+        name: "alarm-outline",
         role: "img",
-        "class": "md hydrated"
+        "class": "md hydrated",
+        "aria-label": "home outline"
       })]), _hoisted_22];
     }),
     _: 1
@@ -3943,10 +3967,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* PROPS */
   , ["to"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
     to: {
-      name: 'products.type',
-      params: {
-        'product_type': 'quang_binh'
-      }
+      name: 'collaborators.index',
+      params: {}
     },
     "class": "item",
     "active-class": "active",
@@ -3956,7 +3978,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_23, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ion_icon, {
-        name: "pin",
+        name: "accessibility-outline",
         role: "img",
         "class": "md hydrated"
       })]), _hoisted_24];
@@ -3970,7 +3992,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     to: {
       name: 'products.type',
       params: {
-        'product_type': 'hue'
+        'product_type': 'quang_tri'
       }
     },
     "class": "item",
@@ -3995,7 +4017,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     to: {
       name: 'products.type',
       params: {
-        'product_type': 'da_nang'
+        'product_type': 'quang_binh'
       }
     },
     "class": "item",
@@ -4016,12 +4038,62 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   }, 8
   /* PROPS */
+  , ["to"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+    to: {
+      name: 'products.type',
+      params: {
+        'product_type': 'hue'
+      }
+    },
+    "class": "item",
+    "active-class": "active",
+    onClick: _cache[11] || (_cache[11] = function ($event) {
+      return _this.$emit('closeSidebarCallBack');
+    })
+  }, {
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_29, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ion_icon, {
+        name: "pin",
+        role: "img",
+        "class": "md hydrated"
+      })]), _hoisted_30];
+    }),
+    _: 1
+    /* STABLE */
+
+  }, 8
+  /* PROPS */
+  , ["to"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+    to: {
+      name: 'products.type',
+      params: {
+        'product_type': 'da_nang'
+      }
+    },
+    "class": "item",
+    "active-class": "active",
+    onClick: _cache[12] || (_cache[12] = function ($event) {
+      return _this.$emit('closeSidebarCallBack');
+    })
+  }, {
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_31, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ion_icon, {
+        name: "pin",
+        role: "img",
+        "class": "md hydrated"
+      })]), _hoisted_32];
+    }),
+    _: 1
+    /* STABLE */
+
+  }, 8
+  /* PROPS */
   , ["to"])])])])], 6
   /* CLASS, STYLE */
   ), $props.show_sidebar ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
     key: 0,
     "class": "offcanvas-backdrop fade show",
-    onClick: _cache[11] || (_cache[11] = function ($event) {
+    onClick: _cache[13] || (_cache[13] = function ($event) {
       return _this.$emit('closeSidebarCallBack');
     })
   })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 64

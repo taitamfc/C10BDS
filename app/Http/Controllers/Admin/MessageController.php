@@ -65,7 +65,6 @@ class MessageController extends Controller
         $message->date_send = $request->date_send;
         try {
             $message->save();
-            dispatch(new ProcessMessage($message));
             return redirect()->route('messages.index')->with('success', 'Thêm' . ' ' . $message->title . ' ' .  'thành công');
         } catch (\Exception $e) {
             Log::error($e->getMessage());

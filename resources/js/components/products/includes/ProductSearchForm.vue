@@ -8,6 +8,19 @@
         <input type="text" class="form-control" v-model="formData.name" placeholder="Nhập tên sản phẩm" />
       </div>
       <div class="form-group mb-1">
+        <select class="form-control" v-model="formData.houseDirection">
+            <option value="" selected>Tất cả hướng</option>
+            <option value="East">Đông</option>
+            <option value="West">Tây</option>
+            <option value="South">Nam</option>
+            <option value="North">Bắc</option>
+            <option value="Northeast">Đông Bắc</option>
+            <option value="Northwest">Tây Bắc</option>
+            <option value="Southeast">Đông Nam</option>
+            <option value="Southwest">Tây Nam</option>          
+        </select>
+      </div>
+      <div class="form-group mb-1">
         <select class="form-control" v-model="formData.province_id" v-on:change="get_districts($event.target.value)">
           <option value="" selected>Tất cả tỉnh/thành phố</option>
           <option 
@@ -87,6 +100,7 @@ export default {
       formData : {
         id             : '',
         name           : '',
+        houseDirection : '',
         province_id    : '',
         district_id    : '',
         ward_id        : '',

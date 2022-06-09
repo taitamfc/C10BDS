@@ -10,6 +10,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class ProcessImportUser implements ShouldQueue
 {
@@ -49,7 +50,7 @@ class ProcessImportUser implements ShouldQueue
             $user->gender           = 'male';
             $user->address          = 'Quảng trị';
             $user->email            = $this->row[2].'@gmail.com';
-            $user->phone            = $this->row[2];
+            $user->phone            = '0'.$this->row[2];
             $user->password         = Hash::make(123456);
             $user->user_group_id    = $this->user_group_id;
             $user->branch_id        = $this->branch_id;
@@ -57,6 +58,11 @@ class ProcessImportUser implements ShouldQueue
             $user->district_id      = 1;
             $user->ward_id          = 1;
             $user->note             = $this->row[3];
-            $user->save();
+            try {
+                $user->save();
+            } catch (\Exception $e) {
+                Log::error($e->getMessage());
+            }
+            
     }
 }

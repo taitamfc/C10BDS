@@ -95,7 +95,7 @@
                 </div>
                 <div class="form-group">
                     <label for="tf1">Chi tiết thông tin <abbr title="Trường bắt buộc">*</abbr></label>
-                    <textarea name="description" type="text" class="form-control" placeholder="Nhập mô tả chung về bất động sản của bạn. Ví dụ: Khu nhà có vị trí thuận lợi, gần công viên, gần trường học ... ">{{ old('description') }}</textarea>
+                    <textarea id="summernote" data-toggle="summernote" name="description" type="text" class="form-control" placeholder="Nhập mô tả chung về bất động sản của bạn. Ví dụ: Khu nhà có vị trí thuận lợi, gần công viên, gần trường học ... ">{{ old('description') }}</textarea>
                     @if ($errors->any())
                     <p style="color:red">{{ $errors->first('description') }}</p>
                     @endif

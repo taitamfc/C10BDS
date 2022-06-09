@@ -109,6 +109,32 @@
             <div class="in">Chuẩn Bị Mở Bán</div>
           </router-link>
         </li>
+         <li>
+          <router-link :to="{ name: 'products.type', params: {'product_type':'expired_products'} }" class="item" active-class="active" @click="this.$emit('closeSidebarCallBack')">
+            <div class="icon-box bg-danger">
+              <ion-icon
+                name="alarm-outline"
+                role="img"
+                class="md hydrated"
+                aria-label="home outline"
+              ></ion-icon>
+            </div>
+            <div class="in">Hết Hạn</div>
+          </router-link>
+        </li>
+         <li>
+          <router-link :to="{ name: 'products.type', params: {'product_type':'sold_products'} }" class="item" active-class="active" @click="this.$emit('closeSidebarCallBack')">
+            <div class="icon-box bg-info">
+              <ion-icon
+                name="alarm-outline"
+                role="img"
+                class="md hydrated"
+                aria-label="home outline"
+              ></ion-icon>
+            </div>
+            <div class="in">Đã Bán</div>
+          </router-link>
+        </li>
         <li>
           <router-link :to="{ name: 'collaborators.index', params: {} }" class="item" active-class="active" @click="this.$emit('closeSidebarCallBack')">
             <div class="icon-box bg-danger">
