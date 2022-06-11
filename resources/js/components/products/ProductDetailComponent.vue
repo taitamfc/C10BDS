@@ -125,13 +125,13 @@
             <div class="form-group">
               <div class="input-wrapper">
                 <label class="form-label" for="name5">Dài</label>
-                <p class="form-control-static">{{ item.area }} m2</p>
+                <p class="form-control-static">{{ item.area }} m</p>
               </div>
             </div>
              <div class="form-group">
               <div class="input-wrapper">
                 <label class="form-label" for="name5">Rộng</label>
-                <p class="form-control-static">{{ item.facade }} m2</p>
+                <p class="form-control-static">{{ item.facade }} m</p>
               </div>
             </div>
             <div class="form-group">
@@ -149,7 +149,7 @@
             <div class="form-group">
               <div class="input-wrapper">
                 <label class="form-label" for="name5">Đường vào</label>
-                <p class="form-control-static">{{ item.stress_width }} m2</p>
+                <p class="form-control-static">{{ item.stress_width }} m</p>
               </div>
             </div>
             <div class="form-group">
