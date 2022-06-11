@@ -201,7 +201,7 @@ class ProductController extends Controller
         $productCategories = ProductCategory::all();
         $provinces = Province::all();
         $branches = Branch::all();
-        $users = User::all();
+        $users = User::orderBy('name','ASC')->get();
 
 
         $params = [
@@ -330,8 +330,7 @@ class ProductController extends Controller
         $branches = Branch::all();
         $districts = District::where('province_id', $product->province_id)->get();
         $wards = Ward::where('district_id', $product->district_id)->get();
-        $users = User::all();
-
+        $users = User::orderBy('name','ASC')->get();
 
         $params = [
             'productCategories' => $productCategories,
