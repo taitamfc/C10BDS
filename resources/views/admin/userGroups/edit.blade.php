@@ -23,7 +23,7 @@
                 @method('PUT')
                 <fieldset>
                     <div class="form-group">
-                        <label for="tf1">Tên nhóm</label> <input type="text" name="name" value="{{ $userGroup->name }}" class="form-control" placeholder="nhập tên nhóm nhân viên"> <small class="form-text text-muted"></small>
+                        <label for="tf1">Tên nhóm</label> <input type="text" name="name"  value="{{ $userGroup->name }}" class="form-control" placeholder="nhập tên nhóm nhân viên"> <small class="form-text text-muted"></small>
                         @if ($errors->any())
                         <p style="color:red">{{ $errors->first('name') }}</p>
                         @endif
@@ -44,21 +44,21 @@
                                 <div class="list-group-header"> {{ __($group_name) }} </div>
                                 @foreach ($roles as $role)
                                 <div class="list-group-item d-flex justify-content-between align-items-center">
-                                    <span>{{ __($role['name']) }}</span> 
+                                    <span>{{ __($role['name']) }}</span>
                                     <!-- .switcher-control -->
                                     <label class="switcher-control">
-                                        <input type="checkbox" 
+                                        <input type="checkbox"
                                         @checked( in_array($role['id'],$userRoles) )
-                                        name="roles[]" class="switcher-input" value="{{ $role['id'] }}" > 
+                                        name="roles[]" class="switcher-input" value="{{ $role['id'] }}" >
                                         <span class="switcher-indicator"></span>
-                                    </label> 
+                                    </label>
                                     <!-- /.switcher-control -->
                                 </div>
                             @endforeach
                             </div>
                             @endforeach
                         </div>
-                       
+
                     </div>
                 </fieldset>
                 <br>

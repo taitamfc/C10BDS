@@ -26,6 +26,7 @@ class UserGroupController extends Controller
         if (isset($request->filter['name']) && $request->filter['name']) {
             $name = $request->filter['name'];
             $query->where('name', 'LIKE', '%' . $name . '%');
+            
         }
         if ($request->s) {
             $query->where('name', 'LIKE', '%' . $request->s . '%');
@@ -194,7 +195,7 @@ class UserGroupController extends Controller
         $userGroup = UserGroup::withTrashed()->find($id);
         $this->authorize('restore', $userGroup);
 
-        
+
         try {
             $userGroup->restore();
             return redirect()->route('userGroups.trash')->with('success', 'Khôi phục' . ' ' . $userGroup->name . ' ' .  'thành công');

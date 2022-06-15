@@ -410,34 +410,42 @@
     jQuery(document).ready(function() {
         jQuery('.province_id').on('change', function() {
             var province_id = jQuery(this).val();
-
-            $.ajax({
-                url: "/api/get_districts/" + province_id,
-                type: "GET",
-                success: function(data) {
-                    var districts_html = '<option value="">Vui lòng chọn</option>';
-                    for (const district of data) {
-                        districts_html += '<option value="' + district.id + '">' +
-                            district.name + '</option>';
+            if(province_id == '') {
+                province_id == '<option value="">Vui lòng chọn</option>';
+            }else{
+                $.ajax({
+                    url: "/api/get_districts/" + province_id,
+                    type: "GET",
+                    success: function(data) {
+                        var districts_html = '<option value="">Vui lòng chọn</option>';
+                        for (const district of data) {
+                            districts_html += '<option value="' + district.id + '">' +
+                                district.name + '</option>';
+                        }
+                        jQuery('.district_id').html(districts_html);
                     }
-                    jQuery('.district_id').html(districts_html);
-                }
-            });
+                });
+            }
+
         });
 
         jQuery('.district_id').on('change', function() {
             var district_id = jQuery(this).val();
-            $.ajax({
-                url: "/api/get_wards/" + district_id,
-                type: "GET",
-                success: function(data) {
-                    var wards_html = '<option value="">Vui lòng chọn</option>';
-                    for (const ward of data) {
-                        wards_html += '<option value="' + ward.id + '">' + ward.name + '</option>';
+            if(district_id == ''){
+                district_id ==  '<option value="">Vui lòng chọn</option>';
+            }else{
+                $.ajax({
+                    url: "/api/get_wards/" + district_id,
+                    type: "GET",
+                    success: function(data) {
+                        var wards_html = '<option value="">Vui lòng chọn</option>';
+                        for (const ward of data) {
+                            wards_html += '<option value="' + ward.id + '">' + ward.name + '</option>';
+                        }
+                        jQuery('.ward_id').html(wards_html);
                     }
-                    jQuery('.ward_id').html(wards_html);
-                }
-            });
+                });
+            }
         });
         jQuery('.branch_id').on('change', function() {
             var branch_id = jQuery(this).val();
