@@ -44,11 +44,11 @@ Route::group([
     Route::post('/change-pass', [AuthController::class, 'changePassWord']);    
     Route::post('/forgot-pass', [AuthController::class, 'forgotPassWord']);    
 });
+Route::resource('products', ProductController::class);
 
 Route::group([
     'middleware' => 'auth:api'
 ], function ($router) {
-    Route::resource('products', ProductController::class);
     Route::resource('notifications', NotificationController::class);
     Route::resource('customers', CustomerController::class);
     Route::resource('product_logs', ProductLogController::class);

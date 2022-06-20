@@ -83,6 +83,26 @@
             </div>
           </div>
         </div>
+
+        <div class="row" v-if="item.product_type == 'Block' && item.product_blocks">
+          <div class="col-12">
+            <table class="table table-bordered">
+                <tr>
+                  <th>Mã lô</th>
+                  <th>Diện tích</th>
+                  <th>Giá</th>
+                  <th>Đơn vị</th>
+                </tr>
+                <tr v-for="(product_block,index) of item.product_blocks" v-bind:key="index">
+                  <td>{{ product_block.id }}</td>
+                  <td>{{ product_block.area }}</td>
+                  <td>{{ product_block.price }}</td>
+                  <td>{{ product_block.unit }}</td>
+                </tr>
+            </table>
+          </div>
+        </div>
+
       </div>
     </div>
 

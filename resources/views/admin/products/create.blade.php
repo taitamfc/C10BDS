@@ -198,29 +198,46 @@
             </div>
             <div class="card-body border-top" v-show="product_type == 'Block'">
                 <legend>Thông tin các lô</legend>
-                <div class="row">
-                    <div class="col-lg-4">
+                <div class="row" v-for="(block, index) in blocks">
+                    <div class="col-lg-2">
                         <div class="form-group" >
-                            <label>Diện tích <abbr title="Trường bắt buộc">*</abbr></label>
-                            <input name="block[area][]" type="text" class="form-control" data-mask="currency" placeholder="5x20">
+                            <label v-if="index === 0">Mã lô</label>
+                            <input name="block[id][]" v-bind:value="block.id ?? index + 1" type="text" class="form-control" >
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="form-group" >
+                            <label v-if="index === 0">Diện tích </label>
+                            <input name="block[area][]" v-model="blocks[index].area" type="text" class="form-control" placeholder="5x20">
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="form-group" >
-                            <label>Giá</label>
-                            <input name="block[price][]" type="text" class="form-control" data-mask="currency">
+                            <label v-if="index === 0">Giá</label>
+                            <input name="block[price][]" v-model="blocks[index].price" type="text" class="form-control" data-mask="currency">
                         </div>
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-2">
                         <div class="form-group" >
-                            <label>Đơn vị</label>
-                            <select name="block[unit][]" class="form-control">
-                                <option value="VND">VND</option>
-                                <option value="m2">Giá / m²</option>
-                                <option value="agree">Thoả thuận</option>
+                            <label v-if="index === 0">Đơn vị</label>
+                            <select name="block[unit][]" class="form-control" v-model="blocks[index].unit">
+                                <option v-bind:selected="blocks[index].unit == 'VND'" value="VND">VND</option>
+                                <option v-bind:selected="blocks[index].unit == 'm2'" value="m2">Giá / m²</option>
+                                <option v-bind:selected="blocks[index].unit == 'agree'" value="agree">Thoả thuận</option>
                             </select>
                         </div>
                     </div>
+                    <div class="col-lg-1">
+                        <div class="form-group" v-if="index !== 0">
+                            <label v-if="index === 0">Hành động </label>
+                            <button type="button" class="btn btn-secondary" @click="deleteBlock(block.id)">Xóa</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                   <div class="col-lg-12">
+                       <button type="button" class="btn btn-primary" @click="addNewBlock()"> Thêm lô </button>
+                   </div>     
                 </div>
             </div>
 
@@ -493,11 +510,23 @@
     var app_odds = new Vue({
         el: '#product-app',
         data: {
+            blocks : [],
             product_type : '<?= old('product_type') ?? 'Regular'; ?>',
             product_open : <?= old('product_open') ?? 0; ?>,
         },
         methods: {
-
+            addNewBlock() {
+                const block = {
+                    'id' : this.blocks.length + 1,
+                    'area' : '',
+                    'price' : '',
+                    'unit' : '',
+                };
+                this.blocks.push(block);
+            },
+            deleteBlock( id ){
+                this.blocks = this.blocks.filter(function(el) { return el.id != id; }); 
+            }
         },
 		updated() {
 

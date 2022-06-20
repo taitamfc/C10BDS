@@ -155,6 +155,10 @@ export default {
     if( typeof this.$route.params.s != 'undefined' ){
       this.s = this.$route.params.s;
     }
+    if (this.$store.getters.CURRENT_USER) {
+        axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.getters.CURRENT_USER.token}`;
+    }
+    
     this.get_items();
     this.change_title(this.$route.params.product_type);
     

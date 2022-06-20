@@ -249,8 +249,20 @@ class ProductController extends Controller
         $product->product_open_date = $request->product_open_date;
         $product->user_contact_id = $request->user_contact_id;
         $product->sku = $request->sku;
-        
-        
+
+        if( $request->block ){
+            $blocks = [];
+            foreach( $request->block['id'] as $k => $v ){
+                $blocks[] = [
+                    'id' => $request->block['id'][$k],
+                    'area' => $request->block['area'][$k],
+                    'price' => $request->block['price'][$k],
+                    'unit' => $request->block['unit'][$k],
+                ];
+            }
+            $product->product_blocks = json_encode($blocks);
+        }
+
         if ($request->price_deposit) {
             $product->price_deposit = Str::replace(',', '', $request->price_deposit);
         }
@@ -381,6 +393,19 @@ class ProductController extends Controller
         $product->product_open_date = $request->product_open_date;
         $product->user_contact_id = $request->user_contact_id;
         $product->sku = $request->sku;
+
+        if( $request->block ){
+            $blocks = [];
+            foreach( $request->block['id'] as $k => $v ){
+                $blocks[] = [
+                    'id' => $request->block['id'][$k],
+                    'area' => $request->block['area'][$k],
+                    'price' => $request->block['price'][$k],
+                    'unit' => $request->block['unit'][$k],
+                ];
+            }
+            $product->product_blocks = json_encode($blocks);
+        }
 
         if ($request->price_deposit) {
             $product->price_deposit = Str::replace(',', '', $request->price_deposit);
