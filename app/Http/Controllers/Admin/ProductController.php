@@ -249,6 +249,8 @@ class ProductController extends Controller
         $product->product_open_date = $request->product_open_date;
         $product->user_contact_id = $request->user_contact_id;
         $product->sku = $request->sku;
+        $product->push_to_web = $request->push_to_web;
+        
 
         if( $request->block ){
             $blocks = [];
@@ -393,6 +395,8 @@ class ProductController extends Controller
         $product->product_open_date = $request->product_open_date;
         $product->user_contact_id = $request->user_contact_id;
         $product->sku = $request->sku;
+        $product->push_to_web = $request->push_to_web;
+
 
         if( $request->block ){
             $blocks = [];

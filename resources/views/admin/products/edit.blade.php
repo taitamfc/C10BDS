@@ -448,7 +448,7 @@
 
                 <legend>Thông tin liên hệ</legend>
                 <div class="row">
-                    <div class="col-lg-4">
+                    <div class="col-lg-3">
                         <div class="form-group">
                             <label>Chi nhánh</label>
                             <select name="branch_id" class="form-control branch_id">
@@ -464,7 +464,7 @@
                             @endif
                         </div>
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-3">
                         <div class="form-group">
                             <label>Người đăng</label>
                             <select name="user_id" class="form-control user_id">
@@ -480,7 +480,7 @@
                             @endif
                         </div>
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-3">
                         <div class="form-group">
                             <label>Tình trạng</label>
                             <select name="status" class="form-control">
@@ -492,6 +492,18 @@
                             @if ($errors->any())
                             <p style="color:red">{{ $errors->first('status') }}</p>
                             @endif
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="form-check">
+                            <label class="switcher-control">
+                                <input type="hidden" name="push_to_web" value="0">
+                                <input type="checkbox" class="switcher-input" name="push_to_web" @checked( $product->push_to_web == 1) value="1">
+                                <span class="switcher-indicator"></span>
+                            </label>
+                            <label class="form-check-label" for="defaultCheck1">
+                                Đăng lên Web
+                            </label>
                         </div>
                     </div>
                 </div>

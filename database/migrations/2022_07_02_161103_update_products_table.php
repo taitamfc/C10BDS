@@ -14,7 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            //$table->text('product_blocks')->nullable();
+            $table->integer('push_to_web')->nullable()->default(0);
+            $table->integer('push_to_app')->nullable()->default(0);
         });
     }
 
